@@ -1041,7 +1041,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    <!-- ---------instrument modal end------------- -->     
+<!-- ---------instrument modal end------------- -->     
 <!-- End Page-content -->
 <br>
 

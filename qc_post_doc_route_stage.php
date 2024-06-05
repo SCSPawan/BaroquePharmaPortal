@@ -1113,34 +1113,18 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
-                                                                <div class="col-lg-8">
-                                                                    <select class="form-control" id="qc_post_doc_Routestage_CompiledBy" name="qc_post_doc_Routestage_CompiledBy"></select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
+                                                        
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
                                                                 <div class="col-lg-8">
-                                                                    <select class="form-control" id="qc_post_doc_Routestage_CheckedBy" name="qc_post_doc_Routestage_CheckedBy"></select>
+                                                                    <select class="form-select" id="qc_post_doc_Routestage_CheckedBy" name="qc_post_doc_Routestage_CheckedBy"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
 
+                                                        
                                                         <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
-                                                                <div class="col-lg-8">
-                                                                    <select class="form-control" id="qc_post_doc_Routestage_AnalysisBy" name="qc_post_doc_Routestage_AnalysisBy"></select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
                                                                 <div class="col-lg-8">
@@ -1152,6 +1136,36 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                                             </div>
                                                         </div>
+
+                                                        
+                                                        <div class="col-xl-3 col-md-6">
+                                                            <div class="form-group row mb-2">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Approved By</label>
+                                                                <div class="col-lg-8">
+                                                                    <select class="form-select" id="qc_post_doc_Routestage_ApprovedBy" name="qc_post_doc_Routestage_ApprovedBy"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-md-6">
+                                                            <div class="form-group row mb-2">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
+                                                                <div class="col-lg-8">
+                                                                    <select class="form-control" id="qc_post_doc_Routestage_CompiledBy" name="qc_post_doc_Routestage_CompiledBy"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-md-6">
+                                                            <div class="form-group row mb-2">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
+                                                                <div class="col-lg-8">
+                                                                    <select class="form-control" id="qc_post_doc_Routestage_AnalysisBy" name="qc_post_doc_Routestage_AnalysisBy"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
 
 
                                                         <div class="col-xl-3 col-md-6">
@@ -1230,6 +1244,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 </div>
                 <!-- End Page-content -->
                 <br>
+
+    <!-- ---------instrument modal------------- -->
+    <div class="modal fade instrument_modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myLargeModalLabel">Instrument List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="table-responsive table_item_padding" id="append_instrument_table"></div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- ---------instrument modal end------------- -->  
                 
            <?php include 'include/footer.php' ?>
 
@@ -1644,91 +1675,82 @@ function QC_TestTypeDropdown(){
 
 
 function qc_assayCalculationDropdown(){
-// $(document).ready(function(){
-  // http://10.80.4.55:8081//api/sap/VALIDVALUES?TableId=@SCS_QCRSTAGE&Alias=PC_AsyCal
-            var dataString ='action=qc_FGassay_Calculation_Based_On_routStage_ajax';
-            $.ajax({  
-                type: "POST",  
-                url: 'ajax/kri_production_common_ajax.php',  
-                data: dataString,  
-                beforeSend: function(){
-                // Show image container
-                $(".loader123").show();
-                },
-                success: function(result){ 
-                    // console.log(result);
-                    $('#qc_post_doc_Routestage_AssayCalc').html(result);
-                },
-                complete:function(data){
-                // Hide image container
-                // $(".loader123").hide();
-                Compiled_ByDropdown();
-            }
-           });
-    }
-
-         function Compiled_ByDropdown(){
-// $(document).ready(function(){
-            var dataString ='action=Compiled_By_dropdown_ajax';
-            $.ajax({  
-                type: "POST",  
-                url: 'ajax/kri_production_common_ajax.php',  
-                data: dataString, 
-                 beforeSend: function(){
-                // Show image container
-                $(".loader123").show();
-                },
-                success: function(result){ 
-                    // console.log(result);
-                    $('#qc_post_doc_Routestage_CompiledBy').html(result);
-                    $('#qc_post_doc_Routestage_CheckedBy').html(result);
-                    $('#qc_post_doc_Routestage_AnalysisBy').html(result);
-                },
-                complete:function(data){
-                // Hide image container
-                // alert('hiii3');
-                    getQcStatusDropodwn(1);
-                    getDoneByDroopdown(1);
-                $(".loader123").hide();
-                // Compiled_ByDropdown();
-            }
-           });
-        // })
+    // $(document).ready(function(){
+    // http://10.80.4.55:8081//api/sap/VALIDVALUES?TableId=@SCS_QCRSTAGE&Alias=PC_AsyCal
+    var dataString ='action=qc_FGassay_Calculation_Based_On_routStage_ajax';
+    $.ajax({  
+        type: "POST",  
+        url: 'ajax/kri_production_common_ajax.php',  
+        data: dataString,  
+        beforeSend: function(){
+            // Show image container
+            $(".loader123").show();
+        },
+        success: function(result){ 
+            // console.log(result);
+            $('#qc_post_doc_Routestage_AssayCalc').html(result);
+        },
+        complete:function(data){
+            // Hide image container
+            // $(".loader123").hide();
+            Compiled_ByDropdown();
+        }
+    });
 }
 
-  function getQcStatusDropodwn(n){
-            var dataString ='action=qc_api_OQCSTATUS_ajax';
-            $.ajax({  
-                type: "POST",  
-                url: 'ajax/kri_common-ajax.php',  
-                data: dataString,  
-                success: function(result){ 
-                    $('.qc_status_selecte'+n).html(result);
-                }
-           });
+function Compiled_ByDropdown(){
+    var dataString ='action=Compiled_By_dropdown_ajax';
+    $.ajax({
+        type: "POST",  
+        url: 'ajax/kri_production_common_ajax.php',  
+        data: dataString, 
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result){
+            $('#qc_post_doc_Routestage_CompiledBy').html(result);
+            $('#qc_post_doc_Routestage_CheckedBy').html(result);
+            $('#qc_post_doc_Routestage_AnalysisBy').html(result);
+        },
+        complete:function(data){
+            getQcStatusDropodwn(1);
+            getDoneByDroopdown(1);
+            $(".loader123").hide();
         }
+    });
+}
 
-  
-      function getDoneByDroopdown(n){
-        var dataString ='action=qc_get_SAMINTTRBY_ajax';
-        $.ajax({  
-            type: "POST",  
-            dataType:'JSON',
-            url: 'ajax/kri_common-ajax.php',  
-            data: dataString,  
-            success: function(result){ 
+function getQcStatusDropodwn(n){
+    var dataString ='action=qc_api_OQCSTATUS_ajax';
+    $.ajax({  
+        type: "POST",  
+        url: 'ajax/kri_common-ajax.php',  
+        data: dataString,  
+        success: function(result){ 
+            $('.qc_status_selecte'+n).html(result);
+        }
+    });
+}
 
-                var html="";
-                result.forEach(function(value,index){
-                    if(value.TRBy!=""){
-                        html +='<option value="'+value.TRBy+'">'+value.TRBy+'</option>';
-                    }
-                });
+function getDoneByDroopdown(n){
+    var dataString ='action=qc_get_SAMINTTRBY_ajax';
+    $.ajax({  
+        type: "POST",  
+        dataType:'JSON',
+        url: 'ajax/kri_common-ajax.php',  
+        data: dataString,  
+        success: function(result){
+            var html="";
+            result.forEach(function(value,index){
+                if(value.TRBy!=""){
+                    html +='<option value="'+value.TRBy+'">'+value.TRBy+'</option>';
+                }
+            });
 
-                $('.done-by-mo'+n).html(html);
-            }
-        });
-    } 
+            $('.done-by-mo'+n).html(html);
+        }
+    });
+}
 
      function CalculatePotency()
         {
@@ -1921,6 +1943,44 @@ function GetRowLevelAnalysisByDropdownWithSelectedOption(trcount) {
     });
 }
 
+
+function OpenInstrmentModal(un_id){
+    $.ajax({ 
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data:{'un_id':un_id,'action':"OpenInstrmentModal_Ajax"},
+
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result){
+            var Table = JSON.parse(result);
+            $('#append_instrument_table').html(Table);
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    });         
+}
+
+let favorite = [];
+let total_uid = 0;
+function GetSelectedInstumentdata(un_id) {
+    const ids_new_radio = [];
+    
+    $("input[name='InstrumentId[]']:checked").each(function() {
+        const uid = parseInt($(this).val()); // Parse the value to integer
+        favorite.push(uid);
+        total_uid += uid;
+        ids_new_radio.push(uid);
+    });
+
+    const InstrumentCode = $('#Html_InstrumentCode' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+    const InstrumentName = $('#Html_InstrumentName' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+
+    $('#InstrumentCode' + un_id).val(InstrumentCode);
+    $('#InstrumentName' + un_id).val(InstrumentName);
+}
 
          function CalculateResultOut(un_id){
 
