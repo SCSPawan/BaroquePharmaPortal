@@ -2158,6 +2158,9 @@ if(isset($_POST['action']) && $_POST['action'] =='GetBottomApprovedBy_Ajax'){
 		$Final_API=$QCPOSTDOCAPPROVEDBYDROPDOWN_APi;
 		$response_json_decode=$obj->GetMethodQuerryBasedAPI($Final_API);
 		$response=json_decode($response_json_decode);
+		// echo '<pre>';
+		// print_r($Final_API);
+		// die();
 
 		$option['ApprovedBy'].='<option value="">Select</option>';
 		foreach ($response as $key => $value) {
