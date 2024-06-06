@@ -487,6 +487,16 @@ padding: 40px 0 60px 0;
             </div>
         </div>
 
+                                     <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="SCRTQCB_MakeBy" name="SCRTQCB_MakeBy" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             
+
         <div class="col-xl-3 col-md-6">
             <div class="form-group row mb-2">
                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
@@ -931,8 +941,10 @@ success: function(result)
 
 $("#footerProcess").show();  // bottom section show script
 var JSONObjectAll = JSON.parse(result);
-console.log(JSONObjectAll);
+//console.log('JSONObjectAll------',JSONObjectAll);
 var JSONObject=JSONObjectAll['SampleCollDetails'];
+
+console.log('JSONObject------',JSONObject);
 
 $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
 $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
@@ -964,6 +976,7 @@ $(`#SCRTQCB_Location`).val(JSONObject[0]['Loction']);
 $(`#SCRTQCB_IntimatedBy`).val(JSONObject[0]['IntimatedBy']);
 $(`#SCRTQCB_SampleQty`).val(JSONObject[0]['SampleQty']);
 $(`#SCRTQCB_SampleCollBy`).val(JSONObject[0]['SampleCollectBy']);
+$(`#SCRTQCB_MakeBy`).val(JSONObject[0]['MakeBy']);
 // <!-- ----------- Intimation Date Start Here ----------------------------------- -->
 var intimationDateOG = JSONObject[0]['IntimationDate'];
 if(intimationDateOG!=''){
@@ -1013,14 +1026,14 @@ $(`#SCRTQCB_RetainQtyUom`).val(JSONObject[0]['RetainQtyUom']);
 
 tablayoutvalidation();
 getSupplierDropdown(totalRowCount);
-getWareHouseDropdown(totalRowCount);
+// getWareHouseDropdown(totalRowCount);
 getWareHouseExtraIssueDropdown(totalRowCount_N);
 
 $('.ExternalIssueSelectedBPWithData').select2();// with data supplier dropdown
 $('.ExternalIssueDefault').select2();// default supplier dropdown
 
-$('.ExternalIssueWareHouseDefault').select2();// with data supplier dropdown
-$('.ExternalIssueWareHouseWithData').select2();// default supplier dropdown
+// $('.ExternalIssueWareHouseDefault').select2();// with data supplier dropdown
+// $('.ExternalIssueWareHouseWithData').select2();// default supplier dropdown
 
 $('.SC_FEI_WarehouseDefault').select2();// with data supplier dropdown
 $('.SC_FEI_WarehouseWithData').select2();// default supplier dropdown
@@ -1033,31 +1046,31 @@ $(".loader123").hide();
 });
 }
 
-function getWareHouseDropdown(totalRowCount){
-var dataString ='action=WareHouseDropdown_ajax';
+// function getWareHouseDropdown(totalRowCount){
+// var dataString ='action=WareHouseDropdown_ajax';
 
-$.ajax({  
-type: "POST",  
-url: 'ajax/common-ajax.php',  
-data: dataString,  
-beforeSend: function(){
-// Show image container
-$(".loader123").show();
-},
-success: function(result)
-{  
-var JSONObject = JSON.parse(result);
-// <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
-let un_id=totalRowCount; 
-$('#SC_ExternalI_Warehouse'+un_id).html(JSONObject);
-// <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
-},
-complete:function(data){
-// Hide image container
-$(".loader123").hide();
-}
-});
-}
+// $.ajax({  
+// type: "POST",  
+// url: 'ajax/common-ajax.php',  
+// data: dataString,  
+// beforeSend: function(){
+// // Show image container
+// $(".loader123").show();
+// },
+// success: function(result)
+// {  
+// var JSONObject = JSON.parse(result);
+// // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
+// let un_id=totalRowCount; 
+// $('#SC_ExternalI_Warehouse'+un_id).html(JSONObject);
+// // <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
+// },
+// complete:function(data){
+// // Hide image container
+// $(".loader123").hide();
+// }
+// });
+// }
 
 function getWareHouseExtraIssueDropdown(totalRowCount_N) {
 var dataString ='action=WareHouseDropdown_ajax';
@@ -1112,32 +1125,87 @@ $(".loader123").hide();
 });
 }
 
+// function ExternalIssueSelectedBP(un_id){
+
+// var SupplierCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
+
+// var dataString ='SupplierCode='+SupplierCode+'   &action=SupplierSingleData_ajax';
+
+// $.ajax({  
+// type: "POST",  
+// url: 'ajax/common-ajax.php',  
+// data: dataString,  
+// beforeSend: function(){
+// // Show image container
+// $(".loader123").show();
+// },
+// success: function(result)
+// {
+//     console.log('Raw result:', result);
+// var JSONObject = JSON.parse(result);
+// $('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
+// },
+// complete:function(data){
+// // Hide image container
+// $(".loader123").hide();
+// }
+// });
+// }
+
 function ExternalIssueSelectedBP(un_id){
+    var CardCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
+    var Loc = $('#SCRTQCB_Location').val();
+    var Branch= $('#SCRTQCB_Branch').val();
+    var ItemCode = $('#SCRTQCB_ItemCode').val();
+    var MakeBy = $('#SCRTQCB_MakeBy').val();
 
-var SupplierCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
+    var dataString ='CardCode='+CardCode+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=SupplierSingleData_ajax';
 
-var dataString ='SupplierCode='+SupplierCode+'&action=SupplierSingleData_ajax';
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,  
+        beforeSend: function(){
+            $(".loader123").show();
+        },
 
-$.ajax({  
-type: "POST",  
-url: 'ajax/common-ajax.php',  
-data: dataString,  
-beforeSend: function(){
-// Show image container
-$(".loader123").show();
-},
-success: function(result)
-{
-console.log(result);
-var JSONObject = JSON.parse(result);
-$('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
-},
-complete:function(data){
-// Hide image container
-$(".loader123").hide();
+        
+        success: function(result){
+            var JSONObject = JSON.parse(result);
+            // console.log(JSONObject);
+
+            if(CardCode!=''){
+                $('#SC_FEXI_SupplierName'+un_id).val(JSONObject['CardName']);
+                $('#SC_ExternalI_Warehouse'+un_id).val(JSONObject['Whse']);
+                $('#SC_FEXI_SampleDate'+un_id).val(JSONObject['SampleDate']);
+                $('#SC_FEXI_UOM'+un_id).val($('#SCRTQCB_SampleQtyUnit').val());
+            }else{
+                $('#SC_FEXI_SupplierName'+un_id).val('');
+                $('#SC_ExternalI_Warehouse'+un_id).val('');
+                $('#SC_FEXI_SampleDate'+un_id).val('');
+                $('#SC_FEXI_UOM'+un_id).val('');  
+            }
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    });
 }
-});
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function tablayoutvalidation(){
 var sampleIssue=document.getElementById('SCRTQCB_SCD_SampleIssue').value;
@@ -2829,6 +2897,7 @@ $(`#usercheckList`+un_id).val('0');
 
 // <!-- --------------------- when user select checkbox update flag End here ---------------- -->
 }
+
 
 
 

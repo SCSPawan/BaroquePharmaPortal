@@ -2699,37 +2699,24 @@ if(isset($_POST['action']) && $_POST['action'] =='SupplierDropdown_ajax')
 
 if(isset($_POST['action']) && $_POST['action'] =='SupplierSingleData_ajax')
 {
-	$SupplierCode=trim(addslashes(strip_tags($_POST['SupplierCode'])));
-	// <!-- ------------------ get supplier dropdown start here ------------------------------------------ -->
-		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+	$CardCode=trim(addslashes(strip_tags($_POST['CardCode'])));
+	$Loc=trim(addslashes(strip_tags($_POST['Loc'])));
+	$Branch=trim(addslashes(strip_tags($_POST['Branch'])));
+	$ItemCode=trim(addslashes(strip_tags($_POST['ItemCode'])));
+	$MakeBy=trim(addslashes(strip_tags($_POST['MakeBy'])));
 
-		if(!empty($res)){
-			// $BP_Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_BusinessPartners;
+	$API=$SAMPLECOLLEXTENALINWARD_APi.'?CardCode='.$CardCode.'&Loc='.$Loc.'&Branch='.$Branch.'&ItemCode='.$ItemCode.'&MakeBy='.$MakeBy;
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
+	$responce_encode=$obj->GetMethodQuerryBasedAPI($FinalAPI);
+	$responce=json_decode($responce_encode);
 
-			$BP_Final_API=$SAP_URL . ':' . $SAP_Port . '/b1s/v1/'.$API_BusinessPartners.'?$select=CardCode,CardName&$filter=CardCode eq \''.$SupplierCode.'\'';
-			
-			$Final_API=str_replace(' ', '+', $BP_Final_API);
-			$responce_encode_BP=$obj->getFunctionServiceLayer($Final_API);
-	
-			$responce_BP=json_decode($responce_encode_BP);
-			// print_r($responce_BP->value[0]->CardName);
-			// die();
-			$SupplierName=$responce_BP->value[0]->CardName;
+	$tdata=array();
+	$tdata['CardName']=trim(addslashes(strip_tags($responce[0]->CardName)));
+	$tdata['Whse']=trim(addslashes(strip_tags($responce[0]->Whse)));
+	$tdata['SampleDate']=date("Y-m-d");
 
-			// $option .= '<option value="">-</option>';
-			// for ($i=0; $i <count($responce_BP->value) ; $i++) {
-				
-			// 	if($responce_BP->value[$i]->CardCode==$SupplierCode){
-			// 		$SupplierName=$responce_BP->value[$i]->CardName;
-			// 	}
-			// }
-		}
-		
-		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	// <!-- ------------------ get supplier dropdown end here -------------------------------------------- -->
-
-	echo json_encode($SupplierName);
+	echo json_encode($tdata);
 	exit(0);
 }
 
@@ -4203,13 +4190,14 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
+			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseWithData" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
+
+				
+			    
+			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
@@ -4241,13 +4229,12 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
+			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseDefault" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
+				
+			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
