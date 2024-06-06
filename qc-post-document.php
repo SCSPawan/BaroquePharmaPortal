@@ -1142,7 +1142,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             url: 'ajax/kri_common-ajax.php',  
             data: dataString,  
             success: function(result){
-                $('#qc_post_compiled_by').val(result[0]['TRBy']);
+                // $('#qc_post_compiled_by').val(result[0]['TRBy']);
                 $('#checked_by').val(result[0]['TRBy']);
                 $('#analysis_by').val(result[0]['TRBy']);
 

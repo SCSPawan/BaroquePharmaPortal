@@ -1127,12 +1127,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                                <div class="col-lg-8">
+                                                                <div class="col-lg-4">
                                                                     <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer1" name="qc_post_doc_Routestage_NoOfContainer1">
                                                                 </div>
-                                                                <!-- <div class="col-lg-4">
+                                                                <div class="col-lg-4">
                                                                     <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer2" name="qc_post_doc_Routestage_NoOfContainer2">
-                                                                </div> -->
+                                                                </div>
 
                                                             </div>
                                                         </div>
@@ -1147,14 +1147,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <!-- <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
                                                                 <div class="col-lg-8">
                                                                     <select class="form-control" id="qc_post_doc_Routestage_CompiledBy" name="qc_post_doc_Routestage_CompiledBy"></select>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
 
                                                         <div class="col-xl-3 col-md-6">
@@ -1352,7 +1352,8 @@ $.ajax({
                     $(`#qc-status-list-append_`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                     $(`#qc-attach-list-append_`).html(JSONObjectAll['qcAttach']);
 
-                   // console.log(JSONObject);
+                console.log(JSONObject);
+        
 
                 // $(`#SIRSU_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
                 // $(`#SIRSU_ReceiptEntry`).val(JSONObject[0]['ReceiptEntry']);
@@ -1400,6 +1401,11 @@ $.ajax({
                 $(`#qc_post_doc_Routestage_LocCode`).val('');
                 $(`#qc_post_doc_Routestage_RMWQC`).val(JSONObject[0]['RMWQC']);
                  $(`#qc_post_doc_Routestage_DocEntry`).val(JSONObject[0]['DocEntry']);
+
+                $(`#qc_post_doc_Routestage_NoOfContainer1`).val(JSONObject[0]['NoCont1']);
+                $(`#qc_post_doc_Routestage_NoOfContainer2`).val(JSONObject[0]['NoCont2']);
+                
+                
                 
                 // ValidUpto
                 // $(`#qc_post_doc_Routestage_ValidUpTo`).val(JSONObject[0]['ValidUpto']);
@@ -1698,19 +1704,52 @@ function qc_assayCalculationDropdown(){
     });
 }
 
+// function Compiled_ByDropdown(){
+//     var dataString ='action=Compiled_By_dropdown_ajax';
+//     $.ajax({
+//         type: "POST",  
+//         url: 'ajax/kri_production_common_ajax.php',  
+//         data: dataString, 
+//         beforeSend: function(){
+//             $(".loader123").show();
+//         },
+//         success: function(result){
+//             // $('#qc_post_doc_Routestage_CompiledBy').html(result);
+//             $('#qc_post_doc_Routestage_CheckedBy').html(result);
+//             $('#qc_post_doc_Routestage_AnalysisBy').html(result);
+//         },
+//         complete:function(data){
+//             getQcStatusDropodwn(1);
+//             getDoneByDroopdown(1);
+//             $(".loader123").hide();
+//         }
+//     });
+// }
+
 function Compiled_ByDropdown(){
-    var dataString ='action=Compiled_By_dropdown_ajax';
-    $.ajax({
+    var dataString ='action=qc_get_SAMINTTRBY_ajax';
+    $.ajax({  
         type: "POST",  
-        url: 'ajax/kri_production_common_ajax.php',  
-        data: dataString, 
+        dataType:'JSON',
+        url: 'ajax/kri_common-ajax.php',  
+        data: dataString,  
         beforeSend: function(){
             $(".loader123").show();
-        },
+        }, 
         success: function(result){
-            $('#qc_post_doc_Routestage_CompiledBy').html(result);
-            $('#qc_post_doc_Routestage_CheckedBy').html(result);
-            $('#qc_post_doc_Routestage_AnalysisBy').html(result);
+            console.log(result);
+            // $('#qc_post_doc_Routestage_CheckedBy').val(result[0]['TRBy']);
+            // $('#qc_post_doc_Routestage_AnalysisBy').val(result[0]['TRBy']);
+
+            var html="";
+            result.forEach(function(value,index){
+                html +='<option value="'+value.TRBy+'">'+value.TRBy+'</option>';
+            });
+
+            
+            $('#qc_post_doc_Routestage_CheckedBy').val(html);
+            $('#qc_post_doc_Routestage_AnalysisBy').val(html);
+            // $('.done-by-mo').html(html);
         },
         complete:function(data){
             getQcStatusDropodwn(1);

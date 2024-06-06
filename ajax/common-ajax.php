@@ -2704,18 +2704,26 @@ if(isset($_POST['action']) && $_POST['action'] =='SupplierSingleData_ajax')
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
 		if(!empty($res)){
-			$BP_Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_BusinessPartners;
+			// $BP_Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_BusinessPartners;
 
-			$responce_encode_BP=$obj->getFunctionServiceLayer($BP_Final_API);
+
+			$BP_Final_API=$SAP_URL . ':' . $SAP_Port . '/b1s/v1/'.$API_BusinessPartners.'?$select=CardCode,CardName&$filter=CardCode eq \''.$SupplierCode.'\'';
+			
+			$Final_API=str_replace(' ', '+', $BP_Final_API);
+			$responce_encode_BP=$obj->getFunctionServiceLayer($Final_API);
+	
 			$responce_BP=json_decode($responce_encode_BP);
+			// print_r($responce_BP->value[0]->CardName);
+			// die();
+			$SupplierName=$responce_BP->value[0]->CardName;
 
-			$option .= '<option value="">-</option>';
-			for ($i=0; $i <count($responce_BP->value) ; $i++) {
+			// $option .= '<option value="">-</option>';
+			// for ($i=0; $i <count($responce_BP->value) ; $i++) {
 				
-				if($responce_BP->value[$i]->CardCode==$SupplierCode){
-					$SupplierName=$responce_BP->value[$i]->CardName;
-				}
-			}
+			// 	if($responce_BP->value[$i]->CardCode==$SupplierCode){
+			// 		$SupplierName=$responce_BP->value[$i]->CardName;
+			// 	}
+			// }
 		}
 		
 		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	

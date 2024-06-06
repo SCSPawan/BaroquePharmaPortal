@@ -1114,7 +1114,7 @@ $(".loader123").hide();
 
 function ExternalIssueSelectedBP(un_id){
 
-var SupplierCode=document.getElementById('SCRTQCB_SupplierCode').value;
+var SupplierCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
 
 var dataString ='SupplierCode='+SupplierCode+'&action=SupplierSingleData_ajax';
 
@@ -1127,7 +1127,8 @@ beforeSend: function(){
 $(".loader123").show();
 },
 success: function(result)
-{  
+{
+console.log(result);
 var JSONObject = JSON.parse(result);
 $('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
 },
