@@ -582,16 +582,16 @@ padding: 40px 0 60px 0;
                                     </div>
                                 </div>
 
-                                <div class="col-xl-3 col-md-6">
+                                <!-- <div class="col-xl-3 col-md-6">
                                     <div class="form-group row mb-2">
                                         <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
                                         <div class="col-lg-8 container_input">
                                             <input type="date" id="SCRTQCB_SCD_DateOfRever" name="SCRTQCB_SCD_DateOfRever" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-xl-3 col-md-6" style="display: none;">
                                     <div class="form-group row mb-2">
                                         <div class="col-md-7">
                                             <button type="button" id="SCRTQCB_SCD_RevSampleIssue_Btn" class="btn btn-primary" data-bs-toggle="button" name="SCRTQCB_SCD_RevSampleIssue_Btn" onclick="OnclickReverseSampleIssue();">Reverse Sample Issue</button>
@@ -834,6 +834,55 @@ $(".loader123").hide();
 }
 });
 });
+
+function GetExtraIuuseWhs(un_id){
+
+var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
+
+var Loc = $('#SCRTQCB_Location').val();
+var Branch= $('#SCRTQCB_Branch').val();
+var ItemCode = $('#SCRTQCB_ItemCode').val();
+var MakeBy = $('#SCRTQCB_MakeBy').val();
+var UOM = $('#SCRTQCB_SampleQtyUnit').val();
+
+var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
+
+$.ajax({
+    type: "POST",
+    url: 'ajax/common-ajax.php',
+    data: dataString,  
+    beforeSend: function(){
+        // $(".loader123").show();
+    },
+    success: function(result){
+        // console.log(result);
+        var JSONObject = JSON.parse(result);
+        // console.log(JSONObject);
+        // console.log(JSONObject['SampleBy']);
+
+
+        if(SampleQuantity!=''){
+            $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
+            $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
+            $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
+            $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
+        }else{
+            $('#SC_FEI_UOM'+un_id).val('');
+            $('#SC_FEI_Warehouse'+un_id).val('');
+            $('#SC_FEI_SampleBy'+un_id).val('');
+            $('#SC_FEI_IssueDate'+un_id).val('');
+        }
+    },
+    complete:function(data){
+        // $(".loader123").hide();
+    }
+});
+}
+
+
+
+
+
 
 function change_page(page_id)
 { 
@@ -2504,93 +2553,93 @@ getSelectedContenerCalulateManul(); // if user change selected Qty value after s
                 data:formData,
                 processData: false,
                 contentType: false,
-                // beforeSend: function(){
-                // // Show image container
-                // $(".loader123").show();
-                // },
+                beforeSend: function(){
+                // Show image container
+                $(".loader123").show();
+                },
                 success: function(result)
                 {
-                    console.log(result);
-                    // var JSONObject = JSON.parse(result);
+                    // console.log(result);
+                    var JSONObject = JSON.parse(result);
 
-                    // var status = JSONObject['status'];
-                    // var message = JSONObject['message'];
-                    // var DocEntry = JSONObject['DocEntry'];
+                    var status = JSONObject['status'];
+                    var message = JSONObject['message'];
+                    var DocEntry = JSONObject['DocEntry'];
 
-                    // if(status=='True'){
-                    //     swal({
-                    //         title: `${DocEntry}`,
-                    //         text: `${message}`,
-                    //         icon: "success",
-                    //         buttons: true,
-                    //         dangerMode: false,
-                    //     })
-                    //     .then((willDelete) => {
-                    //         if (willDelete) {
-                    //             location.replace(window.location.href); //ok btn... cuurent URL called
-                    //         }else{
-                    //             location.replace(window.location.href); // cancel btn... cuurent URL called
-                    //         }
-                    //     });
-                    // }else{
-                    //     swal("Oops!", `${message}`, "error");
-                    // }
+                    if(status=='True'){
+                        swal({
+                            title: `${DocEntry}`,
+                            text: `${message}`,
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                location.replace(window.location.href); //ok btn... cuurent URL called
+                            }else{
+                                location.replace(window.location.href); // cancel btn... cuurent URL called
+                            }
+                        });
+                    }else{
+                        swal("Oops!", `${message}`, "error");
+                    }
                 }
-                // ,complete:function(data){
-                // // Hide image container
-                // $(".loader123").hide();
-                // }
+                ,complete:function(data){
+                // Hide image container
+                $(".loader123").hide();
+                }
             });
         }   
     }
 
 
 
-function OnclickReverseSampleIssue(){
-// SCRTQCB_SCD_SampleIssue
-var DocEntry=document.getElementById('SCRTQCB_SCD_SampleIssue').value;
-var SCRTQCB_DocEntry=document.getElementById('SCRTQCB_DocEntry').value;
-var dataString ='DocEntry='+DocEntry+'&SCRTQCB_DocEntry='+SCRTQCB_DocEntry+'&action=SCRetestQcReverseSampleIsuue_ajax';
+// function OnclickReverseSampleIssue(){
+// // SCRTQCB_SCD_SampleIssue
+// var DocEntry=document.getElementById('SCRTQCB_SCD_SampleIssue').value;
+// var SCRTQCB_DocEntry=document.getElementById('SCRTQCB_DocEntry').value;
+// var dataString ='DocEntry='+DocEntry+'&SCRTQCB_DocEntry='+SCRTQCB_DocEntry+'&action=SCRetestQcReverseSampleIsuue_ajax';
 
-$.ajax({
-type: "POST",
-url: 'ajax/kri_common-ajax.php',
-data: dataString,
-cache: false,
+// $.ajax({
+// type: "POST",
+// url: 'ajax/kri_common-ajax.php',
+// data: dataString,
+// cache: false,
 
-beforeSend: function(){
-$(".loader123").show();
-},
-success: function(result)
-{
-var JSONObject = JSON.parse(result);
-var status = JSONObject['status'];
-var message = JSONObject['message'];
-var DocEntry = JSONObject['DocEntry'];
-if(status=='True'){
-swal({
-title: `${DocEntry}`,
-text: `${message}`,
-icon: "success",
-buttons: true,
-dangerMode: false,
-})
-.then((willDelete) => {
-if (willDelete) {
-location.replace(window.location.href); //ok btn... cuurent URL called
-}else{
-location.replace(window.location.href); // cancel btn... cuurent URL called
-}
-});
-}else{
-swal("Oops!", `${message}`, "error");
-}
-},
-complete:function(data){
-$(".loader123").hide();
-}
-}); 
-}
+// beforeSend: function(){
+// $(".loader123").show();
+// },
+// success: function(result)
+// {
+// var JSONObject = JSON.parse(result);
+// var status = JSONObject['status'];
+// var message = JSONObject['message'];
+// var DocEntry = JSONObject['DocEntry'];
+// if(status=='True'){
+// swal({
+// title: `${DocEntry}`,
+// text: `${message}`,
+// icon: "success",
+// buttons: true,
+// dangerMode: false,
+// })
+// .then((willDelete) => {
+// if (willDelete) {
+// location.replace(window.location.href); //ok btn... cuurent URL called
+// }else{
+// location.replace(window.location.href); // cancel btn... cuurent URL called
+// }
+// });
+// }else{
+// swal("Oops!", `${message}`, "error");
+// }
+// },
+// complete:function(data){
+// $(".loader123").hide();
+// }
+// }); 
+// }
 
 
 
