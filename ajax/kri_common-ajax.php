@@ -316,13 +316,13 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_input_more'){
 
 		<td><select id="doneBy_'.$index.'" name="doneBy[]" class="form-select done-by-mo'.$index.'"></select></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache1_'.$index.'" name="qCAttache1[]" class="form-control"></td>
+		<td><input class="form-control border_hide" type="file"  id="qCAttache1_'.$index.'" name="qCAttache1[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache2_'.$index.'" name="qCAttache2[]" class="form-control"></td>
+		<td><input class="form-control border_hide" type="file"  id="qCAttache2_'.$index.'" name="qCAttache2[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache3_'.$index.'" name="qCAttache3[]" class="form-control"></td>
+		<td><input class="form-control border_hide" type="file"  id="qCAttache3_'.$index.'" name="qCAttache3[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$index.'" name="qCDeviationDate[]" class="form-control"></td>
+		<td><input class="form-control border_hide" type="date"  id="qCDeviationDate_'.$index.'" name="qCDeviationDate[]" class="form-control"></td>
 
 		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$index.'" name="qCDeviationNo[]" class="form-control"></td>
 

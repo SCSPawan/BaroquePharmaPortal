@@ -8396,11 +8396,11 @@ if(isset($_POST['action']) && $_POST['action'] =='QCPostdocumentQCCheckRouteStag
 		$general_data=$response[0]->RSQCPOSTDOCGENERALDATA; 
 		$qcStatus=$response[0]->RSQCPOSTDOCQCSTATUS; // Etra issue response seperate here 
 		$qcAttach=$response[0]->RSQCPOSTDOCATTACH; //External issue reponce seperate here
-
-    // echo "<pre>";
-	// print_r($API);
-	// echo "</pre>";
-	// exit;
+		
+		// echo "<pre>";
+		// print_r($response);
+		// echo "</pre>";
+		// exit;
        
        if(!empty($general_data)){
        	for ($i=0; $i <count($general_data) ; $i++) { 
@@ -8634,20 +8634,40 @@ if(isset($_POST['action']) && $_POST['action'] =='QCPostdocumentQCCheckRouteStag
 
 
 		if(!empty($qcStatus)){
-			for ($j=0; $j <count($qcStatus) ; $j++) { 
+			for ($j=0; $j <count($qcStatus) ; $j++) {
 				$SrNo=$j+1;
 
 				$FinalResponce['qcStatus'].='<tr>
                     
                     <td class="desabled">'.$SrNo.'</td>
 
-                    <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly></td>
+                    <td class="desabled">
+						<input type="hidden" id="QCS_LineId'.$SrNo.'" name="QCS_LineId[]" value="'.$qcStatus[$j]->LineID.'">
+						
+						<input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly>
+					</td>
 
                     <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->RelDate))? date("d-m-Y", strtotime($qcStatus[$j]->RelDate)):"").'" readonly></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->RelTime))? date("H:i", strtotime($qcStatus[$j]->RelTime)):"").'" readonly></td>
 
                     <td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
 
                     <td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_'.$SrNo.'" name="qCAttache1[]" value="'.$qcStatus[$j]->QCStsAttach1.'"></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_'.$SrNo.'" name="qCAttache2[]" value="'.$qcStatus[$j]->QCStsAttach2.'"></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_'.$SrNo.'" name="qCAttache3[]" value="'.$qcStatus[$j]->QCStsAttach3.'"></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_'.$SrNo.'" name="qCDeviationDate[]" value="'.((!empty($qcStatus[$j]->DevDate))? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)):"").'"></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_'.$SrNo.'" name="qCDeviationNo[]" value="'.$qcStatus[$j]->DevNo.'"></td>
+
+<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_'.$SrNo.'" name="qCDeviationResion[]" value="'.$qcStatus[$j]->DevRsn.'"></td>
 
                     <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
 
@@ -8657,15 +8677,37 @@ if(isset($_POST['action']) && $_POST['action'] =='QCPostdocumentQCCheckRouteStag
 			// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		}
 
-		$FinalResponce['qcStatus'] .='<tr">
-			<td>'.(count($qcStatus)+1).'</td>
-			<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"></select></td>
-			<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" value=""></td>
-			<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
+		$SrNo_Ex=(count($qcStatus)+1);
+		$FinalResponce['qcStatus'] .='<tr id="add-more_'.$SrNo_Ex.'">
+			<td>'.$SrNo_Ex.'</td>
+
+			<td><select id="qc_Status_'.$SrNo_Ex.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$SrNo_Ex.')"></select></td>
+
+			<td><input class="border_hide form-control" type="text"  id="qCStsQty_'.$SrNo_Ex.'" name="qCStsQty[]" onfocusout="addMore('.$SrNo_Ex.');"></td>
+
+	<td><input class="form-control border_hide" type="text"  id="qCReleaseDate_'.$SrNo_Ex.'" name="qCReleaseDate[]"></td>
+
+	<td><input class="form-control border_hide" type="text"  id="qCReleaseTime_'.$SrNo_Ex.'" name="qCReleaseTime_[]"></td>
+
+			<td><input class="border_hide form-control" type="text"  id="qCitNo_'.$SrNo_Ex.'" name="qCitNo[]"></td>
 			<td>
-			<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
+			<select class="form-select done-by-mo1" id="doneBy_'.$SrNo_Ex.'" name="doneBy[]"></select>
 			</td>
-			<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
+
+			
+<td><input class="form-control border_hide" type="file"  id="qCAttache1_'.$SrNo_Ex.'" name="qCAttache1[]"></td>
+
+<td><input class="form-control border_hide" type="file"  id="qCAttache2_'.$SrNo_Ex.'" name="qCAttache2[]"></td>
+
+<td><input class="form-control border_hide" type="file"  id="qCAttache3_'.$SrNo_Ex.'" name="qCAttache3[]"></td>
+
+<td><input class="form-control border_hide" type="date"  id="qCDeviationDate_'.$SrNo_Ex.'" name="qCDeviationDate[]"></td>
+
+<td><input class="form-control border_hide" type="text"  id="qCDeviationNo_'.$SrNo_Ex.'" name="qCDeviationNo[]"></td>
+
+<td><input class="form-control border_hide" type="text"  id="qCDeviationResion_'.$SrNo_Ex.'" name="qCDeviationResion[]"></td>
+
+			<td><input class="border_hide form-control" type="text"  id="qCStsRemark1_'.$SrNo_Ex.'" name="qCStsRemark1[]" class="form-control" value=""></td>
 		</tr>';
 
      
@@ -8820,7 +8862,7 @@ if(isset($_POST['addQcPostDocumentBtn_RouteStage']))
 	// $tdata['U_PckSize']=trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
 	// trim(addslashes(strip_tags($_POST['qc_Check_LineNum'])))
 	$ganaralData=array();
-	    $BL=0; //skip array avoid and count continue
+	    // $BL=0; //skip array avoid and count continue
 		for ($i=0; $i <count($_POST['parameter_code']) ; $i++) { 
 			$ganaralData['LineId']=0;
 			$ganaralData['Object']=trim(addslashes(strip_tags('SCS_QCRSTAGE')));
@@ -8900,31 +8942,54 @@ if(isset($_POST['addQcPostDocumentBtn_RouteStage']))
 			$ganaralData['U_PC_ETime']=trim(addslashes(strip_tags($_POST['end_time'][$i])));
 			
 			$tdata['SCS_QCRSTAGE1Collection'][]=$ganaralData; // row data append on this array
-			$BL++; // increment variable define here	
+			// $BL++; // increment variable define here	
 		}
       
 		$qcStatus=array();
-		$qcS=0; //skip array avoid and count continue
+		// $qcS=0; //skip array avoid and count continue
 		for ($j=0; $j <count($_POST['qc_Status']) ; $j++) { 
-            $qcStatus['LineId']=0;
-            $qcStatus['Object']=trim(addslashes(strip_tags('SCS_QCRSTAGE')));
+			// $qcStatus['LineId']=0;
+			// $qcStatus['Object']=trim(addslashes(strip_tags('SCS_QCRSTAGE')));
 
 			$qcStatus['U_PC_Stus']=trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
 			$qcStatus['U_PC_Qty']=trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
-			$qcStatus['U_PC_RelDt']='';
 
-			$qcStatus['U_PC_ITNo']=trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
+			$qcStatus['U_PC_RelDt']=(!empty($_POST['qCReleaseDate'][$j]))? date("Y-m-d",strtotime($_POST['qCReleaseDate'][$j])) : null;
+
+			if(!empty($_POST['qCitNo'][$j])){
+				$qcStatus['U_PC_ITNo']=trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
+			}
+
 			$qcStatus['U_PC_DBy']=trim(addslashes(strip_tags($_POST['doneBy'][$j])));
 			$qcStatus['U_PC_Rmrk1']=trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
+
+			$qcStatus['U_PC_Atch1']=(!empty($_FILES['qCAttache1']['name'][$j]))? $_FILES['qCAttache1']['name'][$j]:$_POST['qCAttache1'][$j];
+
+			$qcStatus['U_PC_Atch2']=(!empty($_FILES['qCAttache2']['name'][$j]))? $_FILES['qCAttache2']['name'][$j]:$_POST['qCAttache2'][$j];
+
+			$qcStatus['U_PC_Atch3']=(!empty($_FILES['qCAttache3']['name'][$j]))? $_FILES['qCAttache3']['name'][$j]:$_POST['qCAttache3'][$j];
+
+			$qcStatus['U_PC_DvDt']=(!empty($_POST['qCDeviationDate'][$j]))? date("Y-m-d",strtotime($_POST['qCDeviationDate'][$j])) : null;
+
+			$qcStatus['U_PC_DvNo']=trim(addslashes(strip_tags($_POST['qCDeviationNo'][$j])));
+			$qcStatus['U_PC_DvRsn']=trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
+
 			
-			$qcStatus['U_PC_Atch1']='';
-			$qcStatus['U_PC_Atch2']='';
-			$qcStatus['U_PC_Atch3']='';
-			$qcStatus['U_PC_DvDt']='';
-			$qcStatus['U_PC_DvNo']='';
-			$qcStatus['U_PC_DvRsn']='';
+			// <!-- ------ File upload code start here ----------------------------- -->
+				$uploadDir = '../include/uploads/';
+
+				$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
 
+				$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+
+
+				$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+			// <!-- ------ File upload code start here ----------------------------- -->
+			
 			$tdata['SCS_QCRSTAGE2Collection'][]=$qcStatus;// row data append on this array
 			$qcS++;
 		}
@@ -8947,7 +9012,7 @@ if(isset($_POST['addQcPostDocumentBtn_RouteStage']))
 		$mainArray=$tdata; // all child array append in main array define here
 
 		// echo "<pre>";
-		// print_r($mainArray);
+		// print_r(json_encode($mainArray));
 		// echo "<pre>";
 		// exit;
       
@@ -9000,7 +9065,7 @@ if(isset($_POST['addQcPostDocumentBtn_RouteStage']))
 
 				if($responce==''){
 					$data['status']='True';
-					$data['DocEntry']=$_POST['B_DocEntry'];
+					$data['DocEntry']=$_POST['qc_post_doc_Routestage_DocEntry'];
 					$data['message']="QC Post document (QC Check) - Route Stage Successfully Updated.";
 					echo json_encode($data);
 				}else{

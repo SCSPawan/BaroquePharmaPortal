@@ -745,21 +745,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                     <div class="tab-pane" id="qc_status8" role="tabpanel">
 
                                                         <div class="table-responsive" id="list">
-                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                        <!-- <input type="text" id="tr-count" value="1"> -->
+                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered QCStatus_Table" style="">
                                                                 <thead class="fixedHeader1">
                                                                         <tr>
                                                                             <th>Sr. No</th>
                                                                             <th>Status</th>
                                                                             <th>Quantity</th>
+                                                                        <th>Release Date</th>
+                                                                        <th>Release Time</th>
                                                                             <th>IT No</th>
-                                                                            <!-- <th>Release Time</th> -->
                                                                             <th>Done By</th>
-                                                                            <!-- <th>Attatchment 1</th> 
-                                                                            <th>Attatchment 2</th> 
-                                                                            <th>Attatchment 3</th>   -->
-                                                                            <!-- <th>Deviation Date</th> -->
-                                                                            <!-- <th>Deviation No</th> -->
-                                                                            <!-- <th>Deviation Reason</th> -->
+                                                                        <th>Attatchment 1</th> 
+                                                                        <th>Attatchment 2</th> 
+                                                                        <th>Attatchment 3</th>  
+                                                                        <th>Deviation Date</th>
+                                                                        <th>Deviation No</th>
+                                                                        <th>Deviation Reason</th>
                                                                             <th>Remarks</th>
                                                                         </tr>
                                                                     </thead>
@@ -964,10 +966,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                             <div class="col-md-6">
                                                                 <div class="d-flex flex-wrap gap-2">
                                                                     <!-- Toggle States Button -->
-                                                                    <button type="button" class="btn btn-primary" id="addQcPostDocumentBtn_RouteStage" name="addQcPostDocumentBtn_RouteStage" onclick="return add_qc_post_document();">Add</button>
+                                                                    <button type="button" class="btn btn-primary" id="addQcPostDocumentBtn_RouteStage" name="addQcPostDocumentBtn_RouteStage" onclick="return add_qc_post_document();">Update</button>
                                                                     <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
 
-                                                                    <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                                    <!-- <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button> -->
+
+                                                                    <a href="qc_post_doc_route_stage.php" class="btn btn-danger active">Cancel</a>
 
                                                                     <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off">Inventory Transfer</button>
 
@@ -1478,6 +1482,122 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 }
             });
         }
+
+        
+// QC Status Tab Add new row and calculate Qty start ---------------- -->
+    function AutocalculateQC_Qty(){
+        // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+            var rows = document.querySelectorAll('#qc-status-list-append_ tr');
+
+            // Get the count of tr elements
+            var rowCount = rows.length;
+
+            // Initialize sum
+            var sum = 0;
+
+            // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+            rows.forEach(function(row) {
+                var input = row.querySelector('input[name="qCStsQty[]"]');
+                if (input) {
+                    sum += parseFloat(input.value) || 0;
+                }
+            });
+
+            var BatchQty = $('#qc_post_doc_Routestage_BatchSize').val();
+            var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
+            return QCS_Qty;
+        // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+    }
+
+    function SelectionOfQC_Status(un_id) {
+        // Select the table with class name 'QCStatus_Table'
+        var table = document.querySelector('.QCStatus_Table');
+        var rows = table.querySelectorAll('tbody tr');
+        var rowCount = rows.length;
+        var tr_count = rowCount;
+
+        // var tr_count = parseInt($('#tr-count').val());
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var formattedDate = `${day}-${month}-${year}`;
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var formattedTime = `${hours}:${minutes}`;
+
+        $('#qCReleaseDate_' + un_id).val(formattedDate);
+        $('#qCReleaseTime_' + un_id).val(formattedTime);
+
+        if (tr_count !== 1) {
+            var rows = $('#qc-status-list-append_ tr');
+            var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+            var valid = true;
+            var message = "";
+
+            rows.each(function(index) {
+                if (index < rows.length - 1) {
+                    var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                    if (qcStatusDropdown === Selected_QC_Status) {
+                        valid = false;
+                        message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                    }
+                }
+            });
+
+            if (valid) {
+                if (!$('#qCStsQty_' + un_id).val()) {
+                    $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                }
+            } else {
+                $('#qCStsQty_' + un_id).val('');
+                $('#qc_Status_' + un_id).val('');
+                swal("Oops!", "Repeated QC Status \n failed:" + message, "error");
+            }
+        } else {
+            $('#qCStsQty_' + un_id).val($('#qcD_BatchQty').val());
+        }
+    }
+
+    function addMore(num){
+
+        var QC_Quantity = $('#qCStsQty_'+num).val();
+        $('#qCStsQty_'+num).val(parseFloat(QC_Quantity).toFixed(3));
+        
+        // var tr_count=$('#tr-count').val();
+
+        var QCS_Qty = AutocalculateQC_Qty();
+
+
+        // Select the tbody element by its ID
+        var tbody = document.getElementById('qc-status-list-append_');
+
+        // Get all the tr elements within the tbody
+        var rows = tbody.getElementsByTagName('tr');
+
+        // Count the number of rows
+        var tr_count = rows.length;
+
+        // Display the row count
+        // console.log('Number of rows:', rowCount);
+
+        // var tr_count=$('#tr-count').val();
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_common-ajax.php',  
+            data: ({index:tr_count,action:'add_qc_status_input_more'}),  
+            success: function(result){
+                $('#add-more_'+tr_count).after(result);
+                tr_count++;
+                // $('#tr-count').val(tr_count);
+                $('#qCStsQty_'+tr_count).val(QCS_Qty);
+
+                getQcStatusDropodwn(tr_count);
+                getDoneByDroopdown(tr_count);
+            }
+        });
+    }
+// QC Status Tab Add new row and calculate Qty end ------------------ -->
 
         function OpenInstrmentModal(un_id){
             $.ajax({ 
