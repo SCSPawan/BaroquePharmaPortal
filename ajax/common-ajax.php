@@ -4214,7 +4214,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
 			</tr>';
-			// when table data come then default add one manual row end -----------------------------------------------------------
+			// when table data come then default add one manual row end row -----------------------------------------------------------
 		}else{
 			// if user not added External issue recored then show default blank row
 			$SrNo=$rowCount+1;
