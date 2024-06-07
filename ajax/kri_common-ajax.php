@@ -2983,7 +2983,7 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 		//  exit;
 		
 	//<!-- ------------- function & function responce code Start Here ---- -->
-		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+		$res=$obj->SAP_Login();  // SAP Service Layer Login
 
 		if(!empty($res)){
 

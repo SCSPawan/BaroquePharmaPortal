@@ -2559,7 +2559,7 @@ getSelectedContenerCalulateManul(); // if user change selected Qty value after s
                 },
                 success: function(result)
                 {
-                    // console.log(result);
+                    // conso    le.log(result);
                     var JSONObject = JSON.parse(result);
 
                     var status = JSONObject['status'];
