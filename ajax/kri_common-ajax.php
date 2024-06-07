@@ -2817,6 +2817,7 @@ if(isset($_POST['action']) && $_POST['action'] =='kri_SC_OpenInventoryTransferCS
 
 if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 {
+	//U_PC_SRSep
 	// <!-- ------------ array declare Here ------------- -->
 		$mainArray=array();
 		$ExternalIssue=array();
@@ -2901,7 +2902,7 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 		$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SCRTQCB_BPLId'])));
 		$tdata['U_PC_LocCode']=trim(addslashes(strip_tags($_POST['SCRTQCB_LocCode'])));
-		$tdata['U_PC_SRSep']=trim(addslashes(strip_tags('No')));  //'No' value
+		// $tdata['U_PC_SRSep']=trim(addslashes(strip_tags('No')));  //'No' value
 // $_POST['SCRTQCB_SampleReSep']
 
    //      if($_POST['SCRTQCB_SampleReSep']==""){
@@ -2914,6 +2915,7 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 
 		$tdata['U_PC_SType']=trim(addslashes(strip_tags($_POST['SCRTQCB_SampleType'])));
+		$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['SCRTQCB_MakeBy'])));
 		$mainArray=$tdata; // header data append on main array
 
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
@@ -2975,10 +2977,10 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 		}
 	     // <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
          // print_r(json_encode($mainArray));die();
-		 // echo "<pre>";
-		 // print_r($mainArray);
-		 // echo "</pre>";
-		 // exit;
+		//  echo "<pre>";
+		//  print_r($mainArray);
+		//  echo "</pre>";
+		//  exit;
 		
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
@@ -2989,14 +2991,14 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 			$responce_encode=$obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($mainArray,$Final_API);
 			$responce=json_decode($responce_encode);
 			// echo "<pre>";
-		    // print_r($responce_encode);
+		     //print_r($responce);
 		    // echo "</pre>";
 		    // exit;
 		    // die();
 			if($responce==''){
 				$data['status']='True';
 				$data['DocEntry']=$responce->DocEntry;
-				$data['message']="Sample Collection - Retest QC Successfully Update.";
+				$data['message']="Sample Collection - Retest QC Successfully Update."+$responce;
 				echo json_encode($data);
 			}else{
 

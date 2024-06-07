@@ -4041,9 +4041,10 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 					    </td>
 
 					    <td class="desabled">
-					    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" readonly>
+					    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" >
 
-					    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control desabled" readonly>
+					    	<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+
 				    	</td>
 
 					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control desabled" readonly></td>
@@ -4065,26 +4066,29 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 				    </td>
 
 				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
+					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
 
-					    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
+					    <input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+
 				    </td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
+				    <td class="desabled">
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control" readonly >
+			    	</td>
+
+				   
+					
+					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+
+
+
+				    <td class="desabled">
+					
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
 			    	</td>
 
 				    <td>
-				    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" style="width: 200px;">
-						</select>
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="date" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
+				    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
 			    	</td>
 
 				    <td>
@@ -4097,30 +4101,29 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 				$SrNo=$rowCount_N+1;
 				$FinalResponce['ExtraIssue'].='<tr>
 				    <td class="desabled">
-				    	
+				    	'.$SrNo.'
 				    </td>
 
 				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
+					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
 
-					    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
+						<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+
 				    </td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
+				    <td class="desabled">
+				    	<input class="border_hide desabled " type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control" readonly>
 			    	</td>
 
-				    <td>
-				    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" style="width: 200px;">
-						</select>
+				    
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+
+				    <td class="desabled">
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
 			    	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="date" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
+				    <td class="desabled">
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
 			    	</td>
 
 				    <td>
@@ -4193,7 +4196,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
+			    <td class="desabled" ><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
@@ -4232,7 +4235,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
+			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
