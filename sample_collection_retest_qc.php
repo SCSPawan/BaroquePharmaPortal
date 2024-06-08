@@ -940,23 +940,24 @@ $(".loader123").hide();
 }
 
 function selectedRecord(DocEntry){
+    // ==============================Table tr count inside tbody start here ===================
+        var totalRowCount = 0;
+        var rowCount = 0;
+        var table = document.getElementById("tblSCRTQC_ExternalIssue");
+        var rows = table.getElementsByTagName("tr")
+        for (var i = 0; i < rows.length; i++) {
+            totalRowCount++;
+            if (rows[i].getElementsByTagName("td").length > 0) {
+                rowCount++;
+            }
+        }
 
-// ==============================Table tr count inside tbody start here ===================
-var totalRowCount = 0;
-var rowCount = 0;
-var table = document.getElementById("tblSCRTQC_ExternalIssue");
-var rows = table.getElementsByTagName("tr")
-for (var i = 0; i < rows.length; i++) {
-totalRowCount++;
-if (rows[i].getElementsByTagName("td").length > 0) {
-rowCount++;
-}
-}
-
-// console.log('Extra Issue');
-// console.log('totalRowCount=>', totalRowCount);
-// console.log('rowCount=>', rowCount);
-// ==============================Table tr count inside tbody End here ====================
+        // console.log('External Issue');
+        
+        // console.log('rows=>', rows.length);
+        // console.log('totalRowCount=>', totalRowCount);
+        // console.log('rowCount=>', rowCount);
+    // ==============================Table tr count inside tbody End here ====================
 
 // ==============================Table tr count inside tbody start here ===================
 var totalRowCount_N = 0;
@@ -983,109 +984,109 @@ url: 'ajax/common-ajax.php',
 data: dataString,  
 beforeSend: function(){
 // Show image container
-$(".loader123").show();
+// $(".loader123").show();
 },
 success: function(result)
 {
 
-$("#footerProcess").show();  // bottom section show script
-var JSONObjectAll = JSON.parse(result);
-//console.log('JSONObjectAll------',JSONObjectAll);
-var JSONObject=JSONObjectAll['SampleCollDetails'];
+    $("#footerProcess").show();  // bottom section show script
+    var JSONObjectAll = JSON.parse(result);
+    //console.log('JSONObjectAll------',JSONObjectAll);
+    var JSONObject=JSONObjectAll['SampleCollDetails'];
 
-console.log('JSONObject------',JSONObject);
+    // console.log('JSONObjectAll------',JSONObjectAll);
 
-$(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
-$(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
+    $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
+    $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
 
-// <!-- --------------- Tab Layout Sample Collection Details Mapping Start Here ------------------ -->
-$(`#SCRTQCB_SCD_UTTNo`).val(JSONObject[0]['UnderTransferNo']);
-$(`#SCRTQCB_SCD_Cont1`).val(JSONObject[0]['Cont1']);
-$(`#SCRTQCB_SCD_Cont2`).val(JSONObject[0]['Cont2']);
-$(`#SCRTQCB_SCD_Cont3`).val(JSONObject[0]['Cont3']);
+    // <!-- --------------- Tab Layout Sample Collection Details Mapping Start Here ------------------ -->
+    $(`#SCRTQCB_SCD_UTTNo`).val(JSONObject[0]['UnderTransferNo']);
+    $(`#SCRTQCB_SCD_Cont1`).val(JSONObject[0]['Cont1']);
+    $(`#SCRTQCB_SCD_Cont2`).val(JSONObject[0]['Cont2']);
+    $(`#SCRTQCB_SCD_Cont3`).val(JSONObject[0]['Cont3']);
 
-$(`#SCRTQCB_SCD_RetQty`).val(JSONObject[0]['RetainQty']);
-$(`#SCRTQCB_SCD_RetUoM`).val(JSONObject[0]['RetainQtyUom']);
-$(`#SCRTQCB_SCD_QtyForLabel`).val(JSONObject[0]['QtyforLabel']);
+    $(`#SCRTQCB_SCD_RetQty`).val(JSONObject[0]['RetainQty']);
+    $(`#SCRTQCB_SCD_RetUoM`).val(JSONObject[0]['RetainQtyUom']);
+    $(`#SCRTQCB_SCD_QtyForLabel`).val(JSONObject[0]['QtyforLabel']);
 
-$(`#SCRTQCB_SCD_SampleIssue`).val(JSONObject[0]['SampleIssue']);
-$(`#SCRTQCB_SCD_RetainIssue`).val(JSONObject[0]['RetainIssue']);
-$(`#SCRTQCB_SCD_RevSampleIssue`).val(JSONObject[0]['RevSamIssue']);
-// <!-- --------------- Tab Layout Sample Collection Details Mapping End Here -------------------- -->
+    $(`#SCRTQCB_SCD_SampleIssue`).val(JSONObject[0]['SampleIssue']);
+    $(`#SCRTQCB_SCD_RetainIssue`).val(JSONObject[0]['RetainIssue']);
+    $(`#SCRTQCB_SCD_RevSampleIssue`).val(JSONObject[0]['RevSamIssue']);
+    // <!-- --------------- Tab Layout Sample Collection Details Mapping End Here -------------------- -->
 
-$(`#SCRTQCB_IngrediantType`).val(JSONObject[0]['IngredientType']);
-$(`#SCRTQCB_GRNNo`).val(JSONObject[0]['GRNNo']);
-$(`#SCRTQCB_GRNDocEntry`).val(JSONObject[0]['GRNEntry']);
-$(`#SCRTQCB_DocNoName`).val(JSONObject[0]['SeriesName']);
-$(`#SCRTQCB_DocNum`).val(JSONObject[0]['DocNum']);
-$(`#SCRTQCB_DocEntry`).val(JSONObject[0]['DocEntry']);
-$(`#SCRTQCB_Location`).val(JSONObject[0]['Loction']);
-// SCRTQCB_it_DocEntry
+    $(`#SCRTQCB_IngrediantType`).val(JSONObject[0]['IngredientType']);
+    $(`#SCRTQCB_GRNNo`).val(JSONObject[0]['GRNNo']);
+    $(`#SCRTQCB_GRNDocEntry`).val(JSONObject[0]['GRNEntry']);
+    $(`#SCRTQCB_DocNoName`).val(JSONObject[0]['SeriesName']);
+    $(`#SCRTQCB_DocNum`).val(JSONObject[0]['DocNum']);
+    $(`#SCRTQCB_DocEntry`).val(JSONObject[0]['DocEntry']);
+    $(`#SCRTQCB_Location`).val(JSONObject[0]['Loction']);
+    // SCRTQCB_it_DocEntry
 
-$(`#SCRTQCB_IntimatedBy`).val(JSONObject[0]['IntimatedBy']);
-$(`#SCRTQCB_SampleQty`).val(JSONObject[0]['SampleQty']);
-$(`#SCRTQCB_SampleCollBy`).val(JSONObject[0]['SampleCollectBy']);
-$(`#SCRTQCB_MakeBy`).val(JSONObject[0]['MakeBy']);
-// <!-- ----------- Intimation Date Start Here ----------------------------------- -->
-var intimationDateOG = JSONObject[0]['IntimationDate'];
-if(intimationDateOG!=''){
-intimationDate = intimationDateOG.split(' ')[0];
-$(`#SCRTQCB_IntimationDate`).val(intimationDate); 
-}
-// <!-- ----------- Intimation Date End Here --------------------------------------- -->
-
-
-$(`#SCRTQCB_ARNo`).val(JSONObject[0]['ARNo']);
-$(`#SCRTQCB_SampleReSep`).val(JSONObject[0]['SampleReceivedseperately']);
-$(`#SCRTQCB_TRNo`).val(JSONObject[0]['TRNo']);
-// <!-- ----------- Document Date Start Here ----------------------------------- -->
-var docDateOG = JSONObject[0]['DocDate'];
-if(docDateOG!=''){
-docDate = docDateOG.split(' ')[0];
-$(`#SCRTQCB_DocDate`).val(docDate); 
-}
-// <!-- ----------- Document Date End Here --------------------------------------- -->
-
-$(`#SCRTQCB_Branch`).val(JSONObject[0]['Branch']);
-$(`#SCRTQCB_ItemCode`).val(JSONObject[0]['ItemCode']);
-$(`#SCRTQCB_ItemName`).val(JSONObject[0]['ItemName']);
-$(`#SCRTQCB_BatchNo`).val(JSONObject[0]['BatchNo']);
-
-$(`#SCRTQCB_NoOfContainer`).val(JSONObject[0]['NoofCont']);
-$(`#SCRTQCB_BatchQty`).val(JSONObject[0]['BatchQty']);
+    $(`#SCRTQCB_IntimatedBy`).val(JSONObject[0]['IntimatedBy']);
+    $(`#SCRTQCB_SampleQty`).val(JSONObject[0]['SampleQty']);
+    $(`#SCRTQCB_SampleCollBy`).val(JSONObject[0]['SampleCollectBy']);
+    $(`#SCRTQCB_MakeBy`).val(JSONObject[0]['MakeBy']);
+    // <!-- ----------- Intimation Date Start Here ----------------------------------- -->
+    var intimationDateOG = JSONObject[0]['IntimationDate'];
+    if(intimationDateOG!=''){
+    intimationDate = intimationDateOG.split(' ')[0];
+    $(`#SCRTQCB_IntimationDate`).val(intimationDate); 
+    }
+    // <!-- ----------- Intimation Date End Here --------------------------------------- -->
 
 
-// <!-- -------------- hidden field mapped here --------------------------- -->
-$(`#SCRTQCB_GRNLineNo`).val(JSONObject[0]['GRNLineNo']);
-$(`#SCRTQCB_BPLId`).val(JSONObject[0]['BPLId']);
-$(`#SCRTQCB_LocCode`).val(JSONObject[0]['LocCode']);
-$(`#SCRTQCB_Series`).val(JSONObject[0]['Series']);
-$(`#SCRTQCB_SupplierCode`).val(JSONObject[0]['SupplierCode']);
-$(`#SCRTQCB_SupplierName`).val(JSONObject[0]['SupplierName']);
+    $(`#SCRTQCB_ARNo`).val(JSONObject[0]['ARNo']);
+    $(`#SCRTQCB_SampleReSep`).val(JSONObject[0]['SampleReceivedseperately']);
+    $(`#SCRTQCB_TRNo`).val(JSONObject[0]['TRNo']);
+    // <!-- ----------- Document Date Start Here ----------------------------------- -->
+    var docDateOG = JSONObject[0]['DocDate'];
+    if(docDateOG!=''){
+    docDate = docDateOG.split(' ')[0];
+    $(`#SCRTQCB_DocDate`).val(docDate); 
+    }
+    // <!-- ----------- Document Date End Here --------------------------------------- -->
 
-$(`#SCRTQCB_SampleType`).val(JSONObject[0]['SampleType']);
-$(`#SCRTQCB_SampleQtyUnit`).val(JSONObject[0]['SampleQtyUnit']);
+    $(`#SCRTQCB_Branch`).val(JSONObject[0]['Branch']);
+    $(`#SCRTQCB_ItemCode`).val(JSONObject[0]['ItemCode']);
+    $(`#SCRTQCB_ItemName`).val(JSONObject[0]['ItemName']);
+    $(`#SCRTQCB_BatchNo`).val(JSONObject[0]['BatchNo']);
+
+    $(`#SCRTQCB_NoOfContainer`).val(JSONObject[0]['NoofCont']);
+    $(`#SCRTQCB_BatchQty`).val(JSONObject[0]['BatchQty']);
 
 
-$(`#SCRTQCB_RISSFromWhs`).val(JSONObject[0]['RISSFromWhs']);
-$(`#SCRTQCB_RISSToWhs`).val(JSONObject[0]['RISSToWhs']);
-$(`#SCRTQCB_RetainQtyUom`).val(JSONObject[0]['RetainQtyUom']);
+    // <!-- -------------- hidden field mapped here --------------------------- -->
+    $(`#SCRTQCB_GRNLineNo`).val(JSONObject[0]['GRNLineNo']);
+    $(`#SCRTQCB_BPLId`).val(JSONObject[0]['BPLId']);
+    $(`#SCRTQCB_LocCode`).val(JSONObject[0]['LocCode']);
+    $(`#SCRTQCB_Series`).val(JSONObject[0]['Series']);
+    $(`#SCRTQCB_SupplierCode`).val(JSONObject[0]['SupplierCode']);
+    $(`#SCRTQCB_SupplierName`).val(JSONObject[0]['SupplierName']);
 
-// <!-- -------------- hidden field mapped here --------------------------- -->
+    $(`#SCRTQCB_SampleType`).val(JSONObject[0]['SampleType']);
+    $(`#SCRTQCB_SampleQtyUnit`).val(JSONObject[0]['SampleQtyUnit']);
 
-tablayoutvalidation();
-getSupplierDropdown(totalRowCount);
-// getWareHouseDropdown(totalRowCount);
-getWareHouseExtraIssueDropdown(totalRowCount_N);
 
-$('.ExternalIssueSelectedBPWithData').select2();// with data supplier dropdown
-$('.ExternalIssueDefault').select2();// default supplier dropdown
+    $(`#SCRTQCB_RISSFromWhs`).val(JSONObject[0]['RISSFromWhs']);
+    $(`#SCRTQCB_RISSToWhs`).val(JSONObject[0]['RISSToWhs']);
+    $(`#SCRTQCB_RetainQtyUom`).val(JSONObject[0]['RetainQtyUom']);
 
-// $('.ExternalIssueWareHouseDefault').select2();// with data supplier dropdown
-// $('.ExternalIssueWareHouseWithData').select2();// default supplier dropdown
+    // <!-- -------------- hidden field mapped here --------------------------- -->
 
-$('.SC_FEI_WarehouseDefault').select2();// with data supplier dropdown
-$('.SC_FEI_WarehouseWithData').select2();// default supplier dropdown
+    tablayoutvalidation();
+    getSupplierDropdown();
+    // getWareHouseDropdown(totalRowCount);
+    getWareHouseExtraIssueDropdown(totalRowCount_N);
+
+    $('.ExternalIssueSelectedBPWithData').select2();// with data supplier dropdown
+    $('.ExternalIssueDefault').select2();// default supplier dropdown
+
+    // $('.ExternalIssueWareHouseDefault').select2();// with data supplier dropdown
+    // $('.ExternalIssueWareHouseWithData').select2();// default supplier dropdown
+
+    $('.SC_FEI_WarehouseDefault').select2();// with data supplier dropdown
+    $('.SC_FEI_WarehouseWithData').select2();// default supplier dropdown
 
 },
 complete:function(data){
@@ -1147,31 +1148,50 @@ $(".loader123").hide();
 });
 }
 
-function getSupplierDropdown(totalRowCount){
-var dataString ='action=SupplierDropdown_ajax';
+function getSupplierDropdown(){
+    // ==============================Table tr count inside tbody start here ===================
+        var totalRowCount = 0;
+        var rowCount = 0;
+        var table = document.getElementById("tblSCRTQC_ExternalIssue");
+        var rows = table.getElementsByTagName("tr")
+        for (var i = 0; i < rows.length; i++) {
+            totalRowCount++;
+            if (rows[i].getElementsByTagName("td").length > 0) {
+                rowCount++;
+            }
+        }
 
-$.ajax({  
-type: "POST",  
-url: 'ajax/common-ajax.php',  
-data: dataString,  
-beforeSend: function(){
-// Show image container
-$(".loader123").show();
-},
-success: function(result)
-{  
-// console.log('supplier drop=>', result);
-var JSONObject = JSON.parse(result);
-// <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
-let un_id=totalRowCount; 
-$('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
-// <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
-},
-complete:function(data){
-// Hide image container
-$(".loader123").hide();
-}
-});
+        // console.log('External Issue');
+        
+        // console.log('rows=>', rows.length);
+        // console.log('totalRowCount=>', totalRowCount);
+        // console.log('rowCount=>', rowCount);
+    // ==============================Table tr count inside tbody End here ====================
+
+    var dataString ='action=SupplierDropdown_ajax';
+
+    $.ajax({  
+        type: "POST",  
+        url: 'ajax/common-ajax.php',  
+        data: dataString,  
+        beforeSend: function(){
+            // Show image container
+            $(".loader123").show();
+        },
+        success: function(result)
+        {  
+            // console.log('supplier drop=>', result);
+            var JSONObject = JSON.parse(result);
+            // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
+                let un_id=rowCount; 
+                $('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
+            // <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
+        },
+        complete:function(data){
+            // Hide image container
+            $(".loader123").hide();
+        }
+    });
 }
 
 // function ExternalIssueSelectedBP(un_id){
@@ -2696,10 +2716,10 @@ getSelectedContenerCalulateManul(); // if user change selected Qty value after s
 
 // }
 
-// function selectedExternalIssue(un_id){
-//     $('#RowLevelSelectedExternalIssue').val(un_id);
-//     document.getElementById("SC_ExternalIssue_PEI_Btn").disabled = false;
-// }
+function selectedExternalIssue(un_id){
+    $('#RowLevelSelectedExternalIssue').val(un_id);
+    document.getElementById("SC_ExternalIssue_PEI_Btn").disabled = false;
+}
 
 // function selectedExtraIssue(un_id){
 //     $('#RowLevelSelectedExtraIssue').val(un_id);
@@ -2708,67 +2728,73 @@ getSelectedContenerCalulateManul(); // if user change selected Qty value after s
 
 
 
+// var TrDate=$('#gi_PostingDate').val();
+// var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
 function getSeriesDropdown_transfer()
 {
-var dataString ='ObjectCode=67&action=getSeriesDropdown_ajax';
+    var TrDate=$('#it_PostingDate_tras').val();
+    var dataString ='TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
+    // var dataString ='ObjectCode=67&action=getSeriesDropdown_ajax';
 
-$.ajax({
-type: "POST",
-url: 'ajax/common-ajax.php',
-data: dataString,
-cache: false,
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,
+        cache: false,
 
-beforeSend: function(){
-// Show image container
-$(".loader123").show();
-},
-success: function(result)
-{
-var SeriesDropdown = JSON.parse(result);
-$('#transfer_it_DocNoName').html(SeriesDropdown);
-$('#GI_DocNoName').html(SeriesDropdown);
+        beforeSend: function(){
+            // Show image container
+            $(".loader123").show();
+        },
+        success: function(result)
+        {
+            var SeriesDropdown = JSON.parse(result);
+            // console.log(SeriesDropdown);
+            $('#transfer_it_DocNoName').html(SeriesDropdown);
+            $('#GI_DocNoName').html(SeriesDropdown);
 
-selectedSeries_transfer(); // call Selected Series Single data function
-},
-complete:function(data){
-// Hide image container
-$(".loader123").hide();
-}
-}); 
+            selectedSeries_transfer(); // call Selected Series Single data function
+        },
+        complete:function(data){
+            // Hide image container
+            $(".loader123").hide();
+        }
+    }); 
 }
 
 function selectedSeries_transfer(){
 
-var Series=document.getElementById('transfer_it_DocNoName').value;
-var dataString ='Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
+    var TrDate=$('#it_PostingDate_tras').val();
+    var Series=document.getElementById('transfer_it_DocNoName').value;
+    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
 
-$.ajax({
-type: "POST",
-url: 'ajax/common-ajax.php',
-data: dataString,
-cache: false,
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,
+        cache: false,
 
-beforeSend: function(){
-// Show image container
-$(".loader123").show();
-},
-success: function(result)
-{
-// console.log('selected Series=>', result);
-var JSONObject = JSON.parse(result);
+        beforeSend: function(){
+            // Show image container
+            $(".loader123").show();
+        },
+        success: function(result)
+        {
+            console.log('selected Series=>', result);
+            var JSONObject = JSON.parse(result);
 
-var NextNumber=JSONObject[0]['NextNumber'];
-var Series=JSONObject[0]['Series'];
+            var NextNumber=JSONObject[0]['NextNumber'];
+            var Series=JSONObject[0]['Series'];
 
-$('#transfer_it_DocNo').val(Series);
-$('#GI_series').val(Series);
-$('#transfer_it_NextNumber').val(NextNumber);
-},
-complete:function(data){
-// Hide image container
-$(".loader123").hide();
-}
-}); 
+            $('#transfer_it_DocNo').val(Series);
+            $('#GI_series').val(Series);
+            $('#transfer_it_NextNumber').val(NextNumber);
+        },
+        complete:function(data){
+            // Hide image container
+            $(".loader123").hide();
+        }
+    }); 
 }
 
 
@@ -2776,22 +2802,23 @@ $(".loader123").hide();
 
 function transferExternalExtra()
 {
+
 var SupplierCode=document.getElementById('SCRTQCB_SupplierCode').value;
 var SupplierName=document.getElementById('SCRTQCB_SupplierName').value;
 var BranchName=document.getElementById('SCRTQCB_Branch').value;
 var DocEntry=document.getElementById('SCRTQCB_DocEntry').value;
 
 // <!-- ---------- Item Level data get start here ------------- -->
-var ItemCode=document.getElementById('SCRTQCB_ItemCode').value;
-var ItemName=document.getElementById('SCRTQCB_ItemName').value;
-var Location=document.getElementById('SCRTQCB_Location').value;
-var RISSFromWhs=document.getElementById('SCRTQCB_RISSFromWhs').value;
-var RISSToWhs=document.getElementById('SCRTQCB_RISSToWhs').value;
-var RetainQtyUom=document.getElementById('SCRTQCB_RetainQtyUom').value;
+    var ItemCode=document.getElementById('SCRTQCB_ItemCode').value;
+    var ItemName=document.getElementById('SCRTQCB_ItemName').value;
+    var Location=document.getElementById('SCRTQCB_Location').value;
+    var RISSFromWhs=document.getElementById('SCRTQCB_RISSFromWhs').value;
+    var RISSToWhs=document.getElementById('SCRTQCB_RISSToWhs').value;
+    var RetainQtyUom=document.getElementById('SCRTQCB_RetainQtyUom').value;
 
-var BatchQty=document.getElementById('SCRTQCB_BatchQty').value;
-var SampleQty=document.getElementById('SCRTQCB_SampleQty').value;
-var BatchQty_itemLevel=(parseFloat(BatchQty)-parseFloat(SampleQty)).toFixed(6);
+    var BatchQty=document.getElementById('SCRTQCB_BatchQty').value;
+    var SampleQty=document.getElementById('SCRTQCB_SampleQty').value;
+    var BatchQty_itemLevel=(parseFloat(BatchQty)-parseFloat(SampleQty)).toFixed(6);
 // <!-- ---------- Item Level data get end here --------------- -->
 var SCRTQCB_BPLId=document.getElementById('SCRTQCB_BPLId').value;
 
@@ -2817,6 +2844,7 @@ var SCRTQCB_BPLId=document.getElementById('SCRTQCB_BPLId').value;
 //     success: function(result)
 //     {   
 // $("#hideToWhs").hide();
+
 $('#transfer_it_supplierCode').val(SupplierCode);
 $('#transfer_it_supplierName').val(SupplierName);
 $('#transfer_it_Branch').val(BranchName);

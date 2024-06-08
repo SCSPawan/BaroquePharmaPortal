@@ -316,13 +316,13 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_input_more'){
 
 		<td><select id="doneBy_'.$index.'" name="doneBy[]" class="form-select done-by-mo'.$index.'"></select></td>
 
-		<td><input class="form-control border_hide" type="file"  id="qCAttache1_'.$index.'" name="qCAttache1[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache1_'.$index.'" name="qCAttache1[]" class="form-control"></td>
 
-		<td><input class="form-control border_hide" type="file"  id="qCAttache2_'.$index.'" name="qCAttache2[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache2_'.$index.'" name="qCAttache2[]" class="form-control"></td>
 
-		<td><input class="form-control border_hide" type="file"  id="qCAttache3_'.$index.'" name="qCAttache3[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache3_'.$index.'" name="qCAttache3[]" class="form-control"></td>
 
-		<td><input class="form-control border_hide" type="date"  id="qCDeviationDate_'.$index.'" name="qCDeviationDate[]" class="form-control"></td>
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$index.'" name="qCDeviationDate[]" class="form-control"></td>
 
 		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$index.'" name="qCDeviationNo[]" class="form-control"></td>
 
@@ -2817,7 +2817,6 @@ if(isset($_POST['action']) && $_POST['action'] =='kri_SC_OpenInventoryTransferCS
 
 if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 {
-	//U_PC_SRSep
 	// <!-- ------------ array declare Here ------------- -->
 		$mainArray=array();
 		$ExternalIssue=array();
@@ -2902,7 +2901,7 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 		$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SCRTQCB_BPLId'])));
 		$tdata['U_PC_LocCode']=trim(addslashes(strip_tags($_POST['SCRTQCB_LocCode'])));
-		// $tdata['U_PC_SRSep']=trim(addslashes(strip_tags('No')));  //'No' value
+		//$tdata['U_PC_SRSep']=trim(addslashes(strip_tags('No')));  //'No' value
 // $_POST['SCRTQCB_SampleReSep']
 
    //      if($_POST['SCRTQCB_SampleReSep']==""){
@@ -2915,18 +2914,26 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 
 		$tdata['U_PC_SType']=trim(addslashes(strip_tags($_POST['SCRTQCB_SampleType'])));
-		$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['SCRTQCB_MakeBy'])));
 		$mainArray=$tdata; // header data append on main array
-
+// echo "<pre>";
+// print_r($_POST);
+// echo "</pre>";
+// exit;
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
-		for ($i=0; $i <count($_POST['SC_FEXI_SupplierName']) ; $i++) { 
-
+		for ($i=0; $i <=count($_POST['SC_FEXI_SupplierName']) ; $i++) { 
+			// SC_ExternalI_SupplierCode
+			// SC_FEXI_SupplierCode
+			
 			$ExternalIssue['LineId']=trim(addslashes(strip_tags(($i+1))));
-			$ExternalIssue['U_PC_SCode']=trim(addslashes(strip_tags($_POST['SC_ExternalI_SupplierCode'][$i]))); 
+			$ExternalIssue['U_PC_SCode']=trim(addslashes(strip_tags($_POST['SC_FEXI_SupplierCode'][$i]))); 
 			$ExternalIssue['U_PC_SName']=trim(addslashes(strip_tags($_POST['SC_FEXI_SupplierName'][$i])));
 			$ExternalIssue['U_PC_UOM']=trim(addslashes(strip_tags($_POST['SC_FEXI_UOM'][$i])));
-			$ExternalIssue['U_PC_SDate']=trim(addslashes(strip_tags($_POST['SC_FEXI_SampleDate'][$i])));
-			$ExternalIssue['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SC_ExternalI_Warehouse'][$i])));
+			
+			$ExternalIssue['U_PC_SDate']=(!empty($_POST['SC_FEXI_SampleDate'][$i]))? date("Y-m-d", strtotime($_POST['SC_FEXI_SampleDate'][$i])) : null;;
+
+			
+
+			$ExternalIssue['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SC_FEXI_Warehouse'][$i])));
 			$ExternalIssue['U_PC_SQty1']=trim(addslashes(strip_tags($_POST['SC_FEXI_SampleQuantity'][$i])));
 			$ExternalIssue['U_PC_Attch']=trim(addslashes(strip_tags($_POST['SC_FEXI_Attachment'][$i])));
 			$ExternalIssue['U_PC_UTxt1']=trim(addslashes(strip_tags($_POST['SC_FEXI_UserText1'][$i])));
@@ -2954,36 +2961,40 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 	// <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
 		for ($j=0; $j <count($_POST['SC_FEI_SampleQuantity']) ; $j++) { 
+			if(!empty($_POST['SC_FEI_SampleQuantity'][$j])){
+				$ExtraIssue['LineId']=trim(addslashes(strip_tags(($j+1))));
+				$ExtraIssue['U_PC_SQty2']=trim(addslashes(strip_tags($_POST['SC_FEI_SampleQuantity'][$j])));
+				$ExtraIssue['U_PC_UOM']=trim(addslashes(strip_tags($_POST['SC_FEI_UOM'][$j])));
+				$ExtraIssue['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SC_FEI_Warehouse'][$j])));
+				$ExtraIssue['U_PC_SBy']=trim(addslashes(strip_tags($_POST['SC_FEI_SampleBy'][$j])));
 
-			$ExtraIssue['LineId']=trim(addslashes(strip_tags(($j+1))));
-			$ExtraIssue['U_PC_SQty2']=trim(addslashes(strip_tags($_POST['SC_FEI_SampleQuantity'][$j])));
-			$ExtraIssue['U_PC_UOM']=trim(addslashes(strip_tags($_POST['SC_FEI_UOM'][$j])));
-			$ExtraIssue['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SC_ExternalI_SupplierCode'][$j])));
-			$ExtraIssue['U_PC_SBy']=trim(addslashes(strip_tags($_POST['SC_FEI_SampleBy'][$j])));
+				if(!empty($_POST['SC_FEI_IssueDate'][$j])){
+					$ExtraIssue['U_PC_IDate']=date("Y-m-d", strtotime($_POST['SC_FEI_IssueDate'][$j]));
+				}else{
+					$ExtraIssue['U_PC_IDate']=null;	
+				}
 
-			if(!empty($_POST['SC_FEI_IssueDate'][$j])){
-				$ExtraIssue['U_PC_IDate']=date("Y-m-d", strtotime($_POST['SC_FEI_IssueDate'][$j]));
+				if(!empty($_POST['SC_FEI_PostExtraIssue'][$j])){
+					$ExtraIssue['U_PC_PEIsu']=trim(addslashes(strip_tags($_POST['SC_FEI_PostExtraIssue'][$j])));
+				}else{
+					$ExtraIssue['U_PC_PEIsu']=null;
+				}
+
+				$mainArray['SCS_SCRETEST2Collection'][]=$ExtraIssue;
 			}else{
-				$ExtraIssue['U_PC_IDate']=null;	
+				$mainArray['SCS_SCRETEST2Collection']=array();
 			}
-
-			if(!empty($_POST['SC_FEI_PostExtraIssue'][$j])){
-				$ExtraIssue['U_PC_PEIsu']=trim(addslashes(strip_tags($_POST['SC_FEI_PostExtraIssue'][$j])));
-			}else{
-				$ExtraIssue['U_PC_PEIsu']=null;
-			}
-
-			$mainArray['SCS_SCRETEST2Collection'][]=$ExtraIssue;
+			
 		}
-	     // <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
-         // print_r(json_encode($mainArray));die();
-		//  echo "<pre>";
-		//  print_r($mainArray);
-		//  echo "</pre>";
-		//  exit;
+	// <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
+	//print_r(json_encode($mainArray));die();
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "</pre>";
+	// exit;
 		
 	//<!-- ------------- function & function responce code Start Here ---- -->
-		$res=$obj->SAP_Login();  // SAP Service Layer Login
+		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
 		if(!empty($res)){
 
@@ -2991,14 +3002,14 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 			$responce_encode=$obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($mainArray,$Final_API);
 			$responce=json_decode($responce_encode);
 			// echo "<pre>";
-		     //print_r($responce);
+		    // print_r($responce_encode);
 		    // echo "</pre>";
 		    // exit;
 		    // die();
 			if($responce==''){
 				$data['status']='True';
-				$data['DocEntry']=$responce->DocEntry;
-				$data['message']="Sample Collection - Retest QC Successfully Update."+$responce;
+				$data['DocEntry']=$_POST['SCRTQCB_DocEntry'];
+				$data['message']="Sample Collection - Retest QC Successfully Update.";
 				echo json_encode($data);
 			}else{
 
