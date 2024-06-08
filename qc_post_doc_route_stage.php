@@ -305,702 +305,642 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     <div class="col-lg-12">
                         <div class="card">
                             <form role="form" class="form-horizontal" id="qcPostDocumentForm_route_stage" method="post">
-                                <div class="card-body">
-                                    <input type="text" id="qc_post_doc_Routestage_DocEntry" name="qc_post_doc_Routestage_DocEntry">
-                                    <input type="text" id="qc_post_doc_Routestage_BPLId" name="qc_post_doc_Routestage_BPLId">
-                                    <input type="text" id="qc_post_doc_Routestage_LocCode" name="qc_post_doc_Routestage_LocCode">
-                                    <input type="text" id="qc_post_doc_Routestage_RMWQC" name="qc_post_doc_Routestage_RMWQC">
-
-                                    <div class="row">
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
-                                                <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_wono" name="qc_post_doc_Routestage_wono" readonly>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_woEntry" name="qc_post_doc_Routestage_woEntry" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ItemCode" name="qc_post_doc_Routestage_ItemCode" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ItemName" name="qc_post_doc_Routestage_ItemName" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Generic Name</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_GenericName" name="qc_post_doc_Routestage_GenericName" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Label Cliam</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_LabelCliam" name="qc_post_doc_Routestage_LabelCliam" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Label Cliam UOM</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_LabelCliamUOM" name="qc_post_doc_Routestage_LabelCliamUOM" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Recieved Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RecievedQty" name="qc_post_doc_Routestage_RecievedQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg By</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_MfgBy" name="qc_post_doc_Routestage_MfgBy" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ref No</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RefNo" name="qc_post_doc_Routestage_RefNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Specification No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="number" id="qc_post_doc_Routestage_SpecificationNo" name="qc_post_doc_Routestage_SpecificationNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_BatchNo" name="qc_post_doc_Routestage_BatchNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Size</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_BatchSize" name="qc_post_doc_Routestage_BatchSize" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_MfgDate" name="qc_post_doc_Routestage_MfgDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_ExpiryDate" name="qc_post_doc_Routestage_ExpiryDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO Date</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control" type="date" id="qc_post_doc_Routestage_WODate" name="qc_post_doc_Routestage_WODate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-8 col-form-label mt-6" for="val-skill">Sample Intimation Route Stage No</label>
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleIntima" name="qc_post_doc_Routestage_SampleIntima" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-8 col-form-label mt-6" for="val-skill">Sample Collection Route Stage No</label>
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleColl" name="qc_post_doc_Routestage_SampleColl" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleQty" name="qc_post_doc_Routestage_SampleQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retain Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RetainQty" name="qc_post_doc_Routestage_RetainQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
-                                                <div class="col-lg-8">
-                                                    <select class="form-select" id="qc_post_doc_Routestage_SampleType" name="qc_post_doc_Routestage_SampleType">
-                                                        <!-- <option>Regular</option> -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Material Type</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_MaterialType" name="qc_post_doc_Routestage_MaterialType" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Pack Size</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_PackSize" name="qc_post_doc_Routestage_PackSize" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-8   col-form-label mt-6" for="val-skill">Release Material without QC</label>
-                                                <div class="col-lg-4">
-                                                    <select class="form-select desabled" id="qc_post_doc_Routestage_releaseMaterial" name="qc_post_doc_Routestage_releaseMaterial">
-                                                       <option value="Yes">Yes</option>
-                                                        <option value="No">No</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                                <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_DocName" name="qc_post_doc_Routestage_DocName" readonly>
-                                                </div>
-
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_DocNo" name="qc_post_doc_Routestage_DocNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                <div class="col-lg-8">
-                                                     <input class="form-control" type="date" id="qc_post_doc_Routestage_PostingDate" name="qc_post_doc_Routestage_PostingDate" >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_post_doc_Routestage_AnalysisDate" name="qc_post_doc_Routestage_AnalysisDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">No. Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_NoContainer" name="qc_post_doc_Routestage_NoContainer" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
-                                                <div class="col-lg-8">
-                                                    <select class="form-select desabled" name="qc_post_doc_Routestage_QCTesttype" id="qc_post_doc_Routestage_QCTesttype">
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_stage" name="qc_post_doc_Routestage_stage" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_branch" name="qc_post_doc_Routestage_branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_Location" name="qc_post_doc_Routestage_Location" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_post_doc_Routestage_ValidUpTo" name="qc_post_doc_Routestage_ValidUpTo">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No.</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ARNo" name="qc_post_doc_Routestage_ARNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_GateEntryNo" name="qc_post_doc_Routestage_GateEntryNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_post_doc_Routestage_ReleaseDate" name="qc_post_doc_Routestage_ReleaseDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_post_doc_Routestage_RetestDate" name="qc_post_doc_Routestage_RetestDate">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="card">                                
-                                            <div class="card-body">
-                                                <!-- Nav tabs -->
-                                                <ul class="nav nav-tabs" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-bs-toggle="tab" href="#general_data8" role="tab">
-                                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                                            <span class="d-none d-sm-block">General Data</span>    
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-bs-toggle="tab" href="#qc_status8" role="tab">
-                                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                                            <span class="d-none d-sm-block">QC Status</span>    
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-bs-toggle="tab" href="#attatchment8" role="tab">
-                                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                                            <span class="d-none d-sm-block">Attatchment</span>    
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                                <!-- Tab panes -->
-
-                                                <div class="tab-content p-3 text-muted">
-                                                    <div class="tab-pane active" id="general_data8" role="tabpanel">
-                                                
-                                                        <div class="table-responsive qc_list_table table_item_padding" id="list2">
-                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                                <thead class="fixedHeader1">
-                                                                    <tr>
-                                                                        <th>Sr. No</th>
-                                                                        <th>Parameter Code</th>
-                                                                        <th>Parameter Name </th>  
-                                                                        <th>Specification</th>
-                                                                        <th>Result OutPut</th>
-                                                                        <th>Comparison Result</th>
-                                                                        <th>Result Output By QC Dept.</th>
-                                                                        <th>Parameter Data Type</th>
-                                                                        <th>Logical</th>
-                                                                        <th>Lower Min</th> 
-                                                                        <th>Upper Max</th>
-                                                                        <th>Mean</th>
-                                                                        <th>QC Status by Analyst</th>
-                                                                        <th>Test Method</th>
-                                                                        <th>Material Type</th>
-                                                                        <th>Pharmacopoeial Standard</th>
-                                                                        <th>UOM</th> 
-                                                                        <th>Retest</th> 
-                                                                        <th>External Sample</th>
-                                                                        <th>Analysis By</th>
-                                                                        <th>Analyst Remark</th>
-                                                                        <th>Lower Max</th>
-                                                                        <th>Release</th>
-                                                                        <th>Descriptive Details</th> 
-                                                                        <th>Upper Min</th>
-                                                                        <th>Lower Min - Result</th>
-                                                                        <th>Upper Min - Result</th>
-                                                                        <th>Upper Max - Result</th>
-                                                                        <th>Mean - Result</th>
-                                                                        <th>User Text-1</th>
-                                                                        <th>User Text-2</th>
-                                                                        <th>User Text-3</th>
-                                                                        <th>User Text-4</th>
-                                                                        <th>User Text-5</th>
-                                                                        <th>QC Setup Remark</th>
-                                                                        <th>Stability</th> 
-                                                                        <th>Applicable For Assay</th>
-                                                                        <th>Applicable For LOD</th> 
-                                                                        <th>Instrument Code</th> 
-                                                                        <th>Instrument Name</th>
-                                                                        <th>Star Date</th>
-                                                                        <th>Start Time</th>
-                                                                        <th>End Date</th>
-                                                                        <th>End Time</th> 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="qc-post-general-data-list-append_"></tbody> 
-                                                        </table>
-                                                    </div> 
-                                                        <!--end table-->
-
-                                                </div> <!-- tab_pane samp details end -->
-
-                                                
-
-                                                    <div class="tab-pane" id="qc_status8" role="tabpanel">
-
-                                                        <div class="table-responsive" id="list">
-                                                        <!-- <input type="text" id="tr-count" value="1"> -->
-                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered QCStatus_Table" style="">
-                                                                <thead class="fixedHeader1">
-                                                                        <tr>
-                                                                            <th>Sr. No</th>
-                                                                            <th>Status</th>
-                                                                            <th>Quantity</th>
-                                                                        <th>Release Date</th>
-                                                                        <th>Release Time</th>
-                                                                            <th>IT No</th>
-                                                                            <th>Done By</th>
-                                                                        <th>Attatchment 1</th> 
-                                                                        <th>Attatchment 2</th> 
-                                                                        <th>Attatchment 3</th>  
-                                                                        <th>Deviation Date</th>
-                                                                        <th>Deviation No</th>
-                                                                        <th>Deviation Reason</th>
-                                                                            <th>Remarks</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                <tbody id="qc-status-list-append_">
-                                                                <!--  <tr>
-                                                                        <td></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                    </tr> -->
-                                                                </tbody> 
-
-                                                            </table>
-                                                    </div><!--table responsive end-->     
-
-                                                    </div> <!-- tab_pane qc status end -->
-
-
-
-
-                                                    <div class="tab-pane" id="attatchment8" role="tabpanel">
-
-                                                    <div class="row">
-                                                        <div class="col-md-10">
-                                                            <div class="table-responsive" id="list">
-                                                            <table id="tblItemRecord" class="table table-bordered" style="">
-                                                                <thead class="fixedHeader1">
-                                                                        <tr>
-                                                                            <th>Sr. No</th>
-                                                                            <th>Target Path</th>
-                                                                            <th>File Name</th>
-                                                                            <th>Attatchment Date</th>
-                                                                            <th>Free Text</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                <tbody id="qc-attach-list-append_">
-                                                                    <!-- <tr>
-                                                                        <td class="desabled">
-                                                                        1
-                                                                        </td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                    </tr> -->
-                                                                </tbody> 
-
-                                                            </table>
-                                                    </div><!--table responsive end-->
-                                                    </div><!--col closed-->
-
-                                                        <div class="col-md-2">
-                                                            <div class="gap-2">
-                                                            <!-- Toggle States Button -->
-                                                                <label class="btn btn-primary active  mb-2">
-                                                                    Browse <input type="file" hidden>
-                                                                </label>
-                                                            <br>
-                                                                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Display</button>
-                                                            <br>
-                                                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Delete</button>
-                                                                    
-                                                            </div>
-                                                        </div><!--col closed-->
-                                                    </div><!--row closed-->
-                                                        
-                                                    </div> <!-- tab_pane attatchment end -->
-
-                                                    <!-- tfoot start -->
-
-                                                    <div class="general_data_footer">
-                                                        <div class="row">
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-5 col-form-label mt-6" for="val-skill">Assay Potency %</label>
-                                                                        <div class="col-lg-7">
-                                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_AssayPotency" name="qc_post_doc_Routestage_AssayPotency" onfocusout="CalculatePotency();" value="0.000000">
-                                                                        
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">LOD/Water %</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_LODWater" name="qc_post_doc_Routestage_LODWater" onfocusout="CalculatePotency();" value="0.000000">
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-7 col-form-label mt-6" for="val-skill">Assay Calculation Based On</label>
-                                                                        <div class="col-lg-5">
-                                                                            <select class="form-select" id="qc_post_doc_Routestage_AssayCalc" name="qc_post_doc_Routestage_AssayCalc" >
-                                                                                <!-- <option>On As is Basis</option> -->
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Potency</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_Potency" name="qc_post_doc_Routestage_Potency" readonly>
-                                                                        
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Factor</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="number" id="qc_post_doc_Routestage_Factor" name="qc_post_doc_Routestage_Factor">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
-                                                                        <div class="col-lg-8">
-                                                                            <select class="form-select" id="qc_post_doc_Routestage_CheckedBy" name="qc_post_doc_Routestage_CheckedBy"></select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                                        <div class="col-lg-4">
-                                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer1" name="qc_post_doc_Routestage_NoOfContainer1">
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer2" name="qc_post_doc_Routestage_NoOfContainer2">
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Approved By</label>
-                                                                        <div class="col-lg-8">
-                                                                            <select class="form-select" id="qc_post_doc_Routestage_ApprovedBy" name="qc_post_doc_Routestage_ApprovedBy"></select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
-                                                                        <div class="col-lg-8">
-                                                                            <select class="form-control" id="qc_post_doc_Routestage_CompiledBy" name="qc_post_doc_Routestage_CompiledBy"></select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> -->
-
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
-                                                                        <div class="col-lg-8">
-                                                                            <select class="form-select" id="qc_post_doc_Routestage_AnalysisBy" name="qc_post_doc_Routestage_AnalysisBy"></select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
-                                                                        <div class="col-lg-8">
-                                                                            <textarea class="form-control" rows="1" id="qc_post_doc_Routestage_Remarks" name="qc_post_doc_Routestage_Remarks"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                        </div>    
-                                                    </div>  <!--general data footer end-->
-                                                    
-                                                    <!-- -------footer button---- -->
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="d-flex flex-wrap gap-2">
-                                                                    <!-- Toggle States Button -->
-                                                                    <button type="button" class="btn btn-primary" id="addQcPostDocumentBtn_RouteStage" name="addQcPostDocumentBtn_RouteStage" onclick="return add_qc_post_document();">Update</button>
-                                                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-
-                                                                    <!-- <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button> -->
-
-                                                                    <a href="qc_post_doc_route_stage.php" class="btn btn-danger active">Cancel</a>
-
-                                                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off">Inventory Transfer</button>
-
-                                                                    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button> -->
-                                                                </div>
-                                                            </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="btn-group">
-                                                                    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Work Sheet Print</button>
-                                                                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
-                                                                    <span class="visually-hidden"></span>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                                                    <li><a class="dropdown-item" href="#">Approval Label Print</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Rejected Label Print</a></li>
-                                                                    <li><a class="dropdown-item" href="#">On-Hold Label Print</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Print Certificate</a></li>
-                                                                    </ul>
-                                                                    
-
-                                                                
-                                                                </div>
-                                                            </div>
-
+                                        <div class="card-body">
+                                            <input type="hidden" id="qc_post_doc_Routestage_DocEntry" name="qc_post_doc_Routestage_DocEntry">
+                                            <input type="hidden" id="qc_post_doc_Routestage_BPLId" name="qc_post_doc_Routestage_BPLId">
+                                            <input type="hidden" id="qc_post_doc_Routestage_LocCode" name="qc_post_doc_Routestage_LocCode">
+                                            <input type="hidden" id="qc_post_doc_Routestage_RMWQC" name="qc_post_doc_Routestage_RMWQC">
+
+                                            <div class="row">
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_wono" name="qc_post_doc_Routestage_wono" readonly>
                                                         </div>
-                                                            <!--row end-->
-                                                            <!-- ------footer button end---- -->
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_woEntry" name="qc_post_doc_Routestage_woEntry" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ItemCode" name="qc_post_doc_Routestage_ItemCode" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ItemName" name="qc_post_doc_Routestage_ItemName" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Generic Name</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_GenericName" name="qc_post_doc_Routestage_GenericName" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Label Cliam</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_LabelCliam" name="qc_post_doc_Routestage_LabelCliam" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Label Cliam UOM</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_LabelCliamUOM" name="qc_post_doc_Routestage_LabelCliamUOM" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Recieved Qty</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RecievedQty" name="qc_post_doc_Routestage_RecievedQty" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg By</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_MfgBy" name="qc_post_doc_Routestage_MfgBy" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ref No</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RefNo" name="qc_post_doc_Routestage_RefNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Specification No</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="number" id="qc_post_doc_Routestage_SpecificationNo" name="qc_post_doc_Routestage_SpecificationNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_BatchNo" name="qc_post_doc_Routestage_BatchNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Size</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_BatchSize" name="qc_post_doc_Routestage_BatchSize" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_MfgDate" name="qc_post_doc_Routestage_MfgDate" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="text" id="qc_post_doc_Routestage_ExpiryDate" name="qc_post_doc_Routestage_ExpiryDate" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_WODate" name="qc_post_doc_Routestage_WODate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-8 col-form-label mt-6" for="val-skill">Sample Intimation Route Stage No</label>
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleIntima" name="qc_post_doc_Routestage_SampleIntima" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-8 col-form-label mt-6" for="val-skill">Sample Collection Route Stage No</label>
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleColl" name="qc_post_doc_Routestage_SampleColl" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SampleQty" name="qc_post_doc_Routestage_SampleQty" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retain Qty</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_RetainQty" name="qc_post_doc_Routestage_RetainQty" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
+                                                        <div class="col-lg-8">
+                                                            <select class="form-select" id="qc_post_doc_Routestage_SampleType" name="qc_post_doc_Routestage_SampleType">
+                                                                <!-- <option>Regular</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Material Type</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_MaterialType" name="qc_post_doc_Routestage_MaterialType" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Pack Size</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_PackSize" name="qc_post_doc_Routestage_PackSize" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-8   col-form-label mt-6" for="val-skill">Release Material without QC</label>
+                                                        <div class="col-lg-4">
+                                                            <select class="form-select desabled" id="qc_post_doc_Routestage_releaseMaterial" name="qc_post_doc_Routestage_releaseMaterial">
+                                                            <option value="Yes">Yes</option>
+                                                                <option value="No">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_DocName" name="qc_post_doc_Routestage_DocName" readonly>
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_DocNo" name="qc_post_doc_Routestage_DocNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_PostingDate" name="qc_post_doc_Routestage_PostingDate" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_AnalysisDate" name="qc_post_doc_Routestage_AnalysisDate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">No. Container</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_NoContainer" name="qc_post_doc_Routestage_NoContainer" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
+                                                        <div class="col-lg-8">
+                                                            <select class="form-select desabled" name="qc_post_doc_Routestage_QCTesttype" id="qc_post_doc_Routestage_QCTesttype">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_stage" name="qc_post_doc_Routestage_stage" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_branch" name="qc_post_doc_Routestage_branch" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_Location" name="qc_post_doc_Routestage_Location" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_ValidUpTo" name="qc_post_doc_Routestage_ValidUpTo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No.</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_ARNo" name="qc_post_doc_Routestage_ARNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_GateEntryNo" name="qc_post_doc_Routestage_GateEntryNo" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_ReleaseDate" name="qc_post_doc_Routestage_ReleaseDate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control" type="date" id="qc_post_doc_Routestage_RetestDate" name="qc_post_doc_Routestage_RetestDate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="card">                                
+                                                    <div class="card-body">
+                                                        <!-- Nav tabs -->
+                                                        <ul class="nav nav-tabs" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" data-bs-toggle="tab" href="#general_data8" role="tab">
+                                                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                                    <span class="d-none d-sm-block">General Data</span>    
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="tab" href="#qc_status8" role="tab">
+                                                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                                    <span class="d-none d-sm-block">QC Status</span>    
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="tab" href="#attatchment8" role="tab">
+                                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                                    <span class="d-none d-sm-block">Attatchment</span>    
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <!-- Tab panes -->
+                                                        <div class="tab-content p-3 text-muted">
+                                                            <div class="tab-pane active" id="general_data8" role="tabpanel">
+                                                                <div class="table-responsive qc_list_table table_item_padding" id="list2">
+                                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                                        <thead class="fixedHeader1">
+                                                                            <tr>
+                                                                                <th>Sr. No</th>
+                                                                                <th>Parameter Code</th>
+                                                                                <th>Parameter Name </th>  
+                                                                                <th>Specification</th>
+                                                                                <th>Result OutPut</th>
+                                                                                <th>Comparison Result</th>
+                                                                                <th>Result Output By QC Dept.</th>
+                                                                                <th>Parameter Data Type</th>
+                                                                                <th>Logical</th>
+                                                                                <th>Lower Min</th> 
+                                                                                <th>Upper Max</th>
+                                                                                <th>Mean</th>
+                                                                                <th>QC Status by Analyst</th>
+                                                                                <th>Test Method</th>
+                                                                                <th>Material Type</th>
+                                                                                <th>Pharmacopoeial Standard</th>
+                                                                                <th>UOM</th> 
+                                                                                <th>Retest</th> 
+                                                                                <th>External Sample</th>
+                                                                                <th>Analysis By</th>
+                                                                                <th>Analyst Remark</th>
+                                                                                <th>Lower Max</th>
+                                                                                <th>Release</th>
+                                                                                <th>Descriptive Details</th> 
+                                                                                <th>Upper Min</th>
+                                                                                <th>Lower Min - Result</th>
+                                                                                <th>Upper Min - Result</th>
+                                                                                <th>Upper Max - Result</th>
+                                                                                <th>Mean - Result</th>
+                                                                                <th>User Text-1</th>
+                                                                                <th>User Text-2</th>
+                                                                                <th>User Text-3</th>
+                                                                                <th>User Text-4</th>
+                                                                                <th>User Text-5</th>
+                                                                                <th>QC Setup Remark</th>
+                                                                                <th>Stability</th> 
+                                                                                <th>Applicable For Assay</th>
+                                                                                <th>Applicable For LOD</th> 
+                                                                                <th>Instrument Code</th> 
+                                                                                <th>Instrument Name</th>
+                                                                                <th>Star Date</th>
+                                                                                <th>Start Time</th>
+                                                                                <th>End Date</th>
+                                                                                <th>End Time</th> 
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="qc-post-general-data-list-append_"></tbody> 
+                                                                    </table>
+                                                                </div> 
+                                                                <!--end table-->
+                                                            </div> <!-- tab_pane samp details end -->
+
+                                                            <div class="tab-pane" id="qc_status8" role="tabpanel">
+                                                                <div class="table-responsive" id="list">
+                                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered QCStatus_Table" style="">
+                                                                        <thead class="fixedHeader1">
+                                                                            <tr>
+                                                                                <th>Sr. No</th>
+                                                                                <th>Status</th>
+                                                                                <th>Quantity</th>
+                                                                                <th>Release Date</th>
+                                                                                <th>Release Time</th>
+                                                                                <th>IT No</th>
+                                                                                <th>Done By</th>
+                                                                                <th>Attatchment 1</th> 
+                                                                                <th>Attatchment 2</th> 
+                                                                                <th>Attatchment 3</th>  
+                                                                                <th>Deviation Date</th>
+                                                                                <th>Deviation No</th>
+                                                                                <th>Deviation Reason</th>
+                                                                                <th>Remarks</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="qc-status-list-append_"></tbody> 
+                                                                    </table>
+                                                                </div><!--table responsive end-->     
+                                                            </div> <!-- tab_pane qc status end -->
+
+                                                            <div class="tab-pane" id="attatchment8" role="tabpanel">
+                                                                <div class="row">
+                                                                    <div class="col-md-10">
+                                                                        <div class="table-responsive" id="list">
+                                                                            <table id="tblItemRecord" class="table table-bordered" style="">
+                                                                                <thead class="fixedHeader1">
+                                                                                    <tr>
+                                                                                        <th>Sr. No</th>
+                                                                                        <th>Target Path</th>
+                                                                                        <th>File Name</th>
+                                                                                        <th>Attatchment Date</th>
+                                                                                        <th>Free Text</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="qc-attach-list-append_"></tbody> 
+                                                                            </table>
+                                                                        </div><!--table responsive end-->
+                                                                    </div><!--col closed-->
+
+                                                                    <div class="col-md-2">
+                                                                        <div class="gap-2">
+                                                                            <!-- Toggle States Button -->
+                                                                            <label class="btn btn-primary active  mb-2">Browse <input type="file" hidden></label>
+                                                                            <br>
+                                                                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Display</button>
+                                                                            <br>
+                                                                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Delete</button>
+                                                                        </div>
+                                                                    </div><!--col closed-->
+                                                                </div><!--row closed-->
+                                                            </div> <!-- tab_pane attatchment end -->
+
+                                                            <!-- tfoot start -->
+                                                                <div class="general_data_footer">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">Assay Potency %</label>
+                                                                                <div class="col-lg-7">
+                                                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_AssayPotency" name="qc_post_doc_Routestage_AssayPotency" onfocusout="CalculatePotency();" value="0.000000">
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">LOD/Water %</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_LODWater" name="qc_post_doc_Routestage_LODWater" onfocusout="CalculatePotency();" value="0.000000">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-7 col-form-label mt-6" for="val-skill">Assay Calculation Based On</label>
+                                                                                <div class="col-lg-5">
+                                                                                    <select class="form-select" id="qc_post_doc_Routestage_AssayCalc" name="qc_post_doc_Routestage_AssayCalc" >
+                                                                                        <!-- <option>On As is Basis</option> -->
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Potency</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_Potency" name="qc_post_doc_Routestage_Potency" readonly>
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Factor</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <input class="form-control" type="number" id="qc_post_doc_Routestage_Factor" name="qc_post_doc_Routestage_Factor">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <select class="form-select" id="qc_post_doc_Routestage_CheckedBy" name="qc_post_doc_Routestage_CheckedBy"></select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
+                                                                                <div class="col-lg-4">
+                                                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer1" name="qc_post_doc_Routestage_NoOfContainer1">
+                                                                                </div>
+                                                                                <div class="col-lg-4">
+                                                                                    <input class="form-control" type="text" id="qc_post_doc_Routestage_NoOfContainer2" name="qc_post_doc_Routestage_NoOfContainer2">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Approved By</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <select class="form-select" id="qc_post_doc_Routestage_ApprovedBy" name="qc_post_doc_Routestage_ApprovedBy"></select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <select class="form-select" id="qc_post_doc_Routestage_AnalysisBy" name="qc_post_doc_Routestage_AnalysisBy"></select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-xl-3 col-md-6">
+                                                                            <div class="form-group row mb-2">
+                                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
+                                                                                <div class="col-lg-8">
+                                                                                    <textarea class="form-control" rows="1" id="qc_post_doc_Routestage_Remarks" name="qc_post_doc_Routestage_Remarks"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>    
+                                                                </div>  <!--general data footer end-->
+                                                                
+                                                                <!-- -------footer button---- -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="d-flex flex-wrap gap-2">
+                                                                                <!-- Toggle States Button -->
+                                                                                <button type="button" class="btn btn-primary" id="addQcPostDocumentBtn_RouteStage" name="addQcPostDocumentBtn_RouteStage" onclick="return add_qc_post_document();">Update</button>
+                                                                                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
+
+                                                                                <!-- <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button> -->
+
+                                                                                <a href="qc_post_doc_route_stage.php" class="btn btn-danger active">Cancel</a>
+
+                                                                                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off">Inventory Transfer</button>
+
+                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button> -->
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="btn-group">
+                                                                                <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Label & COA Print</button>
+
+                                                                                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
+                                                                                    <span class="visually-hidden"></span>
+                                                                                </button>
+                                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCAPPROVLABEL','Approval Label Print API Pending')">Approval Label Print</a></li>
+
+                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCREJLABEL','Rejected Label Print API Pending')">Rejected Label Print</a></li>
+
+                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCONHOLDLABEL','On-Hold Label Print API Pending')">On-Hold Label Print</a></li>
+
+                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCPRINTCERTIFICATE','Print Certificate API Pending')">Print Certificate</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <!--row end-->
+                                                                <!-- ------footer button end---- -->
                                                             <!-- tfoot end -->
-                                                    </div> <!-- tab content end -->
+                                                        </div> <!-- tab content end -->
                                                     </div>
                                             
                                                 </div><!-- end card-body -->
@@ -1039,7 +979,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     <!-- ---------instrument modal end------------- -->  
                 
     <?php include 'include/footer.php' ?>
-
+    
     <script type="text/javascript">
         // <!-- -------------- Direct called function diclear Start Here --------------------------------
             $(".loader123").hide(); // loader default hide script
@@ -1483,121 +1423,120 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             });
         }
 
-        
-// QC Status Tab Add new row and calculate Qty start ---------------- -->
-    function AutocalculateQC_Qty(){
-        // <!-- calculate Quantity for QC status tab start ------------------------------ -->
-            var rows = document.querySelectorAll('#qc-status-list-append_ tr');
+        // QC Status Tab Add new row and calculate Qty start ---------------- -->
+            function AutocalculateQC_Qty(){
+                // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+                    var rows = document.querySelectorAll('#qc-status-list-append_ tr');
 
-            // Get the count of tr elements
-            var rowCount = rows.length;
+                    // Get the count of tr elements
+                    var rowCount = rows.length;
 
-            // Initialize sum
-            var sum = 0;
+                    // Initialize sum
+                    var sum = 0;
 
-            // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
-            rows.forEach(function(row) {
-                var input = row.querySelector('input[name="qCStsQty[]"]');
-                if (input) {
-                    sum += parseFloat(input.value) || 0;
-                }
-            });
+                    // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+                    rows.forEach(function(row) {
+                        var input = row.querySelector('input[name="qCStsQty[]"]');
+                        if (input) {
+                            sum += parseFloat(input.value) || 0;
+                        }
+                    });
 
-            var BatchQty = $('#qc_post_doc_Routestage_BatchSize').val();
-            var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
-            return QCS_Qty;
-        // <!-- calculate Quantity for QC status tab end -------------------------------- -->
-    }
+                    var BatchQty = $('#qc_post_doc_Routestage_BatchSize').val();
+                    var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
+                    return QCS_Qty;
+                // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+            }
 
-    function SelectionOfQC_Status(un_id) {
-        // Select the table with class name 'QCStatus_Table'
-        var table = document.querySelector('.QCStatus_Table');
-        var rows = table.querySelectorAll('tbody tr');
-        var rowCount = rows.length;
-        var tr_count = rowCount;
+            function SelectionOfQC_Status(un_id) {
+                // Select the table with class name 'QCStatus_Table'
+                var table = document.querySelector('.QCStatus_Table');
+                var rows = table.querySelectorAll('tbody tr');
+                var rowCount = rows.length;
+                var tr_count = rowCount;
 
-        // var tr_count = parseInt($('#tr-count').val());
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = (now.getMonth() + 1).toString().padStart(2, '0');
-        var day = now.getDate().toString().padStart(2, '0');
-        var formattedDate = `${day}-${month}-${year}`;
-        var hours = now.getHours().toString().padStart(2, '0');
-        var minutes = now.getMinutes().toString().padStart(2, '0');
-        var formattedTime = `${hours}:${minutes}`;
+                // var tr_count = parseInt($('#tr-count').val());
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = (now.getMonth() + 1).toString().padStart(2, '0');
+                var day = now.getDate().toString().padStart(2, '0');
+                var formattedDate = `${day}-${month}-${year}`;
+                var hours = now.getHours().toString().padStart(2, '0');
+                var minutes = now.getMinutes().toString().padStart(2, '0');
+                var formattedTime = `${hours}:${minutes}`;
 
-        $('#qCReleaseDate_' + un_id).val(formattedDate);
-        $('#qCReleaseTime_' + un_id).val(formattedTime);
+                $('#qCReleaseDate_' + un_id).val(formattedDate);
+                $('#qCReleaseTime_' + un_id).val(formattedTime);
 
-        if (tr_count !== 1) {
-            var rows = $('#qc-status-list-append_ tr');
-            var Selected_QC_Status = $('#qc_Status_' + un_id).val();
-            var valid = true;
-            var message = "";
+                if (tr_count !== 1) {
+                    var rows = $('#qc-status-list-append_ tr');
+                    var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+                    var valid = true;
+                    var message = "";
 
-            rows.each(function(index) {
-                if (index < rows.length - 1) {
-                    var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
-                    if (qcStatusDropdown === Selected_QC_Status) {
-                        valid = false;
-                        message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                    rows.each(function(index) {
+                        if (index < rows.length - 1) {
+                            var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                            if (qcStatusDropdown === Selected_QC_Status) {
+                                valid = false;
+                                message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                            }
+                        }
+                    });
+
+                    if (valid) {
+                        if (!$('#qCStsQty_' + un_id).val()) {
+                            $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                        }
+                    } else {
+                        $('#qCStsQty_' + un_id).val('');
+                        $('#qc_Status_' + un_id).val('');
+                        swal("Oops!", "Repeated QC Status \n failed:" + message, "error");
                     }
+                } else {
+                    $('#qCStsQty_' + un_id).val($('#qcD_BatchQty').val());
                 }
-            });
-
-            if (valid) {
-                if (!$('#qCStsQty_' + un_id).val()) {
-                    $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
-                }
-            } else {
-                $('#qCStsQty_' + un_id).val('');
-                $('#qc_Status_' + un_id).val('');
-                swal("Oops!", "Repeated QC Status \n failed:" + message, "error");
             }
-        } else {
-            $('#qCStsQty_' + un_id).val($('#qcD_BatchQty').val());
-        }
-    }
 
-    function addMore(num){
+            function addMore(num){
 
-        var QC_Quantity = $('#qCStsQty_'+num).val();
-        $('#qCStsQty_'+num).val(parseFloat(QC_Quantity).toFixed(3));
-        
-        // var tr_count=$('#tr-count').val();
+                var QC_Quantity = $('#qCStsQty_'+num).val();
+                $('#qCStsQty_'+num).val(parseFloat(QC_Quantity).toFixed(3));
+                
+                // var tr_count=$('#tr-count').val();
 
-        var QCS_Qty = AutocalculateQC_Qty();
+                var QCS_Qty = AutocalculateQC_Qty();
 
 
-        // Select the tbody element by its ID
-        var tbody = document.getElementById('qc-status-list-append_');
+                // Select the tbody element by its ID
+                var tbody = document.getElementById('qc-status-list-append_');
 
-        // Get all the tr elements within the tbody
-        var rows = tbody.getElementsByTagName('tr');
+                // Get all the tr elements within the tbody
+                var rows = tbody.getElementsByTagName('tr');
 
-        // Count the number of rows
-        var tr_count = rows.length;
+                // Count the number of rows
+                var tr_count = rows.length;
 
-        // Display the row count
-        // console.log('Number of rows:', rowCount);
+                // Display the row count
+                // console.log('Number of rows:', rowCount);
 
-        // var tr_count=$('#tr-count').val();
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_common-ajax.php',  
-            data: ({index:tr_count,action:'add_qc_status_input_more'}),  
-            success: function(result){
-                $('#add-more_'+tr_count).after(result);
-                tr_count++;
-                // $('#tr-count').val(tr_count);
-                $('#qCStsQty_'+tr_count).val(QCS_Qty);
+                // var tr_count=$('#tr-count').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'ajax/kri_common-ajax.php',  
+                    data: ({index:tr_count,action:'add_qc_status_input_more'}),  
+                    success: function(result){
+                        $('#add-more_'+tr_count).after(result);
+                        tr_count++;
+                        // $('#tr-count').val(tr_count);
+                        $('#qCStsQty_'+tr_count).val(QCS_Qty);
 
-                getQcStatusDropodwn(tr_count);
-                getDoneByDroopdown(tr_count);
+                        getQcStatusDropodwn(tr_count);
+                        getDoneByDroopdown(tr_count);
+                    }
+                });
             }
-        });
-    }
-// QC Status Tab Add new row and calculate Qty end ------------------ -->
+        // QC Status Tab Add new row and calculate Qty end ------------------ -->
 
         function OpenInstrmentModal(un_id){
             $.ajax({ 
@@ -1773,5 +1712,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $(".loader123").hide();
                 }
             });
+        }
+    </script>
+    
+    <script type="text/javascript">
+        function ViewRPT_Print_Open(API_Name,FormTitle){
+            var DocEntry=$('#qc_post_doc_Routestage_DocEntry').val();
+            if(DocEntry!=''){
+                var PrintOutURL=`http://192.168.1.30:8082/API/SAP/${API_Name}?DocEntry=${DocEntry}`;
+                document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
+            }
+
+            document.getElementById('RPT_title').innerHTML= FormTitle;
+        }
+
+        function ViewRPT_Print_Close(){
+            document.getElementById('RPT_title').innerHTML= '';
+            document.getElementById("PrintQuarantine_Link").src = '';
         }
     </script>

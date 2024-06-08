@@ -26,15 +26,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -129,6 +129,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     <th>Sr. No </th>
                     <th>Item View</th>
                     <th>DocEntry</th>
+                    <th>Under Test Trans. No</th>
                     <th>WO No</th>
                     <th>RFP Entry</th>
                     <th>Material Type</th>
@@ -174,6 +175,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <input type="radio" id="list'.$getAllData[$i]->DocEntry.'" name="listRado" value="'.$getAllData[$i]->DocEntry.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedRecord('.$getAllData[$i]->DocEntry.')">
                                 </td>
                                 <td class="desabled">'.$getAllData[$i]->DocEntry.'</td>
+                                <td class="desabled">'.$getAllData[$i]->UnderTestTransferNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WONo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->RFPODocEntry.'</td>
                                 <td class="desabled">'.$getAllData[$i]->MaterialType.'</td>
@@ -254,23 +256,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="top_filter">
                                                 <div class="row">
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="FromDate" name="FromDate">
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    <div class="col-xl-3 col-md-6">
+                                                        <div class="form-group row mb-2">
+                                                            <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
+                                                            <div class="col-lg-8">
+                                                                <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="ToDate" name="ToDate">
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    <div class="col-xl-3 col-md-6">
+                                                        <div class="form-group row mb-2">
+                                                            <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
+                                                            <div class="col-lg-8">
+                                                                <input class="form-control" type="date" id="ToDate" name="ToDate" value="<?php echo date("Y-m-d") ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -672,7 +674,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         var DocEntry=document.getElementById('DocEntry').value;
 
         var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
-// console.log(dataString);
+        // console.log(dataString);
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -692,6 +694,29 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
        });
     });
+
+    function change_page(page_id){ 
+        var fromDate=document.getElementById('FromDate').value;
+        var toDate=document.getElementById('ToDate').value;
+        var DocEntry=document.getElementById('DocEntry').value;
+        var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&page_id='+page_id+'&action=list';
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,  
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                $('#list-append').html(result);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        });
+    }
 
     function selectedRecord(DocEntry){
 
