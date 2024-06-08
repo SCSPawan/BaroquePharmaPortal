@@ -245,6 +245,8 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
 
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&Series='.$Series.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 
+	// print_r($Final_API);
+
 	$response=$obj->GetSeriesSingleData($Final_API);
 	echo json_encode($response);
 	exit(0);
@@ -252,11 +254,12 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
 
 if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
 {	
+	// print_r($_POST);
+	// die();
 	$TrDate=date('Ymd', strtotime(str_replace('/', '-',$_POST['TrDate'])));
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
-	// print_r($Final_API);
-	// die();
+	
 	$response=$obj->GetSeriesDropdown($Final_API);
 	echo json_encode($response);
 	exit(0);
@@ -1666,7 +1669,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_ajax')
 
 						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
 
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Warehouse.'" class="form-control desabled" readonly></td>
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" value="'.$ExternalIssue[$j]->Warehouse.'" class="form-control desabled" readonly></td>
 
 						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
 
@@ -1785,6 +1788,8 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_ajax')
 	echo json_encode($FinalResponce);
 	exit(0);
 }
+
+
 
 if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 {
@@ -2158,9 +2163,6 @@ if(isset($_POST['action']) && $_POST['action'] =='GetBottomApprovedBy_Ajax'){
 		$Final_API=$QCPOSTDOCAPPROVEDBYDROPDOWN_APi;
 		$response_json_decode=$obj->GetMethodQuerryBasedAPI($Final_API);
 		$response=json_decode($response_json_decode);
-		// echo '<pre>';
-		// print_r($Final_API);
-		// die();
 
 		$option['ApprovedBy'].='<option value="">Select</option>';
 		foreach ($response as $key => $value) {
@@ -2856,8 +2858,13 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 		$tdata['U_PC_SType']=trim(addslashes(strip_tags($_POST['SCRTQCB_SampleType'])));
 
 		$mainArray=$tdata; // header data append on main array
-
+// echo "<pre>";
+// print_r($mainArray);
+// die();
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
+
+
+
 		for ($i=0; $i <count($_POST['SC_FEXI_SupplierName']) ; $i++) { 
 
 			$ExternalIssue['LineId']=trim(addslashes(strip_tags(($i+1))));
@@ -2879,6 +2886,11 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 
 			$mainArray['SCS_SCRETEST1Collection'][]=$ExternalIssue;
 		}
+		
+
+
+
+
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
 
 	// <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
@@ -2935,6 +2947,9 @@ if(isset($_POST['SampleCollectionRetestQCUpdateForm_Btn']))
 	//<!-- ------------- function & function responce code end Here ---- -->
 	exit(0);
 }
+
+
+
 
 if(isset($_POST['SampleCollectionUpdateForm_Btn']))
 {
@@ -3103,6 +3118,9 @@ if(isset($_POST['SampleCollectionUpdateForm_Btn']))
 	//<!-- ------------- function & function responce code end Here ---- -->
 	exit(0);
 }
+
+
+
 
 if(isset($_POST['action']) && $_POST['action'] =='loginform_ajax')
 {	
@@ -4000,29 +4018,44 @@ if(isset($_POST['OTSCRTQC_P_Btn'])){
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
+
+
 if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
+
 {	
+
 
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 	$rowCount=trim(addslashes(strip_tags($_POST['rowCount'])));
 	$rowCount_N=trim(addslashes(strip_tags($_POST['rowCount_N'])));
 
+	//print_r($rowCount);
+	
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$RETESTQCSAMPCOLLADD_API.'?DocEntry='.$DocEntry;
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
+	
+
 
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
+	// echo "<pre>";
+	// print_r($response);
 	// // <!-- ------ Array declaration Start Here --------------------------------- -->
 		$FinalResponce=array();
 		$FinalResponce['SampleCollDetails']=$response;
 	// // <!-- ------ Array declaration End Here  --------------------------------- -->
+	
+	$ExtraIssue=$response[0]->RETESTQCSAMCOLLEXTRA; // Etra issue response seperate here 
 
-	$ExtraIssue=$response[0]->SAMPLECOLLEXTRA; // Etra issue response seperate here 
-	$ExternalIssue=$response[0]->SAMPLECOLLEXTERNAL; //External issue reponce seperate here
+	$ExternalIssue=$response[0]->RETESTQCSAMCOLLEXTERNAL; //External issue reponce seperate here
+	// echo '<pre>';
+	// print_r($ExternalIssue);
+	// die();
+	// var_dump($response);
 
-	// =======================================================================================================
+    // =======================================================================================================
 		// <!-- ----------- Extra Issue Start here --------------------------------- -->
 			if(!empty($ExtraIssue)){
 				for ($i=0; $i <count($ExtraIssue) ; $i++) { 
@@ -4043,13 +4076,13 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 					    <td class="desabled">
 					    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" >
 
-					    	<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+					    	<input class="border_hide  form-control desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" readonly >
 
 				    	</td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control desabled" readonly></td>
+					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control desabled" readonly></td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
 
 					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control desabled" readonly></td>
 
@@ -4068,17 +4101,17 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 				    <td>
 					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
 
-					    <input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+					    <input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
 
 				    </td>
 
 				    <td class="desabled">
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control" readonly >
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly >
 			    	</td>
 
 				   
 					
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
 
 
 
@@ -4107,16 +4140,16 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 				    <td>
 					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
 
-						<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+						<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
 
 				    </td>
 
 				    <td class="desabled">
-				    	<input class="border_hide desabled " type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control" readonly>
+				    	<input class="border_hide desabled " type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly>
 			    	</td>
 
 				    
-					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
 
 				    <td class="desabled">
 				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
@@ -4137,52 +4170,57 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 
 
 	// <!-- ----------- External Issue Start Here ---------------------------- -->
+	
+
 		if(!empty($ExternalIssue)){
-			for ($j=0; $j <count($ExternalIssue) ; $j++) { 
+
+			
+			for ($j=0; $j <(count($ExternalIssue)-1) ; $j++) { 
 
 				$SrNo=$rowCount+1;
-				if(count($ExternalIssue)==$SrNo){
+				// if(count($ExternalIssue)==$SrNo){
 					if(!empty($ExternalIssue[$j]->SampleDate)){
 					$SampleDate=date("d-m-Y", strtotime($ExternalIssue[$j]->SampleDate));
-				}else{
-					$SampleDate='';
-				}
+					}else{
+						$SampleDate='';
+					}
 
-				$FinalResponce['ExternalIssue'].='<tr>
-				    
-					<td style="text-align: center;">
-						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
 
-					    <input type="radio" id="list'.$SrNo.'" name="listRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
-					</td>
-				 	
-				 	<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Warehouse.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
+					$FinalResponce['ExternalIssue'].='<tr>
+						
+						<td style="text-align: center;">
+							<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
+							<input type="radio" id="list'.$SrNo.'" name="listRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
+						</td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM1.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Whs1.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
+						
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
-				</tr>';
-				}
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
+
+						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
+					</tr>';
+				//}
 			}
 
 			// when table data come then default add one manual row start ---------------------------------------------------------
-			$SrNo=(count($ExternalIssue)+1);
+			$SrNo=(count($ExternalIssue));
 
 			$FinalResponce['ExternalIssue'].='<tr>
 			    <td></td>
@@ -4190,7 +4228,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			 	<td>
 			 		<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
 
-					<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+					<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
 					</select>
 				</td>
 			    
@@ -4200,10 +4238,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
-
-				
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" class="form-control desabled" readonly></td>
+			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
@@ -4217,7 +4252,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 
 			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
 			</tr>';
-			// when table data come then default add one manual row end row -----------------------------------------------------------
+			// when table data come then default add one manual row end -----------------------------------------------------------
 		}else{
 			// if user not added External issue recored then show default blank row
 			$SrNo=$rowCount+1;
@@ -4228,7 +4263,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    </td>
 			 	
 			 	<td>
-					<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+					<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
 						 
 					</select>
 				</td>
@@ -4240,7 +4275,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
 				
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" class="form-control desabled" readonly></td>
+			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
 			    
 			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
@@ -4256,9 +4291,34 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 			</tr>';
 		}
 	// <!-- ----------- External Issue End Here   ---------------------------- -->
+
 	echo json_encode($FinalResponce);
 	exit(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ================================================== ReTest QC Code End Here ======================================
 
 // ========================================= Production QC - Route Stage Code start Here ============================
@@ -4704,6 +4764,8 @@ if(isset($_POST['OTSCRSP_Btn'])){
 if(isset($_POST['action']) && $_POST['action'] =='sample_collection_route_stage_ajax')
 {	
 
+	
+
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 	$rowCount=trim(addslashes(strip_tags($_POST['rowCount'])));
 	$rowCount_N=trim(addslashes(strip_tags($_POST['rowCount_N'])));
@@ -4717,6 +4779,8 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_route_stage_
 
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
+	echo $Final_API;
+
 	// <!-- ------ Array declaration Start Here --------------------------------- -->
 		$FinalResponce=array();
 		$FinalResponce['SampleCollDetails']=$response;
@@ -4724,6 +4788,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_route_stage_
 
 	$ExtraIssue=$response[0]->SAMPLECOLLEXTRA; // Etra issue response seperate here 
 	$ExternalIssue=$response[0]->SAMPLECOLLEXTERNAL; //External issue reponce seperate here
+	print_r($response);
 
 	// ===============================================================================================================
 		// <!-- ----------- Extra Issue Start here --------------------------------- -->
