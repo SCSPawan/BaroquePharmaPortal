@@ -19,15 +19,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
