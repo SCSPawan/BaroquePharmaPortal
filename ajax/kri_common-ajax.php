@@ -638,6 +638,8 @@ if(isset($_POST['action']) && $_POST['action'] =='QcForDocRetest_popup')
 
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+		// print_r($FinalAPI);
 		// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
@@ -2320,11 +2322,12 @@ if(isset($_POST['SubIT_Btn_SCRT_extrA_issue']))
 				$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCRETEST_API.'('.$UT_data['DocEntry'].')';
 				$underTestNumber=$obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data,$Final_API2);
 				$underTestNumber_decode=json_decode($underTestNumber);
+				
 
 				if($underTestNumber_decode==''){
 					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="Inventory Transfer Successfully Added.";
+					$data['DocEntry']=$UT_data['DocEntry'];
+					$data['message']="Post Extra Issue Successfully Added.";
 					echo json_encode($data);
 				}else{
 					// $data['status']='False';

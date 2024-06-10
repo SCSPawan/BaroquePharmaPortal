@@ -11,9 +11,9 @@
                 <!-- <form> -->
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_transfer" method="post">
                     <div class="row">
-                        <input type="text" id="transfer_it_DocNo" name="transfer_it_DocNo">
-                        <input type="text" id="transfer_it_SCRTQCB_DocEntry" name="transfer_it_SCRTQCB_DocEntry">
-                        <input type="text" id="_transfer_BPLId" name="_transfer_BPLId">
+                        <input type="hidden" id="transfer_it_DocNo" name="transfer_it_DocNo">
+                        <input type="hidden" id="transfer_it_SCRTQCB_DocEntry" name="transfer_it_SCRTQCB_DocEntry">
+                        <input type="hidden" id="_transfer_BPLId" name="_transfer_BPLId">
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -77,6 +77,10 @@
                             </div>
                         </div>
 
+                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+                        ?>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
