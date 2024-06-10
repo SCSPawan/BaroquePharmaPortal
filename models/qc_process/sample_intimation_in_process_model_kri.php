@@ -16,7 +16,6 @@
                         <input type="hidden" id="NextNumber" name="NextNumber">
                         <input type="hidden" id="Remark" name="Remark">
                         <input type="hidden" id="LineNum" name="LineNum">
-                        <input type="hidden" id="U_PC_Unit" name="U_PC_Unit">
                         <input type="hidden" id="Location" name="Location">
                         <input type="hidden" id="RetestDate" name="RetestDate">
                         <input type="hidden" id="QtyPerContainer" name="QtyPerContainer">
@@ -41,8 +40,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                     <div class="col-lg-6">
-                                        <select class="form-select" id="DocNoName" name="DocNoName">
-                                        </select>
+                                        <select class="form-select" id="DocNoName" name="DocNoName" onchange="selectedSeries()"></select>
                                     </div>
                                     <div class="col-lg-2">
                                         <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
@@ -177,7 +175,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control desabled" type="number" id="BatchNo" name="BatchNo" readonly>
+                                        <input class="form-control desabled" type="text" id="BatchNo" name="BatchNo" readonly>
                                     </div>
                                 </div>
                             </div> 
@@ -195,7 +193,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control desabled" type="date" id="MFGDate" name="MFGDate" readonly>
+                                        <input class="form-control desabled" type="text" id="MFGDate" name="MFGDate" readonly>
                                     </div>
                                 </div>
                             </div> 
@@ -204,7 +202,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control desabled" type="date" id="ExpiryDate" name="ExpiryDate" readonly>
+                                        <input class="form-control desabled" type="text" id="ExpiryDate" name="ExpiryDate" readonly>
                                     </div>
                                 </div>
                             </div> 
@@ -230,7 +228,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="date" id="TrDate" name="TrDate" >
+                                        <input class="form-control" type="date" id="TrDate" name="TrDate" value="<?php echo date('Y-m-d') ?>" onchange="getSeriesDropdown()">
                                     </div>
                                 </div>
                             </div> 
@@ -257,7 +255,7 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control desabled" type="date" id="ChallanDate" name="ChallanDate" readonly>
+                                        <input class="form-control desabled" type="text" id="ChallanDate" name="ChallanDate" readonly>
                                     </div>
                                 </div>
                             </div> 
@@ -275,28 +273,58 @@
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control desabled" type="date" id="GateEntryDate" name="GateEntryDate" readonly>
+                                        <input class="form-control desabled" type="text" id="GateEntryDate" name="GateEntryDate" readonly>
                                     </div>
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <!-- <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container Nos</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="ContainerNo" name="ContainerNo" readonly>
                                     </div>
                                 </div>
-                            </div> 
+                            </div> -->
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
+                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container UOM</label>
                                     <div class="col-lg-8">
                                         <input class="form-control" type="text" id="Container" name="Container" readonly>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" id="MakeBy" name="MakeBy" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Unit</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" id="Unit" name="Unit" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control desabled" id="ContainerNo" name="ContainerNo" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
 
                             <div class="row">
                                 <div class="col-md-6">

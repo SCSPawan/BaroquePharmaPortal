@@ -281,8 +281,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
        });
     });
 
-    function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum)
-    {
+    function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum){
         $.ajax({ 
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
@@ -291,9 +290,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
+                // console.log('JSONObject=> ', JSONObject);
 
                 $(`#ReceiptNo`).val(JSONObject[0].RFPNo);
                 $(`#ReceiptNo1`).val(JSONObject[0].RFPODocEntry);
@@ -311,8 +310,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#ToContainer`).val(JSONObject[0].ToCont);
                 $(`#BatchNo`).val(JSONObject[0].BatchNo);
                 $(`#BatchQty`).val(JSONObject[0].BatchQty);
-                $(`#MFGDate`).val(JSONObject[0].MfgDate);
-                $(`#ExpiryDate`).val(JSONObject[0].ExpiryDate);
                 $(`#statusVal`).val(JSONObject[0].Status);
                 $(`#Branch`).val(JSONObject[0].BranchName);
                 $(`#ChallanNo`).val(JSONObject[0].ChNo);
@@ -320,7 +317,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#GateEntryNo`).val(JSONObject[0].GateEntryNo);
                 $(`#GateEntryDate`).val(JSONObject[0].GateEntryDate);
                 $(`#ContainerNo`).val(JSONObject[0].ContainerNos);
-                $(`#Container`).val(JSONObject[0].Container);
+
+                $(`#Container`).val(JSONObject[0].ContainerUOM);
+                $(`#MakeBy`).val(JSONObject[0].MakeBy);
+                $(`#Unit`).val(JSONObject[0].Unit);
+
                 $(`#Location`).val(JSONObject[0].Location);
                 $(`#RetestDate`).val(JSONObject[0].RetestDate);
                 $(`#QtyPerContainer`).val(JSONObject[0].QtyPerContainer);
@@ -334,6 +335,24 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     document.getElementById("flexCheckDefault").checked = true; // Check
                 }
 
+                // <!-- ------------ Mfg Date Start Here --------------------- -->
+                    var ExpiryDateOG = JSONObject[0]['ExpiryDate'];
+                    if(ExpiryDateOG!=''){
+                        let [day, month, year] = ExpiryDateOG.split(" ")[0].split("-");
+                        let ExpiryDate = `${year}-${month}-${day}`;
+                        $(`#ExpiryDate`).val(ExpiryDate);
+                    }
+                // <!-- ------------ Expiry Date End Here ----------------------- -->
+
+                // <!-- ------------ Mfg Date Start Here --------------------- -->
+                    var MfgDateOG = JSONObject[0]['MfgDate'];
+                    if(MfgDateOG!=''){
+                        let [day, month, year] = MfgDateOG.split(" ")[0].split("-");
+                        let MfgDate = `${year}-${month}-${day}`;
+                        $(`#MFGDate`).val(MfgDate);
+                    }
+                // <!-- ------------ Mfg Date End Here ----------------------- -->
+
                 SampleTypeDropdown();
                 getSeriesDropdown(); // DocName By using API to get dropdown 
                 TR_ByDropdown(); //TR By API to Get Dropdown
@@ -346,7 +365,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=SCS_SINPROCESS&action=getSeriesDropdown_ajax';
+        var TrDate = $('#TrDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SINPROCESS&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
@@ -367,9 +387,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function selectedSeries(){
-
+        var TrDate = $('#TrDate').val();
         var Series=document.getElementById('DocNoName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SINPROCESS&action=getSeriesSingleData_ajax';
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_SINPROCESS&action=getSeriesSingleData_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
