@@ -401,7 +401,18 @@
                             </div>
                         </div>
 
-                         <div class="col-xl-3 col-md-6">
+                        
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
+                                 <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="SCRTQC_it_supplierName" name="SCRTQC_it_supplierName" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                 <div class="col-lg-6">
@@ -409,15 +420,6 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <input class="form-control desabled" type="text" id="SCRTQC_it_DocNo" name="SCRTQC_it_DocNo" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                                 <div class="col-lg-8">
-                                    <input class="form-control desabled" type="text" id="SCRTQC_it_supplierName" name="SCRTQC_it_supplierName" readonly>
                                 </div>
                             </div>
                         </div>
@@ -439,21 +441,28 @@
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+                        ?>
 
                          <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                  <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="it_PostingDate" name="it_PostingDate">
+                                    <input class="form-control" type="date" id="it_PostingDate" name="it_PostingDate" value="<?php echo $currentDate; ?>">
                                 </div>
                             </div>
                         </div>
-
+                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+                        ?>
                          <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                  <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="it_DocDate" name="it_DocDate">
+                                    <input class="form-control" type="date" id="it_DocDate" name="it_DocDate" value="<?php echo $currentDate; ?>"> 
                                 </div>
                             </div>
                         </div>
@@ -545,10 +554,10 @@
             <div class="modal-body">
               
                      
-<input type="text" id="GI_NextNumber" name="GI_NextNumber">
-<input type="text" id="SCRTQC_GI_SCRTQCB_DocEntry" name="SCRTQC_GI_SCRTQCB_DocEntry">
-<input type="text" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
-<input type="text" id="GI_supplierCode" name="GI_supplierCode">
+                <input type="text" id="GI_NextNumber" name="GI_NextNumber">
+                <input type="text" id="SCRTQC_GI_SCRTQCB_DocEntry" name="SCRTQC_GI_SCRTQCB_DocEntry">
+                <input type="text" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
+                <input type="text" id="GI_supplierCode" name="GI_supplierCode">
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -579,7 +588,7 @@
 
                          <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Seri1111es</label>
                                <div class="col-lg-6">
                                     <select class="form-select" id="GI_DocNoName" name="GI_DocNoName" onchange="selectedSeries()"></select>
                                 </div>
@@ -588,6 +597,11 @@
                                 </div>
                             </div>
                          </div>
+
+                         <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+                        ?>
 
                          <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -689,7 +703,22 @@
 </div>
 <!-- --------------Goods Issue-------------- -->
 
-
+<!-- --------sample collection restest qc RPT model------------------- -->
+<div class="modal fade SampleCollectionRPT_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="RPT_title"></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ViewRPT_Print_Close()"></button>
+            </div>
+            
+            <div class="modal-body">
+               <iframe id="PrintQuarantine_Link" src="" style="width: 100%;height: 88vh;"></iframe>
+            </div><!--body end-->
+         </div>
+      </div>
+   </div>
+<!-- --------------sample collection restest qc RPT model-------------- -->
 
 
 <!-- --------------------------------------Transfer------------------------------------------- -->

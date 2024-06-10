@@ -294,17 +294,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
-
+                console.log('JSON-> ', JSONObject);
+                // ExpiryDate
+           
                 $(`#GRPONo`).val(JSONObject[0]['GRPONo']);
                 $(`#GRPODocEntry`).val(JSONObject[0]['GRPODocEntry']);
                 $(`#SupplierCode`).val(JSONObject[0]['SupplierCode']);
                 $(`#SupplierName`).val(JSONObject[0]['SupplierName']);
                 $(`#ItemCode`).val(JSONObject[0]['ItemCode']);
                 $(`#ItemName`).val(JSONObject[0]['ItemName']);
-                $(`#GenericName`).val('');
+                $(`#GenericName`).val(JSONObject[0]['FrgnName']);
                 $(`#LabelClaim`).val(JSONObject[0]['LabelClaim']);
                 $(`#LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
-                $(`#RQty`).val(JSONObject[0]['RQty']);
+                $(`#RQty`).val(JSONObject[0]['GRNQty']);
                 $(`#MfgBy`).val(JSONObject[0]['MfgBy']);
                 $(`#BpRefNo`).val(JSONObject[0]['BpRefNo']);
                 $(`#BatchNo`).val(JSONObject[0]['BatchNo']);
@@ -318,7 +320,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#MaterialType`).val(JSONObject[0]['MaterialType']);
                 $(`#SpecfNo`).val(JSONObject[0]['SpecfNo']);
                 $(`#AnalysisDate`).val(JSONObject[0]['AnalysisDate']); //--
-                $(`#Container`).val(JSONObject[0]['Container']); //---
+                $(`#Container`).val(JSONObject[0]['NoofContainer']); //---
                 $(`#Stage`).val(JSONObject[0]['Stage']);  //--- 
                 $(`#BranchName`).val(JSONObject[0]['BranchName']);
                 $(`#ValidUpTo`).val(JSONObject[0]['ValidUpTo']);
@@ -347,14 +349,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // <!-- ----------- Expiry Date End Here ------------------------- -->
 
                 // <!-- ----------- MfgDate Start Here ----------------------- -->
-                    var mfgDateOG = JSONObject[0]['ExpiryDate'];
+                    var mfgDateOG = JSONObject[0]['MfgDate'];
                     MfgDate = mfgDateOG.split(' ')[0];
                     $(`#MfgDate`).val(MfgDate);
                 // <!-- ----------- MfgDate End Here ------------------------- -->
 
                 // <!-- ----------- Posting Date Start Here ----------------------- -->
-                    var postingDateOG = JSONObject[0]['PostingDate'];
-                    $(`#PostingDate`).val('');
+                    // var postingDateOG = JSONObject[0]['PostingDate'];
+                    // $(`#PostingDate`).val('');
                 // <!-- ----------- Posting Date End Here ------------------------- -->
 
                 SampleTypeDropdown(); //Sample Type API to Get Dropdown
@@ -709,7 +711,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=SCS_QCRETEST&action=getSeriesDropdown_ajax';
+        
+        var TrDate = $('#PostingDate').val();
+        var Series = document.getElementById('DocNo').value;
+        var dataString =  'TrDate=' + TrDate + '&Series=' + Series +'&ObjectCode=60&action=getSeriesDropdown_ajax';
 
         $.ajax({
             type: "POST",
@@ -720,9 +725,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
+
+            
             success: function(result)
             {
+
+
                 var SeriesDropdown = JSON.parse(result);
+
+                console.log('SeriesDropdown-------',SeriesDropdown);
                 $('#DocNo').html(SeriesDropdown);
 
                 selectedSeries(); // call Selected Series Single data function
@@ -734,9 +745,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function selectedSeries(){
-
+        
+        var TrDate = $('#PostingDate').val();
         var Series=document.getElementById('DocNo').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_QCRETEST&action=getSeriesSingleData_ajax';
+        var dataString ='TrDate=' + TrDate + '&Series='+Series+'&ObjectCode=60SCS_QCRETEST&action=getSeriesSingleData_ajax';
 
         $.ajax({
             type: "POST",
@@ -748,16 +760,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(".loader123").show();
             },
             success: function(result)
+
             {
                 var JSONObject = JSON.parse(result);
 
-                var NextNumber=JSONObject[0]['NextNumber'];
-                var Series=JSONObject[0]['Series'];
+                // var NextNumber=JSONObject[0]['NextNumber'];
+                 //var Series=JSONObject[0]['Series'];
+
+               console.log('selectedSeries=>', JSONObject);
 
                 $('#DocNo1').val(Series);
-               $('#it_Series').val(Series);
+            //    $('#it_Series').val(Series);
                 
-                $('#NextNumber').val(NextNumber);
+            //     $('#NextNumber').val(NextNumber);
             },
             complete:function(data){
                 $(".loader123").hide();

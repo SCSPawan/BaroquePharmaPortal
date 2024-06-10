@@ -166,7 +166,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="date" id="MfgDate" name="MfgDate" disabled>
+                                                    <input class="form-control desabled" type="text" id="MfgDate" name="MfgDate" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Exp. Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="date" id="ExpiryDate" name="ExpiryDate" disabled>
+                                                    <input class="form-control desabled" type="text" id="ExpiryDate" name="ExpiryDate" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -261,21 +261,34 @@
                                                 </div> -->
                                             </div>
                                         </div>
+                                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
 
+                        // echo  $currentDate;
+                        ?>
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="PostingDate" name="PostingDate">
+                                                    <input class="form-control" type="date" id="PostingDate" name="PostingDate" value="<?php echo $currentDate; ?>">
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+
+                        // echo  $currentDate;
+                        ?>
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="AnalysisDate" name="AnalysisDate">
+                                                    <input class="form-control" type="date" id="AnalysisDate" name="AnalysisDate" value="<?php echo $currentDate; ?>" >
                                                 </div>
                                             </div>
                                         </div>
