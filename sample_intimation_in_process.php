@@ -342,12 +342,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                                        <div class="col-lg-6">
-                                                            <select class="form-control desabled" id="DocNoName" name="DocNoName" disabled readonly>
-                                                            <option>Primary</option>
-                                                            </select>
+                                                        <div class="col-lg-5">
+                                                            <input class="form-control desabled" type="text" id="DocNoName" name="DocNoName" readonly>
                                                         </div>
-                                                         <div class="col-lg-2">
+                                                         <div class="col-lg-3">
                                                             <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
                                                         </div>
                                                     </div>
@@ -365,7 +363,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     </div>
                                                 </div>
 
-                                                 <div class="col-xl-3 col-md-6">
+                                                <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">BP Ref. No</label>
                                                         <div class="col-lg-8">
@@ -374,7 +372,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     </div>
                                                 </div>
 
-                                                 <div class="col-xl-3 col-md-6">
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                       <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="sampleType" name="sampleType" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                 <!-- <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
                                                         <div class="col-lg-8">
@@ -383,7 +390,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                            </select>
                                                         </div>
                                                     </div>
-                                                </div>  
+                                                </div>   -->
                                                 
                                                  <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
@@ -563,7 +570,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     <div class="form-group row mb-2">
                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control desabled" type="date" id="ChallanDate" name="ChallanDate" readonly>
+                                                            <input class="form-control desabled" type="text" id="ChallanDate" name="ChallanDate" readonly>
                                                         </div>
                                                     </div>
                                                 </div> 
@@ -586,14 +593,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     </div>
                                                 </div> 
 
-                                                 <div class="col-xl-3 col-md-6">
-                                                    <div class="form-group row mb-2">
-                                                       <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container Nos</label>
-                                                        <div class="col-lg-8">
-                                                            <textarea class="form-control desabled" rows="1" readonly id="ContainerNo" name="ContainerNo"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div> 
 
                                                  <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
@@ -603,6 +602,36 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                         </div>
                                                     </div>
                                                 </div> 
+
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                       <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="MakeBy" name="MakeBy" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                       <label class="col-lg-4 col-form-label mt-6" for="val-skill">Material Type</label>
+                                                        <div class="col-lg-8">
+                                                            <input class="form-control desabled" type="text" id="MaterialType" name="MaterialType" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+
+                                                
+
+                                                <div class="col-xl-6 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                                        <div class="col-lg-10">
+                                                            <textarea class="form-control desabled" id="ContainerNo" name="ContainerNo" rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                               <!-- Toggle States Button -->
                                                 <div class="row">
@@ -719,7 +748,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function selectedRecord(DocEntry){
-
         var dataString ='DocEntry='+DocEntry+'&action=sample_intimation_in_process_ajax';
         $.ajax({  
             type: "POST",  
@@ -728,53 +756,76 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
-
+            success: function(result){  
                 $("#footerProcess").show();
                 var JSONObject = JSON.parse(result); // all responce holde and convert here
+
+                console.log('JSONObject=>', JSONObject);
 
                 $(`#ReceiptNo`).val(JSONObject[0].RFPNo);
                 $(`#ReceiptNo1`).val(JSONObject[0].RFPODocEntry);
                 $(`#woEntry`).val(JSONObject[0].WOEntry);
                 $(`#woNo`).val(JSONObject[0].WONo);
                 $(`#BpRefNo`).val(JSONObject[0].BpRefNo);
-
+                $(`#MakeBy`).val(JSONObject[0].MakeBy);
                 $(`#itemCode`).val(JSONObject[0].ItemCode);
                 $(`#itemName`).val(JSONObject[0].ItemName);
                 $(`#wOQty`).val(JSONObject[0].WOQty);
                 $(`#sampleQty`).val(JSONObject[0].SQty);
                 $(`#RetainQty`).val(JSONObject[0].RQty);
-
                 $(`#MfgBy`).val(JSONObject[0].MfgBy);
                 $(`#totalNoOfContainer`).val(JSONObject[0].TotNoCont);
                 $(`#fromContainer`).val(JSONObject[0].FromCont);
                 $(`#ToContainer`).val(JSONObject[0].ToCont);
-
                 $(`#BatchNo`).val(JSONObject[0].BatchNo);
                 $(`#BatchQty`).val(JSONObject[0].BatchQty);
-
-                $(`#MFGDate`).val(JSONObject[0].MfgDate);
-                $(`#ExpiryDate`).val(JSONObject[0].ExpiryDate);
                 $(`#statusVal`).val(JSONObject[0].Status);
-
                 $(`#Branch`).val(JSONObject[0].BranchName);
-
+                $(`#sampleType`).val(JSONObject[0].SampleType);
                 $(`#ChallanNo`).val(JSONObject[0].ChNo);
                 $(`#ChallanDate`).val(JSONObject[0].ChDate);
-
                 $(`#GateEntryNo`).val(JSONObject[0].GateEntryNo);
                 $(`#GateEntryDate`).val(JSONObject[0].GateEntryDate);
                 $(`#ContainerNo`).val(JSONObject[0].ContainerNos);
-                $(`#Container`).val(JSONObject[0].Container);
+                $(`#MaterialType`).val(JSONObject[0].MaterialType);
+                $(`#Container`).val(JSONObject[0].ContainerUOM);
                 $(`#Location`).val(JSONObject[0].Location);
                 $(`#RetestDate`).val(JSONObject[0].RetestDate);
                 $(`#QtyPerContainer`).val(JSONObject[0].QtyPerContainer);
                 $(`#LocCode`).val(JSONObject[0].LocCode);
                 $(`#BPLId`).val(JSONObject[0].BranchID);
                 $(`#it__DocEntry`).val(JSONObject[0].DocEntry);
-                $(`#si_Series`).val(JSONObject[0].Series);
 
+                $(`#si_Series`).val(JSONObject[0].Series);
+                $(`#DocNo`).val(JSONObject[0].DocNum);
+                $(`#DocNoName`).val(JSONObject[0].SeriesName);
+
+                // <!-- ------------ Mfg Date Start Here --------------------- -->
+                    var MfgDateOG = JSONObject[0]['MfgDate'];
+                    if(MfgDateOG!=''){
+                        let [day, month, year] = MfgDateOG.split(" ")[0].split("-");
+                        let MfgDate = `${year}-${month}-${day}`;
+                        $(`#MFGDate`).val(MfgDate);
+                    }
+                // <!-- ------------ Mfg Date End Here ----------------------- -->
+
+                // <!-- ------------ Expiry Date Start Here --------------------- -->
+                    var ExpiryDateOG = JSONObject[0]['ExpiryDate'];
+                    if(ExpiryDateOG!=''){
+                        let [day, month, year] = ExpiryDateOG.split(" ")[0].split("-");
+                        let ExpiryDate = `${year}-${month}-${day}`;
+                        $(`#ExpiryDate`).val(ExpiryDate);
+                    }
+                // <!-- ------------ Expiry Date End Here ----------------------- -->
+
+                // <!-- ------------ Tr Date Start Here --------------------- -->
+                    var TrDateOG = JSONObject[0]['TRDate'];
+                    if(TrDateOG!=''){
+                        let [day, month, year] = TrDateOG.split(" ")[0].split("-");
+                        let TrDate = `${year}-${month}-${day}`;
+                        $(`#TrDate`).val(TrDate);
+                    }
+                // <!-- ------------ Tr Date End Here ----------------------- -->
 
                 var Canceled=JSONObject[0]['Canceled'];
                 if(Canceled=='N'){
@@ -785,21 +836,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 $(`#UnderTestTransferNo`).val(JSONObject[0]['UnderTestTransferNo']);
 
-                if(JSONObject[0]['UnderTestTransferNo']==''){
-                    $(`#UTT_befor`).hide();
-                    $(`#UTT_aftre`).show();
-                }else{
-                    $(`#UTT_befor`).show();
-                    $(`#UTT_aftre`).hide();
-                }
+                // --------------- bottom popup button hide & show script start here-----------------------
+                    if(JSONObject[0]['UnderTestTransferNo']==''){
+                        $(`#UTT_befor`).hide();
+                        $(`#UTT_aftre`).show();
+                    }else{
+                        $(`#UTT_befor`).show();
+                        $(`#UTT_aftre`).hide();
+                    }
 
-                SampleTypeDropdown();
+                // --------------- bottom popup button hide & show script end here-----------------------
+
+                // SampleTypeDropdown();
                 getSeriesDropdown(); // DocName By using API to get dropdown 
                 TR_ByDropdown(); //TR By API to Get Dropdown
-                // --------------- bottom popup button hide & show script end here-----------------------
             },
             complete:function(data){
-                // Hide image container
                 $(".loader123").hide();
             }
         });
@@ -807,7 +859,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=SCS_SINPROCESS&action=getSeriesDropdown_ajax';
+        var TrDate = $('#it_PostingDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SINPROCESS&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
@@ -820,7 +873,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result){
                 var SeriesDropdown = JSON.parse(result);
                 // console.log(SeriesDropdown);
-                $('#DocNoName').html(SeriesDropdown);
+                $('#it_DocNoName').html(SeriesDropdown);
                 selectedSeries(); // call Selected Series Single data function
             },
             complete:function(data){
@@ -831,9 +884,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function selectedSeries(){
-
-        var Series=document.getElementById('DocNoName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SINPROCESS&action=getSeriesSingleData_ajax';
+        
+        var TrDate = $('#it_PostingDate').val();
+        var Series=document.getElementById('it_DocNoName').value;
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_SINPROCESS&action=getSeriesSingleData_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
@@ -849,8 +903,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var JSONObject = JSON.parse(result);
                 var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];
-                $('#DocNo').val(Series);
-                $('#NextNumber').val(NextNumber);
+                $('#it_DocNo').val(Series);
+                $('#it_NextNumber').val(NextNumber);
             },
             complete:function(data){
                 $(".loader123").hide();
@@ -992,7 +1046,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 
 
-                // getSeriesDropdown() // DocName By using API to get dropdown 
+                getSeriesDropdown() // DocName By using API to get dropdown 
                 ContainerSelection(after) // get Container Selection Table List
             },
             complete:function(data){

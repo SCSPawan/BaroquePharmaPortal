@@ -16,8 +16,9 @@
                 <!-- form start -->
                <form role="form" class="form-horizontal" id="inventoryFormSubmit_process_in" method="post">
                      
-                  <input type="hidden" id="it_BPLId" name="it_BPLId">
-                  <input type="hidden" id="it_DocEntry" name="it_DocEntry">
+                  <input type="text" id="it_BPLId" name="it_BPLId">
+                  <input type="text" id="it_DocEntry" name="it_DocEntry">
+                  <input type="text" id="it_DocNo" name="it_DocNo">
                   
 
                   <div class="row">
@@ -30,14 +31,14 @@
                         </div>
                      </div>
 
-                     <div class="col-xl-3 col-md-6">
+                     <!-- <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                            <div class="col-lg-8">
                               <input class="form-control desabled" type="text" id="it_series" name="it_series" readonly>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
 
                      <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
@@ -56,6 +57,19 @@
                            </div>
                         </div>
                      </div>
+                     
+                     <div class="col-xl-3 col-md-6">
+                        <div class="form-group row mb-2">
+                           <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                           <div class="col-lg-6">
+                              <select class="form-select" id="it_DocNoName" name="it_DocNoName" onchange="selectedSeries()"></select>
+                           </div>
+
+                           <div class="col-lg-2">
+                              <input class="form-control desabled" type="text" id="it_NextNumber" name="it_NextNumber" readonly="">
+                           </div>
+                        </div>
+                     </div>
 
                      <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
@@ -70,7 +84,7 @@
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                            <div class="col-lg-8">
-                              <input class="form-control" type="date" id="it_PostingDate" name="it_PostingDate">
+                              <input class="form-control" type="date" id="it_PostingDate" name="it_PostingDate" value="<?php echo date('Y-m-d');?>">
                            </div>
                         </div>
                      </div>
@@ -79,7 +93,7 @@
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                            <div class="col-lg-8">
-                              <input class="form-control" type="date" id="it_DocumentDate" name="it_DocumentDate">
+                              <input class="form-control" type="date" id="it_DocumentDate" name="it_DocumentDate" value="<?php echo date('Y-m-d');?>">
                            </div>
                         </div>
                      </div>
