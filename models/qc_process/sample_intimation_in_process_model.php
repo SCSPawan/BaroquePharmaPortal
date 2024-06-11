@@ -5,8 +5,8 @@
   
    <!--end sample intimation model-->
 <!-- --------inventory transfer------------ -->
-  <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-     <div class="modal-dialog modal-fullscreen">
+   <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer </h5>
@@ -16,9 +16,10 @@
                 <!-- form start -->
                <form role="form" class="form-horizontal" id="inventoryFormSubmit_process_in" method="post">
                      
-                  <input type="text" id="it_BPLId" name="it_BPLId">
-                  <input type="text" id="it_DocEntry" name="it_DocEntry">
-                  <input type="text" id="it_DocNo" name="it_DocNo">
+                  <input type="hidden" id="it_BPLId" name="it_BPLId">
+                  <input type="hidden" id="it_DocEntry" name="it_DocEntry">
+                  <input type="hidden" id="it_Series" name="it_Series">
+                  <input type="hidden" id="it_RFP_Entry" name="it_RFP_Entry">
                   
 
                   <div class="row">
@@ -257,3 +258,20 @@
    </div>
 </div>
 <!-- --------------After inventory transfer-------------- -->
+
+<!-- --------Sample Intimation - In Process RPT View Modal Start ------------------- -->
+<div class="modal fade Sample_Inti_In_Process_RPT" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="RPT_title"></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="View_RPT_Close()"></button>
+            </div>
+            
+            <div class="modal-body">
+               <iframe id="RPT_Link" src="" style="width: 100%;height: 88vh;"></iframe>
+            </div><!--body end-->
+         </div>
+      </div>
+   </div>
+<!-- --------Sample Intimation - In Process RPT View Modal Start ------------------- -->
