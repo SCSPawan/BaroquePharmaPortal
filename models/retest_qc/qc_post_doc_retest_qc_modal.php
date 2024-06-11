@@ -41,6 +41,8 @@
                                          <!-- <input type="hidden" id="TCont" name="TCont"> -->
                                          <input type="hidden" id="Series_value" name="Series_value">
                                          <input type="hidden" id="NextNumber" name="NextNumber">
+                                         <input type="hidden" id="ShelfLife" name="ShelfLife">
+                                        <input type="hidden" id="Assaypotencyreq" name="Assaypotencyreq">
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -166,7 +168,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="MfgDate" name="MfgDate" disabled>
+                                                    <input class="form-control desabled" type="text" id="MfgDate" name="MfgDate" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +177,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Exp. Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ExpiryDate" name="ExpiryDate" disabled>
+                                                    <input class="form-control desabled" type="text" id="ExpiryDate" name="ExpiryDate" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -279,7 +281,7 @@
 
                                         <?php
                         // Get the current date in YYYY-MM-DD format
-                        $currentDate = date('Y-m-d');
+                        $currentDate = date('d-m-y');
 
                         // echo  $currentDate;
                         ?>
@@ -317,7 +319,11 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="Stage" name="Stage">
+                                                   
+
+                                                    <select class="form-select" id="Stage" name="Stage">
+                                                        <!-- <option>Regular</option> -->
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,6 +363,47 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
+                                        <div class="col-xl-3 col-md-6">
+                                                <div class="form-group row mb-2">
+                                                    <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+                                                    <div class="col-lg-5">
+                                                        <select class="form-select" id="RelMaterialWithoutQC" name="RelMaterialWithoutQC">
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No" Selected>No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="form-group row mb-2">
+                                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                                    <div class="col-lg-8">
+                                                        <input class="form-control desabled" type="text" id="MakeBy" name="MakeBy" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="form-group row mb-2">
+                                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
+                                                    <div class="col-lg-8">
+                                                        <input class="form-control" type="date" id="ReleaseDate" name="ReleaseDate" value="<?php echo date("Y-m-d");?>" onchange="OnChangeReleaseDate()">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="form-group row mb-2">
+                                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
+                                                    <div class="col-lg-8">
+                                                        <input class="form-control" type="date" id="RetestDate" name="RetestDate">
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         <div class="d-flex flex-wrap gap-2">
                                             <!-- Toggle States Button -->
@@ -403,50 +450,51 @@
                                                 <div class="table-responsive qc_list_table table_item_padding" id="list">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Sr. No</th>
+                                                       <tr>
+                                                                <th>Sr.No</th>
                                                                 <th>Parameter Code</th>
-                                                                <th>Parameter Name </th>  
-                                                                <th>Standard</th>
-                                                                <th>Release</th>
-                                                                <th>Parameter Data Type</th> 
-                                                                <th>Descriptive Details</th> 
+                                                                <th>Parameter Name</th>
+                                                                <th>Specification</th>
+                                                                <th>Result OutPut</th>
+                                                                <th>Comparison Result</th>
+                                                                <th>Result Output By QC Dept.</th>
+                                                                <th>Parameter Data Type</th>
                                                                 <th>Logical</th>
-                                                                <th>Lower Min</th> 
-                                                                <th>Lower Max</th> 
-                                                                <th>Upper Min</th> 
-                                                                <th>Upper Max</th> 
+                                                                <th>Lower Min</th>
+                                                                <th>Upper Max</th>
                                                                 <th>Mean</th>
-                                                                <th>Lower Min - Result</th>
-                                                                <th>Lower Max - Result</th>
-                                                                <th>Upper Min - Result</th> 
-                                                                <th>Upper Max - Result</th>
-                                                                <th>Mean</th>
-                                                                <th>Result Output</th>
-                                                                <th>Remarks</th>
                                                                 <th>QC Status by Analyst</th>
                                                                 <th>Test Method</th>
                                                                 <th>Material Type</th>
+                                                                <th>Pharmacopoeial Standard</th>
+                                                                <th>UOM</th>
+                                                                <th>Retest</th>
+                                                                <th>External Sample</th>
+                                                                <th>Analysis By</th>
+                                                                <th>Analyst Remarks</th>
+                                                                <th>Lower Max</th>
+                                                                <th>Release</th>
+                                                                <th>Descriptive Details</th>
+                                                                <th>Upper Min</th>
+                                                                <th>Lower Min - Result</th>
+                                                                <th>Upper Min - Result</th>
+                                                                <th>Upper Max - Result</th>
+                                                                <th>Mean - Result</th>
                                                                 <th>User Text-1</th>
                                                                 <th>User Text-2</th>
                                                                 <th>User Text-3</th>
                                                                 <th>User Text-4</th>
                                                                 <th>User Text-5</th>
-                                                                <th>QC Status Result</th>
-                                                                <th>UOM</th> 
-                                                                <th>Retest</th> 
-                                                                <th>Stability</th> 
-                                                                <th>External Sample</th>
-                                                                <th>Applicable For As</th>
-                                                                <th>Applicable For LOD</th> 
-                                                                <th>Analysis By</th>
-                                                                <th>Analyst Remark</th>
-                                                                <th>Instrument Code</th> 
+                                                                <th>QC Setup Remark</th>
+                                                                <th>Stability</th>
+                                                                <th>Applicable for Assay</th>
+                                                                <th>Applicable for LOD</th>
+                                                                <th>Instrument Code</th>
                                                                 <th>Instrument Name</th>
-                                                                <th>Star Date</th>
+                                                                <th>Start Date</th>
                                                                 <th>Start Time</th>
                                                                 <th>End Date</th>
-                                                                <th>End Time</th> 
+                                                                <th>End Time</th>
                                                             </tr>
                                                         </thead>
                                                     <tbody id="retest-general-data-list-append">
@@ -469,12 +517,26 @@
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                           <thead class="fixedHeader1">
                                                                 <tr>
-                                                                    <th>Sr. No</th>
-                                                                    <th>Status</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>IT No</th>
-                                                                    <th>Done By</th>  
-                                                                    <th>Remarks</th>
+                                                                <th>Sr. No</th>
+                                                                <!-- <th>Status</th>
+                                                                <th>Quantity</th>
+                                                                <th>IT No</th>
+                                                                <th>Done By</th>  
+                                                                <th>Remarks</th> -->
+                                                                <th style="width:150px;display: block;">Status</th>
+                                                                <th>Quantity</th>
+                                                                <th>Release Date</th>
+                                                                <th>Release Time</th>
+                                                                <th>IT No</th>
+                                                                <th style="width:150px;display: block;">Done By</th>
+                                                                <th>Attachment 1</th>
+                                                                <th>Attachment 2</th>
+                                                                <th>Attachment 3</th>
+                                                                <th>Deviation Date</th>
+                                                                <th>Deviation No</th>
+                                                                <th>Deviation Reason</th>
+                                                                <th>Remarks</th>
+
                                                                 </tr>
                                                             </thead>
                                                          <tbody id="retest-status-list-append">
@@ -483,7 +545,7 @@
 
                                                        </table>
                                                </div><!--table responsive end-->
-                                                <div class="row">
+                                                <!-- <div class="row">
 
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
@@ -493,7 +555,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                </div> -->
                                                 <hr>        
                                                 
 
@@ -597,50 +659,61 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="qc_post_compiled_by" name="qc_post_compiled_by">
-                                                                </div>
+                                                                                                            <div class="col-xl-3 col-md-6">
+                                                        <div class="form-group row mb-2">
+                                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
+                                                            <div class="col-lg-8">
+                                                                <!-- <input class="form-control" type="text" id="checked_by" name="checked_by"> -->
+                                                                <select class="form-select" id="checked_by" name="checked_by"></select>
+                                                                <!-- <input class="form-control" type="text" id="qc_post_compiled_by" name="qc_post_compiled_by"> -->
+                                                                <!-- <input class="form-control" type="text" id="" name=""> -->
                                                             </div>
                                                         </div>
+                                                    </div>
 
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
                                                                 <div class="col-lg-4">
-                                                                    <input class="form-control" type="number" id="noOfCont1" name="noOfCont1">
+                                                                    <input class="form-control" type="number" id="noOfCont1" name="noOfCont1" value="1">
                                                                 </div>
-                                                                <div class="col-lg-4">
-                                                                    <input class="form-control" type="number" id="noOfCont2" name="noOfCont2">
+                                                                <div class="col-lg-4" class='disabled'>
+                                                                    <input class="form-control" type="number" id="noOfCont2" name="noOfCont2" readonly>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3 col-md-6">
+                                                            <div class="form-group row mb-2">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Approved  By</label>
+                                                                <!-- <div class="col-lg-8">
+                                                                    <input class="form-control" type="text" id="qc_post_compiled_by" name="qc_post_compiled_by">
+                                                                </div> -->
+                                                                <div class="col-lg-8">
+                                                               <!-- <input class="form-control" type="text" id="ApprovedBy" name="ApprovedBy"> -->
+                                                                <select class="form-select" id="ApprovedBy" name="ApprovedBy"></select>
+                                                            </div>
+
+
+
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="checked_by" name="checked_by">
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="analysis_by" name="analysis_by">
-                                                                </div>
+                                                         <div class="col-xl-3 col-md-6">
+                                                        <div class="form-group row mb-2">
+                                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
+                                                            <div class="col-lg-8">
+                                                               <!-- <input class="form-control" type="text" id="analysis_by" name="analysis_by"> -->
+                                                                <select class="form-select" id="analysis_by" name="analysis_by"></select>
                                                             </div>
                                                         </div>
+                                                    </div>
 
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
                                                                 <div class="col-lg-8">
-                                                                    <textarea class="form-control" rows="1" id="qc_remarks" class="qc_remarks"></textarea>
+                                                                    <textarea class="form-control" rows="1" id="qc_remarks" name="qc_remarks"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -657,13 +730,13 @@
 
                                                               <button type="button" class="btn btn-primary" id="addQcPostDocumentRetestBtn" name="addQcPostDocumentRetestBtn" onclick="return add_qc_post_document_retest_qc();">Add</button>
 
-                                                             <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                             <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close" style="background-color: red;" >Cancel</button>
 
                                                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off" onclick="TransToUnder();" disabled>Inventory Transfer</button>
 
-                                                              <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button>
+                                                              <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button> -->
                                                         </div>
-                                                    </div>
+                                                    <!-- </div>
                                                         <div class="col-md-6">
                                                                <div class="btn-group">
                                                                <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Work Sheet Print</button>
@@ -680,7 +753,7 @@
 
                                                          
                                                          </div>
-                                                     </div>
+                                                     </div> -->
 
                                                 </div>
                                                     <!--row end-->
@@ -705,6 +778,9 @@
     </div>
 
      <!--end qc check model-->
+
+
+     
 
 
      <!-- --------inventory transfer------------ -->

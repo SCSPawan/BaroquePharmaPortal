@@ -391,7 +391,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'LineNum':LineNum,'action':"OT_QC_PD_popup"},
 
             beforeSend: function(){
-                $(".loader123").show();
+                $(".loader123").show(); 
             },
             success: function(result)
             {
@@ -505,6 +505,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
     function getGeneratDataTable(ItemCode){
         var dataString ='ItemCode='+ItemCode+'&action=OTFQCPD_Table_Ajax';
 
@@ -541,6 +554,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
+
+
+
+
+
+
+
+
     function getQcStatusDropodwn(n){
         var dataString ='action=qc_api_OQCSTATUS_ajax';
         $.ajax({  
@@ -552,6 +573,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
        });
     }
+
+
 
     function getDoneByDroopdown(n){
         var dataString ='action=qc_get_SAMINTTRBY_ajax';
@@ -573,6 +596,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
        });
     }   
+
+
+
 
     function getResultOutputDropdown(trcount){
         $.ajax({ 
@@ -608,6 +634,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var dropdown = JSON.parse(result);
+
+                
                 for (let i = 0; i < trcount; i++) {
                     $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
                 }
@@ -1081,6 +1109,7 @@ function addMore(num){
 
 function SelectionOfQC_Status(un_id) {
     var tr_count = parseInt($('#tr-count').val());
+    console.log('tr_count',tr_count);
     var now = new Date();
     var year = now.getFullYear();
     var month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -1110,6 +1139,7 @@ function SelectionOfQC_Status(un_id) {
         });
 
         if (valid) {
+            
             if (!$('#qCStsQty_' + un_id).val()) {
                 $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
             }
