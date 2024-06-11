@@ -233,3 +233,7 @@ $STABQCPOSTDOCUMENTDETAILS=BASE_URL.'STABQCPOSTDOCUMENTDETAILS';
 
 // http://192.168.1.30:8082/api/sap/STABQCPOSTDOCUMENTDETAILS
 // https://10.80.4.35:50000/b1s/v1/SCS_QCSTAB
+
+
+//QC Post Document- Retest stage cfl
+$RouteStages_API='RouteStages?$select=Code,Description&$orderby=Code';

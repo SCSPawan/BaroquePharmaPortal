@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document (QC Check) </h5>
+                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document (QC Check)</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -272,6 +272,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                            
+
+
+
+                                             
 
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="form-group row mb-2">

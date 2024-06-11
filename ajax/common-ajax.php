@@ -1797,6 +1797,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+		
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 		// print_r($API);
 		// die();
@@ -1805,6 +1807,9 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 	exit(0);
 }
 
+
+
+
 		if(isset($_POST['action']) && $_POST['action'] =='OTFQCPD_Table_Ajax'){
 
 			$ItemCode=trim(addslashes(strip_tags($_POST['ItemCode'])));
@@ -1812,8 +1817,11 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 				$API=$INWARDQCPOSTROWDETAILS_API.'?ItemCode='.$ItemCode;
 				
 				$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+				
 			// <!--------------- Preparing API End Here ------------------------------------------ -->
 			$response=$obj->get_OTFSI_SingleData($FinalAPI);
+
+			
 
 			// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
 			// '.$response[$i]->PName.'
@@ -2073,6 +2081,16 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 
 
 
+
+
+
+
+
+
+
+
+
+
 if(isset($_POST['action']) && $_POST['action'] =='QC_StatusByAnalystDropdownWithSelectedOption_Ajax')
 {
 	$TableId=trim(addslashes(strip_tags($_POST['TableId'])));
@@ -2155,6 +2173,7 @@ if(isset($_POST['action']) && $_POST['action'] =='GetRowLevelAnalysisByDropdown_
 	echo json_encode($option);
 	exit(0);
 }
+
 
 if(isset($_POST['action']) && $_POST['action'] =='GetBottomApprovedBy_Ajax'){
 	$option=array();
@@ -2701,6 +2720,39 @@ if(isset($_POST['action']) && $_POST['action'] =='SupplierDropdown_ajax')
 	echo json_encode($option);
 	exit(0);
 }
+
+if(isset($_POST['action']) && $_POST['action'] =='getstageDropdown_ajax')
+{
+
+	// <!-- =============== get supplier dropdown start here ========================================== -->
+		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+
+		if(!empty($res)){
+			$BP_Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$RouteStages_API;
+
+			
+			$responce_encode_BP=$obj->getFunctionServiceLayer($BP_Final_API);
+			$responce_BP=json_decode($responce_encode_BP);
+
+
+			
+
+			//$option .= '<option value="">-</option>';
+			for ($i=0; $i <count($responce_BP->value) ; $i++) {
+				// $Name=$responce_BP->value[$i]->CardCode.' ('.$responce_BP->value[$i]->CardName.')';
+				$option .= '<option value="'.$responce_BP->value[$i]->Code.'">'.$responce_BP->value[$i]->Description.'</option>';
+			}
+		}
+		
+		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	// <!-- =============== get supplier dropdown end here ============================================ -->
+
+	echo json_encode($option);
+	exit(0);
+}
+
+
+
 
 if(isset($_POST['action']) && $_POST['action'] =='SupplierSingleData_ajax')
 {
