@@ -282,8 +282,7 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_OpenTransactionForQCPostDoc
 
 
 
-if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax'){
 	$TrDate=date('Ymd', strtotime(str_replace('/', '-',$_POST['TrDate'])));
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
@@ -293,26 +292,14 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
 	exit(0);
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax'){
 	$TrDate=date('Ymd', strtotime(str_replace('/', '-',$_POST['TrDate'])));
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Series=trim(addslashes(strip_tags($_POST['Series'])));
 
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&Series='.$Series.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
-
 	$response=$obj->GetSeriesSingleData($Final_API);
 
-
-
-
-
-	// $ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
-	// $Series=trim(addslashes(strip_tags($_POST['Series'])));
-
-	// $Final_API=$INWARDQCSERIES.$ObjectCode.'&Series='.$Series;
-	// // print_r($Final_API);die();
-	// $response=$obj->GetSeriesSingleData($Final_API);
 	echo json_encode($response);
 	exit(0);
 }
@@ -878,7 +865,7 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_ajax'){
 // print_r($FinalAPI);die();
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 	// echo "<pre>";
-	// print_r($response);
+	// print_r($API);
 	// echo "</pre>";
 	// exit;
 
@@ -936,7 +923,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_process_
 		$API=$INPROCESSSAMINTICONTSEL.'?ItemCode='.$ItemCode.'&WareHouse='.$FromWhs.'&DocEntry='.$GRPODEnt.'&BatchNo='.$BNo;
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
     // <!--------------- Preparing API End Here -------------------------------------------- -->
-
+	// print_r($API);
+	// die();
 		$response=$obj->get_OTFSI_SingleData($FinalAPI);
     // <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
 
@@ -962,6 +950,9 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_process_
 
 	if(!empty($response)){
 		for ($i=0; $i <count($response) ; $i++) { 
+			
+			$MfgDate = (!empty($response[$i]->MfgDate)) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : null;
+			$ExpiryDate = (!empty($response[$i]->ExpiryDate)) ? date("d-m-Y", strtotime($response[$i]->ExpiryDate)) : null;
 			$option.='
 			<tr>';
              
@@ -995,11 +986,11 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_process_
 			}
 
 			$option.='<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate'.$i.'" name="itp_MfgDate[]" class="form-control" value="'.date("d-m-Y", strtotime($response[$i]->MfgDate)).'" readonly>
+					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate'.$i.'" name="itp_MfgDate[]" class="form-control" value="'.$MfgDate.'" readonly>
 				</td>
 
 				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate'.$i.'" name="itp_ExpiryDate[]" class="form-control" value="'.date("d-m-Y", strtotime($response[$i]->ExpiryDate)).'" readonly>
+					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate'.$i.'" name="itp_ExpiryDate[]" class="form-control" value="'.$ExpiryDate.'" readonly>
 				</td>
 			</tr>';
 		}
@@ -1027,18 +1018,13 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_process_
 	exit(0);
 }
 
-if(isset($_POST['SC_SubIT_Btn_post_doc']))
-{
-	echo '<pre>';
-	print_r($_POST);
-	die();
-	
+if(isset($_POST['SC_SubIT_Btn_post_doc'])){	
 	$mainArray=array(); // This array hold all type of declare array
 	$tdata=array(); //This array hold header data
 	$item=array(); //This array hold item data
 	$batch=array(); //This array hold batch data
 
-	$tdata['Series']=trim(addslashes(strip_tags($_POST['it_series'])));
+	$tdata['Series']=trim(addslashes(strip_tags($_POST['it_Series'])));
 	$tdata['DocDate']=date("Y-m-d", strtotime($_POST['it_PostingDate']));
 	$tdata['DueDate']=date("Y-m-d", strtotime($_POST['it_DocumentDate']));
 	$tdata['CardCode']=trim(addslashes(strip_tags($_POST['it_SupplierCode'])));
@@ -1047,7 +1033,7 @@ if(isset($_POST['SC_SubIT_Btn_post_doc']))
 	$tdata['ToWarehouse']=trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
 	$tdata['TaxDate']=date("Y-m-d", strtotime($_POST['it_DocumentDate']));
 	$tdata['DocObjectCode']=trim(addslashes(strip_tags('67')));
-    $tdata['BPLID']=trim(addslashes(strip_tags($_POST['it_BPLId'])));
+	$tdata['BPLID']=trim(addslashes(strip_tags($_POST['it_BPLId'])));
 	$tdata['U_PC_SIIProc']=trim(addslashes(strip_tags($_POST['it_DocEntry'])));
 	$tdata['U_BFType']=trim(addslashes(strip_tags($_POST['it_BaseDocType'])));
 
@@ -1058,20 +1044,16 @@ if(isset($_POST['SC_SubIT_Btn_post_doc']))
 		$item['WarehouseCode']=trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
 		$item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
 		$item['Quantity']=trim(addslashes(strip_tags($_POST['itP_BQty'])));
-		
+
 		// <!-- Item Batch row data prepare start here ----------- -->
-			$BL=0; //skip array avoid and count continue
-			for ($i=0; $i <count($_POST['usercheckList']) ; $i++) { 
-
+			for ($i=0; $i <count($_POST['usercheckList']) ; $i++) {
 				if($_POST['usercheckList'][$i]=='1'){
-
 					$batch['BatchNumber']=trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
 					$batch['Quantity']=trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
 					$batch['BaseLineNumber']=trim(addslashes(strip_tags('0')));
 					$batch['ItemCode']=trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
 
 					$item['BatchNumbers'][]=$batch;
-					$BL++; // increment variable define here
 				}
 			}
 		// <!-- Item Batch row data prepare end here ------------- -->
@@ -1079,55 +1061,52 @@ if(isset($_POST['SC_SubIT_Btn_post_doc']))
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 
 	//<!-- ------------- function & function responce code Start Here ---- -->
-	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
-	if(!empty($res)){
-		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_StockTransfers;
+		if(!empty($res)){
+			$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_StockTransfers;
 
-		$responce_encode=$objKri->SaveSampleIntimation_kris($mainArray,$Final_API);
-		$responce=json_decode($responce_encode);
+			$responce_encode=$objKri->SaveSampleIntimation_kris($mainArray,$Final_API);
+			$responce=json_decode($responce_encode);
 
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-			$data=array();
-			if(array_key_exists('error', (array)$responce)){
-				$data['status']='False';
-				$data['DocEntry']='';
-				$data['message']=$responce->error->message->value;
-				echo json_encode($data);
-			}else{
-
-				// <!-- ------- row data preparing start here --------------------- -->
-					$UT_data=array();
-					$UT_data['DocEntry']=trim(addslashes(strip_tags($_POST['it_DocEntry'])));
-					$UT_data['U_PC_UTTrans']=trim(addslashes(strip_tags($responce->DocEntry)));
-				// <!-- ------- row data preparing end here ----------------------- -->
-
-				$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCINPROCESS.'('.$UT_data['DocEntry'].')';
-				$underTestNumber=$objKri->SampleIntimationUnderTestUpdateFromInventoryTransfer_kri($UT_data,$Final_API2);
-				$underTestNumber_decode=json_decode($underTestNumber);
-
-				if($underTestNumber_decode==''){
-					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="Inventory Transfer Successfully Added.";
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+				$data=array();
+				if(array_key_exists('error', (array)$responce)){
+					$data['status']='False';
+					$data['DocEntry']='';
+					$data['message']=$responce->error->message->value;
 					echo json_encode($data);
 				}else{
-					
-					if(array_key_exists('error', (array)$underTestNumber_decode)){
-						$data['status']='False';
-						$data['DocEntry']='';
-						$data['message']=$responce->error->message->value;
+					// <!-- ------- row data preparing start here --------------------- -->
+						$UT_data=array();
+						$UT_data['DocEntry']=trim(addslashes(strip_tags($_POST['it_DocEntry'])));
+						$UT_data['U_PC_UTTrans']=trim(addslashes(strip_tags($responce->DocEntry)));
+					// <!-- ------- row data preparing end here ----------------------- -->
+
+					$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCINPROCESS_SL.'('.$UT_data['DocEntry'].')';
+					$underTestNumber=$objKri->SampleIntimationUnderTestUpdateFromInventoryTransfer_kri($UT_data,$Final_API2);
+					$underTestNumber_decode=json_decode($underTestNumber);
+
+					if(empty($underTestNumber_decode)){
+						$data['status']='True';
+						$data['DocEntry']=$responce->DocEntry;
+						$data['message']="Inventory Transfer Successfully Added.";
 						echo json_encode($data);
+					}else{
+						if(array_key_exists('error', (array)$underTestNumber_decode)){
+							$data['status']='False';
+							$data['DocEntry']='';
+							$data['message']=$underTestNumber_decode->error->message->value;
+							echo json_encode($data);
+						}
 					}
 				}
-			}
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
-	
-	$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
-//<!-- ------------- function & function responce code end Here ---- -->
-
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
+		}
+		
+		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
+	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
 if(isset($_POST['SampleIntimationUpdateForm_Btn']))
@@ -2817,19 +2796,15 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_Open_Transaction_For_Sample
 }
 
 
-if(isset($_POST['action']) && $_POST['action'] =='Open_Transaction_For_Sample_collection_in_process_popup_in_process')  // API Ser No 40 somthing wrong
-{
-	$API=$INPROCESSSAMPLECOLLECTIONVIEW.'?DocEntry='.$_POST['DocEntry'];
-
-// .'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum']
+if(isset($_POST['action']) && $_POST['action'] =='Open_Transaction_For_Sample_collection_in_process_popup_in_process'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
+		$API=$INPROCESSSAMPLECOLLECTIONVIEW.'&DocEntry='.$_POST['DocEntry'];
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		// print_r($FinalAPI);
+		// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit;
+
 	echo json_encode($response);
 	exit(0);
 }
@@ -5027,6 +5002,7 @@ if(isset($_POST['SampleCollectionInProcess_Btn']))
 	$tdata['U_PC_DDt']=trim(addslashes(strip_tags(date('Y-m-d', strtotime($_POST['IP_SC_DocDate'])))));
 	$tdata['U_PC_TrNo']=trim(addslashes(strip_tags($_POST['IP_SC_TRNo'])));
     $tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['IP_SC_Branch'])));
+    $tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['IP_SC_MakeBy'])));
 	$tdata['U_PC_ICode']=trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
     $tdata['U_PC_IName']=trim(addslashes(strip_tags($_POST['IP_SC_ItemName'])));
 	$tdata['U_PC_BNo']=trim(addslashes(strip_tags($_POST['IP_SC_BatchNo'])));
@@ -5049,7 +5025,9 @@ if(isset($_POST['SampleCollectionInProcess_Btn']))
     $tdata['U_PC_RQty']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQty'])));
     $tdata['U_PC_RQtyUom']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQtyUOM'])));
 
-	
+	// echo '<pre>';
+	// print_r($tdata);
+	// die();
 	
 	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
 		if(empty($_POST['IP_SC_mpleCollectBy'])){
@@ -5082,7 +5060,6 @@ if(isset($_POST['SampleCollectionInProcess_Btn']))
 				$data=array();
 
 				if($responce->DocNum!=""){
-
 					$data['status']='True';
 					$data['DocEntry']=$responce->DocEntry;
 					$data['message']="Open Transaction For Sample Collection Successfully Added.";
@@ -5101,6 +5078,74 @@ if(isset($_POST['SampleCollectionInProcess_Btn']))
 		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
 		exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
+
+
+
+
+//<!-- ------------- function & function responce code Start Here ---- -->
+	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+
+	if(!empty($res)){
+		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_SCS_SCOL;
+
+		$responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
+		$responce=json_decode($responce_encode);
+
+		//  <!-- ------- service layer function responce manage Start Here ------------ -->
+			$data=array();
+
+			if($responce->DocNum!=""){
+				// Update ARNo document number start here ------------------------------ -->
+					
+					// Inventory Gen Entries
+					$InventoryGenEntries=array();
+					$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
+					$InventoryGenEntries['GRDocEntry']=trim($_POST['OTSCP_GRPODocEntry']);
+					$InventoryGenEntries['ItemCode']=trim($tdata['U_ICode']);
+					$InventoryGenEntries['LineNum']=trim($responce->U_BLine);
+
+					$Final_API=$GRSAMPLECOLINWARD_APi;
+					$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
+					$responce1=json_decode($responce_encode1);
+
+					if(empty($responce1)){
+						$data['status']='True';
+						$data['DocEntry']=$responce->DocEntry;
+						$data['message']="Open Transaction For Sample Collection Successfully Added.";
+						echo json_encode($data);
+					}else{
+						if(array_key_exists('error', (array)$responce1)){
+							$data['status']='False';
+							$data['DocEntry']='';
+							$data['message']=$responce1->error->message->value;
+							echo json_encode($data);
+						}
+					}
+				// Update ARNo document number end here -------------------------------- -->
+			}else{
+				if(array_key_exists('error', (array)$responce)){
+					$data['status']='False';
+					$data['DocEntry']='';
+					$data['message']=$responce->error->message->value;
+					echo json_encode($data);
+				}
+			}
+		//  <!-- ------- service layer function responce manage End Here -------------- -->	
+	}
+
+	$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	exit(0);
+//<!-- ------------- function & function responce code end Here ---- -->
+
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -4,14 +4,19 @@ require_once './classes/kri_function.php';
 $obj= new web();
 $objKri=new webKri();
 
+// $str="Hellow world. it's a beutiful day";
+// $array = explode(' ', $str);
+
+// // echo '<pre>';
+// print_r($array);
+// die();
+
 if(empty($_SESSION['Baroque_EmployeeID'])) {
   header("Location:login.php");
   exit(0);
 }
 
-
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($INPROCESSSAMPLECOLLECTIONVIEW);
     $count=count($getAllData);
 
@@ -20,15 +25,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -179,7 +184,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         }
                     }
                 }else{
-                     $option.='<tr><td colspan="18" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
+                    $option.='<tr><td colspan="18" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
                 }
         $option.='</tbody> 
     </table>'; 
@@ -251,11 +256,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
-        
-    $(document).ready(function()
-    {
+
+    $(document).ready(function(){
         var dataString ='action=list';
-        
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -263,18 +266,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
-    function OT_PoPup_SampleCollection_in_process(DocEntry,BatchNo,ItemCode,LineNum)  // API Ser No 40 somthing wrong
-    {
+    function OT_PoPup_SampleCollection_in_process(DocEntry,BatchNo,ItemCode,LineNum){
         $.ajax({ 
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
@@ -283,8 +284,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 $(`#IP_SC_RFPNo`).val(JSONObject[0].RFPNo);
@@ -292,15 +292,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#IP_SC_WOEntry`).val(JSONObject[0].WOEntry);
                 $(`#IP_SC_WONo`).val(JSONObject[0].WONo);
                 $(`#IP_SC_Location`).val(JSONObject[0].Loaction);
-                $(`#IP_SC_IntimatedDate`).val(JSONObject[0].IntimationDate);
                 $(`#IP_SC_IntimatedBy`).val('');
                 $(`#IP_SC_ItemCode`).val(JSONObject[0].ItemCode);
                 $(`#IP_SC_ItemName`).val(JSONObject[0].ItemName);
-                 $(`#IP_SC_BatchNo`).val(JSONObject[0].BatchNum);
+                $(`#IP_SC_BatchNo`).val(JSONObject[0].BatchNum);
+                $(`#IP_SC_MakeBy`).val(JSONObject[0].MakeBy);
                 $(`#IP_SC_SampleQty`).val(JSONObject[0].SampleQty);
                 $(`#IP_SC_SampleQtyUOM`).val(JSONObject[0].SampleQtyUOM);
                 $(`#IP_SC_ARNo`).val(JSONObject[0].ARNo);
-                $(`#IP_SC_DocDate`).val('');
                 $(`#IP_SC_NoOfContainer`).val(JSONObject[0].TotalNoContainer);
                 $(`#IP_SC_UnderTestTransferNo`).val(JSONObject[0].UnderTransferNo);
                 $(`#IP_SC_DateofReversal`).val(JSONObject[0].Dateofreversal);
@@ -320,110 +319,102 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#IP_SC_TRNo`).val(JSONObject[0].TRNo);
                 $(`#IP_SC_Branch`).val(JSONObject[0].Branch);
 
+                // <!-- ------------ IntimationDate Start Here --------------------- -->
+                    var IntimationDateOG = JSONObject[0]['IntimationDate'];
+                    if(IntimationDateOG!=''){
+                        let [day, month, year] = IntimationDateOG.split(" ")[0].split("-");
+                        let IntimationDate = `${year}-${month}-${day}`;
+                        $(`#IP_SC_IntimatedDate`).val(IntimationDate);
+                    }
+                // <!-- ------------ IntimationDate End Here ----------------------- -->
+            },
+            complete:function(data){
                 IngrediantTypeDropdown();
-                getSeriesDropdown(); // DocName By using API to get dropdown 
-                TR_ByDropdown(); //TR By API to Get Dropdown
-            },
-            complete:function(data){
-                $(".loader123").hide();
+                TR_ByDropdown();
             }
-        }); 
+        })
     }
 
-    function getSeriesDropdown()
-    {
-        var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var SeriesDropdown = JSON.parse(result);
-                $('#IP_SC_DocName').html(SeriesDropdown);
-                selectedSeries(); // call Selected Series Single data function
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
-
-    function selectedSeries(){
-
-        var Series=document.getElementById('IP_SC_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SCINPROC&action=getSeriesSingleData_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-                var NextNumber=JSONObject[0]['NextNumber'];
-                var Series=JSONObject[0]['Series'];
-                $('#IP_SC_DocNo').val(Series);
-                $('#numner_Series').val(Series);
-                $('#NextNumber').val(NextNumber);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
-
-    function TR_ByDropdown()
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"TR_ByDropdown_ajax"},
-
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var SampleTypeDrop = JSON.parse(result);
-                $('#IP_SC_smpleCollectBy').html(SampleTypeDrop);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
-
-    function IngrediantTypeDropdown()
-    {
+    function IngrediantTypeDropdown(){
         $.ajax({ 
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
             data:{'action':"IngrediantTypeDropdown_SampleCollection_ajax"},
-
             beforeSend: function(){
-                $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 $('#IP_SC_IngediantType').html(result);
+            },
+            complete:function(data){
+                getSeriesDropdown(); // DocName By using API to get dropdown 
             }
-            ,
+        })
+    }
+
+    function getSeriesDropdown(){
+        var TrDate = $(`#IP_SC_DocDate`).val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_production_common_ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+            },
+            success: function(result){
+                var SeriesDropdown = JSON.parse(result);
+                $('#IP_SC_DocName').html(SeriesDropdown);
+            },
+            complete:function(data){
+                selectedSeries(); // call Selected Series Single data function
+            }
+        })
+    }
+
+    function selectedSeries(){
+        var TrDate = $(`#IP_SC_DocDate`).val();
+        var Series=document.getElementById('IP_SC_DocName').value;
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_SCINPROC&action=getSeriesSingleData_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_production_common_ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                
+                var NextNumber=JSONObject[0]['NextNumber'];
+                var Series=JSONObject[0]['Series'];
+                $('#IP_SC_DocNo').val(NextNumber);
+                $('#IP_Series').val(Series);
+            },
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        }) 
+    }
+
+    function TR_ByDropdown(){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'action':"TR_ByDropdown_ajax"},
+            beforeSend: function(){
+                // $(".loader123").show();
+            },
+            success: function(result){
+                var SampleTypeDrop = JSON.parse(result);
+                $('#IP_SC_smpleCollectBy').html(SampleTypeDrop);
+            },
+            complete:function(data){
+                // $(".loader123").hide();
+            }
+        })
     }
 
     function SampleCollectionInProcess_Submit(){
-
         var formData = new FormData($('#OTSCP_Form')[0]);  // Form Id
         formData.append("SampleCollectionInProcess_Btn",'SampleCollectionInProcess_Btn');  // Button Id
         var error = true;
@@ -435,36 +426,36 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             processData: false,
             contentType: false,
             beforeSend: function(){
-                $(".loader123").show();
+                // $(".loader123").show();
             },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
+            success: function(result){
+                console.log(result);
+                // var JSONObject = JSON.parse(result);
 
-                var status = JSONObject['status'];
-                var message = JSONObject['message'];
-                var DocEntry = JSONObject['DocEntry'];
-                if(status=='True'){
-                    swal({
-                      title: "Sample Intimation Add Successfully.!",
-                      text: `${DocEntry}`,
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: false,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            location.replace(window.location.href); //ok btn
-                        }else{
-                            location.replace(window.location.href); // cancel btn
-                        }
-                    });
-                }else{
-                    swal("Oops!", `${message}`, "error");
-                }
+                // var status = JSONObject['status'];
+                // var message = JSONObject['message'];
+                // var DocEntry = JSONObject['DocEntry'];
+                // if(status=='True'){
+                //     swal({
+                //         title: "Sample Intimation Add Successfully.!",
+                //         text: `${DocEntry}`,
+                //         icon: "success",
+                //         buttons: true,
+                //         dangerMode: false,
+                //     })
+                //     .then((willDelete) => {
+                //         if (willDelete) {
+                //             location.replace(window.location.href); //ok btn
+                //         }else{
+                //             location.replace(window.location.href); // cancel btn
+                //         }
+                //     });
+                // }else{
+                //     swal("Oops!", `${message}`, "error");
+                // }
             },complete:function(data){
-                $(".loader123").hide();
+                // $(".loader123").hide();
             }
-        });
+        })
     }
 </script>

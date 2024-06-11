@@ -1579,7 +1579,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         function CalculateResultOut(un_id){
             var lowMin=document.getElementById('LowMin'+un_id).value;
             var uppMax=document.getElementById('UppMax'+un_id).value;
-            var UOM=document.getElementById('GDUOM'+un_id).value;
+            var UOM=document.getElementById('UOM'+un_id).value;
 
             var lowMinResOG=document.getElementById('lower_min_result'+un_id).value; // this value enter by user
 
