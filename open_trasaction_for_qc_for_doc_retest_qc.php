@@ -333,7 +333,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $(`#SupplierName`).val(JSONObject[0]['SupplierName']);
                     $(`#ItemCode`).val(JSONObject[0]['ItemCode']);
                     $(`#ItemName`).val(JSONObject[0]['ItemName']);
-                    $(`#GenericName`).val(JSONObject[0]['FrgnName']);
+                    $(`#ItemName`).val(JSONObject[0]['ItemName']);
+                    $(`#Location`).val(JSONObject[0]['Location']);
                     $(`#LabelClaim`).val(JSONObject[0]['LabelClaim']);
                     $(`#LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
                     $(`#RQty`).val(JSONObject[0]['GRNQty']);
@@ -860,29 +861,29 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 },
                 success: function(result) {
                     console.log('result',result);
-                    // var JSONObject = JSON.parse(result);
+                    var JSONObject = JSON.parse(result);
 
-                    // var status = JSONObject['status'];
-                    // var message = JSONObject['message'];
-                    // var DocEntry = JSONObject['DocEntry'];
-                    // if (status == 'True') {
-                    //     swal({
-                    //             title: `${message}`,
-                    //             text: `${DocEntry}`,
-                    //             icon: "success",
-                    //             buttons: true,
-                    //             dangerMode: false,
-                    //         })
-                    //         .then((willDelete) => {
-                    //             if (willDelete) {
-                    //                 location.replace(window.location.href); //ok btn
-                    //             } else {
-                    //                 location.replace(window.location.href); // cancel btn
-                    //             }
-                    //         });
-                    // } else {
-                    //     swal("Oops!", `${message}`, "error");
-                    // }
+                    var status = JSONObject['status'];
+                    var message = JSONObject['message'];
+                    var DocEntry = JSONObject['DocEntry'];
+                    if (status == 'True') {
+                        swal({
+                                title: `${message}`,
+                                text: `${DocEntry}`,
+                                icon: "success",
+                                buttons: true,
+                                dangerMode: false,
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    location.replace(window.location.href); //ok btn
+                                } else {
+                                    location.replace(window.location.href); // cancel btn
+                                }
+                            });
+                    } else {
+                        swal("Oops!", `${message}`, "error");
+                    }
                 },
                 complete: function(data) {
                     // $(".loader123").hide();
@@ -894,7 +895,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
             var TrDate = $('#PostingDate').val();
             var Series = document.getElementById('DocNo').value;
-            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=60&action=getSeriesDropdown_ajax';
+            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=SCS_QCRETEST&action=getSeriesDropdown_ajax';
 
             $.ajax({
                 type: "POST",
@@ -927,7 +928,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
             var TrDate = $('#PostingDate').val();
             var Series = document.getElementById('DocNo').value;
-            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=60SCS_QCRETEST&action=getSeriesSingleData_ajax';
+            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=SCS_QCRETEST&action=getSeriesSingleData_ajax';
 
             $.ajax({
                 type: "POST",
@@ -951,7 +952,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $('#DocNo1').val(Series);
                     //    $('#it_Series').val(Series);
 
-                    //     $('#NextNumber').val(NextNumber);
+                        // $('#NextNumber').val(NextNumber);
                 },
                 complete: function(data) {
                     $(".loader123").hide();

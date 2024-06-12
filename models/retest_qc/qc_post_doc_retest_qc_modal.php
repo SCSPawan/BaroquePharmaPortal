@@ -251,7 +251,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc. No</label>
                                                 <div class="col-lg-4">
-                                                    <select class="form-select" id="DocNo" name="DocNo">
+                                                    <select class="form-select" id="DocNo" name="DocNo" onchange="selectedSeries()">
                                                         <!-- <option>Primary</option> -->
                                                     </select>
                                                 </div>
@@ -356,13 +356,13 @@
                                         </div>
 
                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="GateENo" name="GateENo" readonly>
+                                                <div class="form-group row mb-2">
+                                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                                    <div class="col-lg-8">
+                                                        <input class="form-control desabled" type="text" id="Location" name="Location" readonly>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
 
@@ -823,6 +823,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -886,7 +887,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                       
                                     </div><!--row end-->
                     
                                      <!-- form end -->
