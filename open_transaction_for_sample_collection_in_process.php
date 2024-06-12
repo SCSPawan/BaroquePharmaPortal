@@ -350,7 +350,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             }
         })
     }
-
+    // SCS_SCINPROC
     function getSeriesDropdown(){
         var TrDate = $(`#IP_SC_DocDate`).val();
         var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
