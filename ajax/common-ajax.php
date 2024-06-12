@@ -2458,6 +2458,12 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 		}
 	}
 
+
+
+
+
+	
+
 	if(!empty($_POST['targetPath'])){
 		$qcAttech=array();
 		for ($k=0; $k <count($_POST['targetPath']) ; $k++) {
@@ -2579,6 +2585,13 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 		exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
+
+
+
+
+
+
+
 
 if(isset($_POST['action']) && $_POST['action'] =='SCReverseSampleIsuue_ajax')
 {

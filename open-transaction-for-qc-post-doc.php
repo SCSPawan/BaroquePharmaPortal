@@ -422,6 +422,34 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // <!-- ----------- Create Retest date with adding shelflife Start here ---------- -->
                     var ShelfLife = JSONObject[0]['ShelfLife']; 
 
+                    if(ShelfLife!=''){
+                          // Convert ShelfLife to an integer
+                    ShelfLife = parseInt(ShelfLife, 10);
+
+                    // Get the current date
+                    var currentDate = new Date();
+
+                    // Add ShelfLife months to the current date
+                    var futureDate = new Date(currentDate);
+                    var newMonth = futureDate.getMonth() + ShelfLife;
+                    futureDate.setMonth(newMonth);
+
+                    // Adjust if the day overflows the month
+                    if (futureDate.getMonth() !== newMonth % 12) {
+                        futureDate.setDate(0); // Set to the last day of the previous month
+                    }
+
+                    // Format the dates to YYYY-MM-DD
+                    var currentFormattedDate = formatDate(currentDate);
+                    var futureFormattedDate = formatDate(futureDate);
+
+                    // Display the formatted dates
+                    // console.log('Current Date:', currentFormattedDate);
+                    // console.log('Date after adding ' + ShelfLife + ' months:', futureFormattedDate);
+
+                    // Set Value in Retest date
+                    $(`#RetestDate`).val(futureFormattedDate);
+                    }
                     // Convert ShelfLife to an integer
                     ShelfLife = parseInt(ShelfLife, 10);
 
@@ -517,7 +545,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 
-    
+
     function getGeneratDataTable(ItemCode){
         var dataString ='ItemCode='+ItemCode+'&action=OTFQCPD_Table_Ajax';
 
