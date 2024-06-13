@@ -244,16 +244,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <div class="card-header justify-content-between d-flex align-items-center">
                                         <h4 class="card-title mb-0">Sample Collectiona - In Process</h4> 
                                     </div><!-- end card header -->
-                                        <div class="card-body">
+                                    
+                                    <div class="card-body">
 
-                                            <div class="top_filter">
-                                              <div class="row">
-
+                                        <div class="top_filter">
+                                            <div class="row">
                                                 <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
                                                         <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="date" id="FromDate" name="FromDate">
+                                                            <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,7 +262,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     <div class="form-group row mb-2">
                                                         <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" type="date" id="ToDate" name="ToDate">
+                                                            <input class="form-control" type="date" id="ToDate" name="ToDate" value="<?php echo date("Y-m-d") ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -272,7 +272,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                         <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Intimation No</label>
                                                         <div class="col-lg-8">
                                                             <div class="form-group mb-3">
-                                                               <input type="text" class="form-control" name="DocEntry" id="DocEntry">
+                                                                <input type="text" class="form-control" name="DocEntry" id="DocEntry">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -287,15 +287,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                </div>
                                             </div>
-
-                                                <div class="table-responsive" id="list-append">
-                                                   
-                                               </div> 
-                
                                         </div>
+
+                                        <div class="table-responsive" id="list-append"></div> 
+            
+                                    </div>
                                     <!-- end card body -->
                                 </div>
                                 <!-- end card -->

@@ -757,7 +757,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 
-                console.log(result);
+                // console.log(result);
                 $("#footerFirst").show();
                 $("#footerSecond").show();
 

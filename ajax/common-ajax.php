@@ -4844,7 +4844,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_route_stage_
 
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
-	echo $Final_API;
+	// echo $Final_API;
 
 	// <!-- ------ Array declaration Start Here --------------------------------- -->
 		$FinalResponce=array();
@@ -4853,7 +4853,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_route_stage_
 
 	$ExtraIssue=$response[0]->SAMPLECOLLEXTRA; // Etra issue response seperate here 
 	$ExternalIssue=$response[0]->SAMPLECOLLEXTERNAL; //External issue reponce seperate here
-	print_r($response);
+	// print_r($response);
 
 	// ===============================================================================================================
 		// <!-- ----------- Extra Issue Start here --------------------------------- -->

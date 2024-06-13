@@ -629,19 +629,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
 
                                         <div class="col-md-6 text-right">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTIUNDERTEST','Print Undertest Label');">Print Undertest Label</button>
 
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTIQUARALABEL','Print Quarantine');">Print Quarantine</button>
 
-                                        
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTIUNDERTEST','Print Undertest Label');">Print Undertest Label</button>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTIQUARALABEL','Print Quarantine');">Print Quarantine</button>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTISAMPINTIIPRINT','Print Sample Intimation');">Print Sample Intimation</button>
-
-
-                                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" >Print Undertest Label</button>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" >Print Quarantine</button>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" >Print Sample Intimation</button> -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_In_Process_RPT" autocomplete="off" onclick="View_RPT_Open('INPROCESSSAMPINTISAMPINTIIPRINT','Print Sample Intimation');">Print Sample Intimation</button>
                                         </div>
                                     </div>
                                 </div><!--row end-->
