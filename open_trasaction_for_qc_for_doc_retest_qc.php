@@ -267,36 +267,36 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 
 
-        function GetRowLevelAnalysisByDropdown(trcount) {
+        // function GetRowLevelAnalysisByDropdown(trcount) {
 
 
-            $.ajax({
-                type: "POST",
-                url: 'ajax/common-ajax.php',
-                data: {
-                    'action': "GetRowLevelAnalysisByDropdown_Ajax"
-                },
+        //     $.ajax({
+        //         type: "POST",
+        //         url: 'ajax/common-ajax.php',
+        //         data: {
+        //             'action': "GetRowLevelAnalysisByDropdown_Ajax"
+        //         },
 
-                beforeSend: function() {
-                    $(".loader123").show();
-                },
-                success: function(result) {
-                    var dropdown = JSON.parse(result);
-                    //console.log("dropdown",dropdown)
-                    for (let i = 0; i < trcount; i++) {
-                        $('#AnalysisBy' + i).html(dropdown); // dropdown set using Id
-                    }
+        //         beforeSend: function() {
+        //             $(".loader123").show();
+        //         },
+        //         success: function(result) {
+        //             var dropdown = JSON.parse(result);
+        //             //console.log("dropdown",dropdown)
+        //             for (let i = 0; i < trcount; i++) {
+        //                 $('#AnalysisBy' + i).html(dropdown); // dropdown set using Id
+        //             }
 
-                    $('#checked_by').html(dropdown); // Bottom dropdown set using Id
-                    $('#analysis_by').html(dropdown); // Bottom dropdown set using Id
-                    // $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
+        //             $('#checked_by').html(dropdown); // Bottom dropdown set using Id
+        //             $('#analysis_by').html(dropdown); // Bottom dropdown set using Id
+        //             // $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
 
-                },
-                complete: function(data) {
-                    $(".loader123").hide();
-                }
-            });
-        }
+        //         },
+        //         complete: function(data) {
+        //             $(".loader123").hide();
+        //         }
+        //     });
+        // }
 
 
 
@@ -325,8 +325,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     // ExpiryDate
                     
 
-                    
-
+                
                     $(`#GRPONo`).val(JSONObject[0]['GRPONo']);
                     $(`#GRPODocEntry`).val(JSONObject[0]['GRPODocEntry']);
                     $(`#SupplierCode`).val(JSONObject[0]['SupplierCode']);
@@ -806,8 +805,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 },
                 success: function(result) {
                     var JSONObject = JSON.parse(result);
+
+                    console.log('JSONObject111',JSONObject);
                     for (let i = 0; i < trcount; i++) {
-                        $('#QC_StatusByAnalyst' + i).html(JSONObject); // dropdown set using Class                            
+                        $('#qC_status_by_analyst' + i).html(JSONObject); // dropdown set using Class                            
                     }
                 },
                 complete: function(data) {
@@ -1107,20 +1108,20 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         }
 
-        function OnChangeResultOutputByQCDept(un_id) {
-            var ResultOutputByQCDept = $('#ResultOutputByQCDept' + un_id).val();
+        // function OnChangeResultOutputByQCDept(un_id) {
+        //     var ResultOutputByQCDept = $('#ResultOutputByQCDept' + un_id).val();
 
-            if (ResultOutputByQCDept == 'FAIL') {
-                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
-                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-            } else if (ResultOutputByQCDept == 'PASS') {
-                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
-                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-            } else {
-                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
-                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
-            }
-        }
+        //     if (ResultOutputByQCDept == 'FAIL') {
+        //         $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+        //         $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+        //     } else if (ResultOutputByQCDept == 'PASS') {
+        //         $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+        //         $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+        //     } else {
+        //         $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
+        //         $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+        //     }
+        // }
 
 
         function OpenInstrmentModal(un_id) {
