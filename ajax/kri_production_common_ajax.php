@@ -4972,22 +4972,28 @@ if(isset($_POST['SampleIntimationfinishedGoodBtn']))
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
+if(isset($_POST['SampleCollectionInProcess_Btn'])){
+	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
+		if(empty($_POST['IP_SC_mpleCollectBy'])){
+			$data['status']='False';$data['DocEntry']='';
+			$data['message']="Sample Collect By Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
 
+		if(empty($_POST['IP_SC_DocDate'])){
+			$data['status']='False';$data['DocEntry']='';
+			$data['message']="Document Date Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
+	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
 
-
-
-// ==============================================
-
-if(isset($_POST['SampleCollectionInProcess_Btn']))
-{
 	$tdata=array(); // This array send to AP Standalone Invoice process 
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	
-    $tdata['Series']=trim(addslashes(strip_tags($_POST['IP_SC_DocNo'])));
-    $tdata['Object']=trim(addslashes(strip_tags('SCS_SCINPROC')));
-    $tdata['U_PC_BLin']=trim(addslashes(strip_tags($_POST['IP_SC_LineNum'])));
+
+	$tdata['Series']=trim(addslashes(strip_tags($_POST['IP_Series'])));
+	$tdata['Object']=trim(addslashes(strip_tags('SCS_SCINPROC')));
+	$tdata['U_PC_BLin']=trim(addslashes(strip_tags($_POST['IP_SC_LineNum'])));
 	$tdata['U_PC_InType']=trim(addslashes(strip_tags($_POST['IP_SC_IngediantType'])));
 	$tdata['U_PC_WoNo']=trim(addslashes(strip_tags($_POST['IP_SC_WONo'])));
 	$tdata['U_PC_WoEnt']=trim(addslashes(strip_tags($_POST['IP_SC_WOEntry'])));
@@ -4998,158 +5004,82 @@ if(isset($_POST['SampleCollectionInProcess_Btn']))
 	$tdata['U_PC_SUnit']=trim(addslashes(strip_tags($_POST['IP_SC_SampleQtyUOM'])));
 	$tdata['U_PC_SClBy']=trim(addslashes(strip_tags($_POST['IP_SC_mpleCollectBy'])));
 	$tdata['U_PC_ARNo']=trim(addslashes(strip_tags($_POST['IP_SC_ARNo'])));
-	// $tdata['U_PC_SRSep']=null;
 	$tdata['U_PC_DDt']=trim(addslashes(strip_tags(date('Y-m-d', strtotime($_POST['IP_SC_DocDate'])))));
 	$tdata['U_PC_TrNo']=trim(addslashes(strip_tags($_POST['IP_SC_TRNo'])));
-    $tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['IP_SC_Branch'])));
-    $tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['IP_SC_MakeBy'])));
-			$tdata['U_PC_ICode']=trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
-    $tdata['U_PC_IName']=trim(addslashes(strip_tags($_POST['IP_SC_ItemName'])));
+	$tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['IP_SC_Branch'])));
+	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['IP_SC_MakeBy'])));
+	$tdata['U_PC_ICode']=trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
+	$tdata['U_PC_IName']=trim(addslashes(strip_tags($_POST['IP_SC_ItemName'])));
 	$tdata['U_PC_BNo']=trim(addslashes(strip_tags($_POST['IP_SC_BatchNo'])));
 	$tdata['U_PC_BtchQty']=trim(addslashes(strip_tags($_POST['IP_SC_BatchQty'])));
 	$tdata['U_PC_NCont']=trim(addslashes(strip_tags($_POST['IP_SC_NoOfContainer'])));
-    $tdata['U_PC_UTNo']=trim(addslashes(strip_tags($_POST['IP_SC_UnderTestTransferNo'])));
+	$tdata['U_PC_UTNo']=trim(addslashes(strip_tags($_POST['IP_SC_UnderTestTransferNo'])));
 	$tdata['U_PC_DRev']=trim(addslashes(strip_tags($_POST['IP_SC_DateofReversal'])));
-    $tdata['U_PC_SIssue']=trim(addslashes(strip_tags($_POST['IP_SC_SampleIssue'])));
+	$tdata['U_PC_SIssue']=trim(addslashes(strip_tags($_POST['IP_SC_SampleIssue'])));
 	$tdata['U_PC_RSIssue']=trim(addslashes(strip_tags($_POST['IP_SC_ReverseSampleIssue'])));
-    $tdata['U_PC_CntNo1']=trim(addslashes(strip_tags($_POST['IP_SC_CntNo1'])));
-    $tdata['U_PC_CntNo2']=trim(addslashes(strip_tags($_POST['IP_SC_CntNo2'])));
+	$tdata['U_PC_CntNo1']=trim(addslashes(strip_tags($_POST['IP_SC_CntNo1'])));
+	$tdata['U_PC_CntNo2']=trim(addslashes(strip_tags($_POST['IP_SC_CntNo2'])));
 	$tdata['U_PC_CntNo3']=trim(addslashes(strip_tags($_POST['IP_SC_CntNo3'])));
 	$tdata['U_PC_QtyLab']=trim(addslashes(strip_tags($_POST['IP_SC_QtyForLabel'])));
-    $tdata['U_PC_Trans']=null;
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['IP_SC_BPLId'])));
-    $tdata['U_PC_LocCode']=trim(addslashes(strip_tags($_POST['IP_SC_LocCode'])));
-    $tdata['U_PC_RNo']=trim(addslashes(strip_tags($_POST['IP_SC_RFPNo'])));
-    $tdata['U_PC_REnt']=trim(addslashes(strip_tags($_POST['IP_SC_RFPEntry'])));
-    $tdata['U_PC_RIssue']=trim(addslashes(strip_tags($_POST['IP_SC_RetainIssue'])));
-    $tdata['U_PC_RQty']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQty'])));
-    $tdata['U_PC_RQtyUom']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQtyUOM'])));
-	// U_PC_SRSep
-	// echo '<pre>';
-	// print_r($tdata);
-	// die();
-	
-	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
-		if(empty($_POST['IP_SC_mpleCollectBy'])){
-			$data['status']='False';
-			$data['DocEntry']='';
-			$data['message']="Sample Collect By Mandatory.";
-			echo json_encode($data);
-			exit(0);
-		}
+	$tdata['U_PC_LocCode']=trim(addslashes(strip_tags($_POST['IP_SC_LocCode'])));
+	$tdata['U_PC_RNo']=trim(addslashes(strip_tags($_POST['IP_SC_RFPNo'])));
+	$tdata['U_PC_REnt']=trim(addslashes(strip_tags($_POST['IP_SC_RFPEntry'])));
+	$tdata['U_PC_RIssue']=trim(addslashes(strip_tags($_POST['IP_SC_RetainIssue'])));
+	$tdata['U_PC_RQty']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQty'])));
+	$tdata['U_PC_RQtyUom']=trim(addslashes(strip_tags($_POST['IP_SC_RetainQtyUOM'])));
+	$tdata['U_PC_Trans']=null;
 
-		if(empty($_POST['IP_SC_DocDate'])){
-			$data['status']='False';
-			$data['DocEntry']='';
-			$data['message']="Document Date Mandatory.";
-			echo json_encode($data);
-			exit(0);
-		}
-	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
+	//<!-- ------------- function & function responce code Start Here ---- -->
+		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+		if(!empty($res)){
+			$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCINPROC;
 
-	// //<!-- ------------- function & function responce code Start Here ---- -->
-	// 	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
+			$responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
+			$responce=json_decode($responce_encode);
 
-	// 	if(!empty($res)){
-	// 		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCINPROC;
-			
-	// 		$responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
-	// 		$responce=json_decode($responce_encode);
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+				$data=array();
 
-	// 		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-	// 			$data=array();
+				if($responce->DocNum!=""){					
+					// Inventory Gen Entries
+					$InventoryGenEntries=array();
+					$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
+					$InventoryGenEntries['GRDocEntry']=trim($_POST['OTSCP_GRPODocEntry']);
+					$InventoryGenEntries['ItemCode']=trim($_POST['IP_SC_ItemCode']);
+					$InventoryGenEntries['LineNum']=trim($responce->U_PC_BLin);
 
-	// 			if($responce->DocNum!=""){
-	// 				$data['status']='True';
-	// 				$data['DocEntry']=$responce->DocEntry;
-	// 				$data['message']="Open Transaction For Sample Collection Successfully Added.";
-	// 				echo json_encode($data);
-	// 			}else{
-	// 				if(array_key_exists('error', (array)$responce)){
-	// 					$data['status']='False';
-	// 					$data['DocEntry']='';
-	// 					$data['message']=$responce->error->message->value;
-	// 					echo json_encode($data);
-	// 				}
-	// 			}
-	// 		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	// 	}
-		
-	// 	$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	// 	exit(0);
-	// //<!-- ------------- function & function responce code end Here ---- -->
+					$Final_API=$GRSAMPLECOLINWARD_APi;
+					$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
+					$responce1=json_decode($responce_encode1);
 
-
-
-
-//<!-- ------------- function & function responce code Start Here ---- -->
-	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
-
-	if(!empty($res)){
-		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCINPROC;
-
-		$responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
-		$responce=json_decode($responce_encode);
-
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-			$data=array();
-
-			if($responce->DocNum!=""){					
-				// Inventory Gen Entries
-				$InventoryGenEntries=array();
-				$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
-				$InventoryGenEntries['GRDocEntry']=trim($_POST['OTSCP_GRPODocEntry']);
-				$InventoryGenEntries['ItemCode']=trim($_POST['IP_SC_ItemCode']);
-				$InventoryGenEntries['LineNum']=trim($responce->U_PC_BLin);
-
-				$Final_API=$GRSAMPLECOLINWARD_APi;
-				$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
-				$responce1=json_decode($responce_encode1);
-
-				if(empty($responce1)){
-					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="Open Transaction For Sample Collection Successfully Added.";
-					echo json_encode($data);
+					if(empty($responce1)){
+						$data['status']='True';
+						$data['DocEntry']=$responce->DocEntry;
+						$data['message']="Open Transaction For Sample Collection Successfully Added.";
+						echo json_encode($data);
+					}else{
+						if(array_key_exists('error', (array)$responce1)){
+							$data['status']='False';
+							$data['DocEntry']='';
+							$data['message']=$responce1->error->message->value;
+							echo json_encode($data);
+						}
+					}
 				}else{
-					if(array_key_exists('error', (array)$responce1)){
+					if(array_key_exists('error', (array)$responce)){
 						$data['status']='False';
 						$data['DocEntry']='';
-						$data['message']=$responce1->error->message->value;
+						$data['message']=$responce->error->message->value;
 						echo json_encode($data);
 					}
 				}
-			}else{
-				if(array_key_exists('error', (array)$responce)){
-					$data['status']='False';
-					$data['DocEntry']='';
-					$data['message']=$responce->error->message->value;
-					echo json_encode($data);
-				}
-			}
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
-
-	$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
-//<!-- ------------- function & function responce code end Here ---- -->
-
-
-
-
-
-
-
-
-
-
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
+		}
+		$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
+	//<!-- ------------- function & function responce code end Here ---- -->
 }
-
-
-
-
-// =====================================
-
 
 if(isset($_POST['addQcPostDocumentQCCheckBtn']))
 {  

@@ -426,35 +426,35 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             processData: false,
             contentType: false,
             beforeSend: function(){
-                // $(".loader123").show();
+                $(".loader123").show();
             },
             success: function(result){
-                console.log(result);
-                // var JSONObject = JSON.parse(result);
+                // console.log(result);
+                var JSONObject = JSON.parse(result);
 
-                // var status = JSONObject['status'];
-                // var message = JSONObject['message'];
-                // var DocEntry = JSONObject['DocEntry'];
-                // if(status=='True'){
-                //     swal({
-                //         title: "Sample Intimation Add Successfully.!",
-                //         text: `${DocEntry}`,
-                //         icon: "success",
-                //         buttons: true,
-                //         dangerMode: false,
-                //     })
-                //     .then((willDelete) => {
-                //         if (willDelete) {
-                //             location.replace(window.location.href); //ok btn
-                //         }else{
-                //             location.replace(window.location.href); // cancel btn
-                //         }
-                //     });
-                // }else{
-                //     swal("Oops!", `${message}`, "error");
-                // }
+                var status = JSONObject['status'];
+                var message = JSONObject['message'];
+                var DocEntry = JSONObject['DocEntry'];
+                if(status=='True'){
+                    swal({
+                        title: "Sample Intimation Add Successfully.!",
+                        text: `${DocEntry}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.replace(window.location.href); //ok btn
+                        }else{
+                            location.replace(window.location.href); // cancel btn
+                        }
+                    });
+                }else{
+                    swal("Oops!", `${message}`, "error");
+                }
             },complete:function(data){
-                // $(".loader123").hide();
+                $(".loader123").hide();
             }
         })
     }
