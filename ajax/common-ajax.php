@@ -2125,6 +2125,11 @@ if(isset($_POST['action']) && $_POST['action'] =='ResultOutputDropdown_ajax')
 	if(!empty($res)){
 		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_SCS_OROUTPUT;
 
+
+		// print_r($Final_API);
+
+		// die();
+
 		$responce_encode=$obj->getFunctionServiceLayer($Final_API);
 		$responce=json_decode($responce_encode);
 
@@ -2147,6 +2152,8 @@ if(isset($_POST['action']) && $_POST['action'] =='getResultOutputDropdownWithSel
 
 	if(!empty($res)){
 		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$API_SCS_OROUTPUT;
+
+		
 
 		$responce_encode=$obj->getFunctionServiceLayer($Final_API);
 		$responce=json_decode($responce_encode);
@@ -2291,6 +2298,26 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 	//<!-- ------ valdiation end ----------------------------------- --> 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	$tdata=array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['U_BLine']=trim(addslashes(strip_tags($_POST['LineNum'])));
@@ -2462,7 +2489,7 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 
 
 
-	
+
 
 	if(!empty($_POST['targetPath'])){
 		$qcAttech=array();

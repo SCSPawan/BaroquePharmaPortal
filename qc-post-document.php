@@ -1503,6 +1503,8 @@ function getResultOutputDropdownWithSelectedOption(trcount) {
 }
 
 function QC_StatusByAnalystDropdownWithSelectedOption(trcount) {
+
+    console.log('trcount',trcount)
     var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=QC_StatusByAnalystDropdownWithSelectedOption_Ajax';
 
     $.ajax({
