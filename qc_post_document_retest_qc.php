@@ -1707,7 +1707,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 // console.log(SeriesDropdown);
                 $('#it_SeriesName').html(SeriesDropdown);
 
-                selectedSeries(); // call Selected Series Single data function
+                selectedSeries(); // call Selected Series Single data fun
             },
             complete: function(data) {
                 // Hide image container
