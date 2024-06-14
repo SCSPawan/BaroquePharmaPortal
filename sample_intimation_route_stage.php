@@ -23,15 +23,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -529,7 +529,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="SIRSU_StatusChekBox" name="SIRSU_StatusChekBox" style="pointer-events: none;">
+                                                            <input class="form-check-input" type="checkbox" id="SIRSU_StatusChekBox" name="SIRSU_StatusChekBox" onclick="OnclickCancelledBox()">
                                                             <label class="form-check-label" for="flexCheckDefault">Cancelled</label>
                                                         </div>
                                                     </div>
@@ -563,7 +563,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div> 
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display:none">
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
                                                     <div class="col-lg-8">
@@ -572,16 +572,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div> 
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-6 col-md-6">
                                                 <div class="form-group row mb-2">
-                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container Nos</label>
-                                                    <div class="col-lg-8">
-                                                        <input class="form-control desabled" type="text" id="SIRSU_ContainerNos" name="SIRSU_ContainerNos" readonly>
+                                                    <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                                    <div class="col-lg-10">
+                                                        <textarea class="form-control desabled" id="SIRSU_ContainerNos" name="SIRSU_ContainerNos" rows="4"></textarea>
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display:none">
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                                                     <div class="col-lg-8">
@@ -590,7 +590,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div> 
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display:none">
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                                     <div class="col-lg-8">
@@ -599,7 +599,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div> 
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display:none">
                                                 <div class="form-group row mb-2">
                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                                                     <div class="col-lg-8">
@@ -608,7 +608,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div> 
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display:none">
                                                 <div class="form-group row mb-2">
                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                                     <div class="col-lg-8">
@@ -739,6 +739,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $("#footerProcess").show(); // Afer Doc Selection Process show script
 
                 var JSONObject = JSON.parse(result);
+                // console.log(JSONObject);
 
                 $(`#SIRSU_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
                 $(`#SIRSU_ReceiptEntry`).val(JSONObject[0]['ReceiptEntry']);
@@ -820,13 +821,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 //  <!-- --------------- Cancelled Checkbox Set Value Start Here ---------------- -->
                     var Canceled=JSONObject[0]['Canceled'];
 
-                    if(Canceled=='N'){
-                        document.getElementById("SIRSU_StatusChekBox").checked = false; // Uncheck
+                    // if(Canceled=='N'){
+                    //     document.getElementById("SIRSU_StatusChekBox").checked = false; // Uncheck
                         $(`#SIRSU_StatusChekBox_val`).val(Canceled);
-                    }else{
-                        document.getElementById("SIRSU_StatusChekBox").checked = true; // Check
-                        $(`#SIRSU_StatusChekBox_val`).val(Canceled);
-                    }
+                    // }else{
+                    //     document.getElementById("SIRSU_StatusChekBox").checked = true; // Check
+                    //     $(`#SIRSU_StatusChekBox_val`).val(Canceled);
+                    // }
                 //  <!-- --------------- Cancelled Checkbox Set Value end Here ---------------- -->
 
                 // <!-- --------------------- Hidden Field Start Here ------------------------- -->
@@ -845,6 +846,17 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
+    function OnclickCancelledBox(){
+        var checkBox = document.getElementById("SIRSU_StatusChekBox");
+        if (checkBox.checked) {
+            // alert("Checkbox is checked");
+            $(`#SIRSU_StatusChekBox_val`).val('Y');
+        }else{
+            // alert("Checkbox is not checked");
+            $(`#SIRSU_StatusChekBox_val`).val('N');
+        }
+    }
+
     function getSeriesData(Series){
         var TrDate = $('#SIRSU_TrDate').val();
         var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_SIRSTAGE&action=getSeriesSingleData_ajax';
@@ -860,7 +872,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {  
-                console.log(result);
+                // console.log(result);
                 var JSONObject = JSON.parse(result);
 
                 var Series=JSONObject[0]['Series'];
@@ -892,6 +904,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {
+                // console.log('SendSampleIntimationRouteStageDataUpdate=>', result);
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];

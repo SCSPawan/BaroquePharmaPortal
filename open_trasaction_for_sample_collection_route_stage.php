@@ -148,10 +148,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     $MfgDate=date("d-m-Y", strtotime($getAllData[$i]->MfgDate));
                                 }
 
-                                if(empty($getAllData[$i]->ExpiryDate)){
+                                if(empty($getAllData[$i]->ExpDate)){
                                     $ExpiryDate='';
                                 }else{
-                                    $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
+                                    $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpDate));
                                 }
 
                                 if(empty($getAllData[$i]->WODate)){
@@ -302,7 +302,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
-                // console.log(JSONObject);
+                console.log(JSONObject);
 
                 $(`#OTSCRSP_WONo`).val(JSONObject[0]['WONo']);
                 $(`#OTSCRSP_WOEntry`).val(JSONObject[0]['WOEntry']);

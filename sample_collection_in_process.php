@@ -327,10 +327,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ingediant Type</label>
-                                                <div class="col-lg-8">
-                                                <select class="form-select" id="ingediantType" name="ingediantType">
+                                                <!-- <div class="col-lg-8">
+                                                    <select class="form-select" id="ingediantType" name="ingediantType">
                                                         <option>Select</option>
                                                     </select>
+                                                </div> -->
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="ingediantType" name="ingediantType" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -363,9 +366,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                                 <div class="col-lg-4">
-                                                    <select class="form-control" id="DocNoName" name="DocNoName">
+                                                    <!-- <select class="form-control" id="DocNoName" name="DocNoName">
                                                         <option></option>
-                                                    </select>
+                                                    </select> -->
+
+                                                    <input class="form-control desabled" type="text" id="DocNoName" name="DocNoName" readonly>
                                                 </div>
                                                  <div class="col-lg-4">
                                                     <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
@@ -821,7 +826,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $("#footerProcess").show();
                 var JSONObjectAll = JSON.parse(result);
 
-                console.log(JSONObjectAll);
+                // console.log(JSONObjectAll['SampleCollDetails']);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
                 $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
@@ -833,12 +838,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#woNo`).val(JSONObject[0].WoNo);
                 $(`#Location`).val(JSONObject[0].Loction);
                 $(`#IntimatedBy`).val(JSONObject[0].IntimatedBy);
-                $(`#IntimatedDate`).val(JSONObject[0].IntimationDate);
                 $(`#SampleQty`).val(JSONObject[0].SampleQty);
                 $(`#SampleQtyUnit`).val(JSONObject[0].SampleQtyUnit);
                 $(`#SampleCollectBy`).val(JSONObject[0].SampleCollectBy);
                 $(`#ARNo`).val(JSONObject[0].ARNo);
-                $(`#DocDate`).val(JSONObject[0].DocDate);
                 $(`#TRNo`).val(JSONObject[0].TRNo);
                 $(`#Branch`).val(JSONObject[0].Branch);
                 $(`#ItemCode`).val(JSONObject[0].ItemCode);
@@ -857,6 +860,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#ContainerNo2`).val(JSONObject[0].Cont2);
                 $(`#ContainerNo3`).val(JSONObject[0].Cont3);
                 $(`#QtyForLabel`).val(JSONObject[0].QtyforLabel);
+
+                $('#ingediantType').val(JSONObject[0].IngredientType);
+                $('#DocNoName').val(JSONObject[0].Series);
+                $('#DocNo').val(JSONObject[0].DocNum);
                 
                 $(`#it__DocEntry`).val(JSONObject[0].DocEntry);
                 $(`#BPLId`).val(JSONObject[0].BPLId);
@@ -866,85 +873,104 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 
                 $(`#SCRTQCB_SupplierCode`).val('');
                 $(`#itP_FromWhs`).val(JSONObject[0].RISSFromWhs);
+
                 
-                // --------------- bottom popup button hide & show script end here-----------------------
+                // <!-- ------------ IntimationDate Start Here --------------------- -->
+                    var IntimationDateOG = JSONObject[0]['IntimationDate'];
+                    if(IntimationDateOG!=''){
+                        let [day, month, year] = IntimationDateOG.split(" ")[0].split("-");
+                        let IntimationDate = `${year}-${month}-${day}`;
+                        $(`#IntimatedDate`).val(IntimationDate);
+                    }
+                // <!-- ------------ IntimationDate End Here ----------------------- -->
+
+                
+                // <!-- ------------ DocDate Start Here --------------------- -->
+                    var DocDateOG = JSONObject[0]['DocDate'];
+                    if(DocDateOG!=''){
+                        let [day, month, year] = DocDateOG.split(" ")[0].split("-");
+                        let DocDate = `${year}-${month}-${day}`;
+                        $(`#DocDate`).val(DocDate);
+                    }
+                // <!-- ------------ IntimationDate End Here ----------------------- -->
             },
             complete:function(data){
-                IngrediantTypeDropdown();
+                // IngrediantTypeDropdown();
+                getSupplierDropdown();
             }
         });
     }
 
-    function IngrediantTypeDropdown()
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data:{'action':"IngrediantTypeDropdown_SampleCollection_ajax"},
+    // function IngrediantTypeDropdown()
+    // {
+    //     $.ajax({ 
+    //         type: "POST",
+    //         url: 'ajax/kri_production_common_ajax.php',
+    //         data:{'action':"IngrediantTypeDropdown_SampleCollection_ajax"},
 
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                $('#ingediantType').html(result);
-            },
-            complete:function(data){
-                getSeriesDropdown(); // DocName By using API to get dropdown 
-            }
-        }); 
-    }
+    //         beforeSend: function(){
+    //         },
+    //         success: function(result)
+    //         {
+    //             // $('#ingediantType').html(result);
+    //         },
+    //         complete:function(data){
+    //             getSeriesDropdown(); // DocName By using API to get dropdown 
+    //         }
+    //     }); 
+    // }
 
-    function getSeriesDropdown()
-    {
-        var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-            },
-            success: function(result){
-                var SeriesDropdown = JSON.parse(result);
-                $('#DocNoName').html(SeriesDropdown);
-            },
-            complete:function(data){
-                selectedSeries(); // call Selected Series Single data function
-            }
-        }); 
-    }
+    // function getSeriesDropdown()
+    // {
+    //     var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
+    //     $.ajax({
+    //         type: "POST",
+    //         url: 'ajax/kri_production_common_ajax.php',
+    //         data: dataString,
+    //         cache: false,
+    //         beforeSend: function(){
+    //         },
+    //         success: function(result){
+    //             var SeriesDropdown = JSON.parse(result);
+    //             $('#DocNoName').html(SeriesDropdown);
+    //         },
+    //         complete:function(data){
+    //             selectedSeries(); // call Selected Series Single data function
+    //         }
+    //     }); 
+    // }
 
-    function selectedSeries(){
+    // function selectedSeries(){
 
-        var Series=document.getElementById('DocNoName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SCINPROC&action=getSeriesSingleData_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
+    //     var Series=document.getElementById('DocNoName').value;
+    //     var dataString ='Series='+Series+'&ObjectCode=SCS_SCINPROC&action=getSeriesSingleData_ajax';
+    //     $.ajax({
+    //         type: "POST",
+    //         url: 'ajax/kri_production_common_ajax.php',
+    //         data: dataString,
+    //         cache: false,
 
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-                var NextNumber=JSONObject[0]['NextNumber'];
-                var Series=JSONObject[0]['Series'];
-                $('#DocNo').val(Series);
-                $('#gd_docNo').val(Series);
-                $('#inveTra_docNo').val(Series);
-                $('#external_docNo').val(Series);
-                $('#extra_docNo').val(Series);
+    //         beforeSend: function(){
+    //         },
+    //         success: function(result)
+    //         {
+    //             var JSONObject = JSON.parse(result);
+    //             var NextNumber=JSONObject[0]['NextNumber'];
+    //             var Series=JSONObject[0]['Series'];
+    //             $('#DocNo').val(Series);
+    //             $('#gd_docNo').val(Series);
+    //             $('#inveTra_docNo').val(Series);
+    //             $('#external_docNo').val(Series);
+    //             $('#extra_docNo').val(Series);
                  
-                $('#numner_Series').val(Series);                
-                $('#NextNumber').val(NextNumber);
-            },
-            complete:function(data){
-                getSupplierDropdown();
-            }
-        }); 
-    }
+    //             $('#numner_Series').val(Series);                
+    //             $('#NextNumber').val(NextNumber);
+    //         },
+    //         complete:function(data){
+    //             getSupplierDropdown();
+    //         }
+    //     }); 
+    // }
 
     function getSupplierDropdown(){
 
