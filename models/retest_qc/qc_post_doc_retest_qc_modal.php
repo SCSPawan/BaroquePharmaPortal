@@ -802,7 +802,7 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer </h5>
+                    <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer11111 </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -811,9 +811,10 @@
                                      <div class="row">
                                       
                                         
-                                        <input class="form-control desabled" type="text" id="BranchId" name="BranchId">
-                                        <input class="form-control desabled" type="text" id="_DocEntry" name="_DocEntry" >
-                                        
+<input type="text" id="BranchId" name="BranchId">
+<input type="text" id="_DocEntry" name="_DocEntry" >
+<input type="text" id="it_SeriesId" name="it_SeriesId" >
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -825,14 +826,39 @@
                                         </div>
                                         
 
-                                         <div class="col-xl-3 col-md-6">
+                                         <!-- <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                                  <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="it_Series" name="it_Series" readonly>
                                                 </div>
                                             </div>
+                                        </div> -->
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                                <div class="col-lg-5">
+                                                    <select class="form-select" id="it_SeriesName" name="it_SeriesName" onchange="selectedSeries()">
+                                                        <!-- <option>Primary</option> -->
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input class="form-control desabled" type="text" id="it_DocNo1" name="it_DocNo1" readonly>
+                                                </div>
+                                                 <!-- <div class="col-lg-2">
+                                                    <input class="form-control desabled" type="text" id="DocNo2" name="DocNo2" readonly>
+                                                </div> -->
+                                            </div>
                                         </div>
+
+
+
+
+
+
+
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -861,20 +887,27 @@
                                             </div>
                                         </div>
 
+                                        <?php
+                        // Get the current date in YYYY-MM-DD format
+                        $currentDate = date('Y-m-d');
+                        ?>
+
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="it_postingDate" name="it_postingDate">
+                                                    <input class="form-control" type="date" id="it_postingDate" name="it_postingDate" value="<?php echo $currentDate; ?>">
                                                 </div>
                                             </div>
                                         </div>
+
+
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="it_documentDate" name="it_documentDate">
+                                                    <input class="form-control" type="date" id="it_documentDate" name="it_documentDate" value="<?php echo $currentDate; ?>">
                                                 </div>
                                             </div>
                                         </div>

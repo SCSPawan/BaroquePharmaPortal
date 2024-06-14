@@ -1235,7 +1235,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){  
 
-                // console.log(result);
+                console.log(result);
                 $("#footerProcess").show(); // footer section Show script
                 var JSONObjectAll = JSON.parse(result);
                 

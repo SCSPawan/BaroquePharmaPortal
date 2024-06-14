@@ -245,7 +245,9 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
 
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&Series='.$Series.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 
-	// print_r($Final_API);
+	//  print_r($Final_API);
+
+	//  die();
 
 	$response=$obj->GetSeriesSingleData($Final_API);
 	echo json_encode($response);
@@ -2297,27 +2299,6 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 		}
 	//<!-- ------ valdiation end ----------------------------------- --> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 	$tdata=array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['U_BLine']=trim(addslashes(strip_tags($_POST['LineNum'])));
