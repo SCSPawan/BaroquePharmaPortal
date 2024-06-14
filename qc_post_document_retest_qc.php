@@ -922,9 +922,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                                             <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
-                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
+                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks11</label>
                                                                     <div class="col-lg-8">
-                                                                        <textarea class="form-control" id="qc_remarks" name="qc_remarks" rows="1"></textarea>
+                                                                        <textarea class="form-control SetRemarkVal" id="qc_remarks" name="qc_remarks" rows="1"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -939,7 +939,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                 <!-- Toggle States Button -->
                                                                 <button type="button" class="btn btn-primary" id="updateQcPostDocumentRetestBtn" name="updateQcPostDocumentRetestBtn" onclick="return update_qc_post_document_retest_qc();">Update</button>
 
-                                                                <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off">Cancel</button>
+                                                                <button type="button" class="btn btn-danger active" data-bs-toggle="button" autocomplete="off">Cancel</button>
 
                                                                 <!--  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off">Inventory Transfer</button> -->
 
@@ -1059,7 +1059,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject = JSONObjectAll['SampleCollDetails']; // sample collection details var
-                 console.log('dd=>',JSONObject);
+                console.log('dd=>',JSONObject);
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); // External Issue Table Tr tag append here
@@ -1087,6 +1087,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`#qcD_RefNo`).val(JSONObject[0]['RefNo']);
                 $(`#qcD_BatchNo`).val(JSONObject[0]['BatchNo']);
                 $(`#qcD_BatchQty`).val(JSONObject[0]['BatchQty']);
+                $(`#qcD_MakeBy`).val(JSONObject[0]['MakeBy']);
+                // console.log('qc_remarks=>',JSONObject[0]['Remarks']);
+                $(`.SetRemarkVal`).val(JSONObject[0]['Remarks']);
                 // <!-- --------------- Tab Layout Sample Collection Details Mapping End Here -------------------- -->
 
                 $(`#qcD_MfgDate`).val(JSONObject[0]['MfgDate']);
@@ -1538,6 +1541,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(".loader123").show();
             },
             success: function(result) {
+                // console.log(result);
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];
@@ -1571,6 +1575,23 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 
     function TransToUnder() {
+        // Use querySelector to find the checked radio button within the group
+        var selectedRadio = document.querySelector('input[name="listRado[]"]:checked');
+
+        // Check if a radio button is selected
+        if (selectedRadio) {
+            // Get the value of the selected radio button
+            var selectedValue = selectedRadio.value;
+            var qCStsQty = $('#qCStsQty'+selectedValue).val();
+            var QCstatus = $('#qc_Status'+selectedValue).val();
+            var QCS_LineId = $('#QCS_LineId'+selectedValue).val();
+        } else {
+            var qCStsQty = 0.000;
+            var QCstatus = '';
+            var QCS_LineId ='';
+        }
+
+
         var qcD_DocEntry = document.getElementById('qcD_DocEntry').value;
         var BatchNo = document.getElementById('qcD_BatchNo').value;
         var ItemCode = document.getElementById('qcD_ItemCode').value;
@@ -1598,6 +1619,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             data: {
                 
                 'DocEntry': qcD_DocEntry,
+                'QC_Status': QCstatus,
                 'action': "qc_post_document_retest_qc_pupup_ajax"
             },
             cache: false,
@@ -1609,7 +1631,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             },
             success: function(result) {
                 
-            //console.log('inventoryClick=>',result);
+            // console.log('inventoryClick=>',result);
                 // $("#hideToWhs").hide();
                 $('#it_SupplierCode').val(result[0].SupplierCode);
                 $('#it_SupplierName').val(result[0].SupplierName);
@@ -1696,7 +1718,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
     function selectedSeries() {
         var TrDate=$('#it_postingDate').val();
-        var Series = document.getElementById('it_Series').value;
+        var Series = document.getElementById('it_SeriesName').value;
         var dataString = 'TrDate='+TrDate+'&Series=' + Series + '&ObjectCode=67&action=getSeriesSingleData_ajax';
 
        // console.log('dataString',dataString)
@@ -1882,7 +1904,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         var item_BQty = parseFloat(document.getElementById('tb_quality').value).toFixed(6); // item available Qty
         var PostingDate = document.getElementById('it_postingDate').value;
         var DocDate = document.getElementById('it_documentDate').value;
-        var ToWhs = document.getElementById('itP_ToWhs').value;
+        var ToWhs = document.getElementById('to_whs').value;
 
         // console.log(item_BQty);
         // console.log(selectedQtySum);

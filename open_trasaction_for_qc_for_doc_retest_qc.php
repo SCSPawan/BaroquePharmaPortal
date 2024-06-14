@@ -792,7 +792,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         function QC_StatusByAnalystDropdown(trcount) {
 
-            console.log('trcount',trcount);
+            // console.log('trcount',trcount);
 
             var dataString = 'TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
 
@@ -861,10 +861,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 processData: false,
                 contentType: false,
                 beforeSend: function() {
-                    // $(".loader123").show();
+                    $(".loader123").show();
                 },
                 success: function(result) {
-                    console.log('result',result);
+                    // console.log('result',result);
                     var JSONObject = JSON.parse(result);
 
                     var status = JSONObject['status'];
@@ -890,7 +890,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     }
                 },
                 complete: function(data) {
-                    // $(".loader123").hide();
+                    $(".loader123").hide();
                 }
             });
         }
@@ -951,7 +951,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     // var NextNumber=JSONObject[0]['NextNumber'];
                     //var Series=JSONObject[0]['Series'];
 
-                    console.log('selectedSeries=>', JSONObject);
+                    // console.log('selectedSeries=>', JSONObject);
 
                     $('#DocNo1').val(Series);
                     //    $('#it_Series').val(Series);

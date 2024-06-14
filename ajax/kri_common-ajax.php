@@ -1177,7 +1177,7 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 	// $mainArray=array();
 	$tdata = array(); // This array send to AP Standalone Invoice process 
-
+	
 
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['DocNo1'])));
 
@@ -1256,7 +1256,8 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 	$tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['RQty'])));
 	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['SampleType'])));
-
+	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['MakeBy'])));
+	
 	// $mainArray=$tdata;
 
 	if ($tdata['U_PC_PDate'] == "") {
@@ -1283,10 +1284,7 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 	if (!empty($_POST['pCode'])) {
 		// $ganaralData=array();
-		for ($i = 0;
-			$i < count($_POST['pCode']);
-			$i++
-		) {
+		for ($i = 0;$i < count($_POST['pCode']);$i++) {
 			$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['pCode'][$i])));
 			$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
 			$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
@@ -1384,9 +1382,9 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 	// echo "<pre>";
 	// // print_r($qcStatus);
-	print_r($tdata);
+	// print_r($tdata);
 	
-	die();
+	// die();
 	// Debugging: Output the contents of $tdata
 	// echo '<pre>';
 	// print_r($tdata);
@@ -1589,63 +1587,9 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 if (isset($_POST['updateQcPostDocumentRetestBtn'])) {
 
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	// exit;
-
 	$tdata = array(); // This array send to AP Standalone Invoice process 
-	// $tdata['Series']=trim(addslashes(strip_tags($_POST['DocNo1'])));
 
-	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['LineNum'])));
-	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['U_PC_BPLId'])));
-	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['U_PC_LocCode'])));
-	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['U_PC_Loc'])));
-
-	$tdata['U_PC_GRNNo'] = trim(addslashes(strip_tags($_POST['qcD_GRPONo'])));
-	$tdata['U_PC_GRNEnt'] = trim(addslashes(strip_tags($_POST['GRPODocEntry'])));
-
-	$tdata['U_PC_SCode'] = trim(addslashes(strip_tags($_POST['qcD_SupplierCode'])));
-	$tdata['U_PC_SName'] = trim(addslashes(strip_tags($_POST['qcD_SupplierName'])));
-	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['qcD_ItemCode'])));
-	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['qcD_ItemName'])));
-
-	$tdata['U_PC_GName'] = trim(addslashes(strip_tags($_POST['qcD_GenericName'])));
-	$tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['qcD_LabelClaim'])));
-	$tdata['U_PC_LClmUom'] = trim(addslashes(strip_tags($_POST['qcD_LabelClaimUOM'])));
-	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['qcD_RetainQty'])));
-
-	$tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['qcD_MfgBy'])));
-	$tdata['U_PC_RfBy'] = trim(addslashes(strip_tags($_POST['qcD_RefNo'])));
-	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['qcD_BatchNo'])));
-
-	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['qcD_BatchQty'])));
-	$tdata['U_PC_MfgDt'] = trim(addslashes(strip_tags($_POST['qcD_MfgDate'])));
-	$tdata['U_PC_ExpDt'] = trim(addslashes(strip_tags($_POST['qcD_ExpiryDate'])));
-	$tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['qcD_SampleIntimationNo'])));
-
-	$tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['qcD_SampleCollectionNo'])));
-	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['qcD_SampleQty'])));
-	$tdata['U_PC_PckSize'] = trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
-
-	$tdata['U_PC_SamType'] = trim(addslashes(strip_tags($_POST['qcD_SamType'])));
-	$tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['qcD_MatType'])));
-	$tdata['U_PC_PDate'] = trim(addslashes(strip_tags($_POST['qcD_PostingDate'])));
-
-	$tdata['U_PC_ADate'] = trim(addslashes(strip_tags($_POST['qcD_ADate'])));
-	$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['qcD_NoCont'])));
-	$tdata['U_PC_QCTType'] = trim(addslashes(strip_tags($_POST['qcD_QCTType'])));
-	$tdata['U_PC_Stage'] = trim(addslashes(strip_tags($_POST['qcD_Stage'])));
-
-
-	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['qcD_Branch'])));
-	$tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['qcD_ValidUpto'])));
-	$tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['qcD_ARNo'])));
-	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['qcD_GateENo'])));
-
-	$tdata['U_PC_GDEntry'] = trim(addslashes(strip_tags($_POST['U_PC_GDEntry'])));
-	$tdata['U_PC_APot'] = trim(addslashes(strip_tags($_POST['AssayPotency_xyz'])));
-
+	$tdata['DocEntry'] = trim(addslashes(strip_tags($_POST['qcD_DocEntry'])));
 	$tdata['U_PC_LODWater'] = trim(addslashes(strip_tags($_POST['LoD_Water_xyz'])));
 	$tdata['U_PC_Potency'] = trim(addslashes(strip_tags($_POST['potency_xyz'])));
 	$tdata['U_PC_CompBy'] = trim(addslashes(strip_tags($_POST['qc_post_compiled_by'])));
@@ -1653,23 +1597,58 @@ if (isset($_POST['updateQcPostDocumentRetestBtn'])) {
 	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['noOfCont2'])));
 	$tdata['U_PC_ChkBy'] = trim(addslashes(strip_tags($_POST['checked_by'])));
 	$tdata['U_PC_AnlBy'] = trim(addslashes(strip_tags($_POST['analysis_by'])));
-
-	// $tdata['U_GRPONo']=trim(addslashes(strip_tags($_POST['qcD_GRPONo'])));
-	// $tdata['U_GRPODEnt']=trim(addslashes(strip_tags($_POST['U_GRPODEnt'])));
-
 	$tdata['U_PC_Remarks'] = trim(addslashes(strip_tags($_POST['qc_remarks'])));
 	$tdata['U_PC_AsyCal'] = trim(addslashes(strip_tags($_POST['assay_append'])));
 	$tdata['U_PC_Factor'] = trim(addslashes(strip_tags($_POST['factor'])));
 	$tdata['U_PC_SpcNo'] = trim(addslashes(strip_tags($_POST['qcD_SpecfNo'])));
-	$tdata['U_PC_GRQty'] = trim(addslashes(strip_tags($_POST['U_PC_GRQty'])));
+	$tdata['U_PC_APot'] = trim(addslashes(strip_tags($_POST['AssayPotency_xyz'])));
+
+	// $tdata['Series']=trim(addslashes(strip_tags($_POST['DocNo1'])));
+	// $tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['LineNum'])));
+	// $tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['U_PC_BPLId'])));
+	// $tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['U_PC_LocCode'])));
+	// $tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['U_PC_Loc'])));
+	// $tdata['U_PC_GRNNo'] = trim(addslashes(strip_tags($_POST['qcD_GRPONo'])));
+	// $tdata['U_PC_GRNEnt'] = trim(addslashes(strip_tags($_POST['GRPODocEntry'])));
+	// $tdata['U_PC_SCode'] = trim(addslashes(strip_tags($_POST['qcD_SupplierCode'])));
+	// $tdata['U_PC_SName'] = trim(addslashes(strip_tags($_POST['qcD_SupplierName'])));
+	// $tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['qcD_ItemCode'])));
+	// $tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['qcD_ItemName'])));
+	// $tdata['U_PC_GName'] = trim(addslashes(strip_tags($_POST['qcD_GenericName'])));
+	// $tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['qcD_LabelClaim'])));
+	// $tdata['U_PC_LClmUom'] = trim(addslashes(strip_tags($_POST['qcD_LabelClaimUOM'])));
+	// $tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['qcD_RetainQty'])));
+	// $tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['qcD_MfgBy'])));
+	// $tdata['U_PC_RfBy'] = trim(addslashes(strip_tags($_POST['qcD_RefNo'])));
+	// $tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['qcD_BatchNo'])));
+	// $tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['qcD_BatchQty'])));
+	// $tdata['U_PC_MfgDt'] = trim(addslashes(strip_tags($_POST['qcD_MfgDate'])));
+	// $tdata['U_PC_ExpDt'] = trim(addslashes(strip_tags($_POST['qcD_ExpiryDate'])));
+	// $tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['qcD_SampleIntimationNo'])));
+	// $tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['qcD_SampleCollectionNo'])));
+	// $tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['qcD_SampleQty'])));
+	// $tdata['U_PC_PckSize'] = trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
+	// $tdata['U_PC_SamType'] = trim(addslashes(strip_tags($_POST['qcD_SamType'])));
+	// $tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['qcD_MatType'])));
+	// $tdata['U_PC_PDate'] = trim(addslashes(strip_tags($_POST['qcD_PostingDate'])));
+	// $tdata['U_PC_ADate'] = trim(addslashes(strip_tags($_POST['qcD_ADate'])));
+	// $tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['qcD_NoCont'])));
+	// $tdata['U_PC_QCTType'] = trim(addslashes(strip_tags($_POST['qcD_QCTType'])));
+	// $tdata['U_PC_Stage'] = trim(addslashes(strip_tags($_POST['qcD_Stage'])));
+	// $tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['qcD_Branch'])));
+	// $tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['qcD_ValidUpto'])));
+	// $tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['qcD_ARNo'])));
+	// $tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['qcD_GateENo'])));
+	// $tdata['U_PC_GDEntry'] = trim(addslashes(strip_tags($_POST['U_PC_GDEntry'])));
+	// $tdata['U_GRPONo']=trim(addslashes(strip_tags($_POST['qcD_GRPONo'])));
+	// $tdata['U_GRPODEnt']=trim(addslashes(strip_tags($_POST['U_GRPODEnt'])));
+	// $tdata['U_PC_GRQty'] = trim(addslashes(strip_tags($_POST['U_PC_GRQty'])));
 	// $tdata['U_PC_RelDt']=trim(addslashes(strip_tags($_POST['U_PC_RelDt'])));
 	// $tdata['U_PC_RetstDt']=trim(addslashes(strip_tags($_POST['U_PC_RetstDt'])));
-	$tdata['U_PC_RMQC'] = trim(addslashes(strip_tags($_POST['U_PC_RMQC'])));
-
-	$tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['U_PC_RecQty'])));
-	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['U_PC_SType'])));
-
-	// U_PC_Rmrks
+	// $tdata['U_PC_RMQC'] = trim(addslashes(strip_tags($_POST['U_PC_RMQC'])));
+	// $tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['U_PC_RecQty'])));
+	// $tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['U_PC_SType'])));
+	// $tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['qcD_MakeBy'])));
 
 	$ganaralData = array();
 	// $BL=0; //skip array avoid and count continue
@@ -1771,10 +1750,12 @@ if (isset($_POST['updateQcPostDocumentRetestBtn'])) {
 	}
 
 	$mainArray = $tdata; // all child array append in main array define here
+
 	// echo "<pre>";
 	// print_r($mainArray);
 	// echo "</pre>";
 	// exit;
+
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
 	$res = $obj->SAP_Login();
 
@@ -1920,7 +1901,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 	$item=array(); //This array hold item data
 	$batch=array(); //This array hold batch data
 
-	$tdata['Series']=trim(addslashes(strip_tags($_POST['it_Series'])));
+	$tdata['Series']=trim(addslashes(strip_tags($_POST['it_SeriesId'])));
 	$tdata['DocDate']=date("Y-m-d", strtotime($_POST['it_postingDate']));
 	$tdata['DueDate']=date("Y-m-d", strtotime($_POST['it_documentDate']));
 	$tdata['CardCode']=trim(addslashes(strip_tags($_POST['it_SupplierCode'])));
@@ -1936,6 +1917,10 @@ if(isset($_POST['SC_SubIT_Btn']))
 
 	$mainArray=$tdata;
 
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "</pre>";
+	// exit;
 // --------------------- Item and batch row data preparing start here -------------------------------- -->
 	$item['LineNum']=trim(addslashes(strip_tags('0')));
 	$item['ItemCode']=trim(addslashes(strip_tags($_POST['tb_itme_code'])));
@@ -1962,11 +1947,11 @@ if(isset($_POST['SC_SubIT_Btn']))
 	$mainArray['StockTransferLines'][]=$item;
 // --------------------- Item and batch row data preparing end here ---------------------------------- -->
 
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "</pre>";
+	// exit;
 	// echo json_encode($mainArray);
-   // echo "<pre>";
-   // print_r($mainArray);
-   // echo "</pre>";
-   // exit;
 	//<!-- ------------- function & function responce code Start Here ---- -->
 	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -1982,7 +1967,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 			$data=array();
 			if(array_key_exists('error', (array)$responce)){
 				$data['status']='False';
-				$data['DocEntry']='';
+				$data['DocEntry']='11111';
 				$data['message']=$responce->error->message->value;
 				echo json_encode($data);
 			}else{
@@ -1996,7 +1981,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 				// <!-- ------- row data preparing start here --------------------- -->
 					$UT_data=array();
 					$UT_data['DocEntry']=trim(addslashes(strip_tags($_POST['_DocEntry'])));
-					$UT_data['U_RIssue']=trim(addslashes(strip_tags($responce->DocEntry)));
+					$UT_data['U_PC_ITNo']=trim(addslashes(strip_tags($responce->DocEntry)));
 				// <!-- ------- row data preparing end here ----------------------- -->
 
 				$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_QCRETEST.'('.$UT_data['DocEntry'].')';
@@ -2016,7 +2001,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 
 					if(array_key_exists('error', (array)$underTestNumber_decode)){
 						$data['status']='False';
-						$data['DocEntry']='';
+						$data['DocEntry']='222222222222';
 						$data['message']=$responce->error->message->value;
 						echo json_encode($data);
 					}
@@ -2052,7 +2037,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pupup_ajax')
 {
 	// $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-    $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'];
+    $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&Status='.$_POST['QC_Status'];
 	// $API=$RETESTQCPOSTDOC.'?DocEntry='.$_POST['DocEntry'];
 	
 	// <!-- ------- Replace blank space to %20 start here -------- -->
