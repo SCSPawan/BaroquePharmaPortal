@@ -267,36 +267,36 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 
 
-        // function GetRowLevelAnalysisByDropdown(trcount) {
+        function GetRowLevelAnalysisByDropdown(trcount) {
 
 
-        //     $.ajax({
-        //         type: "POST",
-        //         url: 'ajax/common-ajax.php',
-        //         data: {
-        //             'action': "GetRowLevelAnalysisByDropdown_Ajax"
-        //         },
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: {
+                    'action': "GetRowLevelAnalysisByDropdown_Ajax"
+                },
 
-        //         beforeSend: function() {
-        //             $(".loader123").show();
-        //         },
-        //         success: function(result) {
-        //             var dropdown = JSON.parse(result);
-        //             //console.log("dropdown",dropdown)
-        //             for (let i = 0; i < trcount; i++) {
-        //                 $('#AnalysisBy' + i).html(dropdown); // dropdown set using Id
-        //             }
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(result) {
+                    var dropdown = JSON.parse(result);
+                    //console.log("dropdown",dropdown)
+                    for (let i = 0; i < trcount; i++) {
+                        $('#AnalysisBy' + i).html(dropdown); // dropdown set using Id
+                    }
 
-        //             $('#checked_by').html(dropdown); // Bottom dropdown set using Id
-        //             $('#analysis_by').html(dropdown); // Bottom dropdown set using Id
-        //             // $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
+                    $('#checked_by').html(dropdown); // Bottom dropdown set using Id
+                    $('#analysis_by').html(dropdown); // Bottom dropdown set using Id
+                    // $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
 
-        //         },
-        //         complete: function(data) {
-        //             $(".loader123").hide();
-        //         }
-        //     });
-        // }
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            });
+        }
 
 
 
@@ -792,6 +792,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         function QC_StatusByAnalystDropdown(trcount) {
 
+            console.log('trcount',trcount);
+
             var dataString = 'TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
 
             $.ajax({
@@ -806,9 +808,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 success: function(result) {
                     var JSONObject = JSON.parse(result);
 
-                    console.log('JSONObject111',JSONObject);
+                    
+                    //console.log('JSONObject111',JSONObject);
                     for (let i = 0; i < trcount; i++) {
-                        $('#qC_status_by_analyst' + i).html(JSONObject); // dropdown set using Class                            
+                        $('#QC_StatusByAnalyst' + i).html(JSONObject); // dropdown set using Class                            
                     }
                 },
                 complete: function(data) {
