@@ -1,11 +1,11 @@
 <style type="text/css">
-.mt-6{margin-top: -6px !important;}
-.FreightInput {width: 100px;border: transparent;}
-.FreightInput:focus {border: transparent;outline: none;}
+    .mt-6{margin-top: -6px !important;}
+    .FreightInput {width: 100px;border: transparent;}
+    .FreightInput:focus {border: transparent;outline: none;}
 </style>
    <!--start qc check model-->
 
-    <div class="modal fade qc_post_doc_route_stage" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal fade qc_post_doc_route_stage" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">

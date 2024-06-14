@@ -516,7 +516,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         <div class="tab-content p-3 text-muted">
                                             <div class="tab-pane active" id="samp_details" role="tabpanel">
                                                 <div class="row">
-                                                    <div class="col-xl-3 col-md-6">
+                                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                                         <div class="form-group row mb-2">
                                                             <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                             <div class="col-lg-3">

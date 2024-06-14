@@ -498,7 +498,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-6 col-form-label mt-6" for="val-skill">Total No Of Container</label>
                                                     <div class="col-lg-6">
-                                                        <input class="form-control desabled" type="text" id="SIRSU_TotNoCont" name="SIRSU_TotNoCont" readonly>
+                                                        <input class="form-control" type="text" id="SIRSU_TotNoCont" name="SIRSU_TotNoCont">
                                                     </div>
                                                 </div>
                                             </div>  
@@ -507,7 +507,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control desabled" type="text" id="SIRSU_FromCont" name="SIRSU_FromCont" readonly>
+                                                        <input class="form-control" type="text" id="SIRSU_FromCont" name="SIRSU_FromCont">
                                                     </div>
                                                 </div>
                                             </div> 
@@ -516,7 +516,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control desabled" type="text" id="SIRSU_ToCont" name="SIRSU_ToCont" readonly>
+                                                        <input class="form-control" type="text" id="SIRSU_ToCont" name="SIRSU_ToCont">
                                                     </div>
                                                 </div>
                                             </div> 
