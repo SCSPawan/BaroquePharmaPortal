@@ -316,6 +316,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             success: function(result){
                 var JSONObjectAll = JSON.parse(result);
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
+                // console.log('JSONObject=>', JSONObject);
 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
@@ -338,7 +339,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#routStage_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
                 $(`#routStage_SampleQty`).val(JSONObject[0].SampleQty);
                 $(`#routStage_RetainQty`).val('');
-                $(`#routStage_MaterialType`).val(JSONObject[0].BpRefNo);
+                $(`#routStage_MaterialType`).val(JSONObject[0].MaterialType);
                 $(`#routStage_PackSize`).val(JSONObject[0].PackSize);
                 $(`#routStage_NoContainer`).val(JSONObject[0].TNCont);
                 $(`#routStage_Stage`).val(JSONObject[0].RouteStage);
