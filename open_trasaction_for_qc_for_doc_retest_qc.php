@@ -917,7 +917,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                     var SeriesDropdown = JSON.parse(result);
 
-                    //console.log('SeriesDropdown-------',SeriesDropdown);
+                    //console.log('SeriesDropdown-------',SeriesDroown);
                     $('#DocNo').html(SeriesDropdown);
 
                     selectedSeries(); // call Selected Series Single data function
