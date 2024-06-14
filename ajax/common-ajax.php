@@ -4428,8 +4428,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_intimation_RS_popup')
 	exit(0);
 }
 
-if(isset($_POST['SampleIntimationRouteStageBtn']))
-{
+if(isset($_POST['SampleIntimationRouteStageBtn'])){
 	$tadat=array();
 
 	$tdata['Series']=trim(addslashes(strip_tags($_POST['SIRS_DocNoName'])));
@@ -4438,9 +4437,10 @@ if(isset($_POST['SampleIntimationRouteStageBtn']))
 	if(!empty($_POST['SIRS_ReceiptNo'])){
 		$tdata['U_PC_RNo']=trim(addslashes(strip_tags($_POST['SIRS_ReceiptNo'])));
 	}else{
-		$tdata['U_PC_RNo']=0;
+		$tdata['U_PC_RNo']=null;
 	}
 
+	$tdata['Canceled']=(empty($_POST['SIRS_StatusChekBox_val']))? 'N': 'Y';
 	$tdata['U_PC_WoNo']=trim(addslashes(strip_tags($_POST['SIRS_WONo'])));
 	$tdata['U_PC_WoEnt']=trim(addslashes(strip_tags($_POST['SIRS_WOEntry'])));
 	$tdata['U_PC_RStg']=trim(addslashes(strip_tags($_POST['SIRS_RouteStage'])));
@@ -4464,22 +4464,22 @@ if(isset($_POST['SampleIntimationRouteStageBtn']))
 	$tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRS_Container'])));
 	$tdata['U_PC_Cancle']=trim(addslashes(strip_tags($_POST['SIRS_StatusChekBox'])));
 
+	
 	if(!empty($_POST['SIRS_BPLId'])){
 		$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SIRS_BPLId'])));
 	}else{
-		$tdata['U_PC_BPLId']=0;
+		$tdata['U_PC_BPLId']=null;
 	}
 
 	if(!empty($_POST['SIRS_LocId'])){
 		$tdata['U_PC_LCode']=trim(addslashes(strip_tags($_POST['SIRS_LocId'])));
 	}else{
-		$tdata['U_PC_LCode']=0;
+		$tdata['U_PC_LCode']=null;
 	}
 
-	$tdata['U_PC_REnt']=0;
-	$tdata['U_PC_RcQty']='';
-	$tdata['U_PC_TNCont']='';
-	$tdata['U_PC_RDt']='';// discussion
+	$tdata['U_PC_REnt']=null;
+	$tdata['U_PC_RcQty']=null;
+	$tdata['U_PC_TNCont']=null;
 	$tdata['U_PC_UTTrans']=null;
 	$tdata['U_PC_BLin']=null;
 
@@ -4487,32 +4487,39 @@ if(isset($_POST['SampleIntimationRouteStageBtn']))
 		if(!empty($_POST['SIRS_MfgDate'])){
 			$tdata['U_PC_MfgDt']=date('Y-m-d', strtotime($_POST['SIRS_MfgDate']));
 		}else{
-			$tdata['U_PC_MfgDt']='';
+			$tdata['U_PC_MfgDt']=null;
 		}
 
 		if(!empty($_POST['SIRS_ExpiryDate'])){
 			$tdata['U_PC_ExpDt']=date('Y-m-d', strtotime($_POST['SIRS_ExpiryDate']));
 		}else{
-			$tdata['U_PC_ExpDt']='';
+			$tdata['U_PC_ExpDt']=null;
 		}
 
 		if(!empty($_POST['SIRS_GateEntryDate'])){
 			$tdata['U_PC_GEDte']=date('Y-m-d', strtotime($_POST['SIRS_GateEntryDate']));
 		}else{
-			$tdata['U_PC_GEDte']='';
+			$tdata['U_PC_GEDte']=null;
 		}
 
 		if(!empty($_POST['SIRS_ChallanDate'])){
 			$tdata['U_PC_ChDate']=date('Y-m-d', strtotime($_POST['SIRS_ChallanDate']));
 		}else{
-			$tdata['U_PC_ChDate']='';
+			$tdata['U_PC_ChDate']=null;
 		}
 
 		if(!empty($_POST['SIRS_TrDate'])){
 			$tdata['U_PC_TRDte']=date('Y-m-d', strtotime($_POST['SIRS_TrDate']));
 		}else{
-			$tdata['U_PC_TRDte']='';
+			$tdata['U_PC_TRDte']=null;
 		}
+
+		if(!empty($_POST['SIRS_WoDate'])){
+			$tdata['U_PC_RDt']=date('Y-m-d', strtotime($_POST['SIRS_WoDate']));
+		}else{
+			$tdata['U_PC_RDt']=null;
+		}
+		
 	// ---------------------------------Date Var Prepare End Here   ------------------------------------
 
 	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
@@ -4578,7 +4585,6 @@ if(isset($_POST['SampleIntimationRouteStageBtn']))
 if(isset($_POST['action']) && $_POST['action'] =='sample_intimation_RS_Selected_row')
 {
 	$API=$ROUTESTAGESAMPLEINTIMATIONADD_API.'?DocEntry='.$_POST['DocEntry'];
-
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
@@ -4590,6 +4596,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_intimation_RS_Selected_
 
 if(isset($_POST['SampleIntimationRouteStageUpdateBtn']))
 {
+	
 	$tadat=array();
 
 	$tdata['Object']='SCS_SIRSTAGE';
@@ -4597,9 +4604,10 @@ if(isset($_POST['SampleIntimationRouteStageUpdateBtn']))
 	if(!empty($_POST['SIRSU_ReceiptNo'])){
 		$tdata['U_PC_RNo']=trim(addslashes(strip_tags($_POST['SIRSU_ReceiptNo'])));
 	}else{
-		$tdata['U_PC_RNo']=0;
+		$tdata['U_PC_RNo']=null;
 	}
 
+	$tdata['Canceled']=(empty($_POST['SIRSU_StatusChekBox_val']))? 'N': 'Y';
 	$tdata['U_PC_WoNo']=trim(addslashes(strip_tags($_POST['SIRSU_WONo'])));
 	$tdata['U_PC_WoEnt']=trim(addslashes(strip_tags($_POST['SIRSU_WOEntry'])));
 	$tdata['U_PC_RStg']=trim(addslashes(strip_tags($_POST['SIRSU_RouteStage'])));
@@ -4617,28 +4625,27 @@ if(isset($_POST['SampleIntimationRouteStageUpdateBtn']))
 	$tdata['U_PC_TCont']=trim(addslashes(strip_tags($_POST['SIRSU_ToCont'])));
 	$tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['SIRSU_Branch'])));
 	$tdata['U_PC_Loc']=trim(addslashes(strip_tags($_POST['SIRSU_Location'])));
-	$tdata['U_PC_ChNo']=trim(addslashes(strip_tags($_POST['SIRSU_ChallanNo'])));
-	$tdata['U_PC_GENo']=trim(addslashes(strip_tags($_POST['SIRSU_GateEntryNo'])));
+	// $tdata['U_PC_ChNo']=trim(addslashes(strip_tags($_POST['SIRSU_ChallanNo'])));
+	// $tdata['U_PC_GENo']=trim(addslashes(strip_tags($_POST['SIRSU_GateEntryNo'])));
 	$tdata['U_PC_CNos']=trim(addslashes(strip_tags($_POST['SIRSU_ContainerNos'])));
-	$tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRSU_Container'])));
+	// $tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRSU_Container'])));
 	$tdata['U_PC_Cancle']=trim(addslashes(strip_tags($_POST['SIRSU_StatusChekBox'])));
 
 	if(!empty($_POST['SIRSU_BPLId'])){
 		$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SIRSU_BPLId'])));
 	}else{
-		$tdata['U_PC_BPLId']=0;
+		$tdata['U_PC_BPLId']=null;
 	}
 
 	if(!empty($_POST['SIRSU_LocId'])){
 		$tdata['U_PC_LCode']=trim(addslashes(strip_tags($_POST['SIRSU_LocId'])));
 	}else{
-		$tdata['U_PC_LCode']=0;
+		$tdata['U_PC_LCode']=null;
 	}
 
-	$tdata['U_PC_REnt']=0;
+	$tdata['U_PC_REnt']=null;
 	$tdata['U_PC_RcQty']=''; // discussion
 	$tdata['U_PC_TNCont']=null;
-	$tdata['U_PC_RDt']='';// discussion
 	$tdata['U_PC_UTTrans']=null;
 	$tdata['U_PC_BLin']=null;
 
@@ -4661,16 +4668,22 @@ if(isset($_POST['SampleIntimationRouteStageUpdateBtn']))
 			$tdata['U_PC_GEDte']='';
 		}
 
-		if(!empty($_POST['SIRSU_ChallanDate'])){
-			$tdata['U_PC_ChDate']=date('Y-m-d', strtotime($_POST['SIRSU_ChallanDate']));
-		}else{
-			$tdata['U_PC_ChDate']='';
-		}
+		// if(!empty($_POST['SIRSU_ChallanDate'])){
+		// 	$tdata['U_PC_ChDate']=date('Y-m-d', strtotime($_POST['SIRSU_ChallanDate']));
+		// }else{
+		// 	$tdata['U_PC_ChDate']='';
+		// }
 
 		if(!empty($_POST['SIRSU_TrDate'])){
 			$tdata['U_PC_TRDte']=date('Y-m-d', strtotime($_POST['SIRSU_TrDate']));
 		}else{
 			$tdata['U_PC_TRDte']='';
+		}
+
+		if(!empty($_POST['SIRSU_WoDate'])){
+			$tdata['U_PC_RDt']=date('Y-m-d', strtotime($_POST['SIRSU_WoDate']));
+		}else{
+			$tdata['U_PC_RDt']='';
 		}
 	// ---------------------------------Date Var Prepare End Here   ------------------------------------
 	

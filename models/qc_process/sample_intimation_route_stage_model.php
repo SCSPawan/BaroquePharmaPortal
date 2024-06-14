@@ -5,7 +5,7 @@
 <!--sample intimation route stage model-->
 
     <div class="modal fade sample-intimation-route-stage" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -195,7 +195,7 @@
                                 </div>
                             </div>  
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display:none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-5 col-form-label mt-6" for="val-skill">Total No Of Container</label>
                                     <div class="col-lg-7">
@@ -230,7 +230,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="SIRS_StatusChekBox" name="SIRS_StatusChekBox" style="pointer-events: none;">
+                                            <input class="form-check-input" type="checkbox" id="SIRS_StatusChekBox" name="SIRS_StatusChekBox" onclick="OnclickCancelledBox()">
                                             <label class="form-check-label" for="flexCheckDefault">Cancelled</label>
                                         </div>
                                     </div>
@@ -273,9 +273,7 @@
                                 </div>
                             </div> 
 
-
-
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display:none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                                     <div class="col-lg-8">
@@ -284,7 +282,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display:none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                     <div class="col-lg-8">
@@ -293,7 +291,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display:none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                                     <div class="col-lg-8">
@@ -302,7 +300,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display:none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                     <div class="col-lg-8">
@@ -338,15 +336,9 @@
                                 </div>
                             </div>
 
-
-
-
-                
                             <!-- Toggle States Button -->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-
                                     <button type="button" class="btn btn-primary" id="SampleIntimationRouteStageBtn" name="SampleIntimationRouteStageBtn" onclick="SendSampleIntimationRouteStageData()">Add</button>
 
                                     <button type="button" class="btn btn-danger active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close"  aria-pressed="true">Cancel</button>

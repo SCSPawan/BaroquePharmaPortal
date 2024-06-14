@@ -334,6 +334,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {
                 // console.log(result);
                 var JSONObject = JSON.parse(result);
+                // console.log(JSONObject);
 
                 $(`#SIRS_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
                 $(`#SIRS_WONo`).val(JSONObject[0]['WONo']);
@@ -384,13 +385,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 //  <!-- --------------- Cancelled Checkbox Set Value Start Here ---------------- -->
                     var Canceled=JSONObject[0]['Cancelled'];
 
-                    if(Canceled=='N'){
-                        document.getElementById("SIRS_StatusChekBox").checked = false; // Uncheck
-                        $(`#SIRS_StatusChekBox_val`).val(Canceled);
-                    }else{
-                        document.getElementById("SIRS_StatusChekBox").checked = true; // Check
-                        $(`#SIRS_StatusChekBox_val`).val(Canceled);
-                    }
+                    // if(Canceled=='N'){
+                    // document.getElementById("SIRS_StatusChekBox").checked = false; // Uncheck
+                    $(`#SIRS_StatusChekBox_val`).val(Canceled);
+                    // }
                 //  <!-- --------------- Cancelled Checkbox Set Value end Here ---------------- -->
 
                 // <!-- ----------- Challan Date Start Here ----------------------- -->
@@ -427,6 +425,17 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(".loader123").hide();
             }
         }); 
+    }
+
+    function OnclickCancelledBox(){
+        var checkBox = document.getElementById("SIRS_StatusChekBox");
+        if (checkBox.checked) {
+            // alert("Checkbox is checked");
+            $(`#SIRS_StatusChekBox_val`).val('Y');
+        }else{
+            // alert("Checkbox is not checked");
+            $(`#SIRS_StatusChekBox_val`).val('N');
+        }
     }
 
     function getSeriesDropdown()
