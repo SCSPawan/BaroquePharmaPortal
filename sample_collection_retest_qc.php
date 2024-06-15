@@ -1361,7 +1361,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             // -------- item level set data end ---------------------
 
 
-
+            getSeriesDropdown();
 
 
             // SCRTQC_it_supplierCode
@@ -1379,7 +1379,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             //     $('#itP_BQty').val(calculated_itP_BQty);
             // //Item Quantity Recalculate according sample quantity end here --------------------- 
 
-            getSeriesDropdown() // DocName By using API to get dropdown 
+            // DocName By using API to get dropdown 
             ContainerSelection() // get Container Selection Table List
             // }
             // ,
@@ -1430,7 +1430,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             $('#GI_item_name').val(ItemName);
             $('#GI_quatility').val(BatchQty_itemLevel);
             $('#GI_from_whs').val(RISSFromWhs);
-            $('#GI_to_whs').val(RISSToWhs);
+            $('#GI_to_whs').val('');//RISSToWhs
             $('#GI_Location').val(Location);
             $('#GI_uom').val(RetainQtyUom);
             // -------- item level set data end ---------------------
@@ -1438,6 +1438,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             getSeriesDropdownForGoodsIssue() // DocName By using API to get dropdown 
             // ContainerSelection() // get Container Selection Table List
             ContainerSelection_sample_issue();
+            getSeriesDropdown();
 
 
         }
@@ -1633,9 +1634,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         function getSeriesDropdown() {
             //alert('hiii');
-            var TrDate = $('#it_PostingDate').val();
-            var Series = document.getElementById('SCRTQC_it_DocNoName').value;
-            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=67&action=getSeriesDropdown_ajax';
+            var TrDate = $('#GI_postingDate').val();
+            // var Series = document.getElementById('GI_postingDate').value;
+            var dataString = 'TrDate=' + TrDate +'&ObjectCode=60&action=getSeriesDropdown_ajax';
             $.ajax({
                 type: "POST",
                 url: 'ajax/common-ajax.php',
@@ -1652,8 +1653,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                     console.log('SeriesDropdown 123', SeriesDropdown);
                     // SCRTQC_it_DocNoName
-                    $('#SCRTQC_it_DocNoName').html(SeriesDropdown);
                     $('#GI_DocNoName').html(SeriesDropdown);
+                    // $('#GI_series').html(SeriesDropdown);
 
                     selectedSeries(); // call Selected Series Single data function
                 },
@@ -1665,9 +1666,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
 
         function selectedSeries() {
-            var TrDate = $('#it_PostingDate').val();
-            var Series = document.getElementById('SCRTQC_it_DocNoName').value;
-            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=67&action=getSeriesSingleData_ajax';
+            var TrDate = $('#GI_postingDate').val();
+            var Series = document.getElementById('GI_DocNoName').value;
+            var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=60&action=getSeriesSingleData_ajax';
 
             $.ajax({
                 type: "POST",
@@ -1680,16 +1681,17 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $(".loader123").show();
                 },
                 success: function(result) {
-                    console.log('selected Series 123=>', result);
+                    //console.log('selected Series 123=>', result);
 
                     var JSONObject = JSON.parse(result);
+
 
                     var NextNumber = JSONObject[0]['NextNumber'];
                     var Series = JSONObject[0]['Series'];
 
-                    $('#SCRTQC_it_DocNo').val(Series);
-                    $('#SCRTQC_it_DocNoName').val(Series);
-                    $('#SCRTQC_it_NextNumber').val(NextNumber);
+                    // $('#GI_DocNoName').val(Series);
+                    $('#GI_NextNumber').val(NextNumber);
+                    $('#GI_series').val(Series);
                 },
                 complete: function(data) {
                     // Hide image container
@@ -1697,6 +1699,15 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 }
             });
         }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2176,7 +2187,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
             if (selectedQtySum == item_BQty) { // Container selection Qty validation
 
-                if (ToWhs != '') { // Item level To Warehouse validation
+                if (fromWhs != '') { // Item level To Warehouse validation
 
                     if (PostingDate != '') { // Posting Date validation
 
@@ -2255,7 +2266,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         swal("Oops!", "Please Select A Posting Date.", "error");
                     }
                 } else {
-                    swal("Oops!", "To Warehouse Mandatory.", "error");
+                    swal("Oops!", "To fromWhs Mandatory.", "error");
                 }
 
             } else {
@@ -2931,13 +2942,14 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
 
             // <!-- --------------------- when user select checkbox update flag start here -------------- -->
-            var usercheckListVal = document.getElementById('usercheckList' + un_id).value;
+            // var usercheckListVal = document.getElementById('usercheckList' + un_id).value;
 
-            if (usercheckListVal == '0') {
-                $(`#usercheckList` + un_id).val('1');
-            } else {
-                $(`#usercheckList` + un_id).val('0');
-            }
+            // if (usercheckListVal == '0') {
+            //     $(`#usercheckList` + un_id).val('1');
+            // }
+            //  else {
+            //     $(`#usercheckList` + un_id).val('0');
+            // }
 
             // <!-- --------------------- when user select checkbox update flag End here ---------------- -->
         }

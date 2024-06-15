@@ -552,12 +552,11 @@
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_sample" method="post">
     
             <div class="modal-body">
-              
-                     
-                <input type="text" id="GI_NextNumber" name="GI_NextNumber">
+                <input type="text" id="GI_series" name="GI_series">
                 <input type="text" id="SCRTQC_GI_SCRTQCB_DocEntry" name="SCRTQC_GI_SCRTQCB_DocEntry">
                 <input type="text" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
                 <input type="text" id="GI_supplierCode" name="GI_supplierCode">
+
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -588,12 +587,12 @@
 
                          <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Seri1111es</label>
+                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                <div class="col-lg-6">
                                     <select class="form-select" id="GI_DocNoName" name="GI_DocNoName" onchange="selectedSeries()"></select>
                                 </div>
                                 <div class="col-lg-2">
-                                    <input class="form-control desabled" type="text" id="GI_series" name="GI_series" readonly>
+                                    <input class="form-control desabled" type="text" id="GI_NextNumber" name="GI_NextNumber" readonly>
                                 </div>
                             </div>
                          </div>
@@ -607,7 +606,7 @@
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                  <div class="col-lg-8">
-                                   <input class="form-control" type="date" id="GI_postingDate" name="GI_postingDate">
+                                   <input class="form-control" type="date" id="GI_postingDate" name="GI_postingDate" value="<?php echo $currentDate ?>">
                                 </div>
                             </div>
                         </div>
@@ -616,7 +615,7 @@
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                  <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="GI_DocumentDate" name="GI_DocumentDate">
+                                    <input class="form-control" type="date" id="GI_DocumentDate" name="GI_DocumentDate" value="<?php echo $currentDate ?>">
                                 </div>
                             </div>
                         </div>

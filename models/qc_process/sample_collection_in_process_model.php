@@ -646,8 +646,9 @@
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_sample" method="post">
 
-                    <input type="hidden" id="it_BPLId" name="it_BPLId">
-                    <input type="hidden" id="it_DocEntry" name="it_DocEntry">
+                    <input type="tex" id="it_BPLId" name="it_BPLId">
+                    <input type="tex" id="it_DocEntry" name="it_DocEntry">
+                    <input type="tex" id="numner_Series" name="numner_Series">
 
                     <div class="row">
 
@@ -682,19 +683,26 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                 <div class="col-lg-4">
-                                    <select class="form-control desabled" type="text" id="gd_Series" name="gd_Series"></select>
+                                    <select class="form-control " type="text" id="gd_SeriesName" name="gd_SeriesName" onchange="selectedSeries_gd()"></select>
                                 </div>
                                  <div class="col-lg-4">
-                                    <input class="form-control desabled" type="text" id="gd_docNo" name="gd_docNo">
+                                    <input class="form-control desabled" type="text" id="gd_docNo" name="gd_docNo" readonly>
                                 </div>
                             </div>
                         </div>
+
+                        <?php
+                            // Get the current date in YYYY-MM-DD format
+                            $currentDate = date('Y-m-d');
+                            ?>
+
+                        
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="gd_PostingDate" name="gd_PostingDate">
+                                    <input class="form-control" type="date" id="gd_PostingDate" name="gd_PostingDate"  value="<?php echo $currentDate; ?>" onchange="getSeriesDropdown_gd();">
                                 </div>
                             </div>
                         </div>
@@ -703,7 +711,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="gd_DocumentDate" name="gd_DocumentDate">
+                                    <input class="form-control" type="date" id="gd_DocumentDate" name="gd_DocumentDate" value="<?php echo $currentDate; ?>">
                                 </div>
                             </div>
                         </div>
@@ -885,7 +893,7 @@
                                  <!-- table start -->
                                         <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
                                         <div class="table-responsive mt-2" id="list">
-                                                <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                         <thead class="fixedHeader1">
                                                             <tr>
                                                                 <th>Select</th>

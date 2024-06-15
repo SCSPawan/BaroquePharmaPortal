@@ -125,6 +125,7 @@ class Web {
 		curl_close($ch);
 
 		if(!empty($reponce)){
+			$option = '';
 			for ($i=0; $i < count($reponce) ; $i++) { 
 				if (!empty($reponce[$i]->SeriesName)) {
 					$option .= '<option value="'.$reponce[$i]->Series.'">'.$reponce[$i]->SeriesName.'</option>';

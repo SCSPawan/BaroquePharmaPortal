@@ -922,7 +922,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                                             <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
-                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks11</label>
+                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
                                                                     <div class="col-lg-8">
                                                                         <textarea class="form-control SetRemarkVal" id="qc_remarks" name="qc_remarks" rows="1"></textarea>
                                                                     </div>
@@ -1578,6 +1578,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         // Use querySelector to find the checked radio button within the group
         var selectedRadio = document.querySelector('input[name="listRado[]"]:checked');
 
+        console.log('selectedRadio',selectedRadio);
         // Check if a radio button is selected
         if (selectedRadio) {
             // Get the value of the selected radio button
@@ -1638,14 +1639,16 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $('#it_BranchName').val(result[0].Branch);
                 $('#it_DocEntry').val(result[0].GRPODocEntry);
                 // $('#it_postingDate').val(result[0].PostingDate);
-                // $('#it_documentDate').val('');
+                $('#qc_status_LineId').val(QCS_LineId);
                 $('#it_BAseDocNum').val(result[0].DocNum);
                 $('#it_BaseDocEntry').val(result[0].BaseDocType);
 
 
                 $('#tb_itme_code').val(result[0].ItemCode);
                 $('#tb_item_name').val(result[0].ItemName);
-                $('#tb_quality').val(result[0].Qty);
+                // $('#tb_quality').val(result[0].Qty);
+                $('#tb_quality').val(qCStsQty);
+                
                 $('#from_whs').val(result[0].FrmWhse);
                 $('#to_whs').val(result[0].ToWhse);
 
@@ -1658,13 +1661,14 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 
 
-                var SampleQuantity = document.getElementById('qcD_SampleQty').value;
+                // var SampleQuantity = document.getElementById('qcD_SampleQty').value;
                 // var JSONObject = JSON.parse(result);
                 // $('#InventoryTransferItemAppend').html(JSONObject);
+
                 // //Item Quantity Recalculate according sample quantity start here -------------------
-                var itP_BQty = document.getElementById('qcD_BatchQty').value;
-                var calculated_itP_BQty = parseFloat(Number(itP_BQty) - Number(SampleQuantity)).toFixed(6);
-                $('#tb_quality').val(calculated_itP_BQty);
+                // var itP_BQty = document.getElementById('qcD_BatchQty').value;
+                // var calculated_itP_BQty = parseFloat(Number(itP_BQty) - Number(SampleQuantity)).toFixed(6);
+                // $('#tb_quality').val(calculated_itP_BQty);
                 // //Item Quantity Recalculate according sample quantity end here --------------------- 
 
                 getSeriesDropdown(); // DocName By using API to get dropdown 
@@ -1739,7 +1743,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 //console.log('JSONObject=>',JSONObject);
 
                 var NextNumber = JSONObject[0]['NextNumber'];
-                console.log('NextNumber=>',NextNumber);
+                //console.log('NextNumber=>',NextNumber);
                 var Series = JSONObject[0]['Series'];
 
                 // $('#DocNo1').val(Series);
@@ -1932,10 +1936,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                 contentType: false,
                                 beforeSend: function() {
                                     // Show image container
-                                    $(".loader123").show();
+                                    // $(".loader123").show();
                                 },
                                 success: function(result) {
-                                    // console.log(result);
+                                    //console.log(result);
                                     var JSONObject = JSON.parse(result);
                                     // console.log(JSONObject);
                                     var status = JSONObject['status'];
@@ -1962,7 +1966,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                 },
                                 complete: function(data) {
                                     // Hide image container
-                                    $(".loader123").hide();
+                                     $(".loader123").hide();
                                 }
                             });
                         }
