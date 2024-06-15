@@ -301,7 +301,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                 <br>
 
-                <div class="row" id="footerProcess">
+
+                <div class="mt-3" id="footerProcess">
                     <div class="col-lg-12">
                         <div class="card">
                             <form role="form" class="form-horizontal" id="qcPostDocumentForm_route_stage" method="post">
@@ -362,8 +363,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                                                 <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
-                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Label Cliam UOM</label>
-                                                        <div class="col-lg-8">
+                                                        <label class="col-lg-5 col-form-label mt-6" for="val-skill">Label Cliam UOM</label>
+                                                        <div class="col-lg-7">
                                                             <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_LabelCliamUOM" name="qc_post_doc_Routestage_LabelCliamUOM" readonly>
                                                         </div>
                                                     </div>
@@ -398,9 +399,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                                                 <div class="col-xl-3 col-md-6">
                                                     <div class="form-group row mb-2">
-                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Specification No</label>
-                                                        <div class="col-lg-8">
-                                                            <input class="form-control desabled" type="number" id="qc_post_doc_Routestage_SpecificationNo" name="qc_post_doc_Routestage_SpecificationNo" readonly>
+                                                    <label class="col-lg-5 col-form-label mt-6" for="val-skill">Specification No</label>
+                                                        <div class="col-lg-7">
+                                                            <input class="form-control desabled" type="text" id="qc_post_doc_Routestage_SpecificationNo" name="qc_post_doc_Routestage_SpecificationNo" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -640,7 +641,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                     </div>
                                                 </div>
 
-                                                <div class="col-xl-3 col-md-6">
+                                                <div class="col-xl-3 col-md-6" style="display: none;">
                                                     <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
                                                         <div class="col-lg-8">
@@ -648,6 +649,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="form-group row mb-2">
+                                                        <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material without QC</label>
+                                                        <div class="col-lg-5">
+                                                            <select class="form-select" id="qc_post_doc_Routestage_releaseMaterial" name="qc_post_doc_Routestage_releaseMaterial">
+                                                            <option value="Yes">Yes</option>
+                                                                <option value="No">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <br>
@@ -924,14 +938,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                                                 <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
                                                                                     <span class="visually-hidden"></span>
                                                                                 </button>
+
                                                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCAPPROVLABEL','Approval Label Print API Pending')">Approval Label Print</a></li>
+                                                                                    <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCAPPROVLABEL','Approval Label Print API Pending')">Approval Label Print</a></li> -->
 
                                                                                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCREJLABEL','Rejected Label Print API Pending')">Rejected Label Print</a></li>
 
-                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCONHOLDLABEL','On-Hold Label Print API Pending')">On-Hold Label Print</a></li>
+                                                                                    <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCONHOLDLABEL','On-Hold Label Print API Pending')">On-Hold Label Print</a></li> -->
 
-                                                                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCPRINTCERTIFICATE','Print Certificate API Pending')">Print Certificate</a></li>
+                                                                                    <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocRSPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCPRINTCERTIFICATE','Print Certificate API Pending')">Print Certificate</a></li> -->
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -1041,13 +1056,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $(".loader123").show();
                 },
                 success: function(result){
+                    // console.log('API->', result);
                     $("#footerProcess").show(); // Afer Doc Selection Process show script
 
                     var JSONObjectAll = JSON.parse(result);
 
                     var JSONObject=JSONObjectAll['SampleCollDetails']; // sample collection details var
 
-                    console.log('JSONObject=>', JSONObject[0]);
+                    // console.log('JSONObject=>', JSONObject[0]);
 
                     $(`#qc-post-general-data-list-append_`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                     $(`#qc-status-list-append_`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
@@ -1063,7 +1079,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $(`#qc_post_doc_Routestage_RecievedQty`).val(JSONObject[0]['RecQty']);
                     $('#qc_post_doc_Routestage_MfgBy').val(JSONObject[0]['MfgBy']);
                     $(`#qc_post_doc_Routestage_RefNo`).val(JSONObject[0]['RefNo']);
-                    $(`#qc_post_doc_Routestage_SpecificationNo`).val(JSONObject[0]['SpecNo']);
+                    $(`#qc_post_doc_Routestage_SpecificationNo`).val(JSONObject[0]['SpecfNo']);
                     $(`#qc_post_doc_Routestage_BatchNo`).val(JSONObject[0]['BatchNo']);
                     $(`#qc_post_doc_Routestage_BatchSize`).val(JSONObject[0]['BatchQty']);
                     $(`#qc_post_doc_Routestage_SampleIntima`).val(JSONObject[0]['SampleIntimationNo']);
@@ -1086,6 +1102,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $(`#qc_post_doc_Routestage_DocEntry`).val(JSONObject[0]['DocEntry']);
                     $(`#qc_post_doc_Routestage_NoOfContainer1`).val(JSONObject[0]['NoCont1']);
                     $(`#qc_post_doc_Routestage_NoOfContainer2`).val(JSONObject[0]['NoCont2']);
+                    $(`#qc_post_doc_Routestage_Remarks`).val(JSONObject[0]['Remarks']);
 
                     // <!-- ------------ Posting Date Start Here --------------------- -->
                         var PostingDateOG = JSONObject[0]['PostingDate'];
@@ -1128,13 +1145,24 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     // <!-- ----------- Expiry Date End Here ------------------------- -->
 
                     // <!-- ----------- ReleaseDate Start Here ----------------------- -->
-                        var releaseDateDateOG = JSONObject[0]['RelDate'];
-                        if(releaseDateDateOG =='' || releaseDateDateOG==null){
-                        }else{
-                            releaseDateDateOG = releaseDateDateOG.split(' ')[0];
-                            $(`#qc_post_doc_Routestage_ReleaseDate`).val(releaseDateDateOG);
+                        var RelDateOG = JSONObject[0].RelDate;
+                        if(RelDateOG!=''){
+                            let [day, month, year] = RelDateOG.split(" ")[0].split("-");
+                            let RelDate = `${year}-${month}-${day}`;
+
+                            $(`#qc_post_doc_Routestage_ReleaseDate`).val(RelDate);
                         }
                     // <!-- ----------- ReleaseDate End Here ------------------------- -->
+
+                    // <!-- ----------- WoDate Start Here ---------------------------- -->
+                        var WODateOG = JSONObject[0].WODate;
+                        if(WODateOG!=''){
+                            let [day, month, year] = WODateOG.split(" ")[0].split("-");
+                            let WODate = `${year}-${month}-${day}`;
+
+                            $(`#qc_post_doc_Routestage_WODate`).val(WODate);
+                        }
+                    // <!-- ----------- WoDate End Here ------------------------------ -->
 
                     // <!-- ----------- retest Date Start Here ----------------------- -->
                         var retestDateDateOG = JSONObject[0]['ReTsDt'];
@@ -1581,30 +1609,42 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             var uppMax=document.getElementById('UppMax'+un_id).value;
             var UOM=document.getElementById('UOM'+un_id).value;
 
-            var lowMinResOG=document.getElementById('lower_min_result'+un_id).value; // this value enter by user
+            var ComparisonResultOG=document.getElementById('ComparisonResult'+un_id).value; // this value enter by user
 
-            var lowMinRes=parseFloat(lowMinResOG).toFixed(6); // this value enter by user
+            if(ComparisonResultOG!=''){
+                $('#ResultOut'+un_id).val(ComparisonResultOG+' '+UOM);
 
-            if(lowMinRes!=''){
-                $('#lower_min_result'+un_id).val(lowMinRes);
+                if (parseFloat(uppMax) === 0) {
+                    if(parseFloat(ComparisonResultOG)>=parseFloat(lowMin)){
+                        $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
 
-                $('#remarks'+un_id).val(lowMinResOG+' '+UOM);
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"PASS");
+                    }else{
+                        $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
 
-                if(parseFloat(lowMinRes)>=parseFloat(lowMin) && parseFloat(lowMinRes)<=parseFloat(uppMax)){
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"FAIL");
+                    }
+                } else {
+                    if(parseFloat(ComparisonResultOG)>=parseFloat(lowMin) && parseFloat(ComparisonResultOG)<=parseFloat(uppMax)){
+                        $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
 
-                    $('.dropdownResutl'+un_id).val('PASS');    
-                    $('#ResultOutTd'+un_id).attr('style', 'background-color: #c7f3c7');
-                    $('.dropdownResutl'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"PASS");
+                    }else{
+                        $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
 
-                    setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"PASS");
-                }else{
-
-                    $('.dropdownResutl'+un_id).val('FAIL');
-                    $('#ResultOutTd'+un_id).attr('style', 'background-color: #f8a4a4');
-                    $('.dropdownResutl'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-
-                    setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"FAIL");
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"FAIL");
+                    }
                 }
+                }else{
+                $('#ResultOut'+un_id).val('');
+                $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+
+                setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"-");
             }
         }
 
