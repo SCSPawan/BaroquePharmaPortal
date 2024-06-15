@@ -191,7 +191,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6" style="display: none;">
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                     <div class="col-lg-8">
@@ -261,7 +261,7 @@
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control" type="date" id="routStage_AnalysisDate" name="routStage_AnalysisDate">
+                                                        <input class="form-control" type="date" id="routStage_AnalysisDate" name="routStage_AnalysisDate" value="<?php echo date('Y-m-d')?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,8 +349,8 @@
 
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="form-group row mb-2">
-                                                    <label class="col-lg-8   col-form-label mt-6" for="val-skill">Release Material without QC</label>
-                                                    <div class="col-lg-4">
+                                                    <label class="col-lg-7   col-form-label mt-6" for="val-skill">Release Material without QC</label>
+                                                    <div class="col-lg-5">
                                                         <select class="form-select" id="routStage_Release" name="routStage_Release">
                                                             <option value="Yes">Yes</option>
                                                             <option value="No" Selected>No</option>
