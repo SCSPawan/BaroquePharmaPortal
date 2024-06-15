@@ -1633,7 +1633,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
 
         function getSeriesDropdown() {
-            //alert('hiii');
+          
             var TrDate = $('#GI_postingDate').val();
             // var Series = document.getElementById('GI_postingDate').value;
             var dataString = 'TrDate=' + TrDate +'&ObjectCode=60&action=getSeriesDropdown_ajax';
@@ -1651,7 +1651,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 success: function(result) {
                     var SeriesDropdown = JSON.parse(result);
 
-                    console.log('SeriesDropdown 123', SeriesDropdown);
+                    //console.log('SeriesDropdown 123', SeriesDropdown);
                     // SCRTQC_it_DocNoName
                     $('#GI_DocNoName').html(SeriesDropdown);
                     // $('#GI_series').html(SeriesDropdown);
@@ -2113,7 +2113,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                     success: function(result) {
                                         // console.log(result);
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
@@ -2225,9 +2225,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         $(".loader123").show();
                                     },
                                     success: function(result) {
-                                        console.log(result);
+                                        //console.log(result);
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
@@ -2340,7 +2340,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                     success: function(result) {
                                         // console.log(result);
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
@@ -2774,7 +2774,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $(".loader123").show();
                 },
                 success: function(result) {
-                    console.log('selected Series=>', result);
+                    //console.log('selected Series=>', result);
                     var JSONObject = JSON.parse(result);
 
                     var NextNumber = JSONObject[0]['NextNumber'];
@@ -3069,9 +3069,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         $(".loader123").show();
                                     },
                                     success: function(result) {
-                                        console.log(result);
+                                        //console.log(result);
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
