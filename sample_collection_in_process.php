@@ -918,59 +918,65 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     //             getSeriesDropdown(); // DocName By using API to get dropdown 
     //         }
     //     }); 
-    // }
+//     // }
 
-    // function getSeriesDropdown()
-    // {
-    //     var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
-    //     $.ajax({
-    //         type: "POST",
-    //         url: 'ajax/kri_production_common_ajax.php',
-    //         data: dataString,
-    //         cache: false,
-    //         beforeSend: function(){
-    //         },
-    //         success: function(result){
-    //             var SeriesDropdown = JSON.parse(result);
-    //             $('#DocNoName').html(SeriesDropdown);
-    //         },
-    //         complete:function(data){
-    //             selectedSeries(); // call Selected Series Single data function
-    //         }
-    //     }); 
-    // }
+//     function getSeriesDropdown()
+//     {
+//         var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
+//         $.ajax({
+//             type: "POST",
+//             url: 'ajax/kri_production_common_ajax.php',
+//             data: dataString,
+//             cache: false,
+//             beforeSend: function(){
+//             },
+//             success: function(result){
+//                 var SeriesDropdown = JSON.parse(result);
+//                 $('#DocNoName').html(SeriesDropdown);
+//             },
+//             complete:function(data){
+//                 selectedSeries(); // call Selected Series Single data function
+//             }
+//         }); 
+//     }
 
-    // function selectedSeries(){
+//     function selectedSeries(){
+//         var TrDate=$('#gd_PostingDate').val();
+//         var Series=document.getElementById('DocNoName').value;
+//         var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=&action=getSeriesSingleData_ajax';
+//         $.ajax({
+//             type: "POST",
+//             url: 'ajax/kri_production_common_ajax.php',
+//             data: dataString,
+//             cache: false,
 
-    //     var Series=document.getElementById('DocNoName').value;
-    //     var dataString ='Series='+Series+'&ObjectCode=SCS_SCINPROC&action=getSeriesSingleData_ajax';
-    //     $.ajax({
-    //         type: "POST",
-    //         url: 'ajax/kri_production_common_ajax.php',
-    //         data: dataString,
-    //         cache: false,
-
-    //         beforeSend: function(){
-    //         },
-    //         success: function(result)
-    //         {
-    //             var JSONObject = JSON.parse(result);
-    //             var NextNumber=JSONObject[0]['NextNumber'];
-    //             var Series=JSONObject[0]['Series'];
-    //             $('#DocNo').val(Series);
-    //             $('#gd_docNo').val(Series);
-    //             $('#inveTra_docNo').val(Series);
-    //             $('#external_docNo').val(Series);
-    //             $('#extra_docNo').val(Series);
+//             beforeSend: function(){
+//             },
+//             success: function(result)
+//             {
+//                 var JSONObject = JSON.parse(result);
+// alert("hii")
+//                 console.log('JSONObject=>',JSONObject);
+//                 var NextNumber=JSONObject[0]['NextNumber'];
+//                 var Series=JSONObject[0]['Series'];
+//                 $('#DocNo').val(Series);
+//                 $('#gd_docNo').val(Series);
+//                 $('#inveTra_docNo').val(Series);
+//                 $('#external_docNo').val(Series);
+//                 $('#extra_docNo').val(Series);
                  
-    //             $('#numner_Series').val(Series);                
-    //             $('#NextNumber').val(NextNumber);
-    //         },
-    //         complete:function(data){
-    //             getSupplierDropdown();
-    //         }
-    //     }); 
-    // }
+//                 $('#numner_Series').val(Series);                
+//                 $('#NextNumber').val(NextNumber);
+//             },
+//             complete:function(data){
+//                 getSupplierDropdown();
+//             }
+//         }); 
+//     }
+
+
+
+
 
     function getSupplierDropdown(){
 
@@ -986,9 +992,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 // $(".loader123").show();
             },
+
+
             success: function(result)
             {  
                var JSONObject = JSON.parse(result);
+               //console.log('JSONObject=>',JSONObject);
                 // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
                     let un_id=tbodyRowCount; 
                    $('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
@@ -1135,6 +1144,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {
                 var JSONObject = JSON.parse(result);
 
+                //console.log('JSONObject=>',JSONObject);
+
                 $('#gd_BaseDocType').val('SCS_SCINPROC');
                 $('#gd_BaseDocNum').val(DocEntry);
                 $('#gd_branch').val(Branch);
@@ -1195,11 +1206,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function getSeriesDropdown_gd()
-    {
-        var dataString ='ObjectCode=60&action=getSempleCSeriesDropdown_ajax';
+    {  
+        var TrDate=$('#gd_PostingDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
+            url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
             beforeSend: function(){
@@ -1207,14 +1219,51 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result){
                 var SeriesDropdown = JSON.parse(result);
+               
+                $('#gd_SeriesName').html(SeriesDropdown);
 
-                $('#gd_Series').html(SeriesDropdown);
             },
             complete:function(data){
-                $(".loader123").hide();
+                selectedSeries_gd();
             }
         }); 
     }
+
+
+
+function selectedSeries_gd(){
+    var TrDate=$('#gd_PostingDate').val();
+    var Series=document.getElementById('gd_SeriesName').value;
+    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: dataString,
+        cache: false,
+
+        beforeSend: function(){
+        },
+        success: function(result)
+        {
+            var JSONObject = JSON.parse(result);
+            // alert("hii")
+            //console.log('JSONObject=>',JSONObject);
+            var NextNumber=JSONObject[0]['NextNumber'];
+            var Series=JSONObject[0]['Series'];
+                         
+            $('#numner_Series').val(Series);                
+            $('#gd_docNo').val(NextNumber);
+        },
+        complete:function(data){
+                $(".loader123").hide();
+        }
+    }); 
+}
+
+
+
+
+
 
     function ContainerSelection(){
 
@@ -1800,37 +1849,37 @@ function OpenInventoryExternalTransferModel(){
 }
 
 
- function ContainerSelection_extenal(){
+function ContainerSelection_extenal(){
 
-        var DocEntry=document.getElementById('it__DocEntry').value;
-        var BatchNo=document.getElementById('it_BatchNo').value;
-        var ItemCode=document.getElementById('itP_ItemCode').value;
-        var itP_FromWhs=document.getElementById('itP_FromWhs').value;
+    var DocEntry=document.getElementById('it__DocEntry').value;
+    var BatchNo=document.getElementById('it_BatchNo').value;
+    var ItemCode=document.getElementById('itP_ItemCode').value;
+    var itP_FromWhs=document.getElementById('itP_FromWhs').value;
 
-        var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
+    var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
 
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: dataString,
+        cache: false,
 
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-               
-                // $('#ContainerSelectionItemAppend_retails').html(JSONObject); 
-                $('#ContainerSelectionItemAppend_external').html(JSONObject); 
-                
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result)
+        {
+            var JSONObject = JSON.parse(result);
+            
+            // $('#ContainerSelectionItemAppend_retails').html(JSONObject); 
+            $('#ContainerSelectionItemAppend_external').html(JSONObject); 
+            
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    }); 
+}
 
     // =----==
 

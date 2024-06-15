@@ -517,6 +517,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
+
+// print_r($FinalAPI);
+// die();
+
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	$FinalResponce = array();
@@ -767,6 +771,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 }
 
 
+
+
+
+
 if (isset($_POST['action']) && $_POST['action'] == 'SupplierSingleData_ajax') {
 	$SupplierCode = trim(addslashes(strip_tags($_POST['SupplierCode'])));
 	// <!-- =============== get supplier dropdown start here ========================================== -->
@@ -794,42 +802,51 @@ if (isset($_POST['action']) && $_POST['action'] == 'SupplierSingleData_ajax') {
 	exit(0);
 }
 
+
 if (isset($_POST['action']) && $_POST['action'] == 'SupplierDropdown_ajax') {
-	// <!-- =============== get supplier dropdown start here ========================================== -->
-	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+    // SAP Service Layer Login
+    $res = $obj->SAP_Login();
 
-	if (!empty($res)) {
-		$BP_Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_BusinessPartners;
+    if (!empty($res)) {
+        $BP_Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_BusinessPartners.'?$select=CardCode,CardName';
 
-		$responce_encode_BP = $obj->getFunctionServiceLayer($BP_Final_API);
-		$responce_BP = json_decode($responce_encode_BP);
+        $response_encode_BP = $obj->getFunctionServiceLayer($BP_Final_API);
+		
+        $response_BP = json_decode($response_encode_BP);
 
-		// echo "<pre>";
-		// print_r($responce_BP);
-		// echo "</pre>";
-		// exit;
+        // Check if the response contains data
+        if (isset($response_BP->value) && is_array($response_BP->value)) {
+            // Using a buffer for efficient string concatenation
+            $options = '<option value="">-</option>';
+            foreach ($response_BP->value as $bp) {
+                $options .= '<option value="' . htmlspecialchars($bp->CardCode) . '">' . htmlspecialchars($bp->CardCode) . '</option>';
+            }
 
-		$option .= '<option value="">-</option>';
-		for ($i = 0; $i < count($responce_BP->value); $i++) {
+            // Send the options as a JSON response
+            echo json_encode($options);
+        } else {
+            echo json_encode('<option value="">No suppliers found</option>');
+        }
 
-			$option .= '<option value="' . $responce_BP->value[$i]->CardCode . '">' . $responce_BP->value[$i]->CardCode . '</option>';
-		}
-	}
+        // SAP Service Layer Logout
+        $obj->SAP_Logout();
+    } else {
+        // Handle login failure
+        echo json_encode('<option value="">Failed to login to SAP</option>');
+    }
 
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	// <!-- =============== get supplier dropdown end here ============================================ -->
-
-	echo json_encode($option);
-	exit(0);
+    exit(0);
 }
+
+
+
 
 if (isset($_POST['action']) && $_POST['action'] == 'WareHouseDropdown_ajax') {
 	// <!-- =============== get supplier dropdown start here ========================================== -->
 	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
 	if (!empty($res)) {
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_Warehouses;
-
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_Warehouses.'?$select=WarehouseCode,WarehouseName';
 		$responce_encode = $obj->getFunctionServiceLayer($Final_API);
 		$responce = json_decode($responce_encode);
 
@@ -1925,7 +1942,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 	$tdata['DocType'] = 'dDocument_Items';
 	$tdata['DocDate'] = date("Y-m-d", strtotime($_POST['gd_PostingDate']));
 	$tdata['DocDueDate'] = date("Y-m-d", strtotime($_POST['gd_DocumentDate']));
-	$tdata['Series'] = trim(addslashes(strip_tags($_POST['gd_Series'])));
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['gd_SeriesName'])));
 	$tdata['TaxDate'] = date("Y-m-d", strtotime($_POST['gd_DocumentDate']));
 	$tdata['DocObjectCode'] = 'oInventoryGenExit';
 
@@ -1949,7 +1966,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
 	// $item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST['GI_from_whs'])));
 	// <!-- Item Batch row data prepare start here ----------- -->
-	$BL = 0;
+	// $BL = 0;
 	for ($i = 0; $i < count($_POST['usercheckList']); $i++) {
 
 		if ($_POST['usercheckList'][$i] == '1') {
@@ -1959,7 +1976,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
 			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
 			$item['BatchNumbers'][] = $batch;
-			$BL++;
+			// $BL++;
 		}
 	}
 	// <!-- Item Batch row data prepare end here ------------- -->
@@ -1991,7 +2008,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 		$data = array();
 		if (array_key_exists('error', (array)$responce)) {
 			$data['status'] = 'False';
-			$data['DocEntry'] = '';
+			$data['DocEntry'] = '1111111';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
 		} else {
@@ -2002,14 +2019,14 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 			$UT_data['U_PC_SIssue'] = trim(addslashes(strip_tags($responce->DocEntry)));
 			// <!-- ------- row data preparing end here ----------------------- -->
 
-			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCINPROC . '(' . $UT_data['DocEntry'] . ')';
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_SCS_SCOL . '(' . $UT_data['DocEntry'] . ')';
 			$underTestNumber = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data, $Final_API2);
 			$underTestNumber_decode = json_decode($underTestNumber);
 
 			if ($underTestNumber_decode == '') {
 				$data['status'] = 'True';
 				$data['DocEntry'] = $responce->DocEntry;
-				$data['message'] = "Inventory Transfer Successfully Added.";
+				$data['message'] = "Sample Issue Successfully Added.";
 				echo json_encode($data);
 			} else {
 				// $data['status']='False';
@@ -2019,7 +2036,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 
 				if (array_key_exists('error', (array)$underTestNumber_decode)) {
 					$data['status'] = 'False';
-					$data['DocEntry'] = '';
+					$data['DocEntry'] = '22222222222';
 					$data['message'] = $responce->error->message->value;
 					echo json_encode($data);
 				}
@@ -6902,7 +6919,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue_sampleCollection_stability'])) {
 	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
 	// $item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST[itP_ToWhs'GI_from_whs'])));
 	// <!-- Item Batch row data prepare start here ----------- -->
-	$BL = 0;
+	// $BL = 0;
 	for ($i = 0; $i < count($_POST['usercheckList']); $i++) {
 
 		if ($_POST['usercheckList'][$i] == '1') {
@@ -6912,7 +6929,7 @@ if (isset($_POST['SubIT_Btn_S_sample_issue_sampleCollection_stability'])) {
 			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
 			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
 			$item['BatchNumbers'][] = $batch;
-			$BL++;
+			// $BL++;
 		}
 	}
 	// <!-- Item Batch row data prepare end here ------------- -->

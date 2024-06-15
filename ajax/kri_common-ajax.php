@@ -1912,40 +1912,33 @@ if(isset($_POST['SC_SubIT_Btn']))
 	$tdata['DocObjectCode']=trim(addslashes(strip_tags('67')));
     $tdata['BPLID']=trim(addslashes(strip_tags($_POST['BranchId'])));
 	$tdata['U_PC_QCRtest']=trim(addslashes(strip_tags($_POST['_DocEntry'])));
-	// $tdata['U_PC_SColl']=trim(addslashes(strip_tags($_POST['it_DocEntry'])));
 	$tdata['U_BFType']=trim(addslashes(strip_tags($_POST['it_BaseDocEntry'])));
 
 	$mainArray=$tdata;
 
-	// echo "<pre>";
-	// print_r($mainArray);
-	// echo "</pre>";
-	// exit;
-// --------------------- Item and batch row data preparing start here -------------------------------- -->
-	$item['LineNum']=trim(addslashes(strip_tags('0')));
-	$item['ItemCode']=trim(addslashes(strip_tags($_POST['tb_itme_code'])));
-	$item['WarehouseCode']=trim(addslashes(strip_tags($_POST['to_whs'])));
-	$item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST['from_whs'])));
-	$item['Quantity']=trim(addslashes(strip_tags($_POST['tb_quality'])));
-	
-	// <!-- Item Batch row data prepare start here ----------- -->
-		$BL=0; //skip array avoid and count continue
-		for ($i=0; $i <count($_POST['usercheckList']) ; $i++) { 
+	// --------------------- Item and batch row data preparing start here -------------------------------- -->
+		$item['LineNum']=trim(addslashes(strip_tags('0')));
+		$item['ItemCode']=trim(addslashes(strip_tags($_POST['tb_itme_code'])));
+		$item['WarehouseCode']=trim(addslashes(strip_tags($_POST['to_whs'])));
+		$item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST['from_whs'])));
+		$item['Quantity']=trim(addslashes(strip_tags($_POST['tb_quality'])));
+		
+		// <!-- Item Batch row data prepare start here ----------- -->
+			for ($i=0; $i <count($_POST['usercheckList']) ; $i++) { 
 
-			if($_POST['usercheckList'][$i]=='1'){
+				if($_POST['usercheckList'][$i]=='1'){
 
-				$batch['BatchNumber']=trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
-				$batch['Quantity']=trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
-				$batch['BaseLineNumber']=trim(addslashes(strip_tags('0')));
-				$batch['ItemCode']=trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
+					$batch['BatchNumber']=trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
+					$batch['Quantity']=trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
+					$batch['BaseLineNumber']=trim(addslashes(strip_tags('0')));
+					$batch['ItemCode']=trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
 
-				$item['BatchNumbers'][]=$batch;
-				$BL++; // increment variable define here
+					$item['BatchNumbers'][]=$batch;
+				}
 			}
-		}
-	// <!-- Item Batch row data prepare end here ------------- -->
-	$mainArray['StockTransferLines'][]=$item;
-// --------------------- Item and batch row data preparing end here ---------------------------------- -->
+		// <!-- Item Batch row data prepare end here ------------- -->
+		$mainArray['StockTransferLines'][]=$item;
+	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 
 	// echo "<pre>";
 	// print_r($mainArray);
@@ -1967,28 +1960,28 @@ if(isset($_POST['SC_SubIT_Btn']))
 			$data=array();
 			if(array_key_exists('error', (array)$responce)){
 				$data['status']='False';
-				$data['DocEntry']='11111';
+				$data['DocEntry']='';
 				$data['message']=$responce->error->message->value;
 				echo json_encode($data);
-			}else{
-
-			//    echo "<pre>";
-			//    //print_r($responce);
-			//    echo "</pre>";
-			//    exit;
-
-			   
+			}else{			   
 				// <!-- ------- row data preparing start here --------------------- -->
-					$UT_data=array();
-					$UT_data['DocEntry']=trim(addslashes(strip_tags($_POST['_DocEntry'])));
-					$UT_data['U_PC_ITNo']=trim(addslashes(strip_tags($responce->DocEntry)));
-				// <!-- ------- row data preparing end here ----------------------- -->
+					$UT_data = [
+						'DocEntry' =>$_POST['_DocEntry'],
+						'SCS_QCRETEST2Collection' => [
+							[
+								'LineId' =>$_POST['qc_status_LineId'],
+								'U_PC_ITNo' => $responce->DocEntry
+							]
+						]
+					];
 
-				$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_QCRETEST.'('.$UT_data['DocEntry'].')';
+				// <!-- ------- row data preparing end here ----------------------- -->
+				
+				$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_QCRETEST.'('.$_POST['_DocEntry'].')';
 				$underTestNumber=$objKri->SampleIntimationUnderTestUpdateFromInventoryTransfer_kri($UT_data,$Final_API2);
 				$underTestNumber_decode=json_decode($underTestNumber);
 
-				if($underTestNumber_decode==''){
+				if(empty($underTestNumber_decode)){
 					$data['status']='True';
 					$data['DocEntry']=$responce->DocEntry;
 					$data['message']="Sample Collection Inventory Transfer Successfully Added.";
@@ -2001,7 +1994,7 @@ if(isset($_POST['SC_SubIT_Btn']))
 
 					if(array_key_exists('error', (array)$underTestNumber_decode)){
 						$data['status']='False';
-						$data['DocEntry']='222222222222';
+						$data['DocEntry']='';
 						$data['message']=$responce->error->message->value;
 						echo json_encode($data);
 					}
@@ -2044,7 +2037,6 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pup
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
 		// print_r($FinalAPI);
-
 		// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 	$response=$objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
@@ -2256,9 +2248,9 @@ if(!empty($qcStatus)){
 
 			<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->QCStsRelDate))? date("d-m-Y", strtotime($qcStatus[$j]->QCStsRelDate)):"").'" class="form-control" readonly></td>
+			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->QCRelDt))? date("d-m-Y", strtotime($qcStatus[$j]->QCRelDt)):"").'" class="form-control" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->RelTime))? date("H:i", strtotime($qcStatus[$j]->RelTime)):"").'" class="form-control" readonly></td>
+			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->QCRelTime))? date("H:i", strtotime($qcStatus[$j]->QCRelTime)):"").'" class="form-control" readonly></td>
 
 			<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
 
@@ -2518,7 +2510,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
     $tdata['U_PC_SCRtest']=trim(addslashes(strip_tags($_POST['SCRTQC_GI_SCRTQCB_DocEntry'])));
     $tdata['U_BFType']=trim(addslashes(strip_tags($_POST['GI_baseDocType'])));
     $tdata['BPL_IDAssignedToInvoice']=trim(addslashes(strip_tags($_POST['SCRTQCB_BPLId_samIss'])));
-
+	// Series
 	// $tdata['CardCode']=trim(addslashes(strip_tags($_POST['GI_supplierCode'])));
 	// $tdata['Comments']=null;
 	// $tdata['FromWarehouse']=trim(addslashes(strip_tags($_POST['GI_from_whs'])));
@@ -2533,7 +2525,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 	$item['WarehouseCode']=trim(addslashes(strip_tags($_POST['GI_from_whs'])));
 	// $item['FromWarehouseCode']=trim(addslashes(strip_tags($_POST['GI_from_whs'])));
 	// <!-- Item Batch row data prepare start here ----------- -->
-		$BL=0;
+		// $BL=0;
 		for ($i=0; $i <count($_POST['usercheckList']) ; $i++) { 
 
 			if($_POST['usercheckList'][$i]=='1'){
@@ -2543,7 +2535,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 				$batch['BaseLineNumber']=trim(addslashes(strip_tags('0')));
 				$batch['ItemCode']=trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
 				$item['BatchNumbers'][]=$batch;
-				$BL++;
+				// $BL++;
 			}
 		}
 	// <!-- Item Batch row data prepare end here ------------- -->
@@ -2552,11 +2544,12 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 	// echo json_encode($mainArray);
 	// exit;
 	// echo "<pre>";
+	// print_r($_POST['usercheckList']);
 	// print_r($mainArray);
 	// echo "<pre>";
 	// exit;
-// echo json_encode($mainArray);
-// exit;
+	// echo json_encode($mainArray);
+	// exit;
 //<!-- ------------- function & function responce code Start Here ---- -->
 	$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -2572,7 +2565,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 			$data=array();
 			if(array_key_exists('error', (array)$responce)){
 				$data['status']='False';
-				$data['DocEntry']='';
+				$data['DocEntry']='111111111';
 				$data['message']=$responce->error->message->value;
 				echo json_encode($data);
 			}else{
@@ -2600,7 +2593,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 
 					if(array_key_exists('error', (array)$underTestNumber_decode)){
 						$data['status']='False';
-						$data['DocEntry']='';
+						$data['DocEntry']='2222222222222';
 						$data['message']=$responce->error->message->value;
 						echo json_encode($data);
 					}
