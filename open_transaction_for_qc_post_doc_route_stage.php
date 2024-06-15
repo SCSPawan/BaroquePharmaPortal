@@ -316,7 +316,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             success: function(result){
                 var JSONObjectAll = JSON.parse(result);
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
-                // console.log('JSONObject=>', JSONObject);
+                console.log('JSONObject=>', JSONObject);
 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
@@ -346,7 +346,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#routStage_Branch`).val(JSONObject[0].BranchName);
                 $(`#routStage_Location`).val(JSONObject[0].Location);
                 $(`#routStage_ValidUpTo`).val('');
-                $(`#routStage_ARNo`).val('');
+                $(`#routStage_ARNo`).val(JSONObject[0].ARNo);
                 $(`#routStage_GateEntryNo`).val(JSONObject[0].GateENo);
                 $(`#routStage_Factor`).val(JSONObject[0].Factor);
                 $(`#routStage_U_PC_NoCont1`).val('1');
