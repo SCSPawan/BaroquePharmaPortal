@@ -3,15 +3,11 @@ require_once './classes/function.php';
 $obj= new web();
 
 if(empty($_SESSION['Baroque_EmployeeID'])) {
-  header("Location:login.php");
-  exit(0);
+    header("Location:login.php");
+    exit(0);
 }
 
-
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
-    // print_r($RETESTQCSAMPLEINTIMATIONVIEW_API);die();
-
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($RETESTQCSAMPLEINTIMATIONVIEW_API);
     $count=count($getAllData);
 
@@ -137,6 +133,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Expiry Date</th>
                         <th>Location</th>
                         <th>Branch Name</th>
+                        <th>Whse Code</th>
+                        <th>Retest Date</th>
+                        <th>MFG By</th>
+                        <th>Make By</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -157,11 +157,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 }else{
                                     $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
                                 }
+                                
+                                if(empty($getAllData[$i]->RetestDate)){
+                                    $RetestDate='';
+                                }else{
+                                    $RetestDate=date("d-m-Y", strtotime($getAllData[$i]->RetestDate));
+                                }
+
+                                
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
                                 <tr>
-                                    <td class="desabled">'.$getAllData[$i]->SrNo.'</td>
+                                    <td class="desabled">'.($i+1).'</td>
 
                                     <td style="width: 100px;vertical-align: middle; text-align: center;">
                                         <a href="" class="" data-bs-toggle="modal" data-bs-target=".sample-intimation" onclick="Retest_sample_intimation(\''.$getAllData[$i]->GRPODocEntry.'\',\''.$getAllData[$i]->BatchNo.'\',\''.$getAllData[$i]->ItemCode.'\',\''.$getAllData[$i]->LineNum.'\')">
@@ -185,6 +193,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$ExpiryDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Location.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
+                                    <td class="desabled">'.$RetestDate.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MfgBy.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
                                 </tr>';
                         }
                     }

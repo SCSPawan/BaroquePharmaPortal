@@ -313,18 +313,17 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                 <div class="row">
 
-                                    <input type="text" id="SCRTQCB_LocCode" name="SCRTQCB_LocCode">
-                                    <input type="text" id="SCRTQCB_Series" name="SCRTQCB_Series">
-                                    <input type="text" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
-                                    <input type="text" id="SCRTQCB_SupplierName" name="SCRTQCB_SupplierName">
-                                    <input type="text" id="SCRTQCB_GRNLineNo" name="SCRTQCB_GRNLineNo">
-                                    <input type="text" id="SCRTQCB_BPLId" name="SCRTQCB_BPLId">
-                                    <input type="text" id="SCRTQCB_SampleType" name="SCRTQCB_SampleType">
-                                    <input type="text" id="SCRTQCB_SampleQtyUnit" name="SCRTQCB_SampleQtyUnit">
-
-                                    <input type="text" id="SCRTQCB_RISSFromWhs" name="SCRTQCB_RISSFromWhs">
-                                    <input type="text" id="SCRTQCB_RISSToWhs" name="SCRTQCB_RISSToWhs">
-                                    <input type="text" id="SCRTQCB_RetainQtyUom" name="SCRTQCB_RetainQtyUom">
+                                    <input type="hidden" id="SCRTQCB_LocCode" name="SCRTQCB_LocCode">
+                                    <input type="hidden" id="SCRTQCB_Series" name="SCRTQCB_Series">
+                                    <input type="hidden" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
+                                    <input type="hidden" id="SCRTQCB_SupplierName" name="SCRTQCB_SupplierName">
+                                    <input type="hidden" id="SCRTQCB_GRNLineNo" name="SCRTQCB_GRNLineNo">
+                                    <input type="hidden" id="SCRTQCB_BPLId" name="SCRTQCB_BPLId">
+                                    <input type="hidden" id="SCRTQCB_SampleType" name="SCRTQCB_SampleType">
+                                    <input type="hidden" id="SCRTQCB_SampleQtyUnit" name="SCRTQCB_SampleQtyUnit">
+                                    <input type="hidden" id="SCRTQCB_RISSFromWhs" name="SCRTQCB_RISSFromWhs">
+                                    <input type="hidden" id="SCRTQCB_RISSToWhs" name="SCRTQCB_RISSToWhs">
+                                    <input type="hidden" id="SCRTQCB_RetainQtyUom" name="SCRTQCB_RetainQtyUom">
                                     <input type="hidden" id="SCRTQCB_it_DocEntry" name="SCRTQCB_it_DocEntry">
 
 
@@ -419,7 +418,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         </div>
                                     </div>
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Recieved Sepretly</label>
                                             <div class="col-lg-6">
@@ -988,13 +987,13 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 data: dataString,
                 beforeSend: function() {
                     // Show image container
-                    // $(".loader123").show();
+                    $(".loader123").show();
                 },
                 success: function(result) {
 
                     $("#footerProcess").show(); // bottom section show script
                     var JSONObjectAll = JSON.parse(result);
-                    //console.log('JSONObjectAll------',JSONObjectAll);
+                    // console.log('JSONObjectAll------',JSONObjectAll);
                     var JSONObject = JSONObjectAll['SampleCollDetails'];
 
                     // console.log('JSONObjectAll------',JSONObjectAll);

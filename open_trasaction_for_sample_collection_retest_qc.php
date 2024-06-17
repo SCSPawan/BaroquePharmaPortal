@@ -11,6 +11,8 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
 if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 {
     $getAllData=$obj->get_OTFSI_Data($RETESTQCSAMPLECOLLVIEW_API);
+    // echo '<pre>';
+    // print_r($getAllData[0]);
     $count=count($getAllData);
 
     $adjacents = 1;
@@ -122,6 +124,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Item View</th>
                         <th>GRPO No</th>
                         <th>GRPO DocEntry</th>
+                        <th>GRN Line No</th>
                         <th>Supplier Code</th>
                         <th>Supplier Name</th>
                         <th>Bp Ref No</th>
@@ -137,6 +140,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Sample Intimation</th>
                         <th>Location</th>
                         <th>Branch Name</th>
+                        <th>Whse Code</th>
+                        <th>MakeBy</th>
+                        <th>Retest Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -152,11 +158,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     $MfgDate=date("d-m-Y", strtotime($getAllData[$i]->MfgDate));
                                 }
 
-                                if(empty($getAllData[$i]->ExpiryDate)){
-                                    $ExpiryDate='';
+                                if(empty($getAllData[$i]->ExpDate)){
+                                    $ExpDate='';
                                 }else{
-                                    $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
+                                    $ExpDate=date("d-m-Y", strtotime($getAllData[$i]->ExpDate));
                                 }
+
+                                if(empty($getAllData[$i]->RetestDate)){
+                                    $RetestDate='';
+                                }else{
+                                    $RetestDate=date("d-m-Y", strtotime($getAllData[$i]->RetestDate));
+                                }
+
+                                
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -171,6 +185,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                     <td class="desabled">'.$getAllData[$i]->GRNNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->GRNEntry.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->GRNLineNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->SupplierCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->SupplierName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BPRefNo.'</td>
@@ -182,10 +197,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->BatchNum.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
-                                    <td class="desabled">'.$ExpiryDate.'</td>
+                                    <td class="desabled">'.$ExpDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->SampleIntimationNo.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->Location.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Loaction.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Branch.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
+                                    <td class="desabled">'.$RetestDate.'</td>
 
                                 </tr>';
                         }
@@ -307,6 +325,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 },
                 success: function(result){
                     var JSONObject = JSON.parse(result);
+                    // console.log(JSONObject);
 
                         $(`#SCRTP_GRNNo`).val(JSONObject[0]['GRNNo']);
                         $(`#SCRTP_GRNDocEntry`).val(JSONObject[0]['GRNEntry']);
