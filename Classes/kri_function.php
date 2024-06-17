@@ -267,7 +267,8 @@ public function getQcPostDocumentRetestQc($RETESTQCPOSTDOC)
 		$removeDoller = rtrim($API, "&"); // URL last & symbole remove
 		$stripped = rtrim($removeDoller, "?"); // URL last ? symbole remove
 		$Final_url = str_replace(' ', '%20', $stripped); // All blank space replace to %20
-// print_r($Final_url);die();
+		// print_r($Final_url);
+		// die();
 		$ch = curl_init();  
 		curl_setopt($ch,CURLOPT_URL,$Final_url);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);

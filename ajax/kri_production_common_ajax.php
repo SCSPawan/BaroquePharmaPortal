@@ -8051,53 +8051,53 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 if (isset($_POST['addQcPostDocumentSubmitQCCheckRouteStageBtn'])) {
 
 	//<!-- ------ valdiation start --------------------------------- --> 
-		if ($_POST['routStage_Release'] == 'No') {
-			if ($_POST['routStage_AssayPotencyReq'] == 'Yes') {
-				// <!-- AssayPotency validation start --------------- -->
-				$AssayPotency = trim(addslashes(strip_tags($_POST['routStage_AssayPotency'])));
+		// if ($_POST['routStage_Release'] == 'No') {
+		// 	if ($_POST['routStage_AssayPotencyReq'] == 'Yes') {
+		// 		// <!-- AssayPotency validation start --------------- -->
+		// 		$AssayPotency = trim(addslashes(strip_tags($_POST['routStage_AssayPotency'])));
 
-				// Check if AssayPotency is empty
-				if ($AssayPotency === '' || $AssayPotency === null) {
-					$data['status'] = 'False';
-					$data['DocEntry'] = '';
-					$data['message'] = ' Please Enter value in AssayPotency % is empty';
-					echo json_encode($data);
-					exit();
-				} else {
-					// Convert AssayPotency to a float
-					$AssayPotency = floatval($AssayPotency);
+		// 		// Check if AssayPotency is empty
+		// 		if ($AssayPotency === '' || $AssayPotency === null) {
+		// 			$data['status'] = 'False';
+		// 			$data['DocEntry'] = '';
+		// 			$data['message'] = ' Please Enter value in AssayPotency % is empty';
+		// 			echo json_encode($data);
+		// 			exit();
+		// 		} else {
+		// 			// Convert AssayPotency to a float
+		// 			$AssayPotency = floatval($AssayPotency);
 
-					// Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
-					if ($AssayPotency > 100) {
-						$data['status'] = 'False';
-						$data['DocEntry'] = '';
-						$data['message'] = 'AssayPotency %  not greater than 100';
-						echo json_encode($data);
-						exit();
-					}
+		// 			// Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
+		// 			if ($AssayPotency > 100) {
+		// 				$data['status'] = 'False';
+		// 				$data['DocEntry'] = '';
+		// 				$data['message'] = 'AssayPotency %  not greater than 100';
+		// 				echo json_encode($data);
+		// 				exit();
+		// 			}
 
-					if ($AssayPotency <= 0) {
-						$data['status'] = 'False';
-						$data['DocEntry'] = '';
-						$data['message'] = 'AssayPotency % is not equal to 0 or not less than 0';
-						echo json_encode($data);
-						exit();
-					}
-				}
-				// <!-- AssayPotency validation end ----------------- -->
+		// 			if ($AssayPotency <= 0) {
+		// 				$data['status'] = 'False';
+		// 				$data['DocEntry'] = '';
+		// 				$data['message'] = 'AssayPotency % is not equal to 0 or not less than 0';
+		// 				echo json_encode($data);
+		// 				exit();
+		// 			}
+		// 		}
+		// 		// <!-- AssayPotency validation end ----------------- -->
 
-				// <!-- Factor validation start --------------------- -->
-				$Factor = trim(addslashes(strip_tags($_POST['factor'])));
-				if (empty($Factor)) {
-					$data['status'] = 'False';
-					$data['DocEntry'] = '';
-					$data['message'] = ' Please Enter value in Factor.';
-					echo json_encode($data);
-					exit();
-				}
-				// <!-- Factor validation end ----------------------- -->	
-			}
-		}
+		// 		// <!-- Factor validation start --------------------- -->
+		// 		$Factor = trim(addslashes(strip_tags($_POST['factor'])));
+		// 		if (empty($Factor)) {
+		// 			$data['status'] = 'False';
+		// 			$data['DocEntry'] = '';
+		// 			$data['message'] = ' Please Enter value in Factor.';
+		// 			echo json_encode($data);
+		// 			exit();
+		// 		}
+		// 		// <!-- Factor validation end ----------------------- -->	
+		// 	}
+		// }
 
 		if (empty($_POST['routStage_SampleType'])) {
 			$data['status'] = 'False';
@@ -8873,21 +8873,21 @@ if (isset($_POST['addQcPostDocumentBtn_RouteStage'])) {
 			exit;
 		}
 
-		if (empty($_POST['qc_post_doc_Routestage_AnalysisDate'])){
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'Analysis Date is required.';
-			echo json_encode($data);
-			exit;
-		}
+		// if (empty($_POST['qc_post_doc_Routestage_AnalysisDate'])){
+		// 	$data['status'] = 'False';
+		// 	$data['DocEntry'] = '';
+		// 	$data['message'] = 'Analysis Date is required.';
+		// 	echo json_encode($data);
+		// 	exit;
+		// }
 
-		if (empty($_POST['qc_post_doc_Routestage_ValidUpTo'])) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'ValidUpTo Date is required.';
-			echo json_encode($data);
-			exit;
-		}
+		// if (empty($_POST['qc_post_doc_Routestage_ValidUpTo'])) {
+		// 	$data['status'] = 'False';
+		// 	$data['DocEntry'] = '';
+		// 	$data['message'] = 'ValidUpTo Date is required.';
+		// 	echo json_encode($data);
+		// 	exit;
+		// }
 	// <!-- ------------- form validation end here ---------------------------------------------- -->
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------

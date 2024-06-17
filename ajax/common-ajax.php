@@ -3311,6 +3311,7 @@ if(isset($_POST['action']) && $_POST['action'] =='Retest_sample_intimation_popup
 }
 
 if(isset($_POST['SampleIntimationRetestQCBtn'])){
+	// SIRT_BatchNo
 	$tdata=array();
 	$data=array(); // this array handel validation responce
 
@@ -3391,7 +3392,9 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 			exit(0);
 		}
 	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
-
+// echo '<pre>';
+// print_r($tdata);
+// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 

@@ -1173,6 +1173,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         }
                     // <!-- ----------- retest Date End Here ------------------------- -->
 
+                    // <!-- ----------- AnalysisDate Start Here ----------------------- -->
+                        var ADateOG = JSONObject[0].ADate;
+                        if(ADateOG!=''){
+                            let [day, month, year] = ADateOG.split(" ")[0].split("-");
+                            let ADate = `${year}-${month}-${day}`;
+
+                            $(`#qc_post_doc_Routestage_AnalysisDate`).val(ADate);
+                        }
+                    // <!-- ----------- AnalysisDate End Here ------------------------- -->
+
                     $(`#qc_post_doc_Routestage_DocName`).val(JSONObject[0]['Series']);
                     $(`#qc_post_doc_Routestage_DocNo`).val(JSONObject[0]['DocNum']);
 

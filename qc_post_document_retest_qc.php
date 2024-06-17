@@ -1054,12 +1054,12 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(".loader123").show();
             },
             success: function(result) {
-
                 $("#footerProcess").show(); // footer section Show script
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject = JSONObjectAll['SampleCollDetails']; // sample collection details var
-                console.log('dd=>',JSONObject);
+
+            // console.log('dd=>',JSONObject);
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); // External Issue Table Tr tag append here
@@ -1092,8 +1092,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`.SetRemarkVal`).val(JSONObject[0]['Remarks']);
                 // <!-- --------------- Tab Layout Sample Collection Details Mapping End Here -------------------- -->
 
-                $(`#qcD_MfgDate`).val(JSONObject[0]['MfgDate']);
-                $(`#qcD_ExpiryDate`).val(JSONObject[0]['ExpiryDate']);
                 $(`#qcD_SampleIntimationNo`).val(JSONObject[0]['SampleIntimationNo']);
                 $(`#qcD_SampleCollectionNo`).val(JSONObject[0]['SampleCollectionNo']);
                 $(`#qcD_SampleQty`).val(JSONObject[0]['SampleQty']);
@@ -1103,8 +1101,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`#qcD_SpecfNo`).val(JSONObject[0]['SpecfNo']);
                 $(`#qcD_Series`).val(JSONObject[0]['Series']);
                 $(`#qcD_DocNum`).val(JSONObject[0]['DocNum']);
-                $(`#qcD_PostingDate`).val(JSONObject[0]['PostingDate']);
-                $(`#qcD_ADate`).val(JSONObject[0]['ADate']);
                 $(`#qcD_NoCont`).val(JSONObject[0]['NoCont']);
                 $(`#qcD_QCTType`).val(JSONObject[0]['QCTType']);
                 $(`#qcD_Stage`).val(JSONObject[0]['Stage']);
@@ -1115,6 +1111,11 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`#itP_FromWhs`).val(JSONObject[0]['FrmWhse']);
                 $(`#itP_ToWhs`).val(JSONObject[0]['ToWhse']);
 
+                $(`#qcD_PostingDate`).val(DateFormatingDMY(JSONObject[0]['PostingDate']));
+                $(`#qcD_ADate`).val(DateFormatingDMY(JSONObject[0]['ADate']));
+                $(`#qcD_MfgDate`).val(DateFormatingDMY(JSONObject[0]['MfgDate']));
+                $(`#qcD_ExpiryDate`).val(DateFormatingDMY(JSONObject[0]['ExpiryDate']));
+                                
                 GetRowLevelAnalysisByDropdownWithSelectedOption(JSONObjectAll.count);
 
                 // QC_StatusByAnalystDropdown(JSONObjectAll.count);
@@ -1136,6 +1137,14 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(".loader123").hide();
             }
         });
+    }
+
+    function DateFormatingDMY(DateOG){
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            let Date = `${day}-${month}-${year}`;
+            return Date;
+        }
     }
 
     $(document).ready(function() {
@@ -1311,19 +1320,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // function QC_StatusByAnalystDropdown(trcount) {
 
 
@@ -1351,17 +1347,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     //         }
     //     });
     // }
-
-
-
-
-
-
-
-
-
-
-
 
     function getResultOutputDropdownWithSelectedOption(trcount) {
         $.ajax({
@@ -1399,18 +1384,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     function getQcStatusDropodwn(n) {
         var dataString = 'action=qc_api_OQCSTATUS_ajax';
         $.ajax({
@@ -1424,7 +1397,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             }
         });
     }
-
 
     function getDoneByDroopdown(n) {
         var dataString = 'action=qc_get_SAMINTTRBY_ajax';
@@ -1447,39 +1419,84 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     }
 
+    // function CalculateResultOut(un_id) {
+
+    //     var lowMin = document.getElementById('LowMin' + un_id).value;
+    //     var uppMax = document.getElementById('UppMax' + un_id).value;
+    //     var UOM = document.getElementById('GDUOM' + un_id).value;
+
+    //     var lowMinResOG = document.getElementById('lower_min_result' + un_id).value; // this value enter by user
+
+    //     var lowMinRes = parseFloat(lowMinResOG).toFixed(6); // this value enter by user
+
+    //     if (lowMinRes != '') {
+    //         $('#lower_min_result' + un_id).val(lowMinRes);
+
+    //         $('#remarks' + un_id).val(lowMinResOG + ' ' + UOM);
+
+    //         if (parseFloat(lowMinRes) >= parseFloat(lowMin) && parseFloat(lowMinRes) <= parseFloat(uppMax)) {
+
+    //             $('.dropdownResutl' + un_id).val('PASS');
+    //             $('#ResultOutTd' + un_id).attr('style', 'background-color: #c7f3c7');
+    //             $('.dropdownResutl' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+
+    //             setSelectedIndex(document.getElementsByClassName("dropdownResutl" + un_id), "PASS");
+    //         } else {
+
+    //             $('.dropdownResutl' + un_id).val('FAIL');
+    //             $('#ResultOutTd' + un_id).attr('style', 'background-color: #f8a4a4');
+    //             $('.dropdownResutl' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+
+    //             setSelectedIndex(document.getElementsByClassName("dropdownResutl" + un_id), "FAIL");
+    //         }
+    //     }
+    // }
 
     function CalculateResultOut(un_id) {
+            var lowMin = document.getElementById('LowMin' + un_id).value;
+            var uppMax = document.getElementById('UppMax' + un_id).value;
+            var UOM = document.getElementById('UOM' + un_id).value;
 
-        var lowMin = document.getElementById('LowMin' + un_id).value;
-        var uppMax = document.getElementById('UppMax' + un_id).value;
-        var UOM = document.getElementById('GDUOM' + un_id).value;
+            var ComparisonResultOG = document.getElementById('ComparisonResult' + un_id).value; // this value enter by user
 
-        var lowMinResOG = document.getElementById('lower_min_result' + un_id).value; // this value enter by user
+            if (ComparisonResultOG != '') {
 
-        var lowMinRes = parseFloat(lowMinResOG).toFixed(6); // this value enter by user
+                $('#ResultOut' + un_id).val(ComparisonResultOG + ' ' + UOM);
 
-        if (lowMinRes != '') {
-            $('#lower_min_result' + un_id).val(lowMinRes);
+                if (parseFloat(uppMax) === 0) {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin)) {
 
-            $('#remarks' + un_id).val(lowMinResOG + ' ' + UOM);
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
 
-            if (parseFloat(lowMinRes) >= parseFloat(lowMin) && parseFloat(lowMinRes) <= parseFloat(uppMax)) {
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                } else {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin) && parseFloat(ComparisonResultOG) <= parseFloat(uppMax)) {
 
-                $('.dropdownResutl' + un_id).val('PASS');
-                $('#ResultOutTd' + un_id).attr('style', 'background-color: #c7f3c7');
-                $('.dropdownResutl' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
 
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl" + un_id), "PASS");
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                }
             } else {
 
-                $('.dropdownResutl' + un_id).val('FAIL');
-                $('#ResultOutTd' + un_id).attr('style', 'background-color: #f8a4a4');
-                $('.dropdownResutl' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                $('#ResultOut' + un_id).val('');
+                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
 
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl" + un_id), "FAIL");
+                setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "-");
             }
         }
-    }
 
     function setSelectedIndex(s, valsearch) {
         for (i = 0; i < s.options.length; i++) {
@@ -1491,7 +1508,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
         return;
     }
-
 
     function CalculatePotency() {
         // <!-- -----------  LoD / Water Value Preparing Start Here ------------------------------- -->
@@ -1521,8 +1537,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         var Potency = ((100 - parseFloat(lod_water)) / 100) * parseFloat(assayPotency); // Calculation
         $('#potency_xyz').val(parseFloat(Potency).toFixed(6)); // Set Potency calculated val
     }
-
-
 
     function update_qc_post_document_retest_qc() {
 
@@ -1681,16 +1695,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
     function getSeriesDropdown() {
         var TrDate=$('#it_postingDate').val();
         var dataString = 'TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
@@ -1758,7 +1762,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     }
 
-
     function ContainerSelection() {
 
         // var GRPODEnt=document.getElementById('U_GRPODEnt').value;
@@ -1797,7 +1800,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             }
         });
     }
-
 
     function getSelectedContener(un_id) {
         //Create an Array.
@@ -1840,8 +1842,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         // <!-- --------------------- when user select checkbox update flag End here ---------------- -->
     }
 
-
-
     function EnterQtyValidation_GI(un_id) {
         var BatchQty = document.getElementById('itp_BatchQty' + un_id).value;
         var SelectedQty = document.getElementById('SelectedQty' + un_id).value;
@@ -1866,7 +1866,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         getSelectedContenerGI_Manual(un_id); // if user change selected Qty value after selection       
     }
-
 
     function getSelectedContenerGI_Manual(un_id) {
         //Create an Array.
@@ -1898,9 +1897,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         document.getElementById("cs_selectedQtySum").value = parseFloat(sum).toFixed(6); // Container Selection final sum
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
     }
-
-
-
 
     function SubmitInventoryTransfer() {
 
@@ -1987,7 +1983,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
     }
 
-
     function OnChangeResultOutputByQCDept(un_id) {
         var ResultOutputByQCDept = $('#ResultOutputByQCDept' + un_id).val();
 
@@ -2029,7 +2024,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             }
         });
     }
-
 
     function QC_StatusByAnalystDropdownWithSelectedOption(trcount) {
         var dataString = 'TableId=@SCS_QCPD1&Alias=QCStatus&action=QC_StatusByAnalystDropdownWithSelectedOption_Ajax';
