@@ -527,11 +527,7 @@
                                                              <thead class="fixedHeader1">
                                                                  <tr>
                                                                      <th>Sr. No</th>
-                                                                     <!-- <th>Status</th>
-                                                                <th>Quantity</th>
-                                                                <th>IT No</th>
-                                                                <th>Done By</th>  
-                                                                <th>Remarks</th> -->
+                    
                                                                      <th style="width:150px;display: block;">Status</th>
                                                                      <th>Quantity</th>
                                                                      <th>Release Date</th>

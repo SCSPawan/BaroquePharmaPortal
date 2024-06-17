@@ -2051,6 +2051,10 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 }
 
 
+
+
+
+
 if (isset($_POST['SubIT_Btn_Retails_issue'])) {
 	$mainArray = array(); // This array hold all type of declare array
 	$tdata = array(); //This array hold header data
@@ -2558,18 +2562,24 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_popup_in_process')  // API Ser No 40 somthing wrong
 {
 	$API = $INPROCESSQCPOSTDOC . '&DocEntry=' . $_POST['DocEntry'] . '&BatchNo=' . $_POST['BatchNo'] . '&ItemCode=' . $_POST['ItemCode'] . '&LineNum=' . $_POST['LineNum'];
-
+	
 	// .'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum']
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
+
+
+
+	// print_r($FinalAPI);
+
+	// die();
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 
 	// echo "<pre>";
 	// print_r($response);
-	// 	echo "</pre>";
-	// 	exit;
+	// echo "</pre>";
+	// exit;
 	// <!-- ------ Array declaration Start Here --------------------------------- -->
 	$FinalResponce = array();
 	// $FinalResponce['SampleCollDetails']=$response;
@@ -2724,16 +2734,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_p
 	// 	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 	// }
 
-	$FinalResponce['qcStatus'] .= '<tr id="add-more_1">
-			<td></td>
-			<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"  onfocusout="addMore(1);"></select></td>
-			<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
-			<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control"></td>
-			<td>
-			<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-			</td>
-			<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-		</tr>';
+	// $FinalResponce['qcStatus'] .= '<tr id="add-more_1">
+	// 		<td></td>
+	// 		<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"  onfocusout="addMore(1);"></select></td>
+	// 		<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
+	// 		<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control"></td>
+	// 		<td>
+	// 		<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
+	// 		</td>
+	// 		<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
+	// 	</tr>';
 
 
 
@@ -2741,14 +2751,50 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_p
 	// 	for ($j=0; $j <count($qcAttach) ; $j++) { 
 	// 		$SrNo=$j+1;
 	// <tr>
+
+	$FinalResponce['qcStatus'] .= '<tr id="add-more_1">
+		<td>' . (($qcStatusCount) + 1) . '</td>
+
+		<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . (($qcStatusCount) + 1) . ')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(1)"></td>
+
+			<td><input class="border_hide" type="text"  id="qCReleaseDate_1" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+			<td><input class="border_hide" type="text"  id="qCReleaseTime_1" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+			<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+			<td><input class="border_hide" type="file"  id="qCAttache1_1" name="qCAttache1[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="file"  id="qCAttache2_1" name="qCAttache2[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="file"  id="qCAttache3_1" name="qCAttache3[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="date"  id="qCDeviationDate_1" name="qCDeviationDate[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationNo_1" name="qCDeviationNo[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationResion_1" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
+	</tr>';
+
+
+
+
+
 	$FinalResponce['qcAttach'] .= '<tr>
-			<td class="desabled"></td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath" name="targetPath[]" class="form-control" value="" readonly>
-			</td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="fileName" name="fileName[]"  class="form-control" value="" readonly></td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate" name="attachDate[]"  class="form-control" value="" readonly></td>
-			<td><input class="border_hide" type="text" id="remark" name="remark[]"  class="form-control" value=""></td>
-		</tr>';
+		<td class="desabled"></td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath" name="targetPath[]" class="form-control" value="" readonly></td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="fileName" name="fileName[]"  class="form-control" value="" readonly></td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate" name="attachDate[]"  class="form-control" value="" readonly></td>
+		<td><input class="border_hide" type="text" id="remark" name="remark[]"  class="form-control" value=""></td>
+	</tr>';
 
 
 	// echo "<pre>";
@@ -2759,6 +2805,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_p
 	exit(0);
 }
 // OpenTransaction for Sample Intimation - FG  
+
+
+
+
+
+
 
 if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_Sample_Intimation_FG_popup_in_process') {
 	$API = $FGOPENTRANSSAMINTIMATION . '&DocEntry=' . $_POST['DocEntry'];
