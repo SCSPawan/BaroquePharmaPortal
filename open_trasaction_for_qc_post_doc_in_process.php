@@ -118,21 +118,24 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                 <thead class="fixedHeader1">
-                    <tr>
-                        <th>Sr.No </th>  
+                 <tr>
+                        <th>Sr.No </th> 
                         <th>Item View</th>
                         <th>WO No</th>
-                        <th>RFP Entry</th>
-                        <th>Material Type</th>
+                        <th>WOEntry</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
-                        <th>Unit</th>
-                        <th>WO Qty</th> 
+                        <th>Stage Name</th>
                         <th>Batch No</th>
-                        <th>MFG Date</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>WO Date</th>
+                        <th>Mfg Date</th>
                         <th>Expiry Date</th>
-                        <th>Batch Qty</th>
-                        <th>Branch Name</th>
+                        <th>Sample Intimation No</th>
+                        <th>Sample Collection No</th>
+                        <th>Location</th>
+                        <th>Batch Name</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -272,86 +275,132 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
        });
     });
 
-    function OT_PoPup_SampleCollection_in_process(DocEntry,BatchNo,ItemCode,LineNum)  // API Ser No 40 somthing wrong
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'LineNum':LineNum,'action':"OT_Open_Transaction_For_QC_popup_in_process"},
+    function OT_PoPup_SampleCollection_in_process(DocEntry, BatchNo, ItemCode, LineNum) {
 
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObjectAll = JSON.parse(result);
 
-                var JSONObject=JSONObjectAll['SampleCollDetails'];
-                $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
-                $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
-                $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
+    $.ajax({ 
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: {
+            'DocEntry': DocEntry,
+            'BatchNo': BatchNo,
+            'ItemCode': ItemCode,
+            'LineNum': LineNum,
+            'action': "OT_Open_Transaction_For_QC_popup_in_process"
+        },
+        beforeSend: function() {
+            $(".loader123").show();
+        },
+        success: function(result) {
+            // QC_CK_D_WoNo
+            // QC_CK_D_WODocEntry
+            var JSONObjectAll = JSON.parse(result);
 
-                $(`#QC_CK_D_WODocEntry`).val(JSONObject[0].RFPDocEntry);
-                $(`#QC_CK_D_WoNo`).val(JSONObject[0].WONo);
-                $(`#QC_CK_D_RefNo`).val(JSONObject[0].BpRefNo);
+            var JSONObject = JSONObjectAll['SampleCollDetails'];
+console.log('abc->', JSONObject);
+            $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']);
+            $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']);
+            $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
+            
+            $(`#QC_CK_D_ReceiptNo`).val(JSONObject[0].RFPNo);
+            $(`#QC_CK_D_ReceiptDocEntry`).val(JSONObject[0].RFPDocEntry);
 
-                $(`#QC_CK_D_ItemCode`).val(JSONObject[0].ItemCode);
-                $(`#QC_CK_D_ItemName`).val(JSONObject[0].ItemName);
-                $(`#QC_CK_D_GenericName`).val('');
-                $(`#QC_CK_D_LabelCliam`).val(JSONObject[0].LabelClaim);
-                $(`#QC_CK_D_RecievedQty`).val('');
+            $(`#QC_CK_D_WODocEntry`).val(JSONObject[0].WODocEntry);
+            $(`#QC_CK_D_WoNo`).val(JSONObject[0].WONo);
 
-                $(`#QC_CK_D_MfgBy`).val(JSONObject[0].MfgBy);
+            $(`#QC_CK_D_RefNo`).val(JSONObject[0].BpRefNo);
 
-                $(`#QC_CK_D_BatchNo`).val(JSONObject[0].BatchNo);
-                $(`#QC_CK_D_BatchSize`).val(JSONObject[0].BatchQty);
-                $(`#QC_CK_D_PackSize`).val(JSONObject[0].PackSize);
+            $(`#QC_CK_D_ItemCode`).val(JSONObject[0].ItemCode);
+            $(`#QC_CK_D_ItemName`).val(JSONObject[0].ItemName);
+            $(`#QC_CK_D_GenericName`).val(JSONObject[0].FrgnName);
+            $(`#QC_CK_D_LabelCliam`).val(JSONObject[0].LabelClaim);
+            $(`#QC_CK_D_RecievedQty`).val(JSONObject[0].BatchQty);
 
-                $(`#QC_CK_D_Branch`).val(JSONObject[0].BranchName);
+            $(`#QC_CK_D_MfgBy`).val(JSONObject[0].MfgBy);
 
-                $(`#QC_CK_D_MaterialType`).val(JSONObject[0].MaterialType);
-                $(`#QC_CK_D_ARNo`).val(JSONObject[0].ARNo);
+            $(`#QC_CK_D_BatchNo`).val(JSONObject[0].BatchNo);
+            $(`#QC_CK_D_BatchSize`).val(JSONObject[0].BatchSize);
+            $(`#QC_CK_D_PackSize`).val(JSONObject[0].PackSize);
 
-                $(`#QC_CK_D_QCTesttype`).val(JSONObject[0].GateEntryNo);
-                $(`#QC_CK_D_Stage`).val('');
-                $(`#QC_CK_D_ValidUpTo`).val('');
-                $(`#QC_CK_D_Factor`).val(JSONObject[0].Factor);
-                $(`#QC_CK_D_NoOfContainer`).val(JSONObject[0].TNCont);
-                $(`#QC_CK_D_FromContainer`).val(JSONObject[0].FCont);
+            $(`#QC_CK_D_Branch`).val(JSONObject[0].BranchName);
 
-                $(`#QC_CK_D_ToContainer`).val(JSONObject[0].TCont);
+            $(`#QC_CK_D_ARNo`).val(JSONObject[0].ARNo);
 
-                $(`#QC_CK_D_Remarks`).val('');
-                $(`#QC_CK_D_QtyPerContainer`).val('');
+            $(`#QC_CK_D_QCTesttype`).val(JSONObject[0].GateEntryNo);
+            $(`#QC_CK_D_Stage`).val('');
+            $(`#QC_CK_D_ValidUpTo`).val('');
+            $(`#QC_CK_D_Factor`).val(JSONObject[0].Factor);
+            $(`#QC_CK_D_NoOfContainer`).val(JSONObject[0].TNCont);
+            $(`#QC_CK_D_FromContainer`).val(JSONObject[0].FCont);
 
-                $(`#QC_CK_D_BPLId`).val(JSONObject[0].BPLId);
-                $(`#QC_CK_D_BatchQty`).val(JSONObject[0].BatchQty);
-                $(`#QC_CK_D_LineNum`).val(JSONObject[0].LineNum);
-                $(`#QC_CK_D_LocCode`).val(JSONObject[0].LocCode);
-                $(`#QC_CK_D_MfgDate`).val(JSONObject[0].MfgDate);
-                $(`#QC_CK_D_ExpiryDate`).val(JSONObject[0].ExpiryDate);
-                $(`#QC_CK_D_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
-                $(`#QC_CK_D_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
-                $(`#QC_CK_D_SampleQty`).val(JSONObject[0].SampleQty);
-                $(`#QC_CK_D_GateENo`).val(JSONObject[0].GateENo);
-                $(`#QC_CK_D_SpecfNo`).val(JSONObject[0].SpecfNo);
-                $(`#QC_CK_D_RetestDate`).val(JSONObject[0].RetestDate);
-                $(`#QC_CK_D_Loc`).val(JSONObject[0].Location);
+            $(`#QC_CK_D_ToContainer`).val(JSONObject[0].TCont);
 
-                QC_StatusByAnalystDropdown(JSONObjectAll.count);
-                getResultOutputDropdown(JSONObjectAll.count);
-                getQcStatusDropodwn(1);
-                getDoneByDroopdown(1);
-                assayapp();
-            },
-            complete:function(data){
-                Compiled_ByDropdown();
-            }
-        }); 
+            $(`#QC_CK_D_Remarks`).val('');
+            $(`#QC_CK_D_QtyPerContainer`).val('');
+
+            $(`#QC_CK_D_BPLId`).val(JSONObject[0].BPLId);
+            $(`#QC_CK_D_BatchQty`).val(JSONObject[0].BatchQty);
+            $(`#QC_CK_D_LineNum`).val(JSONObject[0].LineNum);
+            $(`#QC_CK_D_LocCode`).val(JSONObject[0].LocCode);
+            $(`#QC_CK_D_MfgDate`).val(JSONObject[0].MfgDate);
+            $(`#QC_CK_D_ExpiryDate`).val(JSONObject[0].ExpiryDate);
+            $(`#QC_CK_D_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
+            $(`#QC_CK_D_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
+            $(`#QC_CK_D_SampleQty`).val(JSONObject[0].SampleQty);
+            $(`#QC_CK_D_GateENo`).val(JSONObject[0].GateENo);
+            $(`#QC_CK_D_SpecfNo`).val(JSONObject[0].SpecfNo);
+            $(`#QC_CK_D_RetestDate`).val(JSONObject[0].RetestDate);
+           
+            $(`#QC_CK_D_Loc`).val(JSONObject[0].Location);
+            $(`#QC_CK_D_MakeBy`).val(JSONObject[0].MakeBy);
+            $(`#QC_CK_D_MaterialType`).val(JSONObject[0].MaterialType);
+            getstageDropdown();
+            QC_StatusByAnalystDropdown(JSONObjectAll.count);
+            getResultOutputDropdown(JSONObjectAll.count);
+            getQcStatusDropodwn(1);
+            getDoneByDroopdown(1);
+            GetRowLevelAnalysisByDropdown(JSONObjectAll.count);
+            assayapp();
+        },
+        complete: function(data) {
+            Compiled_ByDropdown();
+        }
+    }); 
+}
+
+
+
+
+
+
+
+
+
+    function getstageDropdown() {
+
+var dataString = 'action=getstageDropdown_ajax';
+//alert("hiii");
+$.ajax({
+
+    type: "POST",
+    url: 'ajax/common-ajax.php',
+    data: dataString,
+    cache: false,
+
+    beforeSend: function() {
+        $(".loader123").show();
+    },
+    success: function(result) {
+        var JSONObject = JSON.parse(result);
+
+        //console.log("JSONObject=>",JSONObject);
+        $('#QC_CK_D_Stage').html(JSONObject);
+    },
+    complete: function(data) {
+        $(".loader123").hide();
     }
-
-
-    
+});
+}
 
     function Compiled_ByDropdown(){
 
@@ -421,35 +470,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         });
     }
 
-    function getSeriesDropdown(){
+    // function getSeriesDropdown(){
 
-        var dataString ='ObjectCode=SCS_QCINPROC&action=getSeriesDropdown_ajax';
 
-        $.ajax({
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data: dataString,
-            cache: false,
 
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var SeriesDropdown = JSON.parse(result);
-                $('#QC_CK_D_DocName').html(SeriesDropdown);
-                ///selectedSeries(); // call Selected Series Single data function
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
-
-    // function selectedSeries(){
-
-    //     var Series=document.getElementById('QC_CK_D_DocName').value;
-    //     var dataString ='Series='+Series+'&ObjectCode=SCS_QCINPROC&action=getSeriesSingleData_ajax';
+    //     var dataString ='ObjectCode=SCS_QCINPROC&action=getSeriesDropdown_ajax';
 
     //     $.ajax({
     //         type: "POST",
@@ -462,21 +487,67 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     //         },
     //         success: function(result)
     //         {
-    //             var JSONObject = JSON.parse(result);
-
-    //             //var NextNumber=JSONObject[0]['NextNumber'];
-    //             //var Series=JSONObject[0]['Series'];
-
-    //             $('#QC_CK_D_DocNo').val(Series);
+    //             var SeriesDropdown = JSON.parse(result);
+    //             $('#QC_CK_D_DocName').html(SeriesDropdown);
+    //             ///selectedSeries(); // call Selected Series Single data function
     //         },
     //         complete:function(data){
+    //             $(".loader123").hide();
     //         }
     //     }); 
     // }
 
-    function QC_StatusByAnalystDropdown(trcount){
 
-        var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
+
+
+
+
+    
+    function getSeriesDropdown() {
+        var TrDate=$('#QC_CK_D_PostingDate').val();
+        var dataString = 'TrDate='+TrDate+'&ObjectCode=SCS_QCINPROC&action=getSeriesDropdown_ajax';
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+
+            beforeSend: function() {
+                // Show image container
+                $(".loader123").show();
+            },
+            success: function(result) {
+                var SeriesDropdown = JSON.parse(result);
+
+                //console.log('SeriesDropdown',SeriesDropdown);
+                $('#QC_CK_D_DocName').html(SeriesDropdown);
+
+                selectedSeries(); // call Selected Series Single data fun
+            },
+            complete: function(data) {
+                // Hide image container
+                $(".loader123").hide();
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function selectedSeries(){
+        var TrDate=$('#QC_CK_D_PostingDate').val();
+        var Series=document.getElementById('QC_CK_D_DocName').value;
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_QCINPROC&action=getSeriesSingleData_ajax';
 
         $.ajax({
             type: "POST",
@@ -490,34 +561,86 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
-                for (let i = 0; i < trcount; i++) {
-                    $('.qc_statusbyab'+i).html(JSONObject); // dropdown set using Class                            
-                }
+
+                var NextNumber=JSONObject[0]['NextNumber'];
+                var Series=JSONObject[0]['Series'];
+
+                $('#QC_CK_D_DocNo').val(NextNumber);
+                $('#QC_CK_D_series').val(Series);
             },
             complete:function(data){
+                $(".loader123").hide();
+            }
+        }); 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function QC_StatusByAnalystDropdown(trcount){
+        var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                for (let i = 0; i < trcount; i++) {
+                    $('#QC_StatusByAnalyst'+i).html(JSONObject); // dropdown set using Class
+                }
             }
         });
     }
 
-    function getResultOutputDropdown(trcount){
 
+    function GetRowLevelAnalysisByDropdown(trcount){
         $.ajax({ 
             type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data:{'action':"ResultOutputDropdown_ajax"},
-
+            url: 'ajax/common-ajax.php',
+            data:{'action':"GetRowLevelAnalysisByDropdown_Ajax"},
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
+                var dropdown = JSON.parse(result);
+
                 for (let i = 0; i < trcount; i++) {
-                    $('.dropdownResutl'+i).html(result); // dropdown set using Id                            
+                    $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
                 }
+
+                $('#routStage_CheckedBy').html(dropdown); // Bottom dropdown set using Id
+                $('#routStage_AnalysisBy').html(dropdown); // Bottom dropdown set using Id
             },
             complete:function(data){
+                $(".loader123").hide();
             }
         });         
+    }
+
+
+    function getResultOutputDropdown(trcount){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'action':"ResultOutputDropdown_ajax"},
+            success: function(result){
+                for (let i = 0; i < trcount; i++) {
+                    $('#ResultOutputByQCDept'+i).html(result);
+                }
+            }
+        });
     }
 
     function getQcStatusDropodwn(n){
@@ -553,36 +676,173 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         });
     } 
 
-    function CalculateResultOut(un_id){
 
+
+
+
+
+
+    function CalculateResultOut(un_id){
         var lowMin=document.getElementById('LowMin'+un_id).value;
         var uppMax=document.getElementById('UppMax'+un_id).value;
-        var UOM=document.getElementById('GDUOM'+un_id).value;
+        var UOM=document.getElementById('UOM'+un_id).value;
 
-        var lowMinResOG=document.getElementById('lower_min_result'+un_id).value; // this value enter by user
+        var ComparisonResultOG=document.getElementById('ComparisonResult'+un_id).value; // this value enter by user
 
-        var lowMinRes=parseFloat(lowMinResOG).toFixed(6); // this value enter by user
+        if(ComparisonResultOG!=''){
+            $('#ResultOut'+un_id).val(ComparisonResultOG+' '+UOM);
 
-        if(lowMinRes!=''){
-            $('#lower_min_result'+un_id).val(lowMinRes);
+            if (parseFloat(uppMax) === 0) {
+                if(parseFloat(ComparisonResultOG)>=parseFloat(lowMin)){
+                    $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                    $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
 
-            $('#remarks'+un_id).val(lowMinResOG+' '+UOM);
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"PASS");
+                }else{
+                    $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                    $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
 
-            if(parseFloat(lowMinRes)>=parseFloat(lowMin) && parseFloat(lowMinRes)<=parseFloat(uppMax)){
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"FAIL");
+                }
+            } else {
+                if(parseFloat(ComparisonResultOG)>=parseFloat(lowMin) && parseFloat(ComparisonResultOG)<=parseFloat(uppMax)){
+                    $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                    $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
 
-                $('.dropdownResutl'+un_id).val('PASS');    
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #c7f3c7');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-            
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"PASS");
-            }else{
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"PASS");
+                }else{
+                    $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                    $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
 
-                $('.dropdownResutl'+un_id).val('FAIL');
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #f8a4a4');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"FAIL");
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"FAIL");
+                }
             }
+        }else{
+            $('#ResultOut'+un_id).val('');
+            $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #FFFFFF');
+            $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+
+            setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"-");
+        }
+    }
+
+
+    function SelectionOfQC_Status(un_id) {
+        var tr_count = parseInt($('#tr-count').val());
+        console.log('tr_count',tr_count);
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var formattedDate = `${day}-${month}-${year}`;
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var formattedTime = `${hours}:${minutes}`;
+
+        $('#qCReleaseDate_' + un_id).val(formattedDate);
+        $('#qCReleaseTime_' + un_id).val(formattedTime);
+
+        if (tr_count !== 1) {
+            var rows = $('#qc-status-list-append tr');
+            var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+            var valid = true;
+            var message = "";
+
+            rows.each(function(index) {
+                if (index < rows.length - 1) {
+                    var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                    if (qcStatusDropdown === Selected_QC_Status) {
+                        valid = false;
+                        message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                    }
+                }
+            });
+
+            if (valid) {
+                if (!$('#qCStsQty_' + un_id).val()) {
+                    $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                }
+            } else {
+                $('#qCStsQty_' + un_id).val('');
+                $('#qc_Status_' + un_id).val('');
+                swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
+            }
+        } else {
+            $('#qCStsQty_' + un_id).val($('#QC_CK_D_BatchSize').val());
+        }
+    }
+
+
+
+    function AutocalculateQC_Qty(){
+        // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+            var rows = document.querySelectorAll('#qc-status-list-append tr');
+
+            // Get the count of tr elements
+            var rowCount = rows.length;
+
+            // Initialize sum
+            var sum = 0;
+
+            // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+            rows.forEach(function(row) {
+                var input = row.querySelector('input[name="qCStsQty[]"]');
+                if (input) {
+                    sum += parseFloat(input.value) || 0;
+                }
+            });
+
+            var BatchQty = $('#QC_CK_D_BatchSize').val();
+            var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
+            return QCS_Qty;
+        // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+    }
+
+    
+    let favorite = [];
+    let total_uid = 0;
+    function GetSelectedInstumentdata(un_id) {
+        const ids_new_radio = [];
+
+        $("input[name='InstrumentId[]']:checked").each(function() {
+            const uid = parseInt($(this).val()); // Parse the value to integer
+            favorite.push(uid);
+            total_uid += uid;
+            ids_new_radio.push(uid);
+        });
+
+        const InstrumentCode = $('#Html_InstrumentCode' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+        const InstrumentName = $('#Html_InstrumentName' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+
+        $('#InstrumentCode' + un_id).val(InstrumentCode);
+        $('#InstrumentName' + un_id).val(InstrumentName);
+    }
+
+    function addMore(num){
+        // Formate manula enter Quantity
+        var QC_Quantity = $('#qCStsQty_'+num).val();
+        $('#qCStsQty_'+num).val(parseFloat(QC_Quantity).toFixed(3));
+
+        var tr_count=$('#tr-count').val();
+        var QCS_Qty = AutocalculateQC_Qty();
+
+        // Proceed with AJAX request only if QCS_Qty is not equal to 0.00
+        if (parseFloat(QCS_Qty) !== 0.00) {
+            var tr_count=$('#tr-count').val();
+            $.ajax({
+            type: "POST",
+            url: 'ajax/kri_common-ajax.php',  
+                data: ({index:tr_count,action:'add_qc_status_input_more'}),  
+                success: function(result){
+                    $('#add-more_'+tr_count).after(result);
+                    tr_count++;
+                    $('#tr-count').val(tr_count);
+                    $('#qCStsQty_'+tr_count).val(QCS_Qty);
+
+                    getQcStatusDropodwn(tr_count);
+                    getDoneByDroopdown(tr_count);
+                }
+            });
         }
     }
  
@@ -590,8 +850,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
    function setSelectedIndex(s, valsearch)
     {
 
-        console.log('s=>', s);
-        console.log('valsearch=>', valsearch);
+       // console.log('s=>', s);
+       // console.log('valsearch=>', valsearch);
         // Loop through all the items in drop down list
         for (i = 0; i< s.options.length; i++)
         { 
@@ -678,6 +938,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         $('#QC_CK_D_Potency').val(parseFloat(Potency).toFixed(6)); // Set Potency calculated val
     }  
 
+
+
     function assayapp(){
 
         var dataString ='action=qc_assay_Calculation_Based_On_ajax';
@@ -708,6 +970,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {                
+                console.log(result);
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];
@@ -736,5 +999,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(".loader123").hide();
             }
        });
+    }
+
+    function OpenInstrmentModal(un_id){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'un_id':un_id,'action':"OpenInstrmentModal_Ajax"},
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var Table = JSON.parse(result);
+                $('#append_instrument_table').html(Table);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        });         
     }
 </script>

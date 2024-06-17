@@ -20,33 +20,35 @@
                               <div class="card">
                                 <div class="card-body">
                                  <div class="row">
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_BPLId" name="QC_CK_D_BPLId">
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_BatchQty" name="QC_CK_D_BatchQty">
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_LineNum" name="QC_CK_D_LineNum">
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_LocCode" name="QC_CK_D_LocCode">
 
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_MfgDate" name="QC_CK_D_MfgDate">
+                                    <input type="hidden" id="QC_CK_D_BPLId" name="QC_CK_D_BPLId">
+                                    <input type="hidden" id="QC_CK_D_BatchQty" name="QC_CK_D_BatchQty">
+                                    <input type="hidden" id="QC_CK_D_LineNum" name="QC_CK_D_LineNum">
+                                    <input type="hidden" id="QC_CK_D_LocCode" name="QC_CK_D_LocCode">
+                                    <input type="hidden" id="QC_CK_D_MfgDate" name="QC_CK_D_MfgDate">
+                                    <input type="hidden" id="QC_CK_D_ExpiryDate" name="QC_CK_D_ExpiryDate">
+                                    <input type="hidden" id="QC_CK_D_SampleIntimationNo" name="QC_CK_D_SampleIntimationNo">
+                                    <input type="hidden" id="QC_CK_D_SampleCollectionNo" name="QC_CK_D_SampleCollectionNo">
+                                    <input type="hidden" id="QC_CK_D_SampleQty" name="QC_CK_D_SampleQty">
+                                    <input type="hidden" id="QC_CK_D_GateENo" name="QC_CK_D_GateENo">
+                                    <input type="hidden" id="QC_CK_D_series" name="QC_CK_D_series">
+                                    <input type="hidden" id="" name="QC_CK_D_SpecfNo">
 
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_ExpiryDate" name="QC_CK_D_ExpiryDate">
+                                    <!-- <input class="form-control desabled" type="hidden" id="QC_CK_D_RetestDate" name="QC_CK_D_RetestDate"> -->
+                                    <!-- <input class="form-control desabled" type="hidden" id="QC_CK_D_Loc" name="QC_CK_D_Loc"> -->
 
-                                       <input class="form-control desabled" type="hidden" id="QC_CK_D_SampleIntimationNo" name="QC_CK_D_SampleIntimationNo">
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
+                                                <div class="col-lg-4">
+                                                    <input class="form-control desabled" type="text" id="QC_CK_D_ReceiptNo" name="QC_CK_D_ReceiptNo" readonly>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <input class="form-control desabled" type="text" id="QC_CK_D_ReceiptDocEntry" name="QC_CK_D_ReceiptDocEntry" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                        <input class="form-control desabled" type="hidden" id="QC_CK_D_SampleCollectionNo" name="QC_CK_D_SampleCollectionNo">
-
-                                        <input class="form-control desabled" type="hidden" id="QC_CK_D_SampleQty" name="QC_CK_D_SampleQty">
-
-                                         <input class="form-control desabled" type="hidden" id="QC_CK_D_GateENo" name="QC_CK_D_GateENo">
-
-                                         <input class="form-control desabled" type="hidden" id="QC_CK_D_SpecfNo" name="QC_CK_D_SpecfNo">
-
-                                         <input class="form-control desabled" type="hidden" id="QC_CK_D_RetestDate" name="QC_CK_D_RetestDate">
-
-                                         <input class="form-control desabled" type="hidden" id="QC_CK_D_Loc" name="QC_CK_D_Loc">
-
-                                         
-
-
-            
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
@@ -191,11 +193,11 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                                 <div class="col-lg-4">
-                                                    <select class="form-control desabled" type="text" id="QC_CK_D_DocName" name="QC_CK_D_DocName"></select> 
+                                                    <select class="form-control " type="text" id="QC_CK_D_DocName" name="QC_CK_D_DocName" onchange="selectedSeries();"></select> 
                                                 </div>
 
                                                 <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="QC_CK_D_DocNo" name="QC_CK_D_DocNo" readonly>
+                                                    <input class="form-control " type="text" id="QC_CK_D_DocNo" name="QC_CK_D_DocNo" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,20 +232,87 @@
                                             </div>
                                         </div>
 
+
+
+
+                                        <div class="col-xl-3 col-md-6">
+                                             <div class="form-group row mb-2">
+                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
+                                                 <div class="col-lg-8">
+
+
+                                                     <select class="form-select" id="QC_CK_D_Stage" name="QC_CK_D_Stage">
+                                                         <!-- <option>Regular</option> -->
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+
+                                         <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="QC_CK_D_Loc" name="QC_CK_D_Loc" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="QC_CK_D_MakeBy" name="QC_CK_D_MakeBy" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Material Type</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="QC_CK_D_MaterialType" name="QC_CK_D_MaterialType" readonly>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-xl-3 col-md-6">
+                                             <div class="form-group row mb-2">
+                                                 <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+                                                 <div class="col-lg-5">
+                                                     <select class="form-select" id="QC_CK_D_RelMaterialWithoutQC" name="QC_CK_D_RelMaterialWithoutQC">
+                                                         <option value="Yes">Yes</option>
+                                                         <option value="No" Selected>No</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+
+                                         
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="QC_CK_D_Stage" name="QC_CK_D_Stage" >
+                                                    <input class="form-control" type="date" id="QC_CK_D_ReleaseDate" name="QC_CK_D_ReleaseDate" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>
+                                        
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control" type="date" id="QC_CK_D_ValidUpTo" name="QC_CK_D_ValidUpTo"  value="<?php echo date('Y-m-d'); ?>" >
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="QC_CK_D_NoOfContainer" name="QC_CK_D_NoOfContainer" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -289,51 +358,52 @@
                                                 <div class="table-responsive qc_list_table table_item_padding" id="list2">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Sr. No</th>
-                                                                <th>Parameter Code</th>
-                                                                <th>Parameter Name </th>  
-                                                                <th>Standard</th>
-                                                                <th>Release</th>
-                                                                <th>Parameter Data Type</th> 
-                                                                <th>Descriptive Details</th> 
-                                                                <th>Logical</th>
-                                                                <th>Lower Min</th> 
-                                                                <th>Lower Max</th> 
-                                                                <th>Upper Min</th> 
-                                                                <th>Upper Max</th> 
-                                                                <th>Mean</th>
-                                                                <th>Lower Min - Result</th>
-                                                                <th>Lower Max - Result</th>
-                                                                <th>Upper Min - Result</th> 
-                                                                <th>Upper Max - Result</th>
-                                                                <th>Mean</th>
-                                                                <th>Result Output</th>
-                                                                <th>Remarks</th>
-                                                                <th>QC Status by Analyst</th>
-                                                                <th>Test Method</th>
-                                                                <th>Material Type</th>
-                                                                <th>User Text-1</th>
-                                                                <th>User Text-2</th>
-                                                                <th>User Text-3</th>
-                                                                <th>User Text-4</th>
-                                                                <th>User Text-5</th>
-                                                                <th>QC Status Result</th>
-                                                                <th>UOM</th> 
-                                                                <th>Retest</th> 
-                                                                <th>Stability</th> 
-                                                                <th>External Sample</th>
-                                                                <th>Applicable For As</th>
-                                                                <th>Applicable For LOD</th> 
-                                                                <th>Analysis By</th>
-                                                                <th>Analyst Remark</th>
-                                                                <th>Instrument Code</th> 
-                                                                <th>Instrument Name</th>
-                                                                <th>Star Date</th>
-                                                                <th>Start Time</th>
-                                                                <th>End Date</th>
-                                                                <th>End Time</th> 
-                                                            </tr>
+                                                        <tr>
+                                                                        <th>Sr.No</th>
+                                                                        <th>Parameter Code</th>
+                                                                        <th>Parameter Name</th>
+                                                                        <th>Specification</th>
+                                                                        <th>Result OutPut</th>
+                                                                        <th>Comparison Result</th>
+                                                                        <th>Result Output By QC Dept.</th>
+                                                                        <th>Parameter Data Type</th>
+                                                                        <th>Logical</th>
+                                                                        <th>Lower Min</th>
+                                                                        <th>Upper Max</th>
+                                                                        <th>Mean</th>
+                                                                        <th>QC Status by Analyst</th>
+                                                                        <th>Test Method</th>
+                                                                        <th>Material Type</th>
+                                                                        <th>Pharmacopoeial Standard</th>
+                                                                        <th>UOM</th>
+                                                                        <th>Retest</th>
+                                                                        <th>External Sample</th>
+                                                                        <th>Analysis By</th>
+                                                                        <th>Analyst Remarks</th>
+                                                                        <th>Lower Max</th>
+                                                                        <th>Release</th>
+                                                                        <th>Descriptive Details</th>
+                                                                        <th>Upper Min</th>
+                                                                        <th>Lower Min - Result</th>
+                                                                        <th>Upper Min - Result</th>
+                                                                        <th>Upper Max - Result</th>
+                                                                        <th>Mean - Result</th>
+                                                                        <th>User Text-1</th>
+                                                                        <th>User Text-2</th>
+                                                                        <th>User Text-3</th>
+                                                                        <th>User Text-4</th>
+                                                                        <th>User Text-5</th>
+                                                                        <th>QC Setup Remark</th>
+                                                                        <th>Stability</th>
+                                                                        <th>Applicable for Assay</th>
+                                                                        <th>Applicable for LOD</th>
+                                                                        <th>Instrument Code</th>
+                                                                        <th>Instrument Name</th>
+                                                                        <th>Start Date</th>
+                                                                        <th>Start Time</th>
+                                                                        <th>End Date</th>
+                                                                        <th>End Time</th>
+                                                                    </tr>
                                                         </thead>
                                                      <tbody id="qc-post-general-data-list-append"></tbody> 
 
@@ -346,9 +416,9 @@
                                            
 
                                         <div class="tab-pane" id="qc_status" role="tabpanel">
-
+<input type="hidden" id="tr-count" value="1">
                                             <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                           <thead class="fixedHeader1">
                                                           <tr>
                                                                      <th>Sr. No</th>
@@ -540,41 +610,36 @@
                                                             </div>
                                                         </div>
 
-                                                         <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="QC_CK_D_NoOfContainer" name="QC_CK_D_NoOfContainer">
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
-                                                                <div class="col-lg-8">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No. of Container</label>
+                                                                <div class="col-lg-4">
                                                                     <input class="form-control" type="text" id="QC_CK_D_FromContainer" name="QC_CK_D_FromContainer">
                                                                 </div>
+                                                                <div class="col-lg-4">
+                                                                    <input class="form-control desabled" type="text" id="QC_CK_D_ToContainer" name="QC_CK_D_ToContainer" readonly>
+                                                                </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <!-- <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-6 col-form-label mt-6" for="val-skill">Qty Per Container</label>
                                                                 <div class="col-lg-6">
                                                                     <input class="form-control" type="text" id="QC_CK_D_QtyPerContainer" name="QC_CK_D_QtyPerContainer">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="QC_CK_D_ToContainer" name="QC_CK_D_ToContainer">
-                                                                </div>
-                                                            </div>
-                                                        </div>
+        <!-- <div class="col-xl-3 col-md-6">
+            <div class="form-group row mb-2">
+                <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
+                <div class="col-lg-8">
+                    <input class="form-control desabled" type="text" id="QC_CK_D_ToContainer" name="QC_CK_D_ToContainer" readonly>
+                </div>
+            </div>
+        </div> -->
 
 
                                                         <div class="col-xl-3 col-md-6">
@@ -598,14 +663,14 @@
 
                                                               <button type="button" class="btn btn-primary" id="addQcPostDocumentQCCheckBtn" name="addQcPostDocumentQCCheckBtn" onclick="return add_qc_post_document();">Add</button>
 
-                                                             <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                             <button type="button" class="btn btn-danger active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
 
                                                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off" disabled="">Inventory Transfer</button>
 
                                                               <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button> -->
                                                         </div>
                                                     </div>
-                                                        <div class="col-md-6">
+                                                        <!-- <div class="col-md-6">
                                                                <div class="btn-group">
                                                                <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Work Sheet Print</button>
                                                                 <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
@@ -621,7 +686,7 @@
 
                                                          
                                                          </div>
-                                                     </div>
+                                                     </div> -->
 
                                                 </div>
                                                     <!--row end-->
@@ -839,7 +904,39 @@
       </div>
    </div>
 <!-- --------RPT Pint View modal end --------------------- -->
+ <!-- ---------instrument modal------------- -->
+ <div class="modal fade instrument_modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Instrument List</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
+                    <div class="modal-body">
+                        <div class="table-responsive table_item_padding" id="append_instrument_table"></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    <!-- ---------instrument modal end------------- -->  
+                 <!-- ---------instrument modal------------- -->
+        <div class="modal fade instrument_modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Instrument List</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="table-responsive table_item_padding" id="append_instrument_table"></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    <!-- ---------instrument modal end------------- -->  
+                
 
 
    <script type="text/javascript">
