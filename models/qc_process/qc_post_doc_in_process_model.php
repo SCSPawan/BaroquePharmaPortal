@@ -200,20 +200,23 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="QC_CK_D_PostingDate" name="QC_CK_D_PostingDate">
-                                                </div>
-                                            </div>
-                                        </div>
+
+
+                                        <div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="QC_CK_D_PostingDate" name="QC_CK_D_PostingDate" value="<?php echo date('Y-m-d'); ?>">
+        </div>
+    </div>
+</div>
+
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="QC_CK_D_AnalysisDate" name="QC_CK_D_AnalysisDate">
+                                                    <input class="form-control" type="date" id="QC_CK_D_AnalysisDate" name="QC_CK_D_AnalysisDate" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -231,7 +234,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="QC_CK_D_Stage" name="QC_CK_D_Stage">
+                                                    <input class="form-control" type="text" id="QC_CK_D_Stage" name="QC_CK_D_Stage" >
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +243,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="QC_CK_D_ValidUpTo" name="QC_CK_D_ValidUpTo">
+                                                    <input class="form-control" type="date" id="QC_CK_D_ValidUpTo" name="QC_CK_D_ValidUpTo"  value="<?php echo date('Y-m-d'); ?>" >
                                                 </div>
                                             </div>
                                         </div>
@@ -347,14 +350,24 @@
                                             <div class="table-responsive" id="list">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                           <thead class="fixedHeader1">
-                                                                <tr>
-                                                                    <th>Sr. No</th>
-                                                                    <th>Status</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>IT No</th>
-                                                                    <th>Done By</th>  
-                                                                    <th>Remarks</th>
-                                                                </tr>
+                                                          <tr>
+                                                                     <th>Sr. No</th>
+                    
+                                                                     <th style="width:150px;display: block;">Status</th>
+                                                                     <th>Quantity</th>
+                                                                     <th>Release Date</th>
+                                                                     <th>Release Time</th>
+                                                                     <th>IT No</th>
+                                                                     <th style="width:150px;display: block;">Done By</th>
+                                                                     <th>Attachment 1</th>
+                                                                     <th>Attachment 2</th>
+                                                                     <th>Attachment 3</th>
+                                                                     <th>Deviation Date</th>
+                                                                     <th>Deviation No</th>
+                                                                     <th>Deviation Reason</th>
+                                                                     <th>Remarks</th>
+
+                                                                 </tr>
                                                             </thead>
                                                          <tbody id="qc-status-list-append">
                                                             <!-- <tr>

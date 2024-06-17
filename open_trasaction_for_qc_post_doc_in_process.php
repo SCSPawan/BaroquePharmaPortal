@@ -350,6 +350,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
+
+    
+
     function Compiled_ByDropdown(){
 
         var dataString ='action=Compiled_By_dropdown_ajax';
@@ -435,7 +438,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {
                 var SeriesDropdown = JSON.parse(result);
                 $('#QC_CK_D_DocName').html(SeriesDropdown);
-                selectedSeries(); // call Selected Series Single data function
+                ///selectedSeries(); // call Selected Series Single data function
             },
             complete:function(data){
                 $(".loader123").hide();
@@ -443,33 +446,33 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
-    function selectedSeries(){
+    // function selectedSeries(){
 
-        var Series=document.getElementById('QC_CK_D_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_QCINPROC&action=getSeriesSingleData_ajax';
+    //     var Series=document.getElementById('QC_CK_D_DocName').value;
+    //     var dataString ='Series='+Series+'&ObjectCode=SCS_QCINPROC&action=getSeriesSingleData_ajax';
 
-        $.ajax({
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data: dataString,
-            cache: false,
+    //     $.ajax({
+    //         type: "POST",
+    //         url: 'ajax/common-ajax.php',
+    //         data: dataString,
+    //         cache: false,
 
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
+    //         beforeSend: function(){
+    //             $(".loader123").show();
+    //         },
+    //         success: function(result)
+    //         {
+    //             var JSONObject = JSON.parse(result);
 
-                var NextNumber=JSONObject[0]['NextNumber'];
-                var Series=JSONObject[0]['Series'];
+    //             //var NextNumber=JSONObject[0]['NextNumber'];
+    //             //var Series=JSONObject[0]['Series'];
 
-                $('#QC_CK_D_DocNo').val(Series);
-            },
-            complete:function(data){
-            }
-        }); 
-    }
+    //             $('#QC_CK_D_DocNo').val(Series);
+    //         },
+    //         complete:function(data){
+    //         }
+    //     }); 
+    // }
 
     function QC_StatusByAnalystDropdown(trcount){
 
