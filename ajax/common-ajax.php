@@ -3338,7 +3338,7 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 	$tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['SIRT_BranchName'])));
 	$tdata['U_PC_Loc']=trim(addslashes(strip_tags($_POST['SIRT_Location'])));
 	$tdata['U_PC_CNos']=trim(addslashes(strip_tags($_POST['SIRT_ContainerNos'])));
-	$tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRT_Container'])));
+	// $tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRT_Container'])));
 	$tdata['U_PC_BNo']=trim(addslashes(strip_tags($_POST['SIRT_BatchNo'])));
 	$tdata['U_PC_BQty']=trim(addslashes(strip_tags($_POST['SIRT_BatchQty'])));
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SIRT_BranchID'])));
@@ -3346,10 +3346,10 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 	$tdata['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SIRT_WhsCode'])));
 	$tdata['U_PC_NCnt1']=trim(addslashes(strip_tags($_POST['SIRT_QtyPerContainer'])));
 	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['SIRT_MakeBy'])));
-	$tdata['U_PC_ChNo']=null;
-	$tdata['U_PC_ChDt']=null;
-	$tdata['U_PC_GENo']=null;
-	$tdata['U_PC_GEDte']=null;
+	// $tdata['U_PC_ChNo']=null;
+	// $tdata['U_PC_ChDt']=null;
+	// $tdata['U_PC_GENo']=null;
+	// $tdata['U_PC_GEDte']=null;
 	$tdata['U_PC_UTTrans']=null;
 
 	if(!empty($_POST['SIRT_MfgDate'])){
@@ -3375,7 +3375,7 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 	}else{
 		$tdata['U_PC_TRDte']=null;
 	}
-
+	
 	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
 		if($_POST['SIRT_TrType']==''){
 			$data['status']='False';$data['DocEntry']='';

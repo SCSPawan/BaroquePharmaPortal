@@ -1,5 +1,5 @@
 <!-- start sample collection model-->
-<div class="modal fade open-sample-collection" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade open-sample-collection" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -279,7 +279,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xl-3 col-md-6">
+                                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                                         <div class="form-group row mb-2">
                                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
                                                             <div class="col-lg-8 container_input">
@@ -288,7 +288,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xl-3 col-md-6">
+                                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                                         <div class="form-group row mb-2">
                                                             <div class="col-md-7">
                                                                 <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" disabled>Reverse Sample Issue</button>
@@ -303,7 +303,7 @@
 
                                                 <div class="row">
 
-                                                    <div class="col-xl-3 col-md-6">
+                                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                                         <div class="form-group row mb-2">
                                                             <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                             <div class="col-lg-3">
@@ -315,7 +315,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xl-3 col-md-6">
+                                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                                         <div class="form-group row mb-2">
                                                             <div class="col-md-4">
                                                                 <button type="button" class="pad_btn btn btn-primary" data-bs-toggle="button" autocomplete="off" disabled style="padding: 7px 5px 7px 5px;">Retain Issue</button>

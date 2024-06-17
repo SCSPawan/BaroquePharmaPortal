@@ -4,7 +4,7 @@
 
 <!--sample intimation model-->
    <div class="modal fade sample-intimation" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-xl">
          <div class="modal-content">
             <div class="modal-header">
@@ -42,7 +42,7 @@
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                            <div class="col-lg-6">
-                              <select class="form-control" id="SIRT_DocNoName" name="SIRT_DocNoName"></select>
+                              <select class="form-select" id="SIRT_DocNoName" name="SIRT_DocNoName" onchange="selectedSeries();"></select>
                            </div>
                            <div class="col-lg-2">
                               <input class="form-control desabled" type="text" id="SIRT_DocNo" name="SIRT_DocNo" readonly>
@@ -124,11 +124,11 @@
 
                      <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
-                           <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
+                           <label class="col-lg-5 col-form-label mt-6" for="val-skill">Retest Sample Qty</label>
                            <div class="col-lg-4">
                               <input class="form-control desabled" type="number" id="SIRT_SQty" name="SIRT_SQty" readonly>
                            </div>
-                           <div class="col-lg-4">
+                           <div class="col-lg-3">
                               <input class="form-control desabled" type="text" id="SIRT_UOM" name="SIRT_UOM" readonly>
                            </div>
                         </div>
@@ -199,7 +199,7 @@
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
                            <div class="col-lg-8">
-                              <input class="form-control" type="date" id="SIRT_TrDate" name="SIRT_TrDate" value="<?php echo  date("Y-m-d");?>">
+                              <input class="form-control" type="date" id="SIRT_TrDate" name="SIRT_TrDate" value="<?php echo  date("Y-m-d");?>" onchange="getSeriesDropdown();">
                            </div>
                         </div>
                      </div> 
@@ -213,7 +213,7 @@
                         </div>
                      </div>  
 
-                     <div class="col-xl-3 col-md-6">
+                     <div class="col-xl-3 col-md-6" style="display: none;">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                            <div class="col-lg-8">
@@ -222,7 +222,7 @@
                         </div>
                      </div> 
 
-                     <div class="col-xl-3 col-md-6">
+                     <div class="col-xl-3 col-md-6" style="display: none;">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                            <div class="col-lg-8">
@@ -231,7 +231,7 @@
                         </div>
                      </div> 
 
-                     <div class="col-xl-3 col-md-6">
+                     <div class="col-xl-3 col-md-6" style="display: none;">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                            <div class="col-lg-8">
@@ -240,7 +240,7 @@
                         </div>
                      </div> 
 
-                     <div class="col-xl-3 col-md-6">
+                     <div class="col-xl-3 col-md-6" style="display: none;">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                            <div class="col-lg-8">
@@ -251,7 +251,7 @@
 
                      
 
-                     <div class="col-xl-3 col-md-6">
+                     <div class="col-xl-3 col-md-6" style="display: none;">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
                            <div class="col-lg-8">
@@ -264,7 +264,7 @@
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
                            <div class="col-lg-8">
-                              <input class="form-control desabled" type="number" id="SIRT_BatchNo" name="SIRT_BatchNo" readonly>
+                              <input class="form-control desabled" type="text" id="SIRT_BatchNo" name="SIRT_BatchNo" readonly>
                            </div>
                         </div>
                      </div> 

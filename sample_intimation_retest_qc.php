@@ -429,7 +429,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>  
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
                                                 <div class="col-lg-6">
@@ -521,7 +521,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>  
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                                                 <div class="col-lg-8">
@@ -530,7 +530,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                                 <div class="col-lg-8">
@@ -539,7 +539,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                                                 <div class="col-lg-8">
@@ -548,7 +548,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                                 <div class="col-lg-8">
@@ -566,7 +566,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
                                                 <div class="col-lg-8">
@@ -593,14 +593,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container Nos</label>
-                                                <div class="col-lg-8">
-                                                   <textarea class="form-control desabled" id="SIRTAD_ContainerNOS" name="SIRTAD_ContainerNOS" style="position: absolute;width: 92%;" readonly ></textarea>
-                                                </div>
-                                            </div>
-                                        </div> 
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -629,7 +621,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6"></div>
+                                        <!-- <div class="col-xl-3 col-md-6"></div> -->
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -648,6 +640,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 </div>
                                             </div>
                                         </div> 
+                                        
+                                        <div class="col-xl-6 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                                <div class="col-lg-10">
+                                                    <textarea class="form-control desabled" id="SIRTAD_ContainerNOS" name="SIRTAD_ContainerNOS" readonly ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                       
                                         <!-- Toggle States Button -->
