@@ -702,6 +702,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             success: function(result){
                 var dropdown = JSON.parse(result);
 
+               // console.log('dropdown',dropdown);
                 for (let i = 0; i < trcount; i++) {
                     $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
                 }
@@ -714,6 +715,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             }
         });         
     }
+
 
     function GetBottomApprovedBy(){
         $.ajax({ 
@@ -825,6 +827,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
     function SelectionOfQC_Status(un_id) {
         var tr_count = parseInt($('#tr-count').val());
+        
         var now = new Date();
         var year = now.getFullYear();
         var month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -866,6 +869,25 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             $('#qCStsQty_' + un_id).val($('#routStage_BatchSize').val());
         }
     }
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function AutocalculateQC_Qty(){
         // <!-- calculate Quantity for QC status tab start ------------------------------ -->
