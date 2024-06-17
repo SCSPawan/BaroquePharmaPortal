@@ -107,87 +107,87 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     }
 
     $option .= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-<thead class="fixedHeader1">
-<tr>
-<th>Sr.No </th>  
-<th>Item View</th>
-<th>DocEntry</th>
-<th>GRPO No</th>
-<th>GRPO DocEntry</th>
-<th>Supplier Code</th>
-<th>Supplier Name</th>
-<th>Bp Ref No</th>
-<th>LineNum</th>
-<th>Item Code</th> 
-<th>Item Name</th>
-<th>Unit</th>
-<th>GRN Qty</th>
-<th>Batch No</th>
-<th>Batch Qty</th>
-<th>Mfg Date</th>
-<th>Expiry Date</th>
-<th>Sample Intimation</th>
-<th>Branch Name</th>
-</tr>
-</thead>
-<tbody>';
+            <thead class="fixedHeader1">
+                <tr>
+                    <th>Sr.No </th>  
+                    <th>Item View</th>
+                    <th>DocEntry</th>
+                    <th>GRPO No</th>
+                    <th>GRPO DocEntry</th>
+                    <th>Supplier Code</th>
+                    <th>Supplier Name</th>
+                    <th>Bp Ref No</th>
+                    <th>LineNum</th>
+                    <th>Item Code</th> 
+                    <th>Item Name</th>
+                    <th>Unit</th>
+                    <th>GRN Qty</th>
+                    <th>Batch No</th>
+                    <th>Batch Qty</th>
+                    <th>Mfg Date</th>
+                    <th>Expiry Date</th>
+                    <th>Sample Intimation</th>
+                    <th>Branch Name</th>
+                </tr>
+            </thead>
+        <tbody>';
 
-    if (count($getAllData) != '0') {
-        for ($i = $r_start; $i < $r_end; $i++) {
-            if (!empty($getAllData[$i]->DocEntry)) {   //  this condition save to extra blank loop
-                $SrNo = $i + 1;
-                // --------------- Convert String code Start Here ---------------------------
-                if (empty($getAllData[$i]->MfgDate)) {
-                    $MfgDate = '';
-                } else {
-                    $U_MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate);
-                    // All (/) replace to (-)
-                    $MfgDate = date("d-m-Y", strtotime($U_MfgDate));
+        if (count($getAllData) != '0') {
+            for ($i = $r_start; $i < $r_end; $i++) {
+                if (!empty($getAllData[$i]->DocEntry)) {   //  this condition save to extra blank loop
+                    $SrNo = $i + 1;
+                    // --------------- Convert String code Start Here ---------------------------
+                    if (empty($getAllData[$i]->MfgDate)) {
+                        $MfgDate = '';
+                    } else {
+                        $U_MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate);
+                        // All (/) replace to (-)
+                        $MfgDate = date("d-m-Y", strtotime($U_MfgDate));
+                    }
+
+                    if (empty($getAllData[$i]->ExpDate)) {
+                        $ExpiryDate = '';
+                    } else {
+                        $U_ExpDate = str_replace('/', '-', $getAllData[$i]->ExpDate);
+                        // All (/) replace to (-)
+                        $ExpiryDate = date("d-m-Y", strtotime($U_ExpDate));
+                    }
+                    // --------------- Convert String code End Here-- ---------------------------
+
+                    $option .= '
+                        <tr>
+                            <td class="desabled">' . $SrNo . '</td>
+
+                            <td style="text-align: center;">
+                                <input type="radio" id="list' . $getAllData[$i]->DocEntry . '" name="listRado" value="' . $getAllData[$i]->DocEntry . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedRecord(' . $getAllData[$i]->DocEntry . ')"  style="width: 17px;height: 17px;">
+                            </td>
+
+                            <td class="desabled">' . $getAllData[$i]->DocEntry . '</td>
+                            <td class="desabled">' . $getAllData[$i]->GRNNo . '</td>
+                            <td class="desabled">' . $getAllData[$i]->GRNEntry . '</td>
+                            <td class="desabled">' . $getAllData[$i]->SupplierCode . '</td>
+                            <td class="desabled">' . $getAllData[$i]->SupplierName . '</td>
+                            <td class="desabled">' . $getAllData[$i]->BPRefNo . '</td>
+                            <td class="desabled">' . $getAllData[$i]->GRNLineNo . '</td>
+                            <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
+
+                            <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
+                            <td class="desabled">' . $getAllData[$i]->SampleQtyUnit . '</td>
+                            <td class="desabled">' . $getAllData[$i]->GRNQty . '</td>
+                            <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
+                            <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
+                            <td class="desabled">' . $MfgDate . '</td>
+                            <td class="desabled">' . $ExpiryDate . '</td>
+                            <td class="desabled">' . $getAllData[$i]->TRNo . '</td>
+                            <td class="desabled">' . $getAllData[$i]->Branch . '</td>
+                        </tr>';
                 }
-
-                if (empty($getAllData[$i]->ExpDate)) {
-                    $ExpiryDate = '';
-                } else {
-                    $U_ExpDate = str_replace('/', '-', $getAllData[$i]->ExpDate);
-                    // All (/) replace to (-)
-                    $ExpiryDate = date("d-m-Y", strtotime($U_ExpDate));
-                }
-                // --------------- Convert String code End Here-- ---------------------------
-
-                $option .= '
-<tr>
-<td class="desabled">' . $SrNo . '</td>
-
-<td style="text-align: center;">
-<input type="radio" id="list' . $getAllData[$i]->DocEntry . '" name="listRado" value="' . $getAllData[$i]->DocEntry . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedRecord(' . $getAllData[$i]->DocEntry . ')"  style="width: 17px;height: 17px;">
-</td>
-
-<td class="desabled">' . $getAllData[$i]->DocEntry . '</td>
-<td class="desabled">' . $getAllData[$i]->GRNNo . '</td>
-<td class="desabled">' . $getAllData[$i]->GRNEntry . '</td>
-<td class="desabled">' . $getAllData[$i]->SupplierCode . '</td>
-<td class="desabled">' . $getAllData[$i]->SupplierName . '</td>
-<td class="desabled">' . $getAllData[$i]->BPRefNo . '</td>
-<td class="desabled">' . $getAllData[$i]->GRNLineNo . '</td>
-<td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
-
-<td class="desabled">' . $getAllData[$i]->ItemName . '</td>
-<td class="desabled">' . $getAllData[$i]->SampleQtyUnit . '</td>
-<td class="desabled">' . $getAllData[$i]->GRNQty . '</td>
-<td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
-<td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
-<td class="desabled">' . $MfgDate . '</td>
-<td class="desabled">' . $ExpiryDate . '</td>
-<td class="desabled">' . $getAllData[$i]->TRNo . '</td>
-<td class="desabled">' . $getAllData[$i]->Branch . '</td>
-</tr>';
             }
+        } else {
+            $option .= '<tr><td colspan="18" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
         }
-    } else {
-        $option .= '<tr><td colspan="18" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
-    }
-    $option .= '</tbody> 
-</table>';
+        $option .= '</tbody> 
+    </table>';
 
     $option .= $pagination;
     echo $option;
@@ -996,7 +996,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     // console.log('JSONObjectAll------',JSONObjectAll);
                     var JSONObject = JSONObjectAll['SampleCollDetails'];
 
-                    // console.log('JSONObjectAll------',JSONObjectAll);
+                    // console.log('JSONObject->SampleCollDetails : =>',JSONObject);
 
                     $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
                     $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
@@ -1439,7 +1439,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             ContainerSelection_sample_issue();
             getSeriesDropdown();
 
-
+            $(`.GI_Th_Hide`).hide(); // Goods Issue Item Tbl ToWhs th tag Hide
+            $(`.GI_Td_Hide`).hide(); // Goods Issue Item Tbl ToWhs td tag Hide
         }
 
 

@@ -517,7 +517,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     }
 
     function SendSampleIntimationRetestQC_Data(){
-
         var formData = new FormData($('#SampleIntimationRetestQCForm')[0]);  // Form Id
         formData.append("SampleIntimationRetestQCBtn",'SampleIntimationRetestQCBtn');  // Button Id
         var error = true;

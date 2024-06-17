@@ -13,6 +13,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     $tdata = array();
 
     $getAllData = $objKri->getQcPostDocumentRetestQc($RETESTQCPOSTDOC);
+    
+    // echo '<pre>';
+    // print_r($getAllData[0]);
+
     $count = count($getAllData);
 
     $adjacents = 1;
@@ -105,82 +109,99 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
     $option .= '<table id="tblItemRecord" class="table sample-table-responsive table_inline table-bordered" style="">
                 <thead class="fixedHeader1">
-                   <tr>
-                    <th>Item View</th>
-                    <th>Sr.No </th>  
-                    <th>GRPO No</th>
-                    <th>GRPO DocEntry</th> 
-                    <th>Supplier Code</th>
-                    <th>Supplier Name</th>
-                    <th>Bp Ref Nc</th>
-                    <th>LineNum</th>
-                    <th>Item Code</th>
-                    <th>Item Name</th>
-                    <th>Unit</th>
-                    <th>GRN Qty</th>
-                    <th>Batch No</th>
-                    <th>Batch Qty</th>
-                    <th>Mfg Date</th>
-                    <th>Expiry Date</th>
-                    <th>Sample Intimation No</th>
-                    <th>Sample Collection No</th>
-                    <th>Location</th>
-                    <th>Branch Name</th>
-                </tr>
+                    <tr>
+                        <th>Item View</th>
+                        <th>Sr.No </th>  
+                        <th>GRPO No</th>
+                        <th>GRPO DocEntry</th> 
+                        <th>Supplier Code</th>
+                        <th>Supplier Name</th>
+                        <th>Bp Ref Nc</th>
+                        <th>LineNum</th>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>Unit</th>
+                        <th>GRN Qty</th>
+                        <th>Batch No</th>
+                        <th>Batch Qty</th>
+                        <th>Mfg Date</th>
+                        <th>Expiry Date</th>
+                        <th>Sample Intimation No</th>
+                        <th>Sample Collection No</th>
+                        <th>Location</th>
+                        <th>Branch Name</th>
+                        <th>WhseCode</th>
+                        <th>Retest Date</th>
+                        <th>Mfg By</th>
+                        <th>No of Container</th>
+                    </tr>
                 <tbody>';
 
-    if (count($getAllData) != '0') {
-        for ($i = $r_start; $i < $r_end; $i++) {
-            if (!empty($getAllData[$i]->GRPODocEntry)) {   //  this condition save to extra blank loop
-                $SrNo = $i + 1;
-                // --------------- Convert String code Start Here ---------------------------
-                if (empty($getAllData[$i]->MfgDate)) {
-                    $MfgDate = '';
-                } else {
-                    $MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate);
-                    $MfgDate = date("d-m-Y", strtotime($MfgDate));
-                }
+                if (count($getAllData) != '0') {
+                    for ($i = $r_start; $i < $r_end; $i++) {
+                        if (!empty($getAllData[$i]->GRPODocEntry)) {   //  this condition save to extra blank loop
+                            $SrNo = $i + 1;
+                            // --------------- Convert String code Start Here ---------------------------
+                            if (empty($getAllData[$i]->MfgDate)) {
+                                $MfgDate = '';
+                            } else {
+                                $MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate);
+                                $MfgDate = date("d-m-Y", strtotime($MfgDate));
+                            }
 
-                if (empty($getAllData[$i]->ExpiryDate)) {
-                    $ExpiryDate = '';
+                            if (empty($getAllData[$i]->ExpiryDate)) {
+                                $ExpiryDate = '';
+                            } else {
+                                $ExpiryDate = str_replace('/', '-', $getAllData[$i]->ExpiryDate);
+                                $ExpiryDate = date("d-m-Y", strtotime($ExpiryDate));
+                            }
+
+                            if (empty($getAllData[$i]->RetestDate)) {
+                                $RetestDate = '';
+                            } else {
+                                $RetestDate = str_replace('/', '-', $getAllData[$i]->RetestDate);
+                                $RetestDate = date("d-m-Y", strtotime($RetestDate));
+                            }
+
+                            
+                            // --------------- Convert String code End Here-- ---------------------------
+                            $option .= '
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <a href="" class="" data-bs-toggle="modal" data-bs-target=".retest-qc-check" onclick="qc_for_doc_retest(\'' . $getAllData[$i]->GRPODocEntry . '\',\'' . $getAllData[$i]->BatchNo . '\',\'' . $getAllData[$i]->ItemCode . '\',\'' . $getAllData[$i]->LineNum . '\')">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td class="desabled">' . $SrNo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->GRPONo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->GRPODocEntry . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->SupplierCode . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->SupplierName . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->BpRefNo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->LineNum . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->Unit . '</td>  
+                                            <td class="desabled">' . $getAllData[$i]->GRNQty . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
+                                            <td class="desabled">' . $MfgDate . '</td>
+                                            <td class="desabled">' . $ExpiryDate . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->SampleIntimationNo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->SampleCollectionNo . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->Location . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->BranchName . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->WhseCode . '</td>
+                                            <td class="desabled">' . $RetestDate . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->MfgBy . '</td>
+                                            <td class="desabled">' . $getAllData[$i]->NoofContainer . '</td>
+                                        </tr>';
+                        }
+                    }
                 } else {
-                    $ExpiryDate = str_replace('/', '-', $getAllData[$i]->ExpiryDate);
-                    $ExpiryDate = date("d-m-Y", strtotime($ExpiryDate));
+                    $option .= '<tr><td colspan="20" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
                 }
-                // --------------- Convert String code End Here-- ---------------------------
-                $option .= '
-                            <tr>
-                                <td style="text-align: center;">
-                                    <a href="" class="" data-bs-toggle="modal" data-bs-target=".retest-qc-check" onclick="qc_for_doc_retest(\'' . $getAllData[$i]->GRPODocEntry . '\',\'' . $getAllData[$i]->BatchNo . '\',\'' . $getAllData[$i]->ItemCode . '\',\'' . $getAllData[$i]->LineNum . '\')">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                                <td class="desabled">' . $SrNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->GRPONo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->GRPODocEntry . '</td>
-                                <td class="desabled">' . $getAllData[$i]->SupplierCode . '</td>
-                                <td class="desabled">' . $getAllData[$i]->SupplierName . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BpRefNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->LineNum . '</td>
-                                <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
-                                <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
-                                <td class="desabled">' . $getAllData[$i]->Unit . '</td>  
-                                <td class="desabled">' . $getAllData[$i]->GRNQty . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
-                                <td class="desabled">' . $MfgDate . '</td>
-                                <td class="desabled">' . $ExpiryDate . '</td>
-                                <td class="desabled">' . $getAllData[$i]->SampleIntimationNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->SampleCollectionNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->Location . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BranchName . '</td>
-                            </tr>';
-            }
-        }
-    } else {
-        $option .= '<tr><td colspan="20" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
-    }
-    $option .= '</tbody> 
+        $option .= '</tbody> 
     </table>';
 
     $option .= $pagination;
@@ -304,127 +325,85 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 
 
-        function qc_for_doc_retest(DocEntry, BatchNo, ItemCode, LineNum) {
-            $.ajax({
-                type: "POST",
-                url: 'ajax/kri_common-ajax.php',
-                data: {
-                    'DocEntry': DocEntry,
-                    'BatchNo': BatchNo,
-                    'ItemCode': ItemCode,
-                    'LineNum': LineNum,
-                    'action': "QcForDocRetest_popup"
-                },
+function qc_for_doc_retest(DocEntry, BatchNo, ItemCode, LineNum) {
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_common-ajax.php',
+        data: {'DocEntry': DocEntry,'BatchNo': encodeURIComponent(BatchNo),'ItemCode': ItemCode,'LineNum': LineNum,'action': "QcForDocRetest_popup"},
+        beforeSend: function() {
+            $(".loader123").show();
+        },
+        success: function(result) {
+            var JSONObject = JSON.parse(result);
 
-                beforeSend: function() {
-                    $(".loader123").show();
-                },
-                success: function(result) {
-                    var JSONObject = JSON.parse(result);
-                    //console.log('JSON-> ', JSONObject);
-                    // ExpiryDate
-                    
+            $(`#GRPONo`).val(JSONObject[0]['GRPONo']);
+            $(`#GRPODocEntry`).val(JSONObject[0]['GRPODocEntry']);
+            $(`#SupplierCode`).val(JSONObject[0]['SupplierCode']);
+            $(`#SupplierName`).val(JSONObject[0]['SupplierName']);
+            $(`#ItemCode`).val(JSONObject[0]['ItemCode']);
+            $(`#ItemName`).val(JSONObject[0]['ItemName']);
+            $(`#ItemName`).val(JSONObject[0]['ItemName']);
+            $(`#Location`).val(JSONObject[0]['Location']);
+            $(`#LabelClaim`).val(JSONObject[0]['LabelClaim']);
+            $(`#LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
+            $(`#RQty`).val(JSONObject[0]['GRNQty']);
+            $(`#MfgBy`).val(JSONObject[0]['MfgBy']);
+            $(`#BpRefNo`).val(JSONObject[0]['BpRefNo']);
+            $(`#BatchNo`).val(JSONObject[0]['BatchNo']);
+            $(`#BatchQty`).val(JSONObject[0]['BatchQty']);
+            $(`#SampleIntimationNo`).val(JSONObject[0]['SampleIntimationNo']);
+            $(`#SampleCollectionNo`).val(JSONObject[0]['SampleCollectionNo']);
+            $(`#SampleQty`).val(JSONObject[0]['SampleQty']);
+            $(`#PackSize`).val(JSONObject[0]['PackSize']);
+            $(`#MaterialType`).val(JSONObject[0]['MaterialType']);
+            $(`#SpecfNo`).val(JSONObject[0]['SpecfNo']);
+            // $(`#AnalysisDate`).val(JSONObject[0]['AnalysisDate']);
+            $(`#Container`).val(JSONObject[0]['NoofContainer']);
+            $(`#noOfCont2`).val(JSONObject[0]['NoofContainer']);
+            $(`#ShelfLife`).val(JSONObject[0]['ShelfLife']);
+            $(`#Assaypotencyreq`).val(JSONObject[0]['AssayPotencyReq']);
+            $(`#MakeBy`).val(JSONObject[0]['MakeBy']);
+            $(`#Stage`).val(JSONObject[0]['Stage']);
+            $(`#BranchName`).val(JSONObject[0]['BranchName']);
+            $(`#ValidUpTo`).val(JSONObject[0]['ValidUpTo']);
+            $(`#ARNo`).val(JSONObject[0]['ARNo']);
+            $(`#GateENo`).val(JSONObject[0]['GateENo']);
+            $(`#Factor`).val(JSONObject[0]['Factor']);
+            $(`#U_PC_Loc`).val(JSONObject[0]['Location']);
+            $(`#U_PC_LocCode`).val(JSONObject[0]['LocCode']);
+            $(`#U_PC_BPLId`).val(JSONObject[0]['BPLId']);
 
-                
-                    $(`#GRPONo`).val(JSONObject[0]['GRPONo']);
-                    $(`#GRPODocEntry`).val(JSONObject[0]['GRPODocEntry']);
-                    $(`#SupplierCode`).val(JSONObject[0]['SupplierCode']);
-                    $(`#SupplierName`).val(JSONObject[0]['SupplierName']);
-                    $(`#ItemCode`).val(JSONObject[0]['ItemCode']);
-                    $(`#ItemName`).val(JSONObject[0]['ItemName']);
-                    $(`#ItemName`).val(JSONObject[0]['ItemName']);
-                    $(`#Location`).val(JSONObject[0]['Location']);
-                    $(`#LabelClaim`).val(JSONObject[0]['LabelClaim']);
-                    $(`#LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
-                    $(`#RQty`).val(JSONObject[0]['GRNQty']);
-                    $(`#MfgBy`).val(JSONObject[0]['MfgBy']);
-                    $(`#BpRefNo`).val(JSONObject[0]['BpRefNo']);
-                    $(`#BatchNo`).val(JSONObject[0]['BatchNo']);
-                    $(`#BatchQty`).val(JSONObject[0]['BatchQty']);
+            $(`#SampleType`).val('Retest'); // HardCoded value pass in Retest QC Process
 
-                    $(`#SampleIntimationNo`).val(JSONObject[0]['SampleIntimationNo']);
-                    $(`#SampleCollectionNo`).val(JSONObject[0]['SampleCollectionNo']);
+            // <!-- ----------- Hidden Field Start Here ----------------------- -->
+                $(`#LineNum`).val(JSONObject[0]['LineNum']);
+                $(`#Unit`).val(JSONObject[0]['Unit']);
+                $(`#TNCont`).val(JSONObject[0]['TNCont']);
+                $(`#TCont`).val(JSONObject[0]['TCont']);
+                $(`#LocCode`).val(JSONObject[0]['LocCode']);
+            // <!-- ----------- Challan Field Start Here ----------------------- -->
 
-                    $(`#SampleQty`).val(JSONObject[0]['SampleQty']);
-                    $(`#PackSize`).val(JSONObject[0]['PackSize']);
-                    $(`#MaterialType`).val(JSONObject[0]['MaterialType']);
-                    $(`#SpecfNo`).val(JSONObject[0]['SpecfNo']);
-                    $(`#AnalysisDate`).val(JSONObject[0]['AnalysisDate']); //--
-                    $(`#Container`).val(JSONObject[0]['NoofContainer']);
-                    $(`#noOfCont2`).val(JSONObject[0]['NoofContainer']);
+            // <!-- ----------- Expiry Date Start Here ----------------------- -->
+                var expiryDateOG = JSONObject[0]['ExpiryDate'];
+                ExpiryDate = expiryDateOG.split(' ')[0];
+                $(`#ExpiryDate`).val(ExpiryDate);
+            // <!-- ----------- Expiry Date End Here ------------------------- -->
 
-                    $(`#ShelfLife`).val(JSONObject[0]['ShelfLife']);
-                    $(`#Assaypotencyreq`).val(JSONObject[0]['AssayPotencyReq']);
-                    $(`#MakeBy`).val(JSONObject[0]['MakeBy']);
-                    $(`#Stage`).val(JSONObject[0]['Stage']); //--- 
-                    $(`#BranchName`).val(JSONObject[0]['BranchName']);
-                    $(`#ValidUpTo`).val(JSONObject[0]['ValidUpTo']);
-                    $(`#ARNo`).val(JSONObject[0]['ARNo']);
-                    $(`#GateENo`).val(JSONObject[0]['GateENo']);
+            // <!-- ----------- MfgDate Start Here ----------------------- -->
+                var mfgDateOG = JSONObject[0]['MfgDate'];
+                MfgDate = mfgDateOG.split(' ')[0];
+                $(`#MfgDate`).val(MfgDate);
+            // <!-- ----------- MfgDate End Here ------------------------- -->
 
-                    $(`#Factor`).val(JSONObject[0]['Factor']);
+            // <!-- ----------- Posting Date Start Here ----------------------- -->
+                // var postingDateOG = JSONObject[0]['PostingDate'];
+                // $(`#PostingDate`).val('');
+            // <!-- ----------- Posting Date End Here ------------------------- -->
 
-                    $(`#U_PC_Loc`).val(JSONObject[0]['Location']);
-                    $(`#U_PC_LocCode`).val(JSONObject[0]['LocCode']);
-                    $(`#U_PC_BPLId`).val(JSONObject[0]['BPLId']);
+            // <!-- ----------- Create Retest date with adding shelflife Start here ---------- -->
+                var ShelfLife = JSONObject[0]['ShelfLife']; 
 
-                    // <!-- ----------- Hidden Field Start Here ----------------------- -->
-                    $(`#LineNum`).val(JSONObject[0]['LineNum']);
-                    $(`#Unit`).val(JSONObject[0]['Unit']);
-                    $(`#TNCont`).val(JSONObject[0]['TNCont']);
-                    $(`#TCont`).val(JSONObject[0]['TCont']);
-                    $(`#LocCode`).val(JSONObject[0]['LocCode']);
-
-                    // <!-- ----------- Challan Field Start Here ----------------------- -->
-
-                    // <!-- ----------- Expiry Date Start Here ----------------------- -->
-                    var expiryDateOG = JSONObject[0]['ExpiryDate'];
-                    ExpiryDate = expiryDateOG.split(' ')[0];
-                    $(`#ExpiryDate`).val(ExpiryDate);
-                    // <!-- ----------- Expiry Date End Here ------------------------- -->
-
-                    // <!-- ----------- MfgDate Start Here ----------------------- -->
-                    var mfgDateOG = JSONObject[0]['MfgDate'];
-                    MfgDate = mfgDateOG.split(' ')[0];
-                    $(`#MfgDate`).val(MfgDate);
-                    // <!-- ----------- MfgDate End Here ------------------------- -->
-
-                    // <!-- ----------- Posting Date Start Here ----------------------- -->
-                    // var postingDateOG = JSONObject[0]['PostingDate'];
-                    // $(`#PostingDate`).val('');
-                    // <!-- ----------- Posting Date End Here ------------------------- -->
-                    
-                // <!-- ----------- Create Retest date with adding shelflife Start here ---------- -->
-                    var ShelfLife = JSONObject[0]['ShelfLife']; 
-
-                    if(ShelfLife!=''){
-                          // Convert ShelfLife to an integer
-                    ShelfLife = parseInt(ShelfLife, 10);
-
-                    // Get the current date
-                    var currentDate = new Date();
-
-                    // Add ShelfLife months to the current date
-                    var futureDate = new Date(currentDate);
-                    var newMonth = futureDate.getMonth() + ShelfLife;
-                    futureDate.setMonth(newMonth);
-
-                    // Adjust if the day overflows the month
-                    if (futureDate.getMonth() !== newMonth % 12) {
-                        futureDate.setDate(0); // Set to the last day of the previous month
-                    }
-
-                    // Format the dates to YYYY-MM-DD
-                    var currentFormattedDate = formatDate(currentDate);
-                    var futureFormattedDate = formatDate(futureDate);
-
-                    // Display the formatted dates
-                    // console.log('Current Date:', currentFormattedDate);
-                    // console.log('Date after adding ' + ShelfLife + ' months:', futureFormattedDate);
-
-                    // Set Value in Retest date
-                    $(`#RetestDate`).val(futureFormattedDate);
-                    }
+                if(ShelfLife!=''){
                     // Convert ShelfLife to an integer
                     ShelfLife = parseInt(ShelfLife, 10);
 
@@ -451,19 +430,47 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                     // Set Value in Retest date
                     $(`#RetestDate`).val(futureFormattedDate);
-                // <!-- ----------- Create Retest date with adding shelflife End here ------------ -->
-                    getstageDropdown();
-                    SampleTypeDropdown(); //Sample Type API to Get Dropdown
-                    QC_TestTypeDropdown();
-                    qc_assay_Calculation();
-                    getSeriesDropdown(); // DocName By using API to get dropdown 
-                    selectedRecord(JSONObject[0]['ItemCode']);
-                },
-                complete: function(data) {
-                    $(".loader123").hide();
                 }
-            });
+                // Convert ShelfLife to an integer
+                ShelfLife = parseInt(ShelfLife, 10);
+
+                // Get the current date
+                var currentDate = new Date();
+
+                // Add ShelfLife months to the current date
+                var futureDate = new Date(currentDate);
+                var newMonth = futureDate.getMonth() + ShelfLife;
+                futureDate.setMonth(newMonth);
+
+                // Adjust if the day overflows the month
+                if (futureDate.getMonth() !== newMonth % 12) {
+                    futureDate.setDate(0); // Set to the last day of the previous month
+                }
+
+                // Format the dates to YYYY-MM-DD
+                var currentFormattedDate = formatDate(currentDate);
+                var futureFormattedDate = formatDate(futureDate);
+
+                // Display the formatted dates
+                // console.log('Current Date:', currentFormattedDate);
+                // console.log('Date after adding ' + ShelfLife + ' months:', futureFormattedDate);
+
+                // Set Value in Retest date
+                $(`#RetestDate`).val(futureFormattedDate);
+            // <!-- ----------- Create Retest date with adding shelflife End here ------------ -->
+
+            getstageDropdown();
+            // SampleTypeDropdown(); //Sample Type API to Get Dropdown
+            QC_TestTypeDropdown();
+            qc_assay_Calculation();
+            getSeriesDropdown(); // DocName By using API to get dropdown 
+            selectedRecord(JSONObject[0]['ItemCode']);
+        },
+        complete: function(data) {
+            $(".loader123").hide();
         }
+    })
+}
 
 
 
@@ -479,27 +486,25 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             });
         }
 
-        function SampleTypeDropdown() {
-
-            var dataString = 'TableId=@SCS_QCPD&Alias=SamType&action=dropdownMaster_ajax';
-            $.ajax({
-                type: "POST",
-                url: 'ajax/common-ajax.php',
-                data: dataString,
-                cache: false,
-
-                beforeSend: function() {
-                    $(".loader123").show();
-                },
-                success: function(result) {
-                    var JSONObject = JSON.parse(result);
-                    $('#SampleType').html(JSONObject);
-                },
-                complete: function(data) {
-                    $(".loader123").hide();
-                }
-            });
-        }
+    function SampleTypeDropdown() {
+        var dataString = 'TableId=@SCS_QCPD&Alias=SamType&action=dropdownMaster_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function() {
+                $(".loader123").show();
+            },
+            success: function(result) {
+                var JSONObject = JSON.parse(result);
+                $('#SampleType').html(JSONObject);
+            },
+            complete: function(data) {
+                $(".loader123").hide();
+            }
+        })
+    }
 
         function getstageDropdown() {
 

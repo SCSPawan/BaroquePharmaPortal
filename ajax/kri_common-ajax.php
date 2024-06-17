@@ -625,31 +625,14 @@ if(isset($_POST['qc_attachment_browser_ajax']))
 
 
 
-if(isset($_POST['action']) && $_POST['action'] =='QcForDocRetest_popup')
-{
-	$API=$RETESTQCPOSTDOC.'&DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-
-
-	
-
-	// $API=$RETESTQCPOSTDOC.'?DocEntry='.$_POST['DocEntry'];
-
-	// echo $API;
-	// exit;
-
+if(isset($_POST['action']) && $_POST['action'] =='QcForDocRetest_popup'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
-		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API=$RETESTQCPOSTDOC.'&DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
 
-		// print_r($FinalAPI);
-		// die();
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
 	$response=$objKri->get_QcRetest_SingleData($FinalAPI);
-
-         // echo "<pre>";
-	    // print_r($response);
-	    // echo "<pre>";
-	   // exit;
 
 	echo json_encode($response);
 	exit(0);
@@ -1122,106 +1105,84 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 
 
-   if (isset($_POST['addQcPostDocumentRetestBtn'])) {
+if (isset($_POST['addQcPostDocumentRetestBtn'])) {
+	//<!-- ------ valdiation start --------------------------------- --> 
+		// if($_POST['RelMaterialWithoutQC']=='No'){
+		// 	if($_POST['Assaypotencyreq']=='Yes'){
+		// 		// <!-- AssayPotency validation start --------------- -->
+		// 			$AssayPotency =trim(addslashes(strip_tags($_POST['AssayPotency'])));
 
-		//<!-- ------ valdiation start --------------------------------- --> 
-		if($_POST['RelMaterialWithoutQC']=='No'){
-			if($_POST['Assaypotencyreq']=='Yes'){
-				// <!-- AssayPotency validation start --------------- -->
-					$AssayPotency =trim(addslashes(strip_tags($_POST['AssayPotency'])));
+		// 			// Check if AssayPotency is empty
+		// 			if ($AssayPotency === '' || $AssayPotency === null) {
+		// 				$data['status']='False';
+		// 				$data['DocEntry']='';
+		// 				$data['message']=' Please Enter value in AssayPotency % is empty';
+		// 				echo json_encode($data);
+		// 				exit();
+		// 			} else {
+		// 				// Convert AssayPotency to a float
+		// 				$AssayPotency = floatval($AssayPotency);
+					
+		// 				// Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
+		// 					if ($AssayPotency > 100){
+		// 						$data['status']='False';
+		// 						$data['DocEntry']='';
+		// 						$data['message']='AssayPotency %  not greater than 100';
+		// 						echo json_encode($data);
+		// 						exit();
+		// 					}
 
-					// Check if AssayPotency is empty
-					if ($AssayPotency === '' || $AssayPotency === null) {
-						$data['status']='False';
-						$data['DocEntry']='';
-						$data['message']=' Please Enter value in AssayPotency % is empty';
-						echo json_encode($data);
-						exit();
-					} else {
-					    // Convert AssayPotency to a float
-					    $AssayPotency = floatval($AssayPotency);
-					   
-					    // Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
-							if ($AssayPotency > 100){
-								$data['status']='False';
-								$data['DocEntry']='';
-								$data['message']='AssayPotency %  not greater than 100';
-								echo json_encode($data);
-								exit();
-						    }
+		// 					if ($AssayPotency <= 0) {
+		// 						$data['status']='False';
+		// 						$data['DocEntry']='';
+		// 						$data['message']='AssayPotency % is not equal to 0 or not less than 0';
+		// 						echo json_encode($data);
+		// 						exit();
+		// 					}
+		// 			}
+		// 		// <!-- AssayPotency validation end ----------------- -->
 
-						    if ($AssayPotency <= 0) {
-								$data['status']='False';
-								$data['DocEntry']='';
-								$data['message']='AssayPotency % is not equal to 0 or not less than 0';
-								echo json_encode($data);
-								exit();
-						    }
-					}
-				// <!-- AssayPotency validation end ----------------- -->
-
-				// <!-- Factor validation start --------------------- -->
-					$Factor = trim(addslashes(strip_tags($_POST['factor'])));
-					if(empty($Factor)){
-						$data['status']='False';
-						$data['DocEntry']='';
-						$data['message']=' Please Enter value in Factor.';
-						echo json_encode($data);
-						exit();
-					}
-				// <!-- Factor validation end ----------------------- -->	
-			}
-		}
+		// 		// <!-- Factor validation start --------------------- -->
+		// 			$Factor = trim(addslashes(strip_tags($_POST['factor'])));
+		// 			if(empty($Factor)){
+		// 				$data['status']='False';
+		// 				$data['DocEntry']='';
+		// 				$data['message']=' Please Enter value in Factor.';
+		// 				echo json_encode($data);
+		// 				exit();
+		// 			}
+		// 		// <!-- Factor validation end ----------------------- -->	
+		// 	}
+		// }
 	//<!-- ------ valdiation end ----------------------------------- --> 
 	
-
-	// $mainArray=array();
 	$tdata = array(); // This array send to AP Standalone Invoice process 
-	
 
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['DocNo1'])));
-
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['LineNum'])));
 	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['U_PC_BPLId'])));
 	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['U_PC_LocCode'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['U_PC_Loc'])));
-
 	$tdata['U_PC_GRNNo'] = trim(addslashes(strip_tags($_POST['GRPONo'])));
 	$tdata['U_PC_GRNEnt'] = trim(addslashes(strip_tags($_POST['GRPODocEntry'])));
-
 	$tdata['U_PC_SCode'] = trim(addslashes(strip_tags($_POST['SupplierCode'])));
 	$tdata['U_PC_SName'] = trim(addslashes(strip_tags($_POST['SupplierName'])));
 	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['ItemName'])));
-
 	$tdata['U_PC_GName'] = trim(addslashes(strip_tags($_POST['GenericName'])));
 	$tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['LabelClaim'])));
 	$tdata['U_PC_LClmUom'] = trim(addslashes(strip_tags($_POST['LabelClaimUOM'])));
 	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['RQty'])));
-
 	$tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['MfgBy'])));
-	$tdata['U_PC_MfgBy'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['MfgBy'])) : null;
 	$tdata['U_PC_RfBy'] = trim(addslashes(strip_tags($_POST['BpRefNo'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['BatchNo'])));
-
 	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['BatchQty'])));
-
-
-	$tdata['U_PC_MfgDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['MfgDate'])) : null;
-	$tdata['U_PC_ExpDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['ExpiryDate'])) : null;
-	//$tdata['U_PC_ExpDt']=trim(addslashes(strip_tags($_POST['ExpiryDate'])));
-
 	$tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['SampleIntimationNo'])));
-
 	$tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['SampleCollectionNo'])));
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['SampleQty'])));
 	$tdata['U_PC_PckSize'] = trim(addslashes(strip_tags($_POST['PackSize'])));
-
-	$tdata['U_PC_SamType'] = trim(addslashes(strip_tags($_POST['SampleType'])));
+	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['SampleType'])));
 	$tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['MaterialType'])));
-	//$tdata['U_PC_PDate']=trim(addslashes(strip_tags($_POST['PostingDate'])));
-	$tdata['U_PC_PDate'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['PostingDate'])) : null;
-	$tdata['U_PC_ADate'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['AnalysisDate'])) : null;
 	$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['Container'])));
 	$tdata['U_PC_QCTType'] = trim(addslashes(strip_tags($_POST['QCTestType'])));
 	$tdata['U_PC_Stage'] = trim(addslashes(strip_tags($_POST['Stage'])));
@@ -1230,10 +1191,8 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 	$tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['ValidUpTo'])));
 	$tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['ARNo'])));
 	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['GateENo'])));
-
 	$tdata['U_PC_GDEntry'] = trim(addslashes(strip_tags($_POST['U_PC_GDEntry'])));
 	$tdata['U_PC_APot'] = trim(addslashes(strip_tags($_POST['AssayPotency'])));
-
 	$tdata['U_PC_LODWater'] = trim(addslashes(strip_tags($_POST['LoD_Water'])));
 	$tdata['U_PC_Potency'] = trim(addslashes(strip_tags($_POST['potency'])));
 	$tdata['U_PC_CompBy'] = trim(addslashes(strip_tags($_POST['qc_post_compiled_by'])));
@@ -1241,49 +1200,37 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['noOfCont2'])));
 	$tdata['U_PC_ChkBy'] = trim(addslashes(strip_tags($_POST['checked_by'])));
 	$tdata['U_PC_AnlBy'] = trim(addslashes(strip_tags($_POST['analysis_by'])));
-
-	// $tdata['U_GRPONo']=trim(addslashes(strip_tags($_POST['qcD_GRPONo'])));
-	// $tdata['U_GRPODEnt']=trim(addslashes(strip_tags($_POST['U_GRPODEnt'])));
-
-	// $tdata['U_PC_Rmrks']=trim(addslashes(strip_tags($_POST['qc_remarks'])));
 	$tdata['U_PC_AsyCal'] = trim(addslashes(strip_tags($_POST['assay_append'])));
 	$tdata['U_PC_Factor'] = trim(addslashes(strip_tags($_POST['factor'])));
 	$tdata['U_PC_SpcNo'] = trim(addslashes(strip_tags($_POST['SpecfNo'])));
 	$tdata['U_PC_GRQty'] = trim(addslashes(strip_tags($_POST['U_PC_GRQty'])));
-	$tdata['U_PC_RelDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['ReleaseDate'])) : null;
-	$tdata['U_PC_RetstDt'] = (!empty($_POST['RetestDate'])) ? date("Y-m-d", strtotime($_POST['RetestDate'])) : null;
-	//$tdata['U_PC_RetstDt']=trim(addslashes(strip_tags($_POST['U_PC_RMQC'])));
-
 	$tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['RQty'])));
 	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['SampleType'])));
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['MakeBy'])));
+	$tdata['U_PC_RelDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['ReleaseDate'])) : null;
+	$tdata['U_PC_RetstDt'] = (!empty($_POST['RetestDate'])) ? date("Y-m-d", strtotime($_POST['RetestDate'])) : null;
+	$tdata['U_PC_PDate'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['PostingDate'])) : null;
+	$tdata['U_PC_ADate'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['AnalysisDate'])) : null;
+	$tdata['U_PC_MfgDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['MfgDate'])) : null;
+	$tdata['U_PC_ExpDt'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['ExpiryDate'])) : null;
+	$tdata['U_PC_MfgBy'] = (!empty($_POST['ReleaseDate'])) ? date("Y-m-d", strtotime($_POST['MfgBy'])) : null;
 	
-	// $mainArray=$tdata;
-
 	if ($tdata['U_PC_PDate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
+		$data['status'] = 'False';$data['DocEntry'] = '';
 		$data['message'] = 'Posting Date is required.';
 		echo json_encode($data);
 		exit;
 	}
 
-
 	if ($tdata['U_PC_ADate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
+		$data['status'] = 'False';$data['DocEntry'] = '';
 		$data['message'] = 'Analysis Date is required.';
 		echo json_encode($data);
 		exit;
 	}
 
-
 	$ganaralData = array();
-
-	// U_PC_Rmrks
-
 	if (!empty($_POST['pCode'])) {
-		// $ganaralData=array();
 		for ($i = 0;$i < count($_POST['pCode']);$i++) {
 			$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['pCode'][$i])));
 			$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
@@ -1334,74 +1281,46 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 	}
 
 	$qcStatus = array();
-	// $qcS = 0; //skip array avoid and count continue
-	// $tdata = array(); // Initialize the $tdata array
-
 	for ($j = 0; $j < count($_POST['qc_Status']); $j++) {
-		$qcStatus['U_PC_Stus'] = trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
-		$qcStatus['U_PC_Qty'] = trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
-		// $qcStatus['U_ITNo']=trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
-		$qcStatus['U_PC_DBy'] = trim(addslashes(strip_tags($_POST['doneBy'][$j])));
-		$qcStatus['U_PC_Rmrk1'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
+		if(!empty($_POST['qc_Status'][$j])){
+			$qcStatus['U_PC_Stus'] = trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
+			$qcStatus['U_PC_Qty'] = trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
+			$qcStatus['U_PC_DBy'] = trim(addslashes(strip_tags($_POST['doneBy'][$j])));
+			$qcStatus['U_PC_Rmrk1'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
+	
+			$qcStatus['U_PC_RelDt'] = (!empty($_POST['qCReleaseDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCReleaseDate'][$j])) : null;
+			$qcStatus['U_PC_RelTm'] = (!empty($_POST['qCReleaseTime'][$j])) ? date("Hi", strtotime($_POST['qCReleaseTime'][$j])) : null;
+	
+			$qcStatus['U_PC_Atch1'] = (!empty($_FILES['qCAttache1']['name'][$j])) ? $_FILES['qCAttache1']['name'][$j] : null;
+			$qcStatus['U_PC_Atch2'] = (!empty($_FILES['qCAttache2']['name'][$j])) ? $_FILES['qCAttache2']['name'][$j] : null;
+			$qcStatus['U_PC_Atch3'] = (!empty($_FILES['qCAttache3']['name'][$j])) ? $_FILES['qCAttache3']['name'][$j] : null;
+	
+			$qcStatus['U_PC_DvDt'] = (!empty($_POST['qCDeviationDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCDeviationDate'][$j])) : null;
+	
+			$qcStatus['U_PC_DvNo'] = trim(addslashes(strip_tags($_POST['qCDeviationNo'][$j])));
+			$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
+	
+			// <!-- ------ File upload code start here ----------------------------- -->
+				$uploadDir = '../include/uploads/';
+	
+				$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+	
+				$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+	
+				$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+				move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+			// <!-- ------ File upload code start here ----------------------------- -->
+	
+			$tdata['SCS_QCRETEST2Collection'][] = $qcStatus;
 
-		$qcStatus['U_PC_RelDt'] = (!empty($_POST['qCReleaseDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCReleaseDate'][$j])) : null;
-
-		$qcStatus['U_PC_RelTm'] = (!empty($_POST['qCReleaseTime'][$j])) ? date("Hi", strtotime($_POST['qCReleaseTime'][$j])) : null;
-
-		$qcStatus['U_PC_Atch1'] = (!empty($_FILES['qCAttache1']['name'][$j])) ? $_FILES['qCAttache1']['name'][$j] : null;
-		$qcStatus['U_PC_Atch2'] = (!empty($_FILES['qCAttache2']['name'][$j])) ? $_FILES['qCAttache2']['name'][$j] : null;
-		$qcStatus['U_PC_Atch3'] = (!empty($_FILES['qCAttache3']['name'][$j])) ? $_FILES['qCAttache3']['name'][$j] : null;
-
-		$qcStatus['U_PC_DvDt'] = (!empty($_POST['qCDeviationDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCDeviationDate'][$j])) : null;
-
-		$qcStatus['U_PC_DvNo'] = trim(addslashes(strip_tags($_POST['qCDeviationNo'][$j])));
-		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
-
-		// <!-- ------ File upload code start here ----------------------------- -->
-		$uploadDir = '../include/uploads/';
-
-		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
-
-
-		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
-
-
-		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
-		// <!-- ------ File upload code start here ----------------------------- -->
-
-		$tdata['SCS_QCRETEST2Collection'][] = $qcStatus;
-
-		// $tdata['SCS_QCRETEST2Collection'][]=$ganaralData;
-
-		// $tdata['SCS_QCRETEST2Collection'][] = $qcStatus; // row data append on this array
-		// $qcS++;
+		}
 	}
 
-	// echo "<pre>";
-	// // print_r($qcStatus);
-	// print_r($tdata);
-	
-	// die();
-	// Debugging: Output the contents of $tdata
-	// echo '<pre>';
-	// print_r($tdata);
-	// echo '</pre>';
-	// exit;	
-
-
-
-
-
-	   $qcAttech = array();
-
+	$qcAttech = array();
 	if (!empty($_POST['targetPath'])) {
-		for ($k = 0;
-			$k < count($_POST['targetPath']);
-			$k++
-		) {
+		for ($k = 0;$k < count($_POST['targetPath']);$k++) {
 			if (!empty($_POST['fileName'][$k])) {
 				$qcAttech['U_TrgtPath'] = trim(addslashes(strip_tags($_POST['targetPath'][$k])));
 				$qcAttech['U_FileName'] = trim(addslashes(strip_tags($_POST['fileName'][$k])));
@@ -1411,162 +1330,103 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 				$tdata['SCS_QCPD3Collection'][] = $qcAttech;
 			}
 		}
+	
 	}
-
-
-	$SIntiMainArray = [
-		'DocEntry' => $_POST['GRPODocEntry'],
-		'DocumentLines' => [
-			[
-				'LineNum' => $responce->U_PC_BLin,
-				'U_PC_QCRtest' => $responce->DocEntry
-			]
-		]
-	];
-
-	$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_PurchaseDeliveryNotes . '(' . $responce->U_PC_GRNEnt . ')';
-
-	// print_r(json_encode($SIntiMainArray));
-	// print_r($Final_API);
+	
+	// echo '<pre>';
+	// print_r($tdata);
 	// die();
-
-	//  $mainArray=$tdata; // all child array append in main array define here
-	// echo "<pre>";
-	// //print_r(($qcAttech));
-	// print_r(json_encode($tdata));
-	// echo "</pre>";
-	// exit;
-
-
-
-
-
 	//<!-- ------------- function & function responce code Start Here ---- -->
-	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
-	if (!empty($res)) {
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCRETEST;
-		$responce_encode = $objKri->qcPostDocument($tdata, $Final_API);
-		$responce = json_decode($responce_encode);
+		if (!empty($res)) {
+			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCRETEST;
+			$responce_encode = $objKri->qcPostDocument($tdata, $Final_API);
+			$responce = json_decode($responce_encode);
 
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		$data = array();
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+			$data = array();
 
-		if (!empty($responce->DocNum)) {
-			if(!empty($responce->U_PC_SName)){
-				// Purchase Delivery Notes
-				$SIntiMainArray = [
-					'DocEntry' => $_POST['GRPODocEntry'],
-					'DocumentLines' => [
-						[
-							'LineNum' => $responce->U_PC_BLin,
-							'U_PC_QCRtest' => $responce->DocEntry
+			if (!empty($responce->DocNum)) {
+				if(!empty($responce->U_PC_SName)){
+					// Purchase Delivery Notes
+					$SIntiMainArray = [
+						'DocEntry' => $_POST['GRPODocEntry'],
+						'DocumentLines' => [
+							[
+								'LineNum' => $responce->U_PC_BLin,
+								'U_PC_QCRtest' => $responce->DocEntry
+							]
 						]
-					]
-				];
-				
-				// $responce->U_PC_GRNEnt
-				$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_PurchaseDeliveryNotes . '(' . $_POST['GRPODocEntry'] . ')';
+					];
+					
+					$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_PurchaseDeliveryNotes . '(' . $_POST['GRPODocEntry'] . ')';
 
-				// <!-- -------- Service Layer Function start here --------- -->
-				$res11 = $obj->SAP_Login();  // SAP Service Layer Login Here
-				if (!empty($res)) {
-					$responce_encode1 = $obj->PATCH_ServiceLayerMasterFunction($SIntiMainArray, $Final_API);
-					$responce1 = json_decode($responce_encode1);
-				}
-				$res12 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-				// <!-- -------- Service Layer Function end here ----------- -->
+					// <!-- -------- Service Layer Function start here --------- -->
+					$res11 = $obj->SAP_Login();  // SAP Service Layer Login Here
+					if (!empty($res)) {
+						$responce_encode1 = $obj->PATCH_ServiceLayerMasterFunction($SIntiMainArray, $Final_API);
+						$responce1 = json_decode($responce_encode1);
+					}
+					$res12 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+					// <!-- -------- Service Layer Function end here ----------- -->
 
-				if (empty($responce1)) {
-					$data['status'] = 'True';
-					$data['DocEntry'] = $responce->DocEntry;
-					$data['message'] = "QC Post Document Added Successfully";
-					echo json_encode($data);
-				} else {
-					if (array_key_exists('error', (array)$responce1)) {
-						$data['status'] = 'False';
-						$data['DocEntry'] = 'DocEntry PATCH Process';
-						//$data['DocEntry']='PayLoad SL=> '.json_encode($SIntiMainArray).'<== API ==>'.$Final_API;
-						$data['message'] = $responce1->error->message->value;
+					if (empty($responce1)) {
+						$data['status'] = 'True';
+						$data['DocEntry'] = $responce->DocEntry;
+						$data['message'] = "QC Post Document Added Successfully";
 						echo json_encode($data);
+					} else {
+						if (array_key_exists('error', (array)$responce1)) {
+							$data['status'] = 'False';
+							$data['DocEntry'] = 'DocEntry PATCH Process';
+							//$data['DocEntry']='PayLoad SL=> '.json_encode($SIntiMainArray).'<== API ==>'.$Final_API;
+							$data['message'] = $responce1->error->message->value;
+							echo json_encode($data);
+						}
+					}
+				}else{
+					// Inventory Gen Entries
+					$InventoryGenEntries=array();
+					$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
+					$InventoryGenEntries['GRDocEntry']=trim($_POST['U_PC_GDEntry']);
+					$InventoryGenEntries['ItemCode']=trim($responce->U_PC_ICode);
+					$InventoryGenEntries['LineNum']=trim($responce->U_PC_BLin);
+
+					$Final_API=$RETESTQCUPDATEGRN;
+					$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
+					$responce1=json_decode($responce_encode1);
+
+					if(empty($responce1)){
+						$data['status']='True';
+						$data['DocEntry']=$responce->DocEntry;
+						$data['message']="QC Post Document Added Successfully.";
+						echo json_encode($data);
+					}else{
+
+						// if(array_key_exists('error', (array)$responce1)){
+							$data['status']='False';
+							$data['DocEntry']='';
+							$data['message']=$responce1;
+							echo json_encode($data);
+						// }
 					}
 				}
-			}else{
-				// Inventory Gen Entries
-				$InventoryGenEntries=array();
-				$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
-				$InventoryGenEntries['GRDocEntry']=trim($_POST['U_PC_GDEntry']);
-				$InventoryGenEntries['ItemCode']=trim($responce->U_PC_ICode);
-				$InventoryGenEntries['LineNum']=trim($responce->U_PC_BLin);
-
-				$Final_API=$RETESTQCUPDATEGRN;
-				$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
-				$responce1=json_decode($responce_encode1);
-
-				if(empty($responce1)){
-					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="QC Post Document Added Successfully.";
+			} else {
+				if (array_key_exists('error', (array)$responce)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = 'Main Doc POST';
+					$data['message'] = $responce->error->message->value;
+					$data['mainOP'] = $responce;
 					echo json_encode($data);
-				}else{
-
-					// if(array_key_exists('error', (array)$responce1)){
-						$data['status']='False';
-						$data['DocEntry']='';
-						$data['message']=$responce1;
-						echo json_encode($data);
-					// }
 				}
 			}
-		} else {
-			if (array_key_exists('error', (array)$responce)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = 'Main Doc POST';
-				$data['message'] = $responce->error->message->value;
-				$data['mainOP'] = $responce;
-				echo json_encode($data);
-			}
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
 		}
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
 
-
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
+		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
     //<!-- ------------- function & function responce code end Here ---- -->
-
-
-
-
-
-	// // service laye function and SAP loin & logout function define start here -------------------------------------------------------
-    //     $res=$obj->SAP_Login();
-
-    //     if(!empty($res)){
-
-	// 		$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_QCRETEST;
-
-	// 		$responce_encode=$objKri->qcPostDocumentRetestQc($mainArray,$Final_API);
-	// 		$responce=json_decode($responce_encode);
-
-	// 		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-	// 			if(array_key_exists('error', (array)$responce)){
-	// 				$data['status']='False';
-	// 				$data['DocEntry']='';
-	// 				$data['message']=$responce->error->message->value;
-	// 				echo json_encode($data);
-	// 			}else{
-	// 				$data['status']='True';
-	// 				$data['DocEntry']=$responce->DocEntry;
-	// 				$data['message']='QC Post Document retest qc Added Successfully';
-	// 				echo json_encode($data);
-	// 			}
-	// 		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	// 	}
-
-	// 	$res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	// 	exit(0);
-	// // service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
 
 
@@ -1586,7 +1446,6 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 
 
 if (isset($_POST['updateQcPostDocumentRetestBtn'])) {
-
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['DocEntry'] = trim(addslashes(strip_tags($_POST['qcD_DocEntry'])));
@@ -2062,8 +1921,7 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_aja
 	// ------- Replace blank space to %20 End here --------
 
 	// print_r($FinalAPI);
-
-	// die
+	// die();
 
 	$response = $objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
 
@@ -2079,7 +1937,7 @@ $qcStatus = $response[0]->RETESTQCPOSTDOCQCSTATUS; // Extra issue response separ
 // Debugging: print the qcStatus to check its value
 // echo "<pre>";
 // echo "qcStatus: ";
-// print_r($qcStatus);
+// print_r($general_data);
 // echo "</pre>";
 
 // Optionally, you might want to add exit here if you want to stop execution after checking the value

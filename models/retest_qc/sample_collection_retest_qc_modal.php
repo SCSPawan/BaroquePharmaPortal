@@ -487,7 +487,7 @@
                                     <th>Item Name</th>
                                     <th>Quality</th>
                                     <th>From Whs</th>
-                                    <th>To Whs</th>
+                                    <th id="SCRTQC_it_th_ToWhs">To Whs</th>
                                     <th>Location</th>
                                     <th>UOM</th>
                                 </tr>
@@ -552,10 +552,10 @@
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_sample" method="post">
     
             <div class="modal-body">
-                <input type="text" id="GI_series" name="GI_series">
-                <input type="text" id="SCRTQC_GI_SCRTQCB_DocEntry" name="SCRTQC_GI_SCRTQCB_DocEntry">
-                <input type="text" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
-                <input type="text" id="GI_supplierCode" name="GI_supplierCode">
+                <input type="hidden" id="GI_series" name="GI_series">
+                <input type="hidden" id="SCRTQC_GI_SCRTQCB_DocEntry" name="SCRTQC_GI_SCRTQCB_DocEntry">
+                <input type="hidden" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
+                <input type="hidden" id="GI_supplierCode" name="GI_supplierCode">
 
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
@@ -611,7 +611,7 @@
                             </div>
                         </div>
 
-                         <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                  <div class="col-lg-8">
@@ -634,7 +634,7 @@
                                 <th>Item Name</th>
                                 <th>Quality</th>
                                 <th>From Whs</th>
-                                <th>To Whs</th>
+                                <th class="GI_Th_Hide">To Whs</th>
                                 <th>Location</th>
                                 <th>UOM</th>
                             </tr>
@@ -654,7 +654,7 @@
                                 <td>
                                     <input class="border_hide" type="text" id="GI_from_whs" name="GI_from_whs" class="form-control">
                                 </td>
-                                <td>
+                                <td class="GI_Td_Hide">
                                     <input class="border_hide" type="text" id="GI_to_whs" name="GI_to_whs" class="form-control">
                                 </td>
                                 <td class="desabled">
@@ -693,7 +693,7 @@
                 </div>
 
                 <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_sample_issue()">Add</button>
-                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-primary" data-bs-toggle="button" autocomplete="off">Cancel</button>
+                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
             </div><!--body end-->
 
              </form>
