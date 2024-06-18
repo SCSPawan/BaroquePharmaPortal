@@ -303,9 +303,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <div class="card-body">
                             <form role="form" class="form-horizontal" id="qcPostDocumentRetestForm_update" method="post">
                                 <div class="row">
-                                    <input type="text" id="qcD_LineNum" name="qcD_LineNum">
-                                    <input type="text" id="qcD_DocEntry" name="qcD_DocEntry">
-
+                                    <input type="hidden" id="qcD_LineNum" name="qcD_LineNum">
+                                    <input type="hidden" id="qcD_DocEntry" name="qcD_DocEntry">
                                     <input type="hidden" id="U_PC_BPLId" name="U_PC_BPLId">
                                     <input type="hidden" id="U_PC_LocCode" name="U_PC_LocCode">
                                     <input type="hidden" id="U_PC_Loc" name="U_PC_Loc">
@@ -317,8 +316,9 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                     <input type="hidden" id="U_PC_RecQty" name="U_PC_RecQty">
                                     <input type="hidden" id="U_PC_SType" name="U_PC_SType">
                                     <input type="hidden" id="QCPD" name="QCPD" value="">
-                                    <input type="text" id="itP_FromWhs" name="itP_FromWhs">
-                                    <input type="text" id="itP_ToWhs" name="itP_ToWhs">
+                                    <input type="hidden" id="itP_FromWhs" name="itP_FromWhs">
+                                    <input type="hidden" id="itP_ToWhs" name="itP_ToWhs">
+                                    <input type="hidden" id="qcD_Unit" name="qcD_Unit">
 
 
                                     <div class="col-xl-3 col-md-6">
@@ -637,6 +637,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         </div>
                                     </div>
 
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+                                            <div class="col-lg-5">
+                                                <select class="form-select" id="RMWQC" name="RMWQC">
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="d-flex flex-wrap gap-2">
                                         <!-- Toggle States Button -->
                                         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Container Selection</button> -->
@@ -768,8 +780,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                                             </table>
                                                         </div><!--table responsive end-->
-                                                        <div class="row">
 
+                                                        <!-- <div class="row">
                                                             <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-5 col-form-label mt-6" for="val-skill">GRPO Remaining Qty</label>
@@ -778,7 +790,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <hr>
 
 
@@ -894,10 +906,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
                                                                     <div class="col-lg-4">
-                                                                        <input class="form-control" type="number" id="noOfCont1" name="noOfCont1">
+                                                                        <input class="form-control" type="text" id="fnoOfCont1" name="fnoOfCont1">
                                                                     </div>
                                                                     <div class="col-lg-4">
-                                                                        <input class="form-control" type="number" id="noOfCont2" name="noOfCont2">
+                                                                        <input class="form-control" type="text" id="fnoOfCont2" name="fnoOfCont2">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1058,22 +1070,20 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject = JSONObjectAll['SampleCollDetails']; // sample collection details var
-
-            // console.log('dd=>',JSONObject);
+                // Unit
+                console.log('dd=>',JSONObject);
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); // External Issue Table Tr tag append here
 
+                
                 // <!-- ----------------- Bottom Hidden Field start here ----------------------- -->
-                $(`#qcD_GRPONo`).val(JSONObject[0]['GRPONo']);
-                $(`#GRPODocEntry-re`).val(JSONObject[0]['GRPOEntry']);
-                $(`#qcD_LineNum`).val(JSONObject[0]['LineNum']);
-                $(`#qcD_DocEntry`).val(JSONObject[0]['DocEntry']);
-
-
-
-                $(`#qcD_SupplierCode`).val(JSONObject[0]['SupplierCode']);
-                $(`#qcD_SupplierName`).val(JSONObject[0]['SupplierName']);
+                    $(`#qcD_GRPONo`).val(JSONObject[0]['GRPONo']);
+                    $(`#GRPODocEntry-re`).val(JSONObject[0]['GRPOEntry']);
+                    $(`#qcD_LineNum`).val(JSONObject[0]['LineNum']);
+                    $(`#qcD_DocEntry`).val(JSONObject[0]['DocEntry']);
+                    $(`#qcD_SupplierCode`).val(JSONObject[0]['SupplierCode']);
+                    $(`#qcD_SupplierName`).val(JSONObject[0]['SupplierName']);
                 // <!-- ----------------- Bottom Hidden Field end here ------------------------- -->
 
                 // <!-- --------------- Tab Layout Sample Collection Details Mapping Start Here ------------------ -->
@@ -1102,6 +1112,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`#qcD_Series`).val(JSONObject[0]['Series']);
                 $(`#qcD_DocNum`).val(JSONObject[0]['DocNum']);
                 $(`#qcD_NoCont`).val(JSONObject[0]['NoCont']);
+                $(`#fnoOfCont1`).val('1');
+                $(`#fnoOfCont2`).val(JSONObject[0]['NoCont']); 
                 $(`#qcD_QCTType`).val(JSONObject[0]['QCTType']);
                 $(`#qcD_Stage`).val(JSONObject[0]['Stage']);
                 $(`#qcD_Branch`).val(JSONObject[0]['Branch']);
@@ -1110,12 +1122,20 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(`#qcD_GateENo`).val(JSONObject[0]['GateENo']);
                 $(`#itP_FromWhs`).val(JSONObject[0]['FrmWhse']);
                 $(`#itP_ToWhs`).val(JSONObject[0]['ToWhse']);
+                $(`#qcD_Unit`).val(JSONObject[0]['Unit']);
 
                 $(`#qcD_PostingDate`).val(DateFormatingDMY(JSONObject[0]['PostingDate']));
                 $(`#qcD_ADate`).val(DateFormatingDMY(JSONObject[0]['ADate']));
                 $(`#qcD_MfgDate`).val(DateFormatingDMY(JSONObject[0]['MfgDate']));
                 $(`#qcD_ExpiryDate`).val(DateFormatingDMY(JSONObject[0]['ExpiryDate']));
-                                
+                            
+                // <!-- ----------- Select Dropdown using value start ---------------------- -->
+                    // Example usage: Select the option with value
+                    var value = JSONObject[0]['RMWQC'];
+                    var selectElement = document.getElementById('RMWQC');
+                    selectElement.value = value;
+                // <!-- ----------- Select Dropdown using value end ------------------------ -->
+
                 GetRowLevelAnalysisByDropdownWithSelectedOption(JSONObjectAll.count);
 
                 // QC_StatusByAnalystDropdown(JSONObjectAll.count);
@@ -1453,50 +1473,50 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     // }
 
     function CalculateResultOut(un_id) {
-            var lowMin = document.getElementById('LowMin' + un_id).value;
-            var uppMax = document.getElementById('UppMax' + un_id).value;
-            var UOM = document.getElementById('UOM' + un_id).value;
+        var lowMin = document.getElementById('LowMin' + un_id).value;
+        var uppMax = document.getElementById('UppMax' + un_id).value;
+        var UOM = document.getElementById('UOM' + un_id).value;
 
-            var ComparisonResultOG = document.getElementById('ComparisonResult' + un_id).value; // this value enter by user
+        var ComparisonResultOG = document.getElementById('ComparisonResult' + un_id).value; // this value enter by user
 
-            if (ComparisonResultOG != '') {
+        if (ComparisonResultOG != '') {
 
-                $('#ResultOut' + un_id).val(ComparisonResultOG + ' ' + UOM);
+            $('#ResultOut' + un_id).val(ComparisonResultOG + ' ' + UOM);
 
-                if (parseFloat(uppMax) === 0) {
-                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin)) {
+            if (parseFloat(uppMax) === 0) {
+                if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin)) {
 
-                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
-                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
-                    } else {
-
-                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
-                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
-                    }
+                    $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                    $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
                 } else {
-                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin) && parseFloat(ComparisonResultOG) <= parseFloat(uppMax)) {
 
-                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
-                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
-                    } else {
-
-                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
-                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
-                    }
+                    $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                    $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
                 }
             } else {
+                if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin) && parseFloat(ComparisonResultOG) <= parseFloat(uppMax)) {
 
-                $('#ResultOut' + un_id).val('');
-                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
-                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+                    $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                    $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                } else {
 
-                setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "-");
+                    $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                    $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                    setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                }
             }
+        } else {
+
+            $('#ResultOut' + un_id).val('');
+            $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
+            $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+
+            setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "-");
         }
+    }
 
     function setSelectedIndex(s, valsearch) {
         for (i = 0; i < s.options.length; i++) {
@@ -1592,7 +1612,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         // Use querySelector to find the checked radio button within the group
         var selectedRadio = document.querySelector('input[name="listRado[]"]:checked');
 
-        console.log('selectedRadio',selectedRadio);
+        // console.log('selectedRadio',selectedRadio);
         // Check if a radio button is selected
         if (selectedRadio) {
             // Get the value of the selected radio button
@@ -1646,8 +1666,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             },
             success: function(result) {
                 
-            // console.log('inventoryClick=>',result);
-                // $("#hideToWhs").hide();
+                // console.log('inventoryClick=>',result);
+                // // $("#hideToWhs").hide();
                 $('#it_SupplierCode').val(result[0].SupplierCode);
                 $('#it_SupplierName').val(result[0].SupplierName);
                 $('#it_BranchName').val(result[0].Branch);
@@ -1667,7 +1687,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $('#to_whs').val(result[0].ToWhse);
 
                 $('#tb_location').val(result[0].Loc);
-                $('#tb_UOM').val('');
+                $('#tb_UOM').val(result[0].Unit);
                 $('#BranchId').val(result[0].BranchId);
                 $('#_DocEntry').val(result[0].DocEntry);
 
@@ -2112,6 +2132,118 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     //         }
     //     });
     // }
+
+    function SelectionOfQC_Status(un_id) {
+        // // <!-- -------- Get QC Status Table tbody > tr count start here ------------------------- -->
+        //     // Get the tbody element by its ID
+        //     var tbody = document.getElementById("qc-status-list-append");
+
+        //     // Get all tr elements within this tbody
+        //     var trElements = tbody.getElementsByTagName("tr");
+
+        //     // Get the count of tr elements
+        //     var trCount = trElements.length;
+
+        //     // Log the count to the console
+        //     console.log("Number of <tr> elements:", trCount);
+        // // <!-- -------- Get QC Status Table tbody > tr count end here --------------------------- -->
+
+        var tr_count = parseInt($('#tr-count').val());
+        // console.log('tr_count',tr_count);
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var formattedDate = `${day}-${month}-${year}`;
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var formattedTime = `${hours}:${minutes}`;
+
+        $('#qCReleaseDate_' + un_id).val(formattedDate);
+        $('#qCReleaseTime_' + un_id).val(formattedTime);
+
+        if (tr_count !== 1) {
+            var rows = $('#qc-status-list-append tr');
+            var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+            var valid = true;
+            var message = "";
+
+            rows.each(function(index) {
+                if (index < rows.length - 1) {
+                    var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                    if (qcStatusDropdown === Selected_QC_Status) {
+                        valid = false;
+                        message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                    }
+                }
+            });
+
+            if (valid) {
+                if (!$('#qCStsQty_' + un_id).val()) {
+                    $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                }
+            } else {
+                $('#qCStsQty_' + un_id).val('');
+                $('#qc_Status_' + un_id).val('');
+                swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
+            }
+        } else {
+            $('#qCStsQty_' + un_id).val($('#qcD_BatchQty').val());
+        }
+    }
+
+    function AutocalculateQC_Qty(){
+        // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+            var rows = document.querySelectorAll('#qc-status-list-append tr');
+
+            // Get the count of tr elements
+            var rowCount = rows.length;
+
+            // Initialize sum
+            var sum = 0;
+
+            // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+            rows.forEach(function(row) {
+                var input = row.querySelector('input[name="qCStsQty[]"]');
+                if (input) {
+                    sum += parseFloat(input.value) || 0;
+                }
+            });
+
+            var BatchQty = $('#qcD_BatchQty').val();
+            var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
+            return QCS_Qty;
+        // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+    }
+
+    
+    function addMore(num){
+        // Formate manula enter Quantity
+        var QC_Quantity = $('#qCStsQty_'+num).val();
+        $('#qCStsQty_'+num).val(parseFloat(QC_Quantity).toFixed(3));
+
+        var tr_count=$('#tr-count').val();
+        var QCS_Qty = AutocalculateQC_Qty();
+
+        // Proceed with AJAX request only if QCS_Qty is not equal to 0.00
+        if (parseFloat(QCS_Qty) !== 0.00) {
+            var tr_count=$('#tr-count').val();
+            $.ajax({
+            type: "POST",
+            url: 'ajax/kri_common-ajax.php',  
+                data: ({index:tr_count,action:'add_qc_status_input_more'}),  
+                success: function(result){
+                    $('#add-more_'+tr_count).after(result);
+                    tr_count++;
+                    $('#tr-count').val(tr_count);
+                    $('#qCStsQty_'+tr_count).val(QCS_Qty);
+
+                    getQcStatusDropodwn(tr_count);
+                    getDoneByDroopdown(tr_count);
+                }
+            });
+        }
+    }
 </script>
 
 <script type="text/javascript">
@@ -2124,7 +2256,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         document.getElementById('RPT_title').innerHTML = FormTitle;
     }
-
 
     function ViewRPT_Print_Close() {
         document.getElementById('RPT_title').innerHTML = '';

@@ -1315,6 +1315,10 @@ if (isset($_POST['addQcPostDocumentRetestBtn'])) {
 	
 			$tdata['SCS_QCRETEST2Collection'][] = $qcStatus;
 
+		}else{
+			$qcStatus['LineId'] = '1';
+			$tdata['SCS_QCRETEST2Collection'][] = $qcStatus;
+			// $tdata['SCS_QCRETEST2Collection']=array();
 		}
 	}
 
@@ -1327,14 +1331,17 @@ if (isset($_POST['addQcPostDocumentRetestBtn'])) {
 				$qcAttech['U_AtchDate'] = trim(addslashes(strip_tags($_POST['attachDate'][$k])));
 				$qcAttech['U_FreeText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
 
-				$tdata['SCS_QCPD3Collection'][] = $qcAttech;
+				$tdata['SCS_QCRETEST3Collection'][] = $qcAttech;
+			}else{
+				$qcAttech['LineId'] = '1';
+				$tdata['SCS_QCRETEST3Collection'][] = $qcAttech;
+				// $tdata['SCS_QCRETEST3Collection']=array();
 			}
 		}
-	
 	}
 	
 	// echo '<pre>';
-	// print_r($tdata);
+	// print_r(json_encode($tdata));
 	// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
@@ -1452,8 +1459,8 @@ if (isset($_POST['updateQcPostDocumentRetestBtn'])) {
 	$tdata['U_PC_LODWater'] = trim(addslashes(strip_tags($_POST['LoD_Water_xyz'])));
 	$tdata['U_PC_Potency'] = trim(addslashes(strip_tags($_POST['potency_xyz'])));
 	$tdata['U_PC_CompBy'] = trim(addslashes(strip_tags($_POST['qc_post_compiled_by'])));
-	$tdata['U_PC_NoCont1'] = trim(addslashes(strip_tags($_POST['noOfCont1'])));
-	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['noOfCont2'])));
+	$tdata['U_PC_NoCont1'] = trim(addslashes(strip_tags($_POST['fnoOfCont1'])));
+	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['fnoOfCont2'])));
 	$tdata['U_PC_ChkBy'] = trim(addslashes(strip_tags($_POST['checked_by'])));
 	$tdata['U_PC_AnlBy'] = trim(addslashes(strip_tags($_POST['analysis_by'])));
 	$tdata['U_PC_Remarks'] = trim(addslashes(strip_tags($_POST['qc_remarks'])));
@@ -1908,43 +1915,23 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pup
 
 }
 
-
-
-
-
-if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_ajax'){
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 	// ------- Replace blank space to %20 start here --------
 	$API = $RETESTQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $DocEntry;
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// ------- Replace blank space to %20 End here --------
 
-	// print_r($FinalAPI);
-	// die();
-
 	$response = $objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
 
+	// ------ Array declaration Start Here ---------------------------------
+		$FinalResponce = array();
+		$FinalResponce['SampleCollDetails'] = $response;
+	// ------ Array declaration End Here  ---------------------------------
 
-// ------ Array declaration Start Here ---------------------------------
-$FinalResponce = array();
-$FinalResponce['SampleCollDetails'] = $response;
-// ------ Array declaration End Here  ---------------------------------
-
-$general_data = $response[0]->RETESTQCPOSTDOCGENERALDATA;
-$qcStatus = $response[0]->RETESTQCPOSTDOCQCSTATUS; // Extra issue response separate here
-
-// Debugging: print the qcStatus to check its value
-// echo "<pre>";
-// echo "qcStatus: ";
-// print_r($general_data);
-// echo "</pre>";
-
-// Optionally, you might want to add exit here if you want to stop execution after checking the value
-// exit;
-
-
-		$qcAttach=$response[0]->RETESTQCPOSTDOCATTACH; //External issue reponce seperate here
+	$general_data = $response[0]->RETESTQCPOSTDOCGENERALDATA;
+	$qcStatus = $response[0]->RETESTQCPOSTDOCQCSTATUS; // Extra issue response separate here
+	$qcAttach=$response[0]->RETESTQCPOSTDOCATTACH; //External issue reponce seperate here
 
 	// <!-- ----------- Extra Issue Start here --------------------------------- -->
 
@@ -2082,93 +2069,160 @@ $qcStatus = $response[0]->RETESTQCPOSTDOCQCSTATUS; // Extra issue response separ
 
 // <!-- ----------- External Issue Start Here ---------------------------- -->
 if(!empty($qcStatus)){
-	for ($j=0; $j <count($qcStatus) ; $j++) { 
-		$SrNo=$j+1;
+	for ($j=0; $j <count($qcStatus) ; $j++) {
+		if(!empty($qcStatus[$j]->QCStsStatus)){
+			$SrNo=$j+1;
 
-		$FinalResponce['qcStatus'].='<tr id="add-more_'.$SrNo.'">';
-
-
+			$FinalResponce['qcStatus'].='<tr id="add-more_'.$SrNo.'">';
 			if(!empty($qcStatus[$j]->ItNo)){
 				$FinalResponce['qcStatus'].='<td class="desabled">'.$SrNo.'</td>';
 			}else{
-				$FinalResponce['qcStatus'].='
-					<td style="text-align: center;">
-						<input type="radio" id="list'.$SrNo.'" name="listRado[]" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;">
-					</td>';
+				$FinalResponce['qcStatus'].='<td style="text-align: center;">
+					<input type="radio" id="list'.$SrNo.'" name="listRado[]" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;">
+				</td>';
 			}
-		$FinalResponce['qcStatus'].='
+			$FinalResponce['qcStatus'].='
 
-			<td class="desabled">
-				<input type="hidden" id="QCS_LineId'.$SrNo.'" name="QCS_LineId[]" value="'.$qcStatus[$j]->LineID.'">
+				<td class="desabled">
+					<input type="hidden" id="QCS_LineId'.$SrNo.'" name="QCS_LineId[]" value="'.$qcStatus[$j]->LineID.'">
 
-				<input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly>
-			</td>
+					<input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly>
+				</td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->QCRelDt))? date("d-m-Y", strtotime($qcStatus[$j]->QCRelDt)):"").'" class="form-control" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->QCRelDt))? date("d-m-Y", strtotime($qcStatus[$j]->QCRelDt)):"").'" class="form-control" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->QCRelTime))? date("H:i", strtotime($qcStatus[$j]->QCRelTime)):"").'" class="form-control" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->QCRelTime))? date("H:i", strtotime($qcStatus[$j]->QCRelTime)):"").'" class="form-control" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
+				<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_'.$SrNo.'" name="qCAttache1[]" value="'.$qcStatus[$j]->QCStsAttach1.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_'.$SrNo.'" name="qCAttache1[]" value="'.$qcStatus[$j]->QCStsAttach1.'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_'.$SrNo.'" name="qCAttache2[]" value="'.$qcStatus[$j]->QCStsAttach2.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_'.$SrNo.'" name="qCAttache2[]" value="'.$qcStatus[$j]->QCStsAttach2.'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_'.$SrNo.'" name="qCAttache3[]" value="'.$qcStatus[$j]->QCStsAttach3.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_'.$SrNo.'" name="qCAttache3[]" value="'.$qcStatus[$j]->QCStsAttach3.'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_'.$SrNo.'" name="qCDeviationDate[]" value="'.((!empty($qcStatus[$j]->DevDate))? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)):"").'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_'.$SrNo.'" name="qCDeviationDate[]" value="'.((!empty($qcStatus[$j]->DevDate))? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)):"").'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_'.$SrNo.'" name="qCDeviationNo[]" value="'.$qcStatus[$j]->DevNo.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_'.$SrNo.'" name="qCDeviationNo[]" value="'.$qcStatus[$j]->DevNo.'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_'.$SrNo.'" name="qCDeviationResion[]" value="'.$qcStatus[$j]->DevRsn.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_'.$SrNo.'" name="qCDeviationResion[]" value="'.$qcStatus[$j]->DevRsn.'" class="form-control"></td>
 
-			<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
 
-		</tr>';
+			</tr>';
+		}
 	}
+	$QCS_un_id=(count($qcStatus)+1);
+	$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
+		<td>'.$QCS_un_id.'</td>
+		<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
 }else{
 	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+	$QCS_un_id=(count($qcStatus)+1);
+	$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
+		<td>'.$QCS_un_id.'</td>
+		<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
 	
 }
 
-$QCS_un_id=(count($qcStatus)+1);
-$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
-	<td>'.$QCS_un_id.'</td>
-	<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
+// $QCS_un_id=(count($qcStatus)+1);
+// $FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
+// 	<td>'.$QCS_un_id.'</td>
+// 	<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
 
-	<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
-
-
-	<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-	<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-	<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
-
-	<td>
-	<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
-	</td>
-
-	<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
+// 	<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
 
 
-	<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
+// 	<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
 
-	<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
+// 	<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
 
-	<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
+// 	<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
 
-	<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
+// 	<td>
+// 	<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
+// 	</td>
 
-	<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
+// 	<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
 
-	<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
+
+// 	<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
 	
-</tr>';
+// </tr>';
 	
 // $FinalResponce['qcStatus'] .='<tr">
 // 	<td>'.(count($qcStatus)+1).'</td>
