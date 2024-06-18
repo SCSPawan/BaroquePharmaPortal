@@ -262,6 +262,9 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 	
+// print_r($Final_API);
+// die();
+
 	$response=$obj->GetSeriesDropdown($Final_API);
 	echo json_encode($response);
 	exit(0);

@@ -204,6 +204,13 @@
 
 
 
+
+
+
+
+                                        
+
+
                                         <div class="col-xl-3 col-md-6">
     <div class="form-group row mb-2">
         <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
@@ -403,7 +410,7 @@
                                                                         <th>Start Time</th>
                                                                         <th>End Date</th>
                                                                         <th>End Time</th>
-                                                                    </tr>
+                                                        </tr>
                                                         </thead>
                                                      <tbody id="qc-post-general-data-list-append"></tbody> 
 
