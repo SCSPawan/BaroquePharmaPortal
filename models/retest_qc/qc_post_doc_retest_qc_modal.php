@@ -683,246 +683,183 @@
      </div><!-- /.modal-dialog -->
  </div><!--
 
-     <!-- --------inventory transfer------------ -->
+<!-- --------inventory transfer------------ -->
+<div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+             
+            <div class="modal-body">
+                <!-- form start -->
+                <form role="form" class="form-horizontal" id="inventory_transfer_form" method="post">
+                    <div class="row">
+                        <input type="hidden" id="BranchId" name="BranchId">
+                        <input type="hidden" id="_DocEntry" name="_DocEntry">
+                        <input type="hidden" id="it_SeriesId" name="it_SeriesId">
+                        <input type="hidden" id="qc_status_LineId" name="qc_status_LineId">
 
- <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-     <div class="modal-dialog modal-fullscreen">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <!-- form start -->
-                 <form role="form" class="form-horizontal" id="inventory_transfer_form" method="post">
-                     <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="it_SupplierCode" name="it_SupplierCode" readonly>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                <div class="col-lg-5">
+                                    <select class="form-select" id="it_SeriesName" name="it_SeriesName" onchange="selectedSeries()"></select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input class="form-control desabled" type="text" id="it_DocNo1" name="it_DocNo1" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <input type="text" id="BranchId" name="BranchId">
-                         <input type="text" id="_DocEntry" name="_DocEntry">
-                         <input type="text" id="it_SeriesId" name="it_SeriesId">
-                         <input type="text" id="qc_status_LineId" name="qc_status_LineId">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="it_SupplierName" name="it_SupplierName" readonly>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="it_BranchName" name="it_BranchName" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="it_SupplierCode" name="it_SupplierCode" readonly>
-                                 </div>
-                             </div>
-                         </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="it_BaseDocEntry" name="it_BaseDocEntry" readonly>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="it_postingDate" name="it_postingDate" value="<?php echo date('Y-m-d'); ?>">
+                                </div>
+                            </div>
+                        </div>
 
-                         <!-- <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="it_Series" name="it_Series" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="it_documentDate" name="it_documentDate" value="<?php echo $currentDate; ?>">
+                                </div>
+                            </div>
+                        </div>
 
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                 <div class="col-lg-5">
-                                     <select class="form-select" id="it_SeriesName" name="it_SeriesName" onchange="selectedSeries()">
-                                         <!-- <option>Primary</option> -->
-                                     </select>
-                                 </div>
-                                 <div class="col-lg-3">
-                                     <input class="form-control desabled" type="text" id="it_DocNo1" name="it_DocNo1" readonly>
-                                 </div>
-                                 <!-- <div class="col-lg-2">
-                                                    <input class="form-control desabled" type="text" id="DocNo2" name="DocNo2" readonly>
-                                                </div> -->
-                             </div>
-                         </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="it_BAseDocNum" name="it_BAseDocNum" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--row end-->
+                    <!-- form end -->
 
+                    <!-- table start -->
+                    <div class="table-responsive" id="list">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <thead class="fixedHeader1">
+                                <tr>
+                                    <th>Sr. No </th>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Quality</th>
+                                    <th>From Whs</th>
+                                    <th>To Whs</th>
+                                    <th>Location</th>
+                                    <th>UOM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input class="border_hide" type="text" id="tb_itme_code" name="tb_itme_code" class="form-control" readonly></td>
+                                    <td><input class="border_hide" type="text" id="tb_item_name" name="tb_item_name" class="form-control" readonly></td>
+                                    <td><input class="border_hide" type="text" id="tb_quality" name="tb_quality" class="form-control" readonly></td>
+                                    <td><input class="border_hide" type="text" id="from_whs" name="from_whs" class="form-control" readonly></td>
+                                    <td><input class="border_hide" type="text" id="to_whs" name="to_whs" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide" type="text" id="tb_location" name="tb_location" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide" type="text" id="tb_UOM" name="tb_UOM" class="form-control" readonly=""></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table end -->
 
+                    <!-- table start -->
+                    <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+                    <div class="table-responsive mt-2" id="list">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <thead class="fixedHeader1">
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Container No</th>
+                                    <th>Batch</th>
+                                    <th>Batch Qty</th>
+                                    <th>Select Qty</th>
+                                    <th>Mfg Date</th>
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ContainerSelectionItemAppend"></tbody>
+                        </table>
+                    </div>
+                    
+                    <button type="button" id="SubIT_Btn" name="SubIT_Btn" class="btn active btn-primary" data-bs-toggle="button" autocomplete="off" onclick="SubmitInventoryTransfer()">Add</button>
+                    <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </form>
+            </div><!--body end-->
+        </div>
+    </div>
+</div>
+<!-- --------------inventory transfer-------------- -->
 
+<style type="text/css">
+    .modal-body {padding: 1 !important;}
+</style>
 
+<script type="text/javascript">
+    (function($) {
+        $.fn.enableCellNavigation = function() {
 
+        var arrow = {
+            left: 37,
+            up: 38,
+            right: 39,
+            down: 40
+        };
 
-
-
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="it_SupplierName" name="it_SupplierName" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="it_BranchName" name="it_BranchName" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="it_BaseDocEntry" name="it_BaseDocEntry" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <?php
-                            // Get the current date in YYYY-MM-DD format
-                            $currentDate = date('Y-m-d');
-                            ?>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control" type="date" id="it_postingDate" name="it_postingDate" value="<?php echo $currentDate; ?>">
-                                 </div>
-                             </div>
-                         </div>
-
-
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control" type="date" id="it_documentDate" name="it_documentDate" value="<?php echo $currentDate; ?>">
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="it_BAseDocNum" name="it_BAseDocNum" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                     </div><!--row end-->
-
-                     <!-- form end -->
-
-
-                     <!-- table start -->
-
-                     <div class="table-responsive" id="list">
-                         <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                             <thead class="fixedHeader1">
-                                 <tr>
-                                     <!-- <th>select</th> -->
-                                     <th>Sr. No </th>
-                                     <th>Item Code</th>
-                                     <th>Item Name</th>
-                                     <th>Quality</th>
-                                     <th>From Whs</th>
-                                     <th>To Whs</th>
-                                     <!-- <th>From Bin</th> -->
-                                     <!-- <th>To Bin</th>  -->
-                                     <th>Location</th>
-                                     <th>UOM</th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                 <tr>
-                                     <!--  <td style="text-align: center;">
-
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td> -->
-                                     <td>1</td>
-                                     <td><input class="border_hide" type="text" id="tb_itme_code" name="tb_itme_code" class="form-control" readonly></td>
-                                     <td><input class="border_hide" type="text" id="tb_item_name" name="tb_item_name" class="form-control" readonly></td>
-                                     <td><input class="border_hide" type="text" id="tb_quality" name="tb_quality" class="form-control" readonly></td>
-                                     <td><input class="border_hide" type="text" id="from_whs" name="from_whs" class="form-control" readonly></td>
-                                     <!-- <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td> -->
-                                     <!-- <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td> -->
-                                     <td><input class="border_hide" type="text" id="to_whs" name="to_whs" class="form-control" readonly></td>
-                                     <td class="desabled"><input class="border_hide" type="text" id="tb_location" name="tb_location" class="form-control" readonly></td>
-                                     <td class="desabled"><input class="border_hide" type="text" id="tb_UOM" name="tb_UOM" class="form-control" readonly=""></td>
-                                 </tr>
-
-
-
-
-                             </tbody>
-                         </table>
-                     </div>
-                     <!-- table end -->
-                     <!-- table start -->
-                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-                     <div class="table-responsive mt-2" id="list">
-                         <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                             <thead class="fixedHeader1">
-                                 <tr>
-                                     <th>Select</th>
-                                     <th>Item Code</th>
-                                     <th>Item Name</th>
-                                     <th>Container No</th>
-                                     <th>Batch</th>
-                                     <th>Batch Qty</th>
-                                     <th>Select Qty</th>
-                                     <th>Mfg Date</th>
-                                     <th>Expiry Date</th>
-                                 </tr>
-                             </thead>
-                             <tbody id="ContainerSelectionItemAppend">
-
-
-                             </tbody>
-                         </table>
-                     </div>
-                     <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-
-                     <button type="button" id="SubIT_Btn" name="SubIT_Btn" class="btn active btn-primary" data-bs-toggle="button" autocomplete="off" onclick="SubmitInventoryTransfer()">Add</button>
-                     <button type="button" class="btn active btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-
-                 </form>
-
-             </div><!--body end-->
-         </div>
-     </div>
- </div>
-
-
-
- <!-- --------------inventory transfer-------------- -->
-
- <style type="text/css">
-     .modal-body {
-         padding: 1 !important;
-     }
- </style>
-
-
-
- <script type="text/javascript">
-     (function($) {
-
-         $.fn.enableCellNavigation = function() {
-
-             var arrow = {
-                 left: 37,
-                 up: 38,
-                 right: 39,
-                 down: 40
-             };
-
-             // select all on focus
-             // works for input elements, and will put focus into
-             // adjacent input or textarea. once in a textarea,
-             // however, it will not attempt to break out because
-             // that just seems too messy imho.
-             this.find('input').keydown(function(e) {
+        // select all on focus
+        // works for input elements, and will put focus into
+        // adjacent input or textarea. once in a textarea,
+        // however, it will not attempt to break out because
+        // that just seems too messy imho.
+        this.find('input').keydown(function(e) {
 
                  // shortcut for key other than arrow keys
                  if ($.inArray(e.which, [arrow.left, arrow.up, arrow.right, arrow.down]) < 0) {
@@ -948,42 +885,36 @@
                          break;
                      }
 
-                     case arrow.up:
-                     case arrow.down: {
+                    case arrow.up:
+                    case arrow.down: {
 
-                         var tr = td.closest('tr');
-                         var pos = td[0].cellIndex;
+                        var tr = td.closest('tr');
+                        var pos = td[0].cellIndex;
 
-                         var moveToRow = null;
-                         if (e.which == arrow.down) {
-                             moveToRow = tr.next('tr');
-                         } else if (e.which == arrow.up) {
-                             moveToRow = tr.prev('tr');
-                         }
+                        var moveToRow = null;
+                        if (e.which == arrow.down) {
+                            moveToRow = tr.next('tr');
+                        } else if (e.which == arrow.up) {
+                            moveToRow = tr.prev('tr');
+                        }
 
-                         if (moveToRow.length) {
-                             moveTo = $(moveToRow[0].cells[pos]);
-                         }
+                        if (moveToRow.length) {
+                            moveTo = $(moveToRow[0].cells[pos]);
+                        }
 
-                         break;
-                     }
+                        break;
+                    }
+                }
 
-                 }
-
-                 if (moveTo && moveTo.length) {
-
-                     e.preventDefault();
-
-                     moveTo.find('input,textarea').each(function(i, input) {
-                         input.focus();
-                         input.select();
-                     });
-
-                 }
-
-             });
-
-         };
+                if (moveTo && moveTo.length) {
+                    e.preventDefault();
+                    moveTo.find('input,textarea').each(function(i, input) {
+                        input.focus();
+                        input.select();
+                    });
+                }
+            });
+        };
 
      })(jQuery);
 
