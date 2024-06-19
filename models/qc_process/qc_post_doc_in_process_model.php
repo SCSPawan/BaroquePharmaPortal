@@ -741,6 +741,8 @@
 
                                         <input class="form-control desabled" type="hidden" id="qc_check_DocEntry" name="qc_check_DocEntry" readonly>
 
+<input type="text" id="qc_check_SeriesId" name="qc_check_SeriesId" readonly>
+
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
@@ -750,14 +752,32 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
+                                         <!-- <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                                  <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="qc_check_series" name="qc_check_series" readonly>
                                                 </div>
                                             </div>
+                                        </div> -->
+
+                                        <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" type="text" id="qcD_Series" name="qcD_Series"  onchange="selectedSeriesForIT();"></select>
+
+                                                <!-- <select class="form-select desabled" disabled>
+                                                        <option>Primary</option>
+                                                    </select> -->
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input class="form-control desabled" readonly type="text" id="qc_check_seriesDocNum" name="qc_check_seriesDocNum">
+                                            </div>
                                         </div>
+                                    </div>
+
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -790,19 +810,21 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_check_posting_date" name="qc_check_posting_date">
+                                                    <input class="form-control" type="date" id="qc_check_posting_date" name="qc_check_posting_date" value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
                                             </div>
                                         </div>
 
+
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="qc_check_document_date" name="qc_check_document_date">
+                                                  <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="qc_check_document_date" name="qc_check_document_date" value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
                                             </div>
                                         </div>
+
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -944,6 +966,18 @@
         </div><!-- /.modal -->
     <!-- ---------instrument modal end------------- -->  
                 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    <script type="text/javascript">
