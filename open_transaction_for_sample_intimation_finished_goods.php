@@ -5,12 +5,11 @@ $obj= new web();
 $objKri=new webKri();
 
 if(empty($_SESSION['Baroque_EmployeeID'])) {
-  header("Location:login.php");
-  exit(0);
+    header("Location:login.php");
+    exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($FGOPENTRANSSAMINTIMATION);
     $count=count($getAllData);
 
@@ -19,15 +18,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -188,7 +187,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     exit(0);
 }
 ?>
-
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/sample_intimation_finished_goods_model.php' ?>
 
@@ -231,11 +229,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <div class="card-header justify-content-between d-flex align-items-center">
                                         <h4 class="card-title mb-0">Open Transaction for Sample Intimation - Finished Goods</h4>  
                                     </div><!-- end card header -->
-                                        <div class="card-body">
-
-                                            <div class="table-responsive" id="list-append"></div> 
-                
-                                        </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive" id="list-append"></div> 
+                                    </div>
                                     <!-- end card body -->
                                 </div>
                                 <!-- end card -->
@@ -253,10 +249,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var dataString ='action=list';
-        
+
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -264,28 +259,25 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
-    function OT_PoPup_SampleCollection_in_process(DocEntry,BatchNo,ItemCode,LineNum)  // API Ser No 40 somthing wrong
-    {
+    function OT_PoPup_SampleCollection_in_process(DocEntry,BatchNo,ItemCode,LineNum){
         $.ajax({ 
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
-            data:{'DocEntry':DocEntry,'action':"OT_Open_Transaction_For_Sample_Intimation_FG_popup_in_process"},
+            data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'LineNum':LineNum,'action':"OT_Open_Transaction_For_Sample_Intimation_FG_popup_in_process"},
 
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 $(`#finished_good_RFPNo`).val(JSONObject[0].RFPNo);
@@ -293,33 +285,24 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#finished_good_WOEntry`).val(JSONObject[0].WOEntry);
                 $(`#finished_good_WONo`).val(JSONObject[0].WONo);
                 $(`#finished_good_BPRefNo`).val(JSONObject[0].BpRefNo);
-                $(`#finished_good_TRBy`).val();
-
                 $(`#finished_good_ItemCode`).val(JSONObject[0].ItemCode);
                 $(`#finished_good_ItemName`).val(JSONObject[0].ItemName);
-                 $(`#finished_good_GRPOQty`).val(JSONObject[0].WOQty);
-                
+                $(`#finished_good_GRPOQty`).val(JSONObject[0].WOQty);
                 $(`#finished_good_SampleQty`).val(JSONObject[0].SQty);
                 $(`#finished_good_RetainQty`).val(JSONObject[0].RQty);
-
                 $(`#finished_good_MFGBy`).val(JSONObject[0].MfgBy);
                 $(`#finished_good_TotalNoofcontainer`).val(JSONObject[0].TotNoCont);
                 $(`#finished_good_FromContainer`).val(JSONObject[0].FromCont);
                 $(`#finished_good_ToContainer`).val(JSONObject[0].ToCont);
-
                 $(`#finished_good_BatchNo`).val(JSONObject[0].BatchNo);
                 $(`#finished_good_BatchQty`).val(JSONObject[0].BatchQty);
-
-                $(`#finished_good_MFGDate`).val(JSONObject[0].MfgDate);
-                $(`#finished_good_ExpiryDate`).val(JSONObject[0].ExpiryDate);
+                $(`#finished_good_MFGDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
+                $(`#finished_good_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
+                $(`#finished_good_RetestDate`).val(DateFormatingDMY(JSONObject[0].RetestDate));
                 $(`#finished_good_Status`).val(JSONObject[0].Status);
-
-                $(`#finished_good_TRDate`).val('');
                 $(`#finished_good_Branch`).val(JSONObject[0].BranchName);
-
                 $(`#finished_good_ChallanNo`).val(JSONObject[0].ChNo);
                 $(`#finished_good_ChallanDate`).val(JSONObject[0].ChDate);
-
                 $(`#finished_good_GateEntryNo`).val(JSONObject[0].GateEntryNo);
                 $(`#finished_good_GateEntryDate`).val(JSONObject[0].GateEntryDate);
                 $(`#finished_good_ContainersNo`).val(JSONObject[0].ContainerNos);
@@ -328,32 +311,28 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#finished_good_Unit`).val(JSONObject[0].Unit);
                 $(`#finished_good_FromCont`).val(JSONObject[0].FromCont);
                 $(`#finished_good_Location`).val(JSONObject[0].Location);
-                $(`#finished_good_BatchQty`).val(JSONObject[0].BatchQt);
-                
-                $(`#finished_good_RetestDate`).val(JSONObject[0].RetestDate);
-                
+                $(`#finished_good_MakeBy`).val(JSONObject[0].MakeBy);
+
                 var Canceled=JSONObject[0]['Canceled'];
                 if(Canceled=='N'){
-                    document.getElementById("flexCheckDefault").checked = false; // Uncheck
-                }else{
                     document.getElementById("flexCheckDefault").checked = true; // Check
+                }else{
+                    document.getElementById("flexCheckDefault").checked = false; // Uncheck
                 }
             },
             complete:function(data){
                 SampleTypeDropdown();
             }
-        }); 
+        })
     }
 
     function SampleTypeDropdown(){
-
         var dataString ='action=SampleTypeDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
             success: function(result){
@@ -363,84 +342,81 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             complete:function(data){
                 getSeriesDropdown();
             }
-        });
+        })
     }
 
     function getSeriesDropdown(){
-
-        var dataString ='ObjectCode=SCS_QCPDFG&action=getSeriesDropdown_ajax';
-
+        var TrDate= $('#finished_good_TRDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SINTIFG&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SeriesDropdown = JSON.parse(result);
                 $('#finished_good_DocName').html(SeriesDropdown);
-              
             },
             complete:function(data){
-                  selectedSeries(); // call Selected Series Single data function
-
+                selectedSeries(); // call Selected Series Single data function
             }
-        }); 
+        })
     }
 
     function selectedSeries(){
-
+        var TrDate= $('#finished_good_TRDate').val();
         var Series=document.getElementById('finished_good_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_QCPDFG&action=getSeriesSingleData_ajax';
-
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_SINTIFG&action=getSeriesSingleData_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];
 
-                $('#finished_good_DocNo').val(Series);
+                $('#finished_good_DocNo').val(NextNumber);
+                $('#finished_good_Series').val(Series);
             },
             complete:function(data){
                 TR_ByDropdown();
             }
-        }); 
+        })
     }   
 
-    function TR_ByDropdown()
-    {
+    function TR_ByDropdown(){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'action':"TR_ByDropdown_ajax"},
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SampleTypeDrop = JSON.parse(result);
                 $('#finished_good_TRBy').html(SampleTypeDrop);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
+    }
+
+    function DateFormatingDMY(DateOG){
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            let Date = `${day}-${month}-${year}`;
+            return Date;
+        }
     }
 
     function SendSampleIntimationRetestQC_Data(){
-
         var formData = new FormData($('#SampleIntimationFinishedGoods_Form')[0]);  // Form Id
         formData.append("SampleIntimationfinishedGoodBtn",'SampleIntimationfinishedGoodBtn');  // Button Id
         var error = true;
@@ -454,19 +430,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
+                console.log(result);
                 var JSONObject = JSON.parse(result);
                 var status = JSONObject['status'];
                 var message = JSONObject['message'];
                 var DocEntry = JSONObject['DocEntry'];
                 if(status=='True'){
                     swal({
-                      title: `${DocEntry}`,
-                      text: `${message}`,
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: false,
+                        title: `${DocEntry}`,
+                        text: `${message}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
@@ -481,6 +457,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 </script>

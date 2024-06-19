@@ -1,339 +1,330 @@
  <style type="text/css">
-.mt-6{margin-top: -6px !important;}
+    .mt-6{margin-top: -6px !important;}
  </style>
-   <!--sample intimation model-->
-    <div class="modal fade sample-intimation-finished-goods" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
+
+<!--sample intimation model-->
+<div class="modal fade sample-intimation-finished-goods" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myLargeModalLabel">Sample Intimation - Finished Goods</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
                     <!-- form start -->
+                    <form role="form" class="form-horizontal" id="SampleIntimationFinishedGoods_Form" method="post">
+                        <input type="hidden" id="finished_good_LineNum" name="finished_good_LineNum">
+                        <input type="hidden" id="finished_good_Unit" name="finished_good_Unit">
+                        <input type="hidden" id="finished_good_FromCont" name="finished_good_FromCont">
+                        <input type="hidden" id="finished_good_RetestDate" name="finished_good_RetestDate">
+                        <input type="hidden" id="finished_good_Series" name="finished_good_Series">
+                        <!-- <input type="text" id="finished_good_Location" name="finished_good_Location"> -->
+                        <!-- <input type="text" id="finished_good_BatchQty" name="finished_good_BatchQty"> -->
 
-                                <form role="form" class="form-horizontal" id="SampleIntimationFinishedGoods_Form" method="post">
-                                      
-                                   <input class="form-control desabled" type="hidden" id="finished_good_LineNum" name="finished_good_LineNum">
-
-                                   <input class="form-control desabled" type="hidden" id="finished_good_Unit" name="finished_good_Unit">
-
-                                    <input class="form-control desabled" type="hidden" id="finished_good_FromCont" name="finished_good_FromCont">
-
-                                      <input class="form-control desabled" type="hidden" id="finished_good_Location" name="finished_good_Location">
-
-                                   <input class="form-control desabled" type="hidden" id="finished_good_BatchQty" name="finished_good_BatchQty">
-                                   <input class="form-control desabled" type="hidden" id="finished_good_RetestDate" name="finished_good_RetestDate">
-
-                                   
-
-
-                                     <div class="row">
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
-                                                 <div class="col-lg-6">
-                                                    <input class="form-control desabled" type="text" id="finished_good_RFPNo" name="finished_good_RFPNo" readonly>
-                                                </div>
-                                                 <div class="col-lg-2">
-                                                    <input class="form-control desabled" type="text" id="finished_good_RFPODocEntry" name="finished_good_RFPODocEntry" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                                <div class="col-lg-6">
-                                                    <select class="form-select" id="finished_good_DocName" name="finished_good_DocName">
-                                                    <!-- <option>Primary</option> -->
-                                                    </select>
-                                                </div>
-                                                 <div class="col-lg-2">
-                                                    <input class="form-control desabled" type="text" id="finished_good_DocNo" name="finished_good_DocNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
-                                                 <div class="col-lg-6">
-                                                    <input class="form-control desabled" type="text" id="finished_good_WONo" name="finished_good_WONo" readonly>
-                                                </div>
-                                                 <div class="col-lg-2">
-                                                    <input class="form-control desabled" type="text" id="finished_good_WOEntry" name="finished_good_WOEntry" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">BP Ref. No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_BPRefNo" name="finished_good_BPRefNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
-                                                <div class="col-lg-8">
-                                                   <select class="form-select" id="finished_good_SampleType" name="finished_good_SampleType">
-                                                       <!-- <option>Select</option> -->
-                                                   </select>
-                                                </div>
-                                            </div>
-                                        </div>  
-                                        
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR By</label>
-                                                <div class="col-lg-8">
-                                                    <select class="form-select" id="finished_good_TRBy" name="finished_good_TRBy">
-                                                       <!-- <option>Select</option> -->
-                                                   </select>
-                                                </div>
-                                            </div>
-                                        </div>  
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ItemCode" name="finished_good_ItemCode" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ItemName" name="finished_good_ItemName" readonly>
-                                                </div>
-                                            </div>
-                                        </div>   
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">GRPO Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_GRPOQty" name="finished_good_GRPOQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>  
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_SampleQty" name="finished_good_SampleQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retain Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_RetainQty" name="finished_good_RetainQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>  
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG By</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_MFGBy" name="finished_good_MFGBy" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-5 col-form-label mt-6" for="val-skill">Total No of container</label>
-                                                <div class="col-lg-7">
-                                                    <input class="form-control" type="number" id="finished_good_TotalNoofcontainer" name="finished_good_TotalNoofcontainer">
-                                                </div>
-                                                <!-- <div class="col-lg-3">
-                                                    <input class="form-control" type="number" id="" name="">
-                                                </div> -->
-                                            </div>
-                                        </div>  
-
-                                          <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="finished_good_FromContainer" name="">
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="finished_good_ToContainer" name="finished_good_ToContainer">
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_BatchNo" name="finished_good_BatchNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_BatchQty" name="finished_good_BatchQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_MFGDate" name="finished_good_MFGDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ExpiryDate" name="finished_good_ExpiryDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Status</label>
-                                                <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="finished_good_Status" name="finished_good_Status" readonly>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-check">
-                                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                      <label class="form-check-label" for="flexCheckDefault">
-                                                        Cancelled
-                                                      </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="finished_good_TRDate" name="finished_good_TRDate">
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_Branch" name="finished_good_Branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>  
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ChallanNo" name="finished_good_ChallanNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ChallanDate" name="finished_good_ChallanDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_GateEntryNo" name="finished_good_GateEntryNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_GateEntryDate" name="finished_good_GateEntryDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Containers No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="finished_good_ContainersNo" name="finished_good_ContainersNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="finished_good_Container" name="finished_good_Container">
-                                                </div>
-                                            </div>
-                                        </div> 
-
-                                         
-
-                                      
-                                     <!-- Toggle States Button -->
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-
-                                                    <button type="button" class="btn btn-primary" id="SampleIntimationfinishedGoodBtn" name="SampleIntimationfinishedGoodBtn" onclick="SendSampleIntimationRetestQC_Data()">Add</button>
-
-
-                                                    <button type="button" class="btn btn-danger active" data-bs-toggle="button" data-bs-dismiss="modal" aria-label="Close"  autocomplete="off" aria-pressed="true">Cancel</button>
-                                                     </div>
-                                            </div>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control desabled" type="text" id="finished_good_RFPNo" name="finished_good_RFPNo" readonly>
                                     </div>
-                                 </form>
+                                    <div class="col-lg-2">
+                                        <input class="form-control desabled" type="text" id="finished_good_RFPODocEntry" name="finished_good_RFPODocEntry" readonly>
+                                    </div>
+                                </div>
+                            </div>
 
-                                <!-- form end -->
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                    <div class="col-lg-6">
+                                        <select class="form-select" id="finished_good_DocName" name="finished_good_DocName" onchange="selectedSeries()"></select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input class="form-control desabled" type="text" id="finished_good_DocNo" name="finished_good_DocNo" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control desabled" type="text" id="finished_good_WONo" name="finished_good_WONo" readonly>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input class="form-control desabled" type="text" id="finished_good_WOEntry" name="finished_good_WOEntry" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">BP Ref. No</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_BPRefNo" name="finished_good_BPRefNo" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
+                                    <div class="col-lg-8">
+                                        <select class="form-select" id="finished_good_SampleType" name="finished_good_SampleType"></select>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR By</label>
+                                    <div class="col-lg-8">
+                                        <select class="form-select" id="finished_good_TRBy" name="finished_good_TRBy"></select>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_ItemCode" name="finished_good_ItemCode" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_ItemName" name="finished_good_ItemName" readonly>
+                                    </div>
+                                </div>
+                            </div>   
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">GRPO Qty</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_GRPOQty" name="finished_good_GRPOQty" readonly>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_SampleQty" name="finished_good_SampleQty" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retain Qty</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_RetainQty" name="finished_good_RetainQty" readonly>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG By</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_MFGBy" name="finished_good_MFGBy" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-5 col-form-label mt-6" for="val-skill">Total No of container</label>
+                                    <div class="col-lg-7">
+                                        <input class="form-control" type="number" id="finished_good_TotalNoofcontainer" name="finished_good_TotalNoofcontainer">
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" id="finished_good_FromContainer" name="">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" id="finished_good_ToContainer" name="finished_good_ToContainer">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_BatchNo" name="finished_good_BatchNo" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_BatchQty" name="finished_good_BatchQty" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG Date</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_MFGDate" name="finished_good_MFGDate" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_ExpiryDate" name="finished_good_ExpiryDate" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Status</label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control desabled" type="text" id="finished_good_Status" name="finished_good_Status" readonly>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">Cancelled</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="date" id="finished_good_TRDate" name="finished_good_TRDate" value="<?php echo date('Y-m-d');?>" onchange="getSeriesDropdown()">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_Branch" name="finished_good_Branch" readonly>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_ChallanNo" name="finished_good_ChallanNo" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_ChallanDate" name="finished_good_ChallanDate" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_GateEntryNo" name="finished_good_GateEntryNo" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_GateEntryDate" name="finished_good_GateEntryDate" readonly>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_Container" name="finished_good_Container" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_Location" name="finished_good_Location" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_MakeBy" name="finished_good_MakeBy" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control desabled" id="finished_good_ContainersNo" name="finished_good_ContainersNo" rows="4" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Toggle States Button -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary" id="SampleIntimationfinishedGoodBtn" name="SampleIntimationfinishedGoodBtn" onclick="SendSampleIntimationRetestQC_Data()">Add</button>
+
+                                    <button type="button" class="btn btn-danger active" data-bs-toggle="button" data-bs-dismiss="modal" aria-label="Close"  autocomplete="off" aria-pressed="true">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- form end -->
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <!-- </div> -->
-
-    <!--end sample intimation model-->
+<!--end sample intimation model-->
 
      <!-- --------inventory transfer------------ -->
 
