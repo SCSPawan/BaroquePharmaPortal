@@ -351,6 +351,9 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_get_SAMINTTRBY_ajax'){
 if(isset($_POST['action']) && $_POST['action'] =='GetRowLevelAnalysisByDropdown_Ajax'){
 	$select_id=$_POST['value_id'];
 	$Final_API=$QCPOSTQSDONEBYDROPDOWN_APi;
+
+	// print_r($Final_API);
+	// die();
 	$response=$objKri->GetRowLevelAnalysisByDropdown($Final_API);
 	$option.='<option value="">Select</option>';
 	foreach ($response as $key => $value) {
@@ -364,6 +367,9 @@ if(isset($_POST['action']) && $_POST['action'] =='GetRowLevelAnalysisByDropdown_
 if(isset($_POST['action']) && $_POST['action'] =='GetRowLevelAnalysisByDropdownWithSelectedOption_Ajax'){
 	$select_id=$_POST['value_id'];
 	$Final_API=$QCPOSTQSDONEBYDROPDOWN_APi;
+
+	// print_r($Final_API);
+	// die();
 	$response=$objKri->GetRowLevelAnalysisByDropdown($Final_API);
 
 	echo json_encode($response);
@@ -1893,26 +1899,19 @@ if(isset($_POST['SC_SubIT_Btn']))
 // 				</td>
 
 
-if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pupup_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pupup_ajax'){
 	// $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-    $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&Status='.$_POST['QC_Status'];
-	// $API=$RETESTQCPOSTDOC.'?DocEntry='.$_POST['DocEntry'];
-	
+    
 	// <!-- ------- Replace blank space to %20 start here -------- -->
+		$API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&Status='.$_POST['QC_Status'];
+		print_r($API);
+		die();
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-
-		// print_r($FinalAPI);
-		// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
+
 	$response=$objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
-    //    echo "<pre>";
-	   // print_r($response);
-	   // echo "<pre>";
-	   // exit;
 	echo json_encode($response);
 	exit(0);
-
 }
 
 if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_ajax'){
@@ -2189,51 +2188,7 @@ if(!empty($qcStatus)){
 	
 }
 
-// $QCS_un_id=(count($qcStatus)+1);
-// $FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
-// 	<td>'.$QCS_un_id.'</td>
-// 	<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
 
-// 	<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
-
-
-// 	<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-// 	<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-// 	<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
-
-// 	<td>
-// 	<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
-// 	</td>
-
-// 	<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
-
-
-// 	<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
-
-// 	<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
-
-// 	<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
-
-// 	<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
-
-// 	<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
-
-// 	<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
-	
-// </tr>';
-	
-// $FinalResponce['qcStatus'] .='<tr">
-// 	<td>'.(count($qcStatus)+1).'</td>
-// 	<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"></select></td>
-// 	<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" value=""></td>
-// 	<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
-// 	<td>
-// 	<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-// 	</td>
-// 	<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-// </tr>';
 
 
 
