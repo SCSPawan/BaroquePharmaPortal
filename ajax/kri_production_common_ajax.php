@@ -4983,11 +4983,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'getInventoryFinishedGoodsQcc
 }
 
 
-
 if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata = array();
 	$data = array(); // this array handel validation responce
- 
 	$tdata['Object'] = 'SCS_SINTIFG';
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['finished_good_Series'])));
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['finished_good_LineNum'])));
@@ -5007,24 +5005,24 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_TCont'] = trim(addslashes(strip_tags($_POST['finished_good_ToContainer'])));
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['finished_good_Branch'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['finished_good_Location'])));
-	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['finished_good_ChallanNo'])));
+	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['finished_good_ChallanNo'])));	
 	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['finished_good_GateEntryNo'])));
 	$tdata['U_PC_GEDte'] = trim(addslashes(strip_tags($_POST['finished_good_GateEntryDate'])));
 	$tdata['U_PC_CNos'] = trim(addslashes(strip_tags($_POST['finished_good_ContainersNo'])));
 	$tdata['U_PC_Cont'] = trim(addslashes(strip_tags($_POST['finished_good_Container'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['finished_good_BatchNo'])));
 	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['finished_good_BatchQty'])));
-	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));
+	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));	
+	$tdata['U_PC_RcQty'] = trim(addslashes(strip_tags($_POST['finished_good_GRPOQty'])));
+	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate']))? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
  
-	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
+	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate']))? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
  
-	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
+	$tdata['U_PC_RDt'] = (!empty($_POST['finished_good_RetestDate']))? date("Y-m-d", strtotime($_POST['finished_good_RetestDate'])) : null;
  
-	$tdata['U_PC_RDt'] = (!empty($_POST['finished_good_RetestDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_RetestDate'])) : null;
+	$tdata['U_PC_TRDte'] = (!empty($_POST['finished_good_TRDate']))? date("Y-m-d", strtotime($_POST['finished_good_TRDate'])) : null;
  
-	$tdata['U_PC_TRDte'] = (!empty($_POST['finished_good_TRDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_TRDate'])) : null;
- 
-	$tdata['U_PC_ChDate'] = (!empty($_POST['finished_good_ChallanDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_ChallanDate'])) : null;
+	$tdata['U_PC_ChDate'] = (!empty($_POST['finished_good_ChallanDate']))? date("Y-m-d", strtotime($_POST['finished_good_ChallanDate'])) : null;
  
 	$tdata['U_PC_UTTrans'] = null;
 	$tdata['U_PC_BPLId'] = null;
@@ -5032,85 +5030,82 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_TNCont1'] = null;
  
 	// <!-- ---------------------- sample Intimation popup validation start Here -------------------- -->
-	if ($_POST['finished_good_SampleType'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "Sample Type Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
+		if ($_POST['finished_good_SampleType'] == '') {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = "Sample Type Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
  
-	if ($_POST['finished_good_TRBy'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "TR by mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
+		if ($_POST['finished_good_TRBy'] == '') {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = "TR by mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
  
-	if ($_POST['finished_good_TRDate'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "TR Date mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
+		if ($_POST['finished_good_TRDate'] == '') {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = "TR Date mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
 	// <!-- ---------------------- sample Intimation popup validation end Here ---------------------- -->
  
-	//<!-- ------------- function & function responce code Start Here ---- -->
-	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+    //<!-- ------------- function & function responce code Start Here ---- -->
+    $res = $obj->SAP_Login();  // SAP Service Layer Login Here
  
-	if (!empty($res)) {
+    if (!empty($res)) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINTIFG_API;
  
-		$responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
-		$responce = json_decode($responce_encode);
+        $responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
+        $responce = json_decode($responce_encode);
  
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		$data = array();
+        //  <!-- ------- service layer function responce manage Start Here ------------ -->
+        $data = array();
  
-		if (!empty($responce->DocNum)) {
-			$InventoryGenEntries = array();
-			$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
-			$InventoryGenEntries['GRDocEntry'] = trim($_POST['finished_good_RFPODocEntry']);
-			$InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
-			$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+        if (!empty($responce->DocNum)) {
+            $InventoryGenEntries = array();
+            $InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+            $InventoryGenEntries['GRDocEntry'] = trim($_POST['finished_good_RFPODocEntry']);
+            $InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
+            $InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
  
-			$Final_API = $GRSAMPLEINTIFG_APi;
-			$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
-			$responce1 = json_decode($responce_encode1);
+            $Final_API = $GRSAMPLEINTIFG_APi;
+            $responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+            $responce1 = json_decode($responce_encode1);
  
-			if (empty($responce1)) {
-				$data['status'] = 'True';
-				$data['DocEntry'] = $responce->DocEntry;
-				$data['message'] = "Open Transaction for sample intimation finished Good Successfully Added.";
-				echo json_encode($data);
-			} else {
-				if (array_key_exists('error', (array)$responce1)) {
-					$data['status'] = 'False';
-					$data['DocEntry'] = '22222222222222';
-					$data['message'] = $responce1->error->message->value;
-					echo json_encode($data);
-				}
-			}
-		} else {
-			if (array_key_exists('error', (array)$responce)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = '1111111111111';
-				$data['message'] = $responce->error->message->value;
-				echo json_encode($data);
-			}
-		}
-		//  <!-- ------- service layer function responce manage End Here -------------- --> 
-	}
+            if (empty($responce1)) {
+                $data['status'] = 'True';
+                $data['DocEntry'] = $responce->DocEntry;
+                $data['message'] = "Open Transaction for sample intimation finished Good Successfully Added.";
+                echo json_encode($data);
+            } else {
+                if (array_key_exists('error', (array)$responce1)) {
+                    $data['status'] = 'False';
+                    $data['DocEntry'] = '';
+                    $data['message'] = $responce1->error->message->value;
+                    echo json_encode($data);
+                }
+            }
+        } else {
+            if (array_key_exists('error', (array)$responce)) {
+                $data['status'] = 'False';
+                $data['DocEntry'] = '';
+                $data['message'] = $responce->error->message->value;
+                echo json_encode($data);
+            }
+        }
+        //  <!-- ------- service layer function responce manage End Here -------------- --> 
+    }
  
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here   
-	exit(0);
-	//<!-- ------------- function & function responce code end Here ---- -->
+    $res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here   
+    exit(0);
+    //<!-- ------------- function & function responce code end Here ---- -->
 }
-
-
-
 
 
 
