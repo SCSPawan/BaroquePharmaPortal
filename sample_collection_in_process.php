@@ -471,6 +471,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>
 
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="makeby" name="makeby" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
@@ -481,6 +490,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                         </div>
 
                                          <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="BatchQty" name="BatchQty" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
                                                 <div class="col-lg-8">
@@ -494,6 +512,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No.Of Container</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="NoofCont" name="NoofCont" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill"> Container UOM</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="UOM" name="UOM" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -555,7 +582,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                 </div>
                                                             </div>
 
-                                                              <div class="col-xl-3 col-md-6">
+                                                              <div class="col-xl-3 col-md-6" style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                      <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
                                                                     <div class="col-lg-8 container_input">
@@ -564,7 +591,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <div class="col-xl-3 col-md-6"  style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                     <div class="col-md-7">
 
@@ -581,7 +608,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                                          <div class="row">
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <div class="col-xl-3 col-md-6" style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                                     <div class="col-lg-3">
@@ -593,7 +620,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                 </div>
                                                             </div>
 
-                                                             <div class="col-xl-3 col-md-6">
+                                                             <div class="col-xl-3 col-md-6"  style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                     <div class="col-md-4">
 
@@ -826,9 +853,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $("#footerProcess").show();
                 var JSONObjectAll = JSON.parse(result);
 
-                // console.log(JSONObjectAll['SampleCollDetails']);
+                        console.log(JSONObjectAll['SampleCollDetails']);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
+                
                 $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
                 $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
 
@@ -848,7 +876,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#ItemName`).val(JSONObject[0].ItemName);
                 $(`#BatchNo`).val(JSONObject[0].BatchNo);
                 $(`#NoofCont`).val(JSONObject[0].NoofCont);
-                
+                $(`#makeby`).val(JSONObject[0].MakeBy);
+                $(`#UOM`).val(JSONObject[0].UOM);
+                $(`#BatchQty`).val(JSONObject[0].BatchQty);
                 $(`#UnderTestTransferNo`).val(JSONObject[0].UnderTransferNo);
                 $(`#SampleIssue`).val(JSONObject[0].SampleIssue);
                 $(`#DateofReversal`).val(JSONObject[0].DateofReversal);
@@ -867,7 +897,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 
                 $(`#it__DocEntry`).val(JSONObject[0].DocEntry);
                 $(`#BPLId`).val(JSONObject[0].BPLId);
-                $(`#si_Series`).val(JSONObject[0].Series);
+                $(`#si_Series`).val(JSONObject[0].SeriesCode);
                 // $(`#gd_docNo`).val(JSONObject[0].Series);
 
                 
@@ -900,6 +930,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
 
     // function IngrediantTypeDropdown()
     // {
@@ -1070,30 +1110,129 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         });
     }
 
+    // function ExternalIssueSelectedBP(un_id){
+
+    //     var SupplierCode=document.getElementById('SCRTQCB_SupplierCode').value;
+    //     var dataString ='SupplierCode='+SupplierCode+'&action=SupplierSingleData_ajax';
+
+    //     $.ajax({  
+    //         type: "POST",  
+    //         url: 'ajax/kri_production_common_ajax.php',  
+    //         data: dataString,  
+    //         beforeSend: function(){
+    //         // Show image container
+    //            $(".loader123").show();
+    //         },
+    //         success: function(result)
+    //         {  
+    //             var JSONObject = JSON.parse(result);
+    //             $('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
+    //         },
+    //         complete:function(data){
+    //            // Hide image container
+    //            $(".loader123").hide();
+    //         }
+    //     });
+    // }
+
+
     function ExternalIssueSelectedBP(un_id){
+        
+    var CardCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
+    var Loc = $('#Location').val();
+    var Branch= $('#Branch').val();
+    var ItemCode = $('#ItemCode').val();
+    var MakeBy = $('#makeby').val();    
 
-        var SupplierCode=document.getElementById('SCRTQCB_SupplierCode').value;
-        var dataString ='SupplierCode='+SupplierCode+'&action=SupplierSingleData_ajax';
+    var dataString ='CardCode='+CardCode+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetCardNameAndWhs_Ajax';
 
-        $.ajax({  
-            type: "POST",  
-            url: 'ajax/kri_production_common_ajax.php',  
-            data: dataString,  
-            beforeSend: function(){
-            // Show image container
-               $(".loader123").show();
-            },
-            success: function(result)
-            {  
-                var JSONObject = JSON.parse(result);
-                $('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
-            },
-            complete:function(data){
-               // Hide image container
-               $(".loader123").hide();
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,  
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result){
+            var JSONObject = JSON.parse(result);
+            // console.log(JSONObject);
+
+            if(CardCode!=''){
+                $('#SC_FEXI_SupplierName'+un_id).val(JSONObject['CardName']);
+                $('#SC_ExternalI_Warehouse'+un_id).val(JSONObject['Whse']);
+                $('#SC_FEXI_SampleDate'+un_id).val(JSONObject['SampleDate']);
+                $('#SC_FEXI_UOM'+un_id).val($('#UOM').val());
+            }else{
+                $('#SC_FEXI_SupplierName'+un_id).val('');
+                $('#SC_ExternalI_Warehouse'+un_id).val('');
+                $('#SC_FEXI_SampleDate'+un_id).val('');
+                $('#SC_FEXI_UOM'+un_id).val('');  
             }
-        });
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    });
+}
+
+
+function GetExtraIuuseWhs(un_id){
+
+var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
+
+var Loc = $('#Location').val();
+var Branch= $('#Branch').val();
+var ItemCode = $('#ItemCode').val();
+var MakeBy = $('#makeby').val();  
+var UOM = $('#UOM').val();
+
+var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
+
+$.ajax({
+    type: "POST",
+    url: 'ajax/common-ajax.php',
+    data: dataString,  
+    beforeSend: function(){
+        // $(".loader123").show();
+    },
+    success: function(result){
+        // console.log(result);
+        var JSONObject = JSON.parse(result);
+        // console.log(JSONObject);
+        // console.log(JSONObject['SampleBy']);
+
+
+        if(SampleQuantity!=''){
+            $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
+            $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
+            $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
+            $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
+        }else{
+            $('#SC_FEI_UOM'+un_id).val('');
+            $('#SC_FEI_Warehouse'+un_id).val('');
+            $('#SC_FEI_SampleBy'+un_id).val('');
+            $('#SC_FEI_IssueDate'+un_id).val('');
+        }
+    },
+    complete:function(data){
+        // $(".loader123").hide();
     }
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function SearchData()
     {
@@ -1196,7 +1335,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 $('#InventoryTransferItemAppend_retails').html(JSONObject);
 
-                getSeriesDropdown_retails();
+                // getSeriesDropdown_retails();
                 ContainerSelection_retails(); // get Container Selection Table List
             },
             complete:function(data){
@@ -1207,7 +1346,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     function getSeriesDropdown_gd()
     {  
-        var TrDate=$('#gd_PostingDate').val();
+        var TrDate=$('#gd_PostingDate_extra').val();
         var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
@@ -1220,7 +1359,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result){
                 var SeriesDropdown = JSON.parse(result);
                
-                $('#gd_SeriesName').html(SeriesDropdown);
+
+                console.log('SeriesDropdown',SeriesDropdown);
+                
+                $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
 
             },
             complete:function(data){
@@ -1232,6 +1374,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 function selectedSeries_gd(){
+    alert('hii');
+
+
     var TrDate=$('#gd_PostingDate').val();
     var Series=document.getElementById('gd_SeriesName').value;
     var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
@@ -1246,8 +1391,8 @@ function selectedSeries_gd(){
         success: function(result)
         {
             var JSONObject = JSON.parse(result);
-            // alert("hii")
-            //console.log('JSONObject=>',JSONObject);
+             alert("hii")
+            console.log('JSONObject=>',JSONObject);
             var NextNumber=JSONObject[0]['NextNumber'];
             var Series=JSONObject[0]['Series'];
                          
@@ -1479,6 +1624,7 @@ function selectedSeries_gd(){
         getSelectedContener_num_retails(un_id);
     }
 
+
     function getSelectedContener_num_retails(un_id){
         //Create an Array.
         var selected = new Array();
@@ -1597,28 +1743,36 @@ function selectedSeries_gd(){
         }
     }
 
-    function getSeriesDropdown_retails()
-    {
-        var dataString ='ObjectCode=67&action=getSempleCSeriesDropdown_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var SeriesDropdown = JSON.parse(result);
+    // function getSeriesDropdown_retails()
 
-                $('#iT_InventoryTransfer_series').html(SeriesDropdown);
-                $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
+    // {
+    //     var TrDate = $(`#gd_PostingDate_extra`).val();
+    //     var dataString ='TrDate='+TrDate+'$ObjectCode=67&action=getSeriesDropdown_ajax';
+    //     $.ajax({
+    //         type: "POST",
+    //         url: 'ajax/common-ajax.php',
+    //         data: dataString,
+    //         cache: false,
+    //         beforeSend: function(){
+    //             $(".loader123").show();
+    //         },
+    //         success: function(result){
+    //             var SeriesDropdown = JSON.parse(result);
+
+    //             console.log('SeriesDropdown',SeriesDropdown);
+
+    //             $('#iT_InventoryTransfer_series').html(SeriesDropdown);
+    //             $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
+    //         },
+    //         complete:function(data){
+    //             $(".loader123").hide();
+    //         }
+    //     }); 
+    // }
+
+
+
+
 
     function SubmitInventoryTransfer_Retials_issue()
     {
@@ -1834,11 +1988,10 @@ function OpenInventoryExternalTransferModel(){
                 $('#iT_InventoryTransfer_external_branch').val(Branch);
                 $('#it_InventoryTransfer_external_BPLId').val(BPLId);
                 $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
-                $('#iT_InventoryTransfer_external_PostingDate').val();
-                $('#iT_InventoryTransfer_external_DocumentDate').val();
+               
                 $('#InventoryTransferItemAppend_external').html(JSONObject);
 
-                getSeriesDropdown_retails();
+                // getSeriesDropdown_retails();
                 ContainerSelection_extenal(); // get Container Selection Table List
             },
             complete:function(data){
@@ -1846,7 +1999,10 @@ function OpenInventoryExternalTransferModel(){
             }
         }); 
 
+
 }
+
+
 
 
 function ContainerSelection_extenal(){
@@ -1974,27 +2130,30 @@ function getSelectedContener_extenal(un_id)
             document.getElementById("cs_selectedQtySum_external").value = parseFloat(sum).toFixed(6); // Container Selection final sum
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
     }
-  function getSeriesDropdown_gd_extra()
-    {
-        var dataString ='ObjectCode=60&action=getSempleCSeriesDropdown_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var SeriesDropdown = JSON.parse(result);
+//   function getSeriesDropdown_gd_extra()
+//     {
+//         var dataString ='ObjectCode=60&action=getSempleCSeriesDropdown_ajax';
+//         $.ajax({
+//             type: "POST",
+//             url: 'ajax/kri_production_common_ajax.php',
+//             data: dataString,
+//             cache: false,
+//             beforeSend: function(){
+//                 $(".loader123").show();
+//             },
+//             success: function(result){
+//                 var SeriesDropdown = JSON.parse(result);
 
-                $('#gd_Series_extra').html(SeriesDropdown);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
+//                 $('#gd_Series_extra').html(SeriesDropdown);
+//             },
+//             complete:function(data){
+//                 $(".loader123").hide();
+//             }
+//         }); 
+//     }
+
+
+    
 
 
  function OpenInventoryTransferModel_extraIssue()
@@ -2027,7 +2186,8 @@ function getSelectedContener_extenal(un_id)
                 $('#it_DocEntry_extra').val(DocEntry);
                 $('#InventoryTransferItemAppend_extra').html(JSONObject);
 
-                getSeriesDropdown_gd_extra() // DocName By using API to get dropdown 
+                getSeriesDropdown_gd_extra()
+                getSeriesDropdown_gd() // DocName By using API to get dropdown 
                 ContainerSelection_extraIssue(); // get Container Selection Table List
             },
             complete:function(data){

@@ -731,7 +731,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                 </div>    
                                             </div>  <!--general data footer end-->
                                             

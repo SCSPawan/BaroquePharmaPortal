@@ -2024,6 +2024,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
      
 
+
     function TransToUnder() {
         // Use querySelector to find the checked radio button within the group
         var selectedRadio = document.querySelector('input[name="listRado[]"]:checked');
@@ -2055,7 +2056,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(".loader123").show();
             },
             success: function(result) {
-                // console.log('inventoryClick=>',result);
+                console.log('inventoryClick=>',result);
 
                 $('#qc_check_DocEntry').val(result[0].DocEntry);
                 $('#qc_check_branchID').val(result[0].BPLId);
@@ -2063,7 +2064,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $('#it_SupplierName').val(result[0].SupplierName);
                 $('#it_BranchName').val(result[0].Branch);
                 $('#it_DocEntry').val(result[0].GRPODocEntry);
-                $('#qc_status_LineId').val(QCS_LineId);
+                $('#qc_check_LineID').val(QCS_LineId);
                 $('#it_BAseDocNum').val(result[0].DocNum);
                 $('#it_BaseDocEntry').val(result[0].BaseDocType);
                 $('#qc_check_itemCode').val(result[0].ItemCode);

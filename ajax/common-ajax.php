@@ -262,8 +262,8 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 	
-// print_r($Final_API);
-// die();
+print_r($Final_API);
+die();
 
 	$response=$obj->GetSeriesDropdown($Final_API);
 	echo json_encode($response);
@@ -2811,11 +2811,21 @@ if(isset($_POST['action']) && $_POST['action'] =='GetCardNameAndWhs_Ajax'){
 	$API=$SAMPLECOLLEXTENALINWARD_APi.'?CardCode='.$CardCode.'&Loc='.$Loc.'&Branch='.$Branch.'&ItemCode='.$ItemCode.'&MakeBy='.$MakeBy;
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
+
+	// print_r($FinalAPI);
+
+	// die();
+
 	$responce_encode=$obj->GetMethodQuerryBasedAPI($FinalAPI);
 	$responce=json_decode($responce_encode);
 
+	// print_r($responce);
+
+	// die();
+
 	$tdata=array();
 	$tdata['CardName']=trim(addslashes(strip_tags($responce[0]->CardName)));
+	$tdata['UOM']=trim(addslashes(strip_tags($responce[0]->UOM)));
 	$tdata['Whse']=trim(addslashes(strip_tags($responce[0]->Whse)));
 	$tdata['SampleDate']=date("Y-m-d");
 
