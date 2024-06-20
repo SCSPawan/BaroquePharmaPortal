@@ -837,20 +837,24 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_external_PostingDate" name="iT_InventoryTransfer_external_PostingDate">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?php
+$currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
+?>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
+        </div>
+    </div>
+</div>
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_external_DocumentDate" name="iT_InventoryTransfer_external_DocumentDate">
+                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_external_DocumentDate" name="iT_InventoryTransfer_external_DocumentDate" value="<?php echo $currentDate; ?>">
                                                 </div>
                                             </div>
                                         </div>

@@ -518,8 +518,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
 
-// print_r($FinalAPI);
-// die();
+	// print_r($FinalAPI);
+	// die();
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
@@ -527,15 +527,17 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 	$FinalResponce['SampleCollDetails'] = $response;
 
 	$ExternalIssue = $response[0]->INPROCESSSAMCOLLEXTERNAL; //External issue reponce seperate here
-	// print_r(count($ExternalIssue));die();
+	//  print_r(($ExternalIssue));die();
+
 	$ExtraIssue = $response[0]->INPROCESSSAMCOLLEXTRA; // Etra issue response seperate here 
 
 	// ===================================================================================================================================
+	// =======================================================================================================
 	// <!-- ----------- Extra Issue Start here --------------------------------- -->
 	if (!empty($ExtraIssue)) {
 		for ($i = 0; $i < count($ExtraIssue); $i++) {
 
-			$SrNo = $rowCount_N + ($i + 1);
+			$SrNo = $rowCount_N + 1;
 
 			if (!empty($ExtraIssue[$i]->IssueDate)) {
 				$IssueDate = date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
@@ -544,103 +546,115 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 			}
 
 			$FinalResponce['ExtraIssue'] .= '<tr>
-				    <td>
-				    	<input type="radio" id="ExtraIslist' . $SrNo . '" name="ExtraIslistRado" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue(' . $SrNo . ')">
-				    </td>
+					<td>
+						<input type="radio" id="ExtraIslist' . $SrNo . '" name="ExtraIslistRado" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue(' . $SrNo . ')">
+					</td>
 
-				    <td class="desabled">
-				    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control desabled" readonly>
+					<td class="desabled">
+						<input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control desabled" >
 
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control desabled" readonly>
-			    	</td>
+						<input class="border_hide  form-control desabled" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" onfocusout="GetExtraIuuseWhs(' . $SrNo . ')" readonly >
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control desabled" readonly></td>
+					</td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" value="' . $ExtraIssue[$i]->Whs2 . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" value="' . $ExtraIssue[$i]->Whs2 . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control desabled" readonly></td>
 				 </tr>';
 		}
 		// when table data come then default add one manual row start ---------------------------------------------------------
 		$SrNo = (count($ExtraIssue) + 1);
 		$FinalResponce['ExtraIssue'] .= '<tr>
-			    <td class="desabled">
-			    	
-			    </td>
+				<td class="desabled">
+					
+				</td>
 
-			    <td>
-				    <input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" readonly>
+				<td>
+					<input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" >
 
-				    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control">
-			    </td>
+					<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" onfocusout="GetExtraIuuseWhs(' . $SrNo . ')" >
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control">
-		    	</td>
+				</td>
 
-			    <td>
-			    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" style="width: 200px;">
-					</select>
-		    	</td>
+				<td class="desabled">
+					<input class="border_hide desabled" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control" readonly >
+				</td>
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control">
-		    	</td>
+			   
+				
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" value="' . $ExtraIssue[$i]->Whs2 . '" class="form-control desabled" readonly></td>
 
-			    <td>
-			    	<input class="border_hide" type="date" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control">
-		    	</td>
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control">
-		    	</td>
+
+				<td class="desabled">
+				
+					<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control">
+				</td>
+
+				<td>
+					<input class="border_hide" type="text" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control">
+				</td>
+
+				<td>
+					<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control">
+				</td>
 			 </tr>';
+
+		// onchange="ExternalIssueSelectedBP('.$SrNo.')"  ---->  warehouse selection onchange function
 	} else {
 		$SrNo = $rowCount_N + 1;
 		$FinalResponce['ExtraIssue'] .= '<tr>
-			    <td class="desabled">
-			    	
-			    </td>
+				<td class="desabled">
+					' . $SrNo . '
+				</td>
 
-			    <td>
-				    <input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" readonly>
+				<td>
+					<input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" >
 
-				    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->SampleQuantity . '" class="form-control">
-			    </td>
+					<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" onfocusout="GetExtraIuuseWhs(' . $SrNo . ')" >
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM . '" class="form-control">
-		    	</td>
+				</td>
 
-			    <td>
-			    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" style="width: 200px;">
-					</select>
-		    	</td>
+				<td class="desabled">
+					<input class="border_hide desabled " type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control" readonly>
+				</td>
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control">
-		    	</td>
+				
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_ExternalI_SupplierCode[]" value="' . $ExtraIssue[$i]->Whs2 . '" class="form-control desabled" readonly></td>
 
-			    <td>
-			    	<input class="border_hide" type="date" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control">
-		    	</td>
+				<td class="desabled">
+					<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control">
+				</td>
 
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control">
-		    	</td>
+				<td class="desabled">
+					<input class="border_hide desabled" type="text" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control">
+				</td>
+
+				<td>
+					<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue' . $SrNo . '" name="SC_FEI_PostExtraIssue[]" value="' . $ExtraIssue[$i]->PostExtraIssue . '" class="form-control">
+				</td>
 			 </tr>';
 	}
 
+	// <!-- ----------- Extra Issue End here --------------------------------- -->
+	// =======================================================================================================
+
 
 	// <!-- ----------- External Issue Start Here ---------------------------- -->
-	if (!empty($ExternalIssue)) {
-		for ($j = 0; $j < count($ExternalIssue); $j++) {
 
-			$SrNo = $rowCount + ($j + 1);
+
+	if (!empty($ExternalIssue)) {
+
+
+		for ($j = 0; $j < (count($ExternalIssue)); $j++) {
+
+			$SrNo = $rowCount + 1;
 			// if(count($ExternalIssue)==$SrNo){
 			if (!empty($ExternalIssue[$j]->SampleDate)) {
 				$SampleDate = date("d-m-Y", strtotime($ExternalIssue[$j]->SampleDate));
@@ -648,120 +662,111 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_collecton_in_process_
 				$SampleDate = '';
 			}
 
-			$FinalResponce['ExternalIssue'] .= '<tr id="' . $SrNo . '">
-				    
+
+			$FinalResponce['ExternalIssue'] .= '<tr class="1111">
+					
 					<td style="text-align: center;">
-						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="' . $ExternalIssue[$j]->LineNum . '" class="form-control desabled" readonly>
+						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="' . $ExternalIssue[$j]->Linenum . '" class="form-control desabled" readonly>
 
-					    <input type="radio" id="list' . $SrNo . '" name="listRado" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue(' . $SrNo . ')">
+						<input type="radio" id="list' . $SrNo . '" name="listRado" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue(' . $SrNo . ')">
 					</td>
-				 	
-				 	<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode' . $SrNo . '" name="SC_FEXI_SupplierCode[]" value="' . $ExternalIssue[$j]->SupplierCode . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" value="' . $ExternalIssue[$j]->SupplierName . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" value="' . $ExternalIssue[$j]->UOM1 . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" value="' . $SampleDate . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse' . $SrNo . '" name="SC_FEXI_Warehouse[]" value="' . $ExternalIssue[$j]->Whs1 . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity ' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" value="' . $ExternalIssue[$j]->sampleQty1 . '" class="form-control desabled" readonly></td>
-				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" value="' . $ExternalIssue[$j]->InventoryTransfer . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode' . $SrNo . '" name="SC_FEXI_SupplierCode[]" value="' . $ExternalIssue[$j]->SupplierCode . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" value="' . $ExternalIssue[$j]->SupplierName . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" value="' . $ExternalIssue[$j]->UOM1 . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" value="' . $SampleDate . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse' . $SrNo . '" name="SC_FEXI_Warehouse[]" value="' . $ExternalIssue[$j]->Whs1 . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" value="' . $ExternalIssue[$j]->SampleQuantity . '" class="form-control desabled" readonly></td>
+					
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" value="' . $ExternalIssue[$j]->InventoryTransfer . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" value="' . $ExternalIssue[$j]->UText1 . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" value="' . $ExternalIssue[$j]->UserText1 . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" value="' . $ExternalIssue[$j]->UText2 . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" value="' . $ExternalIssue[$j]->UserText2 . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" value="' . $ExternalIssue[$j]->UText3 . '" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" value="' . $ExternalIssue[$j]->UserText3 . '" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" value="' . $ExternalIssue[$j]->Attach . '" class="form-control"></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" value="' . $ExternalIssue[$j]->Attachment . '" class="form-control"></td>
 				</tr>';
-
-			// }
-
+			//}
 		}
 
 		// when table data come then default add one manual row start ---------------------------------------------------------
-		$SrNo = (count($ExternalIssue) + 1);
+		$SrNo = (count($ExternalIssue));
 
-		$FinalResponce['ExternalIssue'] .= '<tr>
-			    <td>
-			    	
-			    </td>
-			 	
-			 	<td>
-			 		<input class="border_hide" type="hidden" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
+		$FinalResponce['ExternalIssue'] .= '<tr class="2222">
+			<td></td>
+			 
+			 <td>
+				 <input class="border_hide" type="hidden" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
 
-					
-					<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode' . $SrNo . '" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP(' . $SrNo . ')" style="width: 200px;">
-					</select>
-				</td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
-			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
-			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseWithData" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+				<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode' . $SrNo . '" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP(' . $SrNo . ')" style="width: 200px;">
+				</select>
+			</td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
+			
+			<td class="desabled" ><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
+			
+			<td><input class="border_hide" type="date" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
+			
+			<td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" class="form-control"></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" class="form-control"></td>
-			</tr>';
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" class="form-control"></td>
+		</tr>';
 		// when table data come then default add one manual row end -----------------------------------------------------------
 	} else {
 		// if user not added External issue recored then show default blank row
 		$SrNo = $rowCount + 1;
 
-		$FinalResponce['ExternalIssue'] .= '<tr>
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="' . $SrNo . '" class="form-control desabled" readonly>
-			    </td>
-			 	
-			 	<td>
-					<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode' . $SrNo . '" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP(' . $SrNo . ')" style="width: 200px;">
-						 
-					</select>
-				</td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
-			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
-			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseDefault" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+		$FinalResponce['ExternalIssue'] .= '<tr class="3333">
+			<td>
+				<input class="border_hide" type="text" id="SC_FEXI_Linenum' . $SrNo . '" name="SC_FEXI_Linenum[]" value="' . $SrNo . '" class="form-control desabled" readonly>
+			</td>
+			 
+			 <td>
+				<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode' . $SrNo . '" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP(' . $SrNo . ')" style="width: 200px;">
+					 
+				</select>
+			</td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
+			
+			<td><input class="border_hide" type="date" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+			
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
+			
+			<td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+			
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer' . $SrNo . '" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText1' . $SrNo . '" name="SC_FEXI_UserText1[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText2' . $SrNo . '" name="SC_FEXI_UserText2[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" class="form-control"></td>
+			<td><input class="border_hide" type="text" id="SC_FEXI_UserText3' . $SrNo . '" name="SC_FEXI_UserText3[]" class="form-control"></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" class="form-control"></td>
-			</tr>';
-		// }
+			<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment' . $SrNo . '" name="SC_FEXI_Attachment[]" class="form-control"></td>
+		</tr>';
 	}
-
 
 	echo json_encode($FinalResponce);
 	exit(0);
@@ -804,38 +809,38 @@ if (isset($_POST['action']) && $_POST['action'] == 'SupplierSingleData_ajax') {
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'SupplierDropdown_ajax') {
-    // SAP Service Layer Login
-    $res = $obj->SAP_Login();
+	// SAP Service Layer Login
+	$res = $obj->SAP_Login();
 
-    if (!empty($res)) {
-        $BP_Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_BusinessPartners.'?$select=CardCode,CardName';
+	if (!empty($res)) {
+		$BP_Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_BusinessPartners . '?$select=CardCode,CardName';
 
-        $response_encode_BP = $obj->getFunctionServiceLayer($BP_Final_API);
-		
-        $response_BP = json_decode($response_encode_BP);
+		$response_encode_BP = $obj->getFunctionServiceLayer($BP_Final_API);
 
-        // Check if the response contains data
-        if (isset($response_BP->value) && is_array($response_BP->value)) {
-            // Using a buffer for efficient string concatenation
-            $options = '<option value="">-</option>';
-            foreach ($response_BP->value as $bp) {
-                $options .= '<option value="' . htmlspecialchars($bp->CardCode) . '">' . htmlspecialchars($bp->CardCode) . '</option>';
-            }
+		$response_BP = json_decode($response_encode_BP);
 
-            // Send the options as a JSON response
-            echo json_encode($options);
-        } else {
-            echo json_encode('<option value="">No suppliers found</option>');
-        }
+		// Check if the response contains data
+		if (isset($response_BP->value) && is_array($response_BP->value)) {
+			// Using a buffer for efficient string concatenation
+			$options = '<option value="">-</option>';
+			foreach ($response_BP->value as $bp) {
+				$options .= '<option value="' . htmlspecialchars($bp->CardCode) . '">' . htmlspecialchars($bp->CardCode) . '</option>';
+			}
 
-        // SAP Service Layer Logout
-        $obj->SAP_Logout();
-    } else {
-        // Handle login failure
-        echo json_encode('<option value="">Failed to login to SAP</option>');
-    }
+			// Send the options as a JSON response
+			echo json_encode($options);
+		} else {
+			echo json_encode('<option value="">No suppliers found</option>');
+		}
 
-    exit(0);
+		// SAP Service Layer Logout
+		$obj->SAP_Logout();
+	} else {
+		// Handle login failure
+		echo json_encode('<option value="">Failed to login to SAP</option>');
+	}
+
+	exit(0);
 }
 
 
@@ -846,7 +851,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'WareHouseDropdown_ajax') {
 	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
 	if (!empty($res)) {
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_Warehouses.'?$select=WarehouseCode,WarehouseName';
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_Warehouses . '?$select=WarehouseCode,WarehouseName';
 		$responce_encode = $obj->getFunctionServiceLayer($Final_API);
 		$responce = json_decode($responce_encode);
 
@@ -1413,6 +1418,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
+	$BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
+
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
 	if (!empty($response)) {
 		$option = '<tr>
@@ -1432,7 +1439,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 				
 				</td>
 				<td>
-					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $response[0]->BatchQty . '" readonly>
+					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
 				</td>
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
@@ -1922,7 +1929,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_extern
 if (isset($_POST['action']) && $_POST['action'] == 'getSempleCSeriesDropdown_ajax') {
 	$ObjectCode = trim(addslashes(strip_tags($_POST['ObjectCode'])));
 
-	$Final_API = $INWARDQCSERIES . $ObjectCode;
+	$Final_API = $INWARDQCSERIES . $ObjectCode .$TrDate;
+
 	$response = $obj->GetSeriesDropdown($Final_API);
 	echo json_encode($response);
 	exit(0);
@@ -2349,16 +2357,11 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 	$mainArray = array();
 	$ExternalIssue = array();
 	$ExtraIssue = array();
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	// exit;
 	// <!-- ------------ array declare Here ------------- -->
-	$tdata['Series'] = trim(addslashes(strip_tags($_POST['numner_Series'])));
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['si_Series'])));
 	$tdata['Object'] = 'SCS_SCINPROC';
 	$tdata['U_PC_BLin'] = 0;
 	$tdata['U_PC_InType'] = 'Active';
-
 	$tdata['U_PC_WoNo'] = trim(addslashes(strip_tags($_POST['woNo'])));
 	$tdata['U_PC_WoEnt'] = trim(addslashes(strip_tags($_POST['WoEntry'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['Location'])));
@@ -2374,119 +2377,54 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 	$tdata['U_PC_SUnit'] = trim(addslashes(strip_tags($_POST['SampleQtyUnit'])));
 	$tdata['U_PC_SClBy'] = trim(addslashes(strip_tags($_POST['SampleCollectBy'])));
 	$tdata['U_PC_ARNo'] = trim(addslashes(strip_tags($_POST['ARNo'])));
-	$tdata['U_PC_SRSep'] = trim(addslashes(strip_tags('No')));  //'No' value
+	//$tdata['U_PC_SRSep'] = trim(addslashes(strip_tags('No')));  //'No' value
 	if (!empty($_POST['DocDate'])) {
 		$tdata['U_PC_DDt'] = date("Y-m-d", strtotime($_POST['DocDate']));
 	} else {
 		$tdata['U_PC_DDt'] = null;
 	}
-
 	$tdata['U_PC_TrNo'] = trim(addslashes(strip_tags($_POST['TRNo'])));
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['Branch'])));
 	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['ItemName'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['BatchNo'])));
-
-	$tdata['U_PC_BtchQty'] = null;
-
-
-
+	$tdata['U_PC_BtchQty'] =  trim(addslashes(strip_tags($_POST['BatchQty'])));
 	$tdata['U_PC_NCont'] = trim(addslashes(strip_tags($_POST['NoofCont'])));
 	$tdata['U_PC_UTNo'] = trim(addslashes(strip_tags($_POST['UnderTestTransferNo'])));
-
-	if (!empty($_POST['DateofReversal'])) {
-		$tdata['U_PC_DRev'] = trim(addslashes(strip_tags($_POST['DateofReversal'])));
-	} else {
-		$tdata['U_PC_DRev'] = null;
-	}
-
-	if (!empty($_POST['SampleIssue'])) {
-		$tdata['U_PC_SIssue'] = trim(addslashes(strip_tags($_POST['SampleIssue'])));
-	} else {
-		$tdata['U_PC_SIssue'] = null;
-	}
-
-	if (!empty($_POST['ReverseSampleIssue'])) {
-		$tdata['U_PC_RSIssue'] = trim(addslashes(strip_tags($_POST['ReverseSampleIssue'])));
-	} else {
-		$tdata['U_PC_RSIssue'] = null;
-	}
-
-
 	$tdata['U_PC_CntNo1'] = trim(addslashes(strip_tags($_POST['ContainerNo1'])));
 	$tdata['U_PC_CntNo2'] = trim(addslashes(strip_tags($_POST['ContainerNo2'])));
 	$tdata['U_PC_CntNo3'] = trim(addslashes(strip_tags($_POST['ContainerNo3'])));
-
 	$tdata['U_PC_QtyLab'] = trim(addslashes(strip_tags($_POST['QtyForLabel'])));
-	$tdata['U_PC_Trans'] = null;
-
+	// $tdata['U_PC_Trans'] = null;
 	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['BPLId'])));
 	$tdata['U_PC_LocCode'] = null;
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['ReceiptNo1'])));
-
-	if (!empty($_POST['RetainIssue'])) {
-		$tdata['U_PC_RIssue'] = trim(addslashes(strip_tags($_POST['RetainIssue'])));
-	} else {
-		$tdata['U_PC_RIssue'] = null;
-	}
-
-
 	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['RetainQty'])));
 	$tdata['U_PC_RQtyUom'] = trim(addslashes(strip_tags($_POST['RetainQtyUom'])));
 
 	$mainArray = $tdata; // header data append on main array
-
-	// $tdata['U_PC_InTyp']=trim(addslashes(strip_tags($_POST['SCRTQCB_IngrediantType'])));
-	// $tdata['U_PC_GRNNo']=trim(addslashes(strip_tags($_POST['SCRTQCB_GRNNo'])));
-	// $tdata['U_PC_GRNEnt']=trim(addslashes(strip_tags($_POST['SCRTQCB_GRNDocEntry'])));
-
-	// $_POST['SCRTQCB_SampleReSep']
-
-	//      if($_POST['SCRTQCB_SampleReSep']==""){
-	//       $data['status']='False';
-	// $data['DocEntry']='';
-	// $data['message']="Sample Recieved Sepretly required";
-	// echo json_encode($data);
-	// exit;
-	//      }
-
-
-	// $tdata['U_PC_SType']=trim(addslashes(strip_tags($_POST['SCRTQCB_SampleType'])));
-
 
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
 	for ($i = 0; $i < count($_POST['SC_FEXI_SupplierName']); $i++) {
 
 		$ExternalIssue['LineId'] = trim(addslashes(strip_tags(($i + 1))));
 		$ExternalIssue['Object'] = 'SCS_SCINPROC';
-		$ExternalIssue['U_PC_SCode'] = trim(addslashes(strip_tags($_POST['SC_ExternalI_SupplierCode'][$i])));
+		$ExternalIssue['U_PC_SCode'] = trim(addslashes(strip_tags($_POST['SC_FEXI_SupplierCode'][$i])));
 		$ExternalIssue['U_PC_SName'] = trim(addslashes(strip_tags($_POST['SC_FEXI_SupplierName'][$i])));
 		$ExternalIssue['U_PC_UOM'] = trim(addslashes(strip_tags($_POST['SC_FEXI_UOM'][$i])));
 		$ExternalIssue['U_PC_SDt'] = trim(addslashes(strip_tags($_POST['SC_FEXI_SampleDate'][$i])));
-		$ExternalIssue['U_PC_Whs'] = trim(addslashes(strip_tags($_POST['SC_ExternalI_Warehouse'][$i])));
+		$ExternalIssue['U_PC_Whs'] = trim(addslashes(strip_tags($_POST['SC_FEXI_Warehouse'][$i])));
 		$ExternalIssue['U_PC_SQty1'] = trim(addslashes(strip_tags($_POST['SC_FEXI_SampleQuantity'][$i])));
-		// $ExternalIssue['U_PC_Trans']=trim(addslashes(strip_tags($_POST['U_PC_Trans'][$i])));
-
-
 		$ExternalIssue['U_PC_Attch'] = trim(addslashes(strip_tags($_POST['SC_FEXI_Attachment'][$i])));
 		$ExternalIssue['U_PC_UTxt1'] = trim(addslashes(strip_tags($_POST['SC_FEXI_UserText1'][$i])));
 		$ExternalIssue['U_PC_UTxt2'] = trim(addslashes(strip_tags($_POST['SC_FEXI_UserText2'][$i])));
 		$ExternalIssue['U_PC_UTxt3'] = trim(addslashes(strip_tags($_POST['SC_FEXI_UserText3'][$i])));
-		// $ExternalIssue['U_PC_Trans']=trim(addslashes(strip_tags($_POST['SC_FEXI_InventoryTransfer'][$i])));
 		if (!empty($_POST['SC_FEXI_InventoryTransfer'][$i])) {
 			$ExternalIssue['U_PC_Trans'] = trim(addslashes(strip_tags($_POST['SC_FEXI_InventoryTransfer'][$i])));
 		} else {
 			$ExternalIssue['U_PC_Trans'] = null;
 		}
-
-
-		// if(!empty($_POST['SC_FEXI_SampleDate'][$i])){
-		// 	$ExternalIssue['U_PC_SD']=date("Y-m-d", strtotime($_POST['SC_FEXI_SampleDate'][$i]));
-		// }else{
-		// 	$ExternalIssue['U_PC_SD']=null;	
-		// }
-
 		$mainArray['SCS_SCINPROC1Collection'][] = $ExternalIssue;
 	}
 	// <!-- ------------------------ External Issue row data preparing start here ----------------------- --> 
@@ -2497,7 +2435,7 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 		$ExtraIssue['LineId'] = trim(addslashes(strip_tags(($j + 1))));
 		$ExtraIssue['U_PC_SQty2'] = trim(addslashes(strip_tags($_POST['SC_FEI_SampleQuantity'][$j])));
 		$ExtraIssue['U_PC_UOM'] = trim(addslashes(strip_tags($_POST['SC_FEI_UOM'][$j])));
-		$ExtraIssue['U_PC_Whs'] = trim(addslashes(strip_tags($_POST['SC_ExternalI_SupplierCode'][$j])));
+		$ExtraIssue['U_PC_Whs'] = trim(addslashes(strip_tags($_POST['SC_FEXI_Warehouse'][$j])));
 		$ExtraIssue['U_PC_SBy'] = trim(addslashes(strip_tags($_POST['SC_FEI_SampleBy'][$j])));
 
 		if (!empty($_POST['SC_FEI_IssueDate'][$j])) {
@@ -2515,11 +2453,11 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 		$mainArray['SCS_SCINPROC2Collection'][] = $ExtraIssue;
 	}
 	// <!-- ------------------------ Extra Issue row data preparing start here ----------------------- --> 
-	// print_r(json_encode($mainArray));die();
+	
 	// echo "<pre>";
-	//    print_r($mainArray);
-	//    echo "</pre>";
-	// exit;
+	// print_r($mainArray);
+	// echo "</pre>";
+	// die();
 
 	//<!-- ------------- function & function responce code Start Here ---- -->
 	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
@@ -2529,11 +2467,6 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCINPROC . '(' . $_POST['it__DocEntry'] . ')';
 		$responce_encode = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($mainArray, $Final_API);
 		$responce = json_decode($responce_encode);
-		// echo "<pre>";
-		//    print_r($responce);
-		//    echo "</pre>";
-		//    exit;
-		// die();
 		if ($responce == '') {
 			$data['status'] = 'True';
 			$data['DocEntry'] = $responce->DocEntry;
@@ -2557,12 +2490,26 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 	exit(0);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ===========================================================================================================
 
 if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_popup_in_process')  // API Ser No 40 somthing wrong
 {
 	$API = $INPROCESSQCPOSTDOC . '&DocEntry=' . $_POST['DocEntry'] . '&BatchNo=' . $_POST['BatchNo'] . '&ItemCode=' . $_POST['ItemCode'] . '&LineNum=' . $_POST['LineNum'];
-	
+
 	// .'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum']
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
@@ -2889,9 +2836,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_p
 
 if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_Sample_Intimation_FG_popup_in_process') {
 	// <!-- ------- Replace blank space to %20 start here -------- -->
-		$API = $FGOPENTRANSSAMINTIMATION . '&DocEntry=' . $_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
+	$API = $FGOPENTRANSSAMINTIMATION . '&DocEntry=' . $_POST['DocEntry'] . '&BatchNo=' . $_POST['BatchNo'] . '&ItemCode=' . $_POST['ItemCode'] . '&LineNum=' . $_POST['LineNum'];
 
-		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
@@ -2942,8 +2889,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 
 	// print_r($FinalAPI);
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-	
-	 //print_r($FinalAPI);die();
+
+	//print_r($FinalAPI);die();
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	$FinalResponce['SampleCollDetails'] = $response;
@@ -2971,292 +2918,290 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 
 
 
-	
+
 
 	if (!empty($general_data)) {
 		for ($i = 0; $i < count($general_data); $i++) {
 			$SrNo = $i;
 			$index = $i + 1;
 
-			$FinalResponce['general_data'].='<tr>
-			<td class="desabled">'.$index.'</td>
+			$FinalResponce['general_data'] .= '<tr>
+			<td class="desabled">' . $index . '</td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="parameter_code'.$SrNo.'" name="parameter_code[]" value="'.$general_data[$i]->PCode.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="PName'.$SrNo.'" name="PName[]" value="'.$general_data[$i]->PName.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard'.$SrNo.'" name="Standard[]" value="'.$general_data[$i]->Standard.'" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
+			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
 			
-			<td><input type="text" id="ResultOut'.$SrNo.'" name="ResultOut[]" value="'.$general_data[$i]->GDRemarks.'" class="form-control" style="width:200px;"></td>';
-								
-		if($general_data[$i]->PDType=='Range'){
-			$FinalResponce['general_data'].='<td>
-				<input type="text" id="ComparisonResult'.$SrNo.'" name="ComparisonResult[]" value="'.$general_data[$i]->LowMin1.'" class="form-control" style="width:100px;" onfocusout="CalculateResultOut('.$SrNo.')">
-			</td>';
-		}else{
-			$FinalResponce['general_data'].='<td class="desabled">
-				<input type="text" id="ComparisonResult'.$SrNo.'" name="ComparisonResult[]" value="'.$general_data[$i]->LowMin1.'" class="form-control textbox_bg" style="width:100px;">
-			</td>';
-		}
-		
-		
-		$FinalResponce['general_data'].='
-			<td id="ResultOutputByQCDeptTd'.$SrNo.'">
-				<input type="hidden" id="ResultOutputByQCDept_Old'.$SrNo.'" name="ResultOutputByQCDept_Old[]" value="'.$general_data[$i]->ROutput.'">
+			<td><input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="' . $general_data[$i]->GDRemarks . '" class="form-control" style="width:200px;"></td>';
 
-				<select id="ResultOutputByQCDept'.$SrNo.'" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept('.$SrNo.')"></select>
+			if ($general_data[$i]->PDType == 'Range') {
+				$FinalResponce['general_data'] .= '<td>
+				<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->LowMin1 . '" class="form-control" style="width:100px;" onfocusout="CalculateResultOut(' . $SrNo . ')">
+			</td>';
+			} else {
+				$FinalResponce['general_data'] .= '<td class="desabled">
+				<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->LowMin1 . '" class="form-control textbox_bg" style="width:100px;">
+			</td>';
+			}
+
+
+			$FinalResponce['general_data'] .= '
+			<td id="ResultOutputByQCDeptTd' . $SrNo . '">
+				<input type="hidden" id="ResultOutputByQCDept_Old' . $SrNo . '" name="ResultOutputByQCDept_Old[]" value="' . $general_data[$i]->ROutput . '">
+
+				<select id="ResultOutputByQCDept' . $SrNo . '" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept(' . $SrNo . ')"></select>
 			</td>
 
 			<td class="desabled">
-				<input type="text" id="PDType'.$SrNo.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+				<input type="text" id="PDType' . $SrNo . '" name="PDType[]" value="' . $general_data[$i]->PDType . '" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
 			</td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="logical'.$SrNo.'" name="logical[]" value="'.$general_data[$i]->Logical.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="logical' . $SrNo . '" name="logical[]" value="' . $general_data[$i]->Logical . '" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMin'.$SrNo.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMin' . $SrNo . '" name="LowMin[]" value="' . $general_data[$i]->LowMin . '" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMax'.$SrNo.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMax' . $SrNo . '" name="UppMax[]" value="' . $general_data[$i]->UppMax . '" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Min'.$SrNo.'" name="Min[]" value="'.$general_data[$i]->Min.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Min' . $SrNo . '" name="Min[]" value="' . $general_data[$i]->Min . '" readonly></td>
 			
-			<td id="QC_StatusByAnalystTd'.$SrNo.'">
-				<input type="hidden" id="qC_status_by_analyst_Old'.$SrNo.'" name="qC_status_by_analyst_Old[]" value="'.$general_data[$i]->GDQCStatus.'">
+			<td id="QC_StatusByAnalystTd' . $SrNo . '">
+				<input type="hidden" id="qC_status_by_analyst_Old' . $SrNo . '" name="qC_status_by_analyst_Old[]" value="' . $general_data[$i]->GDQCStatus . '">
 
-				<select id="qC_status_by_analyst'.$SrNo.'" name="qC_status_by_analyst[]" class="form-select qc_statusbyab'.$SrNo.'" onchange="SelectedQCStatus('.$SrNo.')">
+				<select id="qC_status_by_analyst' . $SrNo . '" name="qC_status_by_analyst[]" class="form-select qc_statusbyab' . $SrNo . '" onchange="SelectedQCStatus(' . $SrNo . ')">
 				</select>
 			</td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="TMethod'.$SrNo.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="TMethod' . $SrNo . '" name="TMethod[]" value="' . $general_data[$i]->TMethod . '" readonly></td>
 			
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="MType'.$SrNo.'" name="MType[]" value="'.$general_data[$i]->MType.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="MType' . $SrNo . '" name="MType[]" value="' . $general_data[$i]->MType . '" readonly></td>
 			<td class="desabled">
-				<input type="text" id="PharmacopeiasStandard'.$i.'" name="PharmacopeiasStandard[]" value="'.$general_data[$i]->PharmacopeiasStandard.'"" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+				<input type="text" id="PharmacopeiasStandard' . $i . '" name="PharmacopeiasStandard[]" value="' . $general_data[$i]->PharmacopeiasStandard . '"" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
 			</td>
 
-			<td class="desabled"><input type="text" id="UOM'.$SrNo.'" name="UOM[]" class="form-control textbox_bg" value="'.$general_data[$i]->GDUOM.'" readonly></td>
+			<td class="desabled"><input type="text" id="UOM' . $SrNo . '" name="UOM[]" class="form-control textbox_bg" value="' . $general_data[$i]->GDUOM . '" readonly></td>
 
-			<td class="desabled"><input type="text" id="Retest'.$SrNo.'" name="Retest[]" class="form-control textbox_bg" value="'.$general_data[$i]->Retest.'" readonly></td>
+			<td class="desabled"><input type="text" id="Retest' . $SrNo . '" name="Retest[]" class="form-control textbox_bg" value="' . $general_data[$i]->Retest . '" readonly></td>
 			
-			<td class="desabled"><input type="text" id="ExSample'.$SrNo.'" name="ExSample[]" class="form-control textbox_bg" value="'.$general_data[$i]->ExSample.'" readonly></td>
+			<td class="desabled"><input type="text" id="ExSample' . $SrNo . '" name="ExSample[]" class="form-control textbox_bg" value="' . $general_data[$i]->ExSample . '" readonly></td>
 
 			<td>
-				<input type="hidden" id="AnalysisBy_Old'.$SrNo.'" name="AnalysisBy_Old[]" value="'.$general_data[$i]->AnyBy.'">
+				<input type="hidden" id="AnalysisBy_Old' . $SrNo . '" name="AnalysisBy_Old[]" value="' . $general_data[$i]->AnyBy . '">
 
-				<select id="AnalysisBy'.$SrNo.'" name="AnalysisBy[]" class="form-select" style="width: 140px;"></select>
+				<select id="AnalysisBy' . $SrNo . '" name="AnalysisBy[]" class="form-select" style="width: 140px;"></select>
 			</td>
 
-			<td><input  type="text" id="analyst_remark'.$SrNo.'" name="analyst_remark[]" class="form-control" value="'.$general_data[$i]->ARRemark.'"></td>
+			<td><input  type="text" id="analyst_remark' . $SrNo . '" name="analyst_remark[]" class="form-control" value="' . $general_data[$i]->ARRemark . '"></td>
 		
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMax'.$SrNo.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMax' . $SrNo . '" name="LowMax[]" value="' . $general_data[$i]->LowMax . '" readonly></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Release'.$SrNo.'" name="Release[]" value="'.$general_data[$i]->Release.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Release' . $SrNo . '" name="Release[]" value="' . $general_data[$i]->Release . '" readonly></td>
 			
-			<td><input  type="text" class="form-control" id="descriptive_details'.$SrNo.'" name="descriptive_details[]" value="'.$general_data[$i]->DesDetils.'"></td>
+			<td><input  type="text" class="form-control" id="descriptive_details' . $SrNo . '" name="descriptive_details[]" value="' . $general_data[$i]->DesDetils . '"></td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMin'.$SrNo.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMin' . $SrNo . '" name="UppMin[]" value="' . $general_data[$i]->UppMin . '" readonly></td>
 			
-			<td><input  type="number" id="lower_min_result'.$SrNo.'" name="lower_min_result[]" class="form-control" value="'.$general_data[$i]->LowMax1.'"></td>
+			<td><input  type="number" id="lower_min_result' . $SrNo . '" name="lower_min_result[]" class="form-control" value="' . $general_data[$i]->LowMax1 . '"></td>
 			
-			<td><input  type="number" id="UppMinRes'.$SrNo.'" name="UppMinRes[]" class="form-control"></td>
+			<td><input  type="number" id="UppMinRes' . $SrNo . '" name="UppMinRes[]" class="form-control"></td>
 			
-			<td><input  type="number" id="upper_max_result'.$SrNo.'" name="upper_max_result[]" class="form-control" value="'.$general_data[$i]->UppMax1.'"></td>
+			<td><input  type="number" id="upper_max_result' . $SrNo . '" name="upper_max_result[]" class="form-control" value="' . $general_data[$i]->UppMax1 . '"></td>
 
 			<td>
-				<input type="number" id="MeanRes'.$SrNo.'" name="MeanRes[]" class="form-control">
+				<input type="number" id="MeanRes' . $SrNo . '" name="MeanRes[]" class="form-control">
 			</td>
 
-			<td><input type="text" id="user_text1_'.$SrNo.'" name="user_text1_[]" class="form-control" value="'.$general_data[$i]->UText1.'"></td>
+			<td><input type="text" id="user_text1_' . $SrNo . '" name="user_text1_[]" class="form-control" value="' . $general_data[$i]->UText1 . '"></td>
 
-			<td><input type="text" id="user_text2_'.$SrNo.'" name="user_text2_[]" class="form-control" value="'.$general_data[$i]->UText2.'"></td>
+			<td><input type="text" id="user_text2_' . $SrNo . '" name="user_text2_[]" class="form-control" value="' . $general_data[$i]->UText2 . '"></td>
 
-			<td><input type="text" id="user_text3_'.$SrNo.'" name="user_text3_[]" class="form-control" value="'.$general_data[$i]->UText3.'"></td>
+			<td><input type="text" id="user_text3_' . $SrNo . '" name="user_text3_[]" class="form-control" value="' . $general_data[$i]->UText3 . '"></td>
 
-			<td><input type="text" id="user_text4_'.$SrNo.'" name="user_text4_[]" class="form-control" value="'.$general_data[$i]->UText4.'"></td>
+			<td><input type="text" id="user_text4_' . $SrNo . '" name="user_text4_[]" class="form-control" value="' . $general_data[$i]->UText4 . '"></td>
 
-			<td ><input type="text" id="user_text5_'.$SrNo.'" name="user_text5_[]" class="form-control" value="'.$general_data[$i]->UText5.'"></td>
+			<td ><input type="text" id="user_text5_' . $SrNo . '" name="user_text5_[]" class="form-control" value="' . $general_data[$i]->UText5 . '"></td>
 			
 			<td class="desabled">
-				<input type="text" id="QC_StatusResult'.$SrNo.'" name="QC_StatusResult[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+				<input type="text" id="QC_StatusResult' . $SrNo . '" name="QC_StatusResult[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
 			</td>
 
-			<td class="desabled"><input type="text" id="GDStab'.$SrNo.'" name="GDStab[]" class="form-control textbox_bg" value="'.$general_data[$i]->GDStab.'" readonly></td>
+			<td class="desabled"><input type="text" id="GDStab' . $SrNo . '" name="GDStab[]" class="form-control textbox_bg" value="' . $general_data[$i]->GDStab . '" readonly></td>
 			
-			<td class="desabled"><input type="text" id="Appassay'.$SrNo.'" name="Appassay[]" class="form-control textbox_bg" value="'.$general_data[$i]->Appassay.'" readonly></td>
+			<td class="desabled"><input type="text" id="Appassay' . $SrNo . '" name="Appassay[]" class="form-control textbox_bg" value="' . $general_data[$i]->Appassay . '" readonly></td>
 
-			<td class="desabled"><input type="text" id="AppLOD'.$SrNo.'" name="AppLOD[]" class="form-control textbox_bg" value="'.$general_data[$i]->AppLOD.'" readonly></td>
+			<td class="desabled"><input type="text" id="AppLOD' . $SrNo . '" name="AppLOD[]" class="form-control textbox_bg" value="' . $general_data[$i]->AppLOD . '" readonly></td>
 		
-			<td><input type="text" id="InstrumentCode'.$SrNo.'" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" value="'.$general_data[$i]->Inscode.'" onclick="OpenInstrmentModal('.$SrNo.')"></td>
+			<td><input type="text" id="InstrumentCode' . $SrNo . '" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" value="' . $general_data[$i]->Inscode . '" onclick="OpenInstrmentModal(' . $SrNo . ')"></td>
 
-			<td class="desabled"><input type="text" id="InstrumentName'.$SrNo.'" name="InstrumentName[]" class="form-control textbox_bg" value="'.$general_data[$i]->InsName.'" readonly style="border: 1px solid #efefef !important;"></td>
+			<td class="desabled"><input type="text" id="InstrumentName' . $SrNo . '" name="InstrumentName[]" class="form-control textbox_bg" value="' . $general_data[$i]->InsName . '" readonly style="border: 1px solid #efefef !important;"></td>
 
-			<td><input  type="date" id="start_date'.$SrNo.'" name="start_date[]" class="form-control" value="'.(!empty($general_data[$i]->SDate)? date("Y-m-d", strtotime($general_data[$i]->SDate)) : '').'"></td>
+			<td><input  type="date" id="start_date' . $SrNo . '" name="start_date[]" class="form-control" value="' . (!empty($general_data[$i]->SDate) ? date("Y-m-d", strtotime($general_data[$i]->SDate)) : '') . '"></td>
 
-			<td><input  type="time" id="start_time'.$SrNo.'" name="start_time[]" class="form-control" value="'.(!empty($general_data[$i]->STime)? date("H:i", strtotime($general_data[$i]->STime)) : '').'"></td>
+			<td><input  type="time" id="start_time' . $SrNo . '" name="start_time[]" class="form-control" value="' . (!empty($general_data[$i]->STime) ? date("H:i", strtotime($general_data[$i]->STime)) : '') . '"></td>
 
-			<td ><input type="date" id="end_date'.$SrNo.'" name="end_date[]" class="form-control" value="'.(!empty($general_data[$i]->EDate)? date("Y-m-d", strtotime($general_data[$i]->EDate)) : '').'"></td>
+			<td ><input type="date" id="end_date' . $SrNo . '" name="end_date[]" class="form-control" value="' . (!empty($general_data[$i]->EDate) ? date("Y-m-d", strtotime($general_data[$i]->EDate)) : '') . '"></td>
 
 
-			<td ><input type="time" id="end_time'.$SrNo.'" name="end_time[]" class="form-control" value="'.(!empty($general_data[$i]->ETime)? date("H:i", strtotime($general_data[$i]->ETime)) : '').'"></td>
+			<td ><input type="time" id="end_time' . $SrNo . '" name="end_time[]" class="form-control" value="' . (!empty($general_data[$i]->ETime) ? date("H:i", strtotime($general_data[$i]->ETime)) : '') . '"></td>
 		</tr>';
+		}
+	} else {
+		$FinalResponce['general_data'] .= '<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
 	}
-}else{
-	$FinalResponce['general_data'].='<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
-}
 
-$FinalResponce['count']=count($general_data);
+	$FinalResponce['count'] = count($general_data);
 
 
-// <!-- ----------- External Issue Start Here ---------------------------- -->
-if(!empty($qcStatus)){
-	for ($j=0; $j <count($qcStatus) ; $j++) {
-		if(!empty($qcStatus[$j]->QCStsStatus)){
-			$SrNo=$j+1;
+	// <!-- ----------- External Issue Start Here ---------------------------- -->
+	if (!empty($qcStatus)) {
+		for ($j = 0; $j < count($qcStatus); $j++) {
+			if (!empty($qcStatus[$j]->QCStsStatus)) {
+				$SrNo = $j + 1;
 
-			$FinalResponce['qcStatus'].='<tr id="add-more_'.$SrNo.'">';
-			if(!empty($qcStatus[$j]->ItNo)){
-				$FinalResponce['qcStatus'].='<td class="desabled">'.$SrNo.'</td>';
-			}else{
-				$FinalResponce['qcStatus'].='<td style="text-align: center;">
-					<input type="radio" id="list'.$SrNo.'" name="listRado[]" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;">
+				$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $SrNo . '">';
+				if (!empty($qcStatus[$j]->ItNo)) {
+					$FinalResponce['qcStatus'] .= '<td class="desabled">' . $SrNo . '</td>';
+				} else {
+					$FinalResponce['qcStatus'] .= '<td style="text-align: center;">
+					<input type="radio" id="list' . $SrNo . '" name="listRado[]" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;">
 				</td>';
-			}
-			$FinalResponce['qcStatus'].='
+				}
+				$FinalResponce['qcStatus'] .= '
 
 				<td class="desabled">
-					<input type="hidden" id="QCS_LineId'.$SrNo.'" name="QCS_LineId[]" value="'.$qcStatus[$j]->LineId.'">
+					<input type="hidden" id="QCS_LineId' . $SrNo . '" name="QCS_LineId[]" value="' . $qcStatus[$j]->LineId . '">
 
-					<input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly>
+					<input class="form-control border_hide desabled" type="text" id="qc_Status' . $SrNo . '" name="qc_Status[]" value="' . $qcStatus[$j]->QCStsStatus . '" readonly>
 				</td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty' . $SrNo . '" name="qCStsQty[]"  value="' . $qcStatus[$j]->QCStsQty . '" readonly></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_'.$SrNo.'" name="qCReleaseDate[]" value="'.((!empty($qcStatus[$j]->QCStsRelDate))? date("d-m-Y", strtotime($qcStatus[$j]->QCStsRelDate)):"").'" class="form-control" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_' . $SrNo . '" name="qCReleaseDate[]" value="' . ((!empty($qcStatus[$j]->QCStsRelDate)) ? date("d-m-Y", strtotime($qcStatus[$j]->QCStsRelDate)) : "") . '" class="form-control" readonly></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_'.$SrNo.'" name="qCReleaseTime[]" value="'.((!empty($qcStatus[$j]->QCStsRelTime))? date("H:i", strtotime($qcStatus[$j]->QCStsRelTime)):"").'" class="form-control" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_' . $SrNo . '" name="qCReleaseTime[]" value="' . ((!empty($qcStatus[$j]->QCStsRelTime)) ? date("H:i", strtotime($qcStatus[$j]->QCStsRelTime)) : "") . '" class="form-control" readonly></td>
 
-				<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
+				<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo' . $SrNo . '" name="qCitNo[]"  value="' . $qcStatus[$j]->ItNo . '" readonly></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy' . $SrNo . '" name="doneBy[]"  value="' . $qcStatus[$j]->DBy . '" readonly></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_'.$SrNo.'" name="qCAttache1[]" value="'.$qcStatus[$j]->QCStsAttach1.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_' . $SrNo . '" name="qCAttache1[]" value="' . $qcStatus[$j]->QCStsAttach1 . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_'.$SrNo.'" name="qCAttache2[]" value="'.$qcStatus[$j]->QCStsAttach2.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_' . $SrNo . '" name="qCAttache2[]" value="' . $qcStatus[$j]->QCStsAttach2 . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_'.$SrNo.'" name="qCAttache3[]" value="'.$qcStatus[$j]->QCStsAttach3.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_' . $SrNo . '" name="qCAttache3[]" value="' . $qcStatus[$j]->QCStsAttach3 . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_'.$SrNo.'" name="qCDeviationDate[]" value="'.((!empty($qcStatus[$j]->DevDate))? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)):"").'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_' . $SrNo . '" name="qCDeviationDate[]" value="' . ((!empty($qcStatus[$j]->DevDate)) ? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)) : "") . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_'.$SrNo.'" name="qCDeviationNo[]" value="'.$qcStatus[$j]->DevNo.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_' . $SrNo . '" name="qCDeviationNo[]" value="' . $qcStatus[$j]->DevNo . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_'.$SrNo.'" name="qCDeviationResion[]" value="'.$qcStatus[$j]->DevRsn.'" class="form-control"></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_' . $SrNo . '" name="qCDeviationResion[]" value="' . $qcStatus[$j]->DevRsn . '" class="form-control"></td>
 
-				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1' . $SrNo . '" name="qCStsRemark1[]"  value="' . $qcStatus[$j]->QCStsRemark1 . '" readonly></td>
 
 			</tr>';
+			}
 		}
+		$QCS_un_id = (count($qcStatus) + 1);
+		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+		<td>' . $QCS_un_id . '</td>
+		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
+	} else {
+		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+		$QCS_un_id = (count($qcStatus) + 1);
+		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+		<td>' . $QCS_un_id . '</td>
+		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
 	}
-	$QCS_un_id=(count($qcStatus)+1);
-	$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
-		<td>'.$QCS_un_id.'</td>
-		<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
-
-		<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
-
-
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
-
-		<td>
-		<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
-
-
-		<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
-		
-	</tr>';
-}else{
-	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
-	$QCS_un_id=(count($qcStatus)+1);
-	$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
-		<td>'.$QCS_un_id.'</td>
-		<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>
-
-		<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
-
-
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
-
-		<td>
-		<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
-
-
-		<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache3_'.$QCS_un_id.'" name="qCAttache3[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_'.$QCS_un_id.'" name="qCDeviationDate[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCDeviationNo_'.$QCS_un_id.'" name="qCDeviationNo[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
-
-		<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
-		
-	</tr>';
-	
-}
 
 
 
 
 
 
-if(!empty($qcAttach)){
-	for ($j=0; $j <count($qcAttach) ; $j++) { 
-		$SrNo=$j+1;
-		// <tr>
-	$FinalResponce['qcAttach'].='<tr>
-			<td class="desabled">'.$SrNo.'</td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath'.$SrNo.'" name="targetPath[]" class="form-control" value="'.$qcAttach[$j]->TargetPath.'" readonly>
+	if (!empty($qcAttach)) {
+		for ($j = 0; $j < count($qcAttach); $j++) {
+			$SrNo = $j + 1;
+			// <tr>
+			$FinalResponce['qcAttach'] .= '<tr>
+			<td class="desabled">' . $SrNo . '</td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath' . $SrNo . '" name="targetPath[]" class="form-control" value="' . $qcAttach[$j]->TargetPath . '" readonly>
 			</td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="fileName'.$SrNo.'" name="fileName[]"  class="form-control" value="'.$qcAttach[$j]->FileName.'" readonly></td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate'.$SrNo.'" name="attachDate[]"  class="form-control" value="'.$qcAttach[$j]->AttachDate.'" readonly></td>
-			<td><input class="border_hide" type="text" id="freeText'.$SrNo.'" name="freeText[]"  class="form-control" value="'.$qcAttach[$j]->FreeText.'"></td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="fileName' . $SrNo . '" name="fileName[]"  class="form-control" value="' . $qcAttach[$j]->FileName . '" readonly></td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate' . $SrNo . '" name="attachDate[]"  class="form-control" value="' . $qcAttach[$j]->AttachDate . '" readonly></td>
+			<td><input class="border_hide" type="text" id="freeText' . $SrNo . '" name="freeText[]"  class="form-control" value="' . $qcAttach[$j]->FreeText . '"></td>
 		</tr>';
-	}
-}
-else{
-	$FinalResponce['qcAttach'].='<tr>
+		}
+	} else {
+		$FinalResponce['qcAttach'] .= '<tr>
 				<td class="desabled">1</td>
 				<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath1" name="targetPath[]" class="form-control" value="" readonly></td>
 				<td class="desabled"><input class="border_hide desabled" type="text" id="fileName1" name="fileName[]"  class="form-control" value="" readonly></td>
 				<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate1" name="attachDate[]"  class="form-control" value="" readonly></td>
 				<td><input class="border_hide" type="text" id="freeText1" name="freeText[]"  class="form-control" value=""></td>
 			</tr>';
-// $FinalResponce['qcAttach'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
-}
+		// $FinalResponce['qcAttach'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+	}
 
 
 
@@ -3346,16 +3291,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'ResultOutputDropdown_ajax') 
 
 if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_in_process_pupup_ajax') {
 	// $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-	$API = $INPROCESSQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'].'&Status='.$_POST['QC_Status'];
+	$API = $INPROCESSQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'] . '&Status=' . $_POST['QC_Status'];
 	// $API=$RETESTQCPOSTDOC.'?DocEntry='.$_POST['DocEntry'];
 	// echo $API;
 	// exit;
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
-// 	print_r($FinalAPI);
-//    die();
-	// <!-- ------- Replace blank space to %20 End here -------- -->
+	// 	print_r($FinalAPI);
+	//    die();
+	// 	// <!-- ------- Replace blank space to %20 End here -------- -->
 	$response = $objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
 	//    echo "<pre>";
 	// print_r($response);
@@ -5042,7 +4987,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'getInventoryFinishedGoodsQcc
 if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata = array();
 	$data = array(); // this array handel validation responce
-	
+
 	$tdata['Object'] = 'SCS_SINTIFG';
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['finished_good_Series'])));
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['finished_good_LineNum'])));
@@ -5062,24 +5007,24 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_TCont'] = trim(addslashes(strip_tags($_POST['finished_good_ToContainer'])));
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['finished_good_Branch'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['finished_good_Location'])));
-	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['finished_good_ChallanNo'])));	
+	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['finished_good_ChallanNo'])));
 	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['finished_good_GateEntryNo'])));
 	$tdata['U_PC_GEDte'] = trim(addslashes(strip_tags($_POST['finished_good_GateEntryDate'])));
 	$tdata['U_PC_CNos'] = trim(addslashes(strip_tags($_POST['finished_good_ContainersNo'])));
 	$tdata['U_PC_Cont'] = trim(addslashes(strip_tags($_POST['finished_good_Container'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['finished_good_BatchNo'])));
 	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['finished_good_BatchQty'])));
-	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));	
+	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));
 
-	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate']))? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
+	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
 
-	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate']))? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
+	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
 
-	$tdata['U_PC_RDt'] = (!empty($_POST['finished_good_RetestDate']))? date("Y-m-d", strtotime($_POST['finished_good_RetestDate'])) : null;
+	$tdata['U_PC_RDt'] = (!empty($_POST['finished_good_RetestDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_RetestDate'])) : null;
 
-	$tdata['U_PC_TRDte'] = (!empty($_POST['finished_good_TRDate']))? date("Y-m-d", strtotime($_POST['finished_good_TRDate'])) : null;
+	$tdata['U_PC_TRDte'] = (!empty($_POST['finished_good_TRDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_TRDate'])) : null;
 
-	$tdata['U_PC_ChDate'] = (!empty($_POST['finished_good_ChallanDate']))? date("Y-m-d", strtotime($_POST['finished_good_ChallanDate'])) : null;
+	$tdata['U_PC_ChDate'] = (!empty($_POST['finished_good_ChallanDate'])) ? date("Y-m-d", strtotime($_POST['finished_good_ChallanDate'])) : null;
 
 	$tdata['U_PC_UTTrans'] = null;
 	$tdata['U_PC_BPLId'] = null;
@@ -5088,81 +5033,81 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_RcQty'] = null;
 
 	// <!-- ---------------------- sample Intimation popup validation start Here -------------------- -->
-		if ($_POST['finished_good_SampleType'] == '') {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = "Sample Type Mandatory.";
-			echo json_encode($data);
-			exit(0);
-		}
+	if ($_POST['finished_good_SampleType'] == '') {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = "Sample Type Mandatory.";
+		echo json_encode($data);
+		exit(0);
+	}
 
-		if ($_POST['finished_good_TRBy'] == '') {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = "TR by mandatory.";
-			echo json_encode($data);
-			exit(0);
-		}
+	if ($_POST['finished_good_TRBy'] == '') {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = "TR by mandatory.";
+		echo json_encode($data);
+		exit(0);
+	}
 
-		if ($_POST['finished_good_TRDate'] == '') {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = "TR Date mandatory.";
-			echo json_encode($data);
-			exit(0);
-		}
+	if ($_POST['finished_good_TRDate'] == '') {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = "TR Date mandatory.";
+		echo json_encode($data);
+		exit(0);
+	}
 	// <!-- ---------------------- sample Intimation popup validation end Here ---------------------- -->
 
-    //<!-- ------------- function & function responce code Start Here ---- -->
-    $res = $obj->SAP_Login();  // SAP Service Layer Login Here
+	//<!-- ------------- function & function responce code Start Here ---- -->
+	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
-    if (!empty($res)) {
+	if (!empty($res)) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINTIFG_API;
 
-        $responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
-        $responce = json_decode($responce_encode);
+		$responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
+		$responce = json_decode($responce_encode);
 
-        //  <!-- ------- service layer function responce manage Start Here ------------ -->
-        $data = array();
+		//  <!-- ------- service layer function responce manage Start Here ------------ -->
+		$data = array();
 
-        if (!empty($responce->DocNum)) {
-            $InventoryGenEntries = array();
-            $InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
-            $InventoryGenEntries['GRDocEntry'] = trim($_POST['finished_good_RFPODocEntry']);
-            $InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
-            $InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+		if (!empty($responce->DocNum)) {
+			$InventoryGenEntries = array();
+			$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+			$InventoryGenEntries['GRDocEntry'] = trim($_POST['finished_good_RFPODocEntry']);
+			$InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
+			$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
 
-            $Final_API = $GRSAMPLEINTIFG_APi;
-            $responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
-            $responce1 = json_decode($responce_encode1);
+			$Final_API = $GRSAMPLEINTIFG_APi;
+			$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+			$responce1 = json_decode($responce_encode1);
 
-            if (empty($responce1)) {
-                $data['status'] = 'True';
-                $data['DocEntry'] = $responce->DocEntry;
-                $data['message'] = "Open Transaction for sample intimation finished Good Successfully Added.";
-                echo json_encode($data);
-            } else {
-                if (array_key_exists('error', (array)$responce1)) {
-                    $data['status'] = 'False';
-                    $data['DocEntry'] = '22222222222222';
-                    $data['message'] = $responce1->error->message->value;
-                    echo json_encode($data);
-                }
-            }
-        } else {
-            if (array_key_exists('error', (array)$responce)) {
-                $data['status'] = 'False';
-                $data['DocEntry'] = '1111111111111';
-                $data['message'] = $responce->error->message->value;
-                echo json_encode($data);
-            }
-        }
-        //  <!-- ------- service layer function responce manage End Here -------------- --> 
-    }
+			if (empty($responce1)) {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $responce->DocEntry;
+				$data['message'] = "Open Transaction for sample intimation finished Good Successfully Added.";
+				echo json_encode($data);
+			} else {
+				if (array_key_exists('error', (array)$responce1)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '22222222222222';
+					$data['message'] = $responce1->error->message->value;
+					echo json_encode($data);
+				}
+			}
+		} else {
+			if (array_key_exists('error', (array)$responce)) {
+				$data['status'] = 'False';
+				$data['DocEntry'] = '1111111111111';
+				$data['message'] = $responce->error->message->value;
+				echo json_encode($data);
+			}
+		}
+		//  <!-- ------- service layer function responce manage End Here -------------- --> 
+	}
 
-    $res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here   
-    exit(0);
-    //<!-- ------------- function & function responce code end Here ---- -->
+	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here   
+	exit(0);
+	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
 if (isset($_POST['SampleCollectionInProcess_Btn'])) {
@@ -5237,30 +5182,65 @@ if (isset($_POST['SampleCollectionInProcess_Btn'])) {
 		$data = array();
 
 		if ($responce->DocNum != "") {
-			// Inventory Gen Entries
-			$InventoryGenEntries = array();
-			$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
-			$InventoryGenEntries['GRDocEntry'] = trim($_POST['OTSCP_GRPODocEntry']);
-			$InventoryGenEntries['ItemCode'] = trim($_POST['IP_SC_ItemCode']);
-			$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
 
-			$Final_API = $GRSAMPLECOLINWARD_APi;
-			$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
-			$responce1 = json_decode($responce_encode1);
 
-			if (empty($responce1)) {
-				$data['status'] = 'True';
-				$data['DocEntry'] = $responce->DocEntry;
-				$data['message'] = "Open Transaction For Sample Collection Successfully Added.";
+			// Update ARNo document number start here ------------------------------ -->
+			// Sanitize input data
+			$ItemCode = trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
+			$Location = trim(addslashes(strip_tags($_POST['IP_SC_Location'])));
+			$DocDate = !empty($_POST['OTSCP_DocDate']) ? date("Ymd", strtotime($_POST['IP_SC_DocDate'])) : null;
+
+			// Construct the API URL
+			$FinalAPI_ARDocNum = $INWARDSAMPCOLARNOUPDATE_APi . '?ItemCode=' . $ItemCode . '&Location=' . $Location . '&DocDate=' . $DocDate;
+
+			// Fetch data from the API
+			$response_encode_Series = $obj->GET_QuerryBasedMasterFunction($FinalAPI_ARDocNum);
+			$Series_decode = json_decode($response_encode_Series);
+
+			// Prepare data for SAP Service Layer
+			$ARNo = array();
+			$ARNo['Series'] = $Series_decode[0]->Series;
+
+			// SAP Service Layer interaction
+			$res112 = $obj->SAP_Login(); // SAP Service Layer Login
+			if (!empty($res112)) {
+				$Final_API_12 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_ARSE_APi;
+				$response_encode12 = $obj->POST_ServiceLayerMasterFunction($ARNo, $Final_API_12);
+			}
+			$res122 = $obj->SAP_Logout(); // SAP Service Layer Logout
+
+			if (array_key_exists('error', (array)$response_encode12)) {
+				$data['status'] = 'False';
+				$data['DocEntry'] = '';
+				$data['message'] = $response_encode12->error->message->value;
 				echo json_encode($data);
 			} else {
-				if (array_key_exists('error', (array)$responce1)) {
-					$data['status'] = 'False';
-					$data['DocEntry'] = '';
-					$data['message'] = $responce1->error->message->value;
+				// Inventory Gen Entries
+				$InventoryGenEntries = array();
+				$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+				$InventoryGenEntries['GRDocEntry'] = trim($_POST['OTSCP_GRPODocEntry']);
+				$InventoryGenEntries['ItemCode'] = trim($_POST['IP_SC_ItemCode']);
+				$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+
+				$Final_API = $GRSAMPLECOLINWARD_APi;
+				$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+				$responce1 = json_decode($responce_encode1);
+
+				if (empty($responce1)) {
+					$data['status'] = 'True';
+					$data['DocEntry'] = $responce->DocEntry;
+					$data['message'] = "Open Transaction For Sample Collection Successfully Added.";
 					echo json_encode($data);
+				} else {
+					if (array_key_exists('error', (array)$responce1)) {
+						$data['status'] = 'False';
+						$data['DocEntry'] = '';
+						$data['message'] = $responce1->error->message->value;
+						echo json_encode($data);
+					}
 				}
 			}
+			// Update ARNo document number end here -------------------------------- -->
 		} else {
 			if (array_key_exists('error', (array)$responce)) {
 				$data['status'] = 'False';
@@ -5334,7 +5314,7 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['QC_CK_D_ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['QC_CK_D_ReceiptDocEntry'])));
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['QC_CK_D_MakeBy'])));
-	$tdata['U_PC_GRQty'] = 0.0;	
+	$tdata['U_PC_GRQty'] = 0.0;
 
 
 
@@ -5356,7 +5336,7 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	// $tdata['U_PC_NoCont']=trim(addslashes(strip_tags($_POST['noOfCont1'])));
 	// $tdata['U_PckSize']=trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
 
-	
+
 	$ganaralData = array();
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($i)));
@@ -5425,16 +5405,16 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
 		// <!-- ------ File upload code start here ----------------------------- -->
-			$uploadDir = '../include/uploads/';
+		$uploadDir = '../include/uploads/';
 
-			$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
-			$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
 
-			$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 
 		$tdata['SCS_QCINPROC2Collection'][] = $qcStatus; // row data append on this array
@@ -5443,22 +5423,22 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 
 	$qcAttech = array();
 	for ($k = 0; $k < count($_POST['targetPath']); $k++) {
-		if(!empty($_POST['fileName'][$k])){
+		if (!empty($_POST['fileName'][$k])) {
 			$qcAttech['LineId'] = trim(addslashes(strip_tags($k)));
 			$qcAttech['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
-	
+
 			$qcAttech['U_PC_TrgPt'] = trim(addslashes(strip_tags($_POST['targetPath'][$k])));
 			$qcAttech['U_PC_FName'] = trim(addslashes(strip_tags($_POST['fileName'][$k])));
 			$qcAttech['U_PC_AtcDt'] = trim(addslashes(strip_tags($_POST['attachDate'][$k])));
 			$qcAttech['U_PC_FText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
-	
+
 			$tdata['SCS_QCINPROC3Collection'][] = $qcAttech; // row data append on this array
 
-		}else{
+		} else {
 			// $tdata['SCS_QCINPROC3Collection'][] = array();
 		}
 	}
-	
+
 	$mainArray = $tdata; // all child array append in main array define here
 
 	// echo '<pre>';
@@ -5466,7 +5446,8 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	// die();
 
 	if ($_POST['QC_CK_D_SampleType'] == "") {
-		$data['status'] = 'False';$data['DocEntry'] = '';
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
 		$data['message'] = 'Sample Type is required.';
 		echo json_encode($data);
 		exit;
@@ -5474,72 +5455,75 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 
 
 	if ($_POST['QC_CK_D_PostingDate'] == "") {
-		$data['status'] = 'False';$data['DocEntry'] = '';
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
 		$data['message'] = 'Posting Date is required.';
 		echo json_encode($data);
 		exit;
 	}
 
 	if ($_POST['QC_CK_D_AnalysisDate'] == "") {
-		$data['status'] = 'False';$data['DocEntry'] = '';
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
 		$data['message'] = 'Analysis Date is required.';
 		echo json_encode($data);
 		exit;
 	}
 
 	if ($_POST['QC_CK_D_ValidUpTo'] == "") {
-		$data['status'] = 'False';$data['DocEntry'] = '';
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
 		$data['message'] = 'ValidUpTo Date is required.';
 		echo json_encode($data);
 		exit;
 	}
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
-		$res = $obj->SAP_Login();
-		if (!empty($res)) {
-			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCINPROC;
+	$res = $obj->SAP_Login();
+	if (!empty($res)) {
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCINPROC;
 
-			$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
-			$responce = json_decode($responce_encode);
+		$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
+		$responce = json_decode($responce_encode);
 
-			//  <!-- ------- service layer function responce manage Start Here ------------ -->
-			if (array_key_exists('error', (array)$responce)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = '';
-				$data['message'] = $responce->error->message->value;
+		//  <!-- ------- service layer function responce manage Start Here ------------ -->
+		if (array_key_exists('error', (array)$responce)) {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = $responce->error->message->value;
+			echo json_encode($data);
+		} else {
+			// GRN Process Start
+
+			$InventoryGenEntries = array();
+			$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+			$InventoryGenEntries['GRDocEntry'] = trim($_POST['QC_CK_D_ReceiptDocEntry']);
+			$InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
+			$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+
+			$Final_API = $GRQCPOSTINPROCESS_APi;
+			$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+			$responce1 = json_decode($responce_encode1);
+
+			if (empty($responce1)) {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $responce->DocEntry;
+				$data['message'] = "QC Post Document Added Successfully.";
 				echo json_encode($data);
 			} else {
-				// GRN Process Start
-
-				$InventoryGenEntries=array();
-				$InventoryGenEntries['SIDocEntry']=trim($responce->DocEntry);
-				$InventoryGenEntries['GRDocEntry']=trim($_POST['QC_CK_D_ReceiptDocEntry']);
-				$InventoryGenEntries['ItemCode']=trim($responce->U_PC_ICode);
-				$InventoryGenEntries['LineNum']=trim($responce->U_PC_BLin);
-
-				$Final_API=$GRQCPOSTINPROCESS_APi;
-				$responce_encode1=$obj->POST_QuerryBasedMasterFunction($InventoryGenEntries,$Final_API);
-				$responce1=json_decode($responce_encode1);
-
-				if(empty($responce1)){
-					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="QC Post Document Added Successfully.";
+				if (array_key_exists('error', (array)$responce1)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '';
+					$data['message'] = $responce1->error->message->value;
 					echo json_encode($data);
-				}else{
-					if(array_key_exists('error', (array)$responce1)){
-						$data['status']='False';
-						$data['DocEntry']='';
-						$data['message']=$responce1->error->message->value;
-						echo json_encode($data);
-					}
 				}
 			}
-			//  <!-- ------- service layer function responce manage End Here -------------- -->	
 		}
+		//  <!-- ------- service layer function responce manage End Here -------------- -->	
+	}
 
-		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-		exit(0);
+	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	exit(0);
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
 
@@ -5807,29 +5791,29 @@ if (isset($_POST['SubIT_Btn_In_process_QC_check_sample_issue'])) {
 
 	$mainArray = $tdata;
 	// --------------------- Item and batch row data preparing start here -------------------------------- -->
-		$item['LineNum'] = trim(addslashes(strip_tags('0')));
-		$item['ItemCode'] = trim(addslashes(strip_tags($_POST['qc_check_itemCode'])));
-		$item['Quantity'] = trim(addslashes(strip_tags($_POST['qc_check_Quality'])));
-		$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['qc_check_ToWhs'])));
-		$item['FromWarehouseCode'] = trim(addslashes(strip_tags($_POST['qc_check_FromWhs'])));
-		// <!-- Item Batch row data prepare start here ----------- -->
-			for ($i = 0; $i < count($_POST['usercheckList']); $i++) {
-				if ($_POST['usercheckList'][$i] == '1') {
-					$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
-					$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
-					$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
-					$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
-					$item['BatchNumbers'][] = $batch;
-				}
-			}
-		// <!-- Item Batch row data prepare end here ------------- -->
-		$mainArray['StockTransferLines'][] = $item;
+	$item['LineNum'] = trim(addslashes(strip_tags('0')));
+	$item['ItemCode'] = trim(addslashes(strip_tags($_POST['qc_check_itemCode'])));
+	$item['Quantity'] = trim(addslashes(strip_tags($_POST['qc_check_Quality'])));
+	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['qc_check_ToWhs'])));
+	$item['FromWarehouseCode'] = trim(addslashes(strip_tags($_POST['qc_check_FromWhs'])));
+	// <!-- Item Batch row data prepare start here ----------- -->
+	for ($i = 0; $i < count($_POST['usercheckList']); $i++) {
+		if ($_POST['usercheckList'][$i] == '1') {
+			$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
+			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
+			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
+			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode'][$i])));
+			$item['BatchNumbers'][] = $batch;
+		}
+	}
+	// <!-- Item Batch row data prepare end here ------------- -->
+	$mainArray['StockTransferLines'][] = $item;
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
-	
-// echo "<pre>";
-// print_r($mainArray);
-// echo "<pre>";
-// exit;
+
+	echo "<pre>";
+	print_r($mainArray);
+	echo "<pre>";
+	exit;
 	//<!-- ------------- function & function responce code Start Here ---- -->
 	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -5858,7 +5842,7 @@ if (isset($_POST['SubIT_Btn_In_process_QC_check_sample_issue'])) {
 			$UT_data['Object'] = 'SCS_QCINPROC';
 
 			// $itme=array();
-			$itme['LineId'] = 2;
+			$itme['LineId'] = trim(addslashes(strip_tags($_POST['qc_check_LineID'])));
 			$itme['Object'] = 'SCS_QCINPROC';
 			$itme['U_PC_ITNo'] = trim(addslashes(strip_tags($responce->DocEntry)));
 
@@ -5903,7 +5887,7 @@ if (isset($_POST['SubIT_Btn_In_process_QC_check_sample_issue'])) {
 
 
 if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
-	
+
 
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -5925,7 +5909,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 	$tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleIntimationNo'])));
 	$tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleCollectionNo'])));
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleQty'])));
-			$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['qc_Check_RecievedQty'])));
+	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['qc_Check_RecievedQty'])));
 	$tdata['U_PC_PckSize'] = trim(addslashes(strip_tags($_POST['qc_Check_PackSize'])));
 	$tdata['U_PC_SamType'] = trim(addslashes(strip_tags($_POST['qc_Check_Sample_Type'])));
 	$tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['qc_Check_Material_Type'])));
@@ -5961,7 +5945,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['qc_Check_ToContainer'])));
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['qc_Check_ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['qc_Check_ReceiptDocEntry'])));
-	$tdata['U_PC_GRQty'] = 0.0;	
+	$tdata['U_PC_GRQty'] = 0.0;
 
 
 
@@ -6031,7 +6015,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 		$qcStatus['U_PC_Stus'] = trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
 		$qcStatus['U_PC_Qty'] = trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
 		$qcStatus['U_PC_RelDt'] =  trim(addslashes(strip_tags($_POST['qCReleaseDate'][$j])));
-	   $qcStatus['U_PC_RelTm'] = trim(addslashes(strip_tags($_POST['qCReleaseTime'][$j])));
+		$qcStatus['U_PC_RelTm'] = trim(addslashes(strip_tags($_POST['qCReleaseTime'][$j])));
 		$qcStatus['U_PC_DBy'] = trim(addslashes(strip_tags($_POST['doneBy'][$j])));
 		$qcStatus['U_PC_Rmrk1'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
 		$qcStatus['U_PC_Atch1'] = (!empty($_FILES['qCAttache1']['name'][$j])) ? $_FILES['qCAttache1']['name'][$j] : null;
@@ -6042,16 +6026,16 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
 		// <!-- ------ File upload code start here ----------------------------- -->
-			$uploadDir = '../include/uploads/';
+		$uploadDir = '../include/uploads/';
 
-			$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
-			$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
 
-			$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 
 		$tdata['SCS_QCINPROC2Collection'][] = $qcStatus; // row data append on this array
@@ -6060,23 +6044,23 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 
 	$qcAttech = array();
 	for ($k = 0; $k < count($_POST['targetPath']); $k++) {
-		if(!empty($_POST['fileName'][$k])){
+		if (!empty($_POST['fileName'][$k])) {
 			$qcAttech['LineId'] = trim(addslashes(strip_tags($k)));
 			$qcAttech['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
-	
+
 			$qcAttech['U_PC_TrgPt'] = trim(addslashes(strip_tags($_POST['targetPath'][$k])));
 			$qcAttech['U_PC_FName'] = trim(addslashes(strip_tags($_POST['fileName'][$k])));
 			$qcAttech['U_PC_AtcDt'] = trim(addslashes(strip_tags($_POST['attachDate'][$k])));
 			$qcAttech['U_PC_FText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
-	
+
 			$tdata['SCS_QCINPROC3Collection'][] = $qcAttech; // row data append on this array
 
-		}else{
+		} else {
 			// $tdata['SCS_QCINPROC3Collection'][] = array();
 		}
 	}
-	
-	$mainArray = $tdata; 
+
+	$mainArray = $tdata;
 
 	// echo "<pre>";
 	// print_r($mainArray);
@@ -8041,87 +8025,87 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 if (isset($_POST['addQcPostDocumentSubmitQCCheckRouteStageBtn'])) {
 
 	//<!-- ------ valdiation start --------------------------------- --> 
-		// if ($_POST['routStage_Release'] == 'No') {
-		// 	if ($_POST['routStage_AssayPotencyReq'] == 'Yes') {
-		// 		// <!-- AssayPotency validation start --------------- -->
-		// 		$AssayPotency = trim(addslashes(strip_tags($_POST['routStage_AssayPotency'])));
+	// if ($_POST['routStage_Release'] == 'No') {
+	// 	if ($_POST['routStage_AssayPotencyReq'] == 'Yes') {
+	// 		// <!-- AssayPotency validation start --------------- -->
+	// 		$AssayPotency = trim(addslashes(strip_tags($_POST['routStage_AssayPotency'])));
 
-		// 		// Check if AssayPotency is empty
-		// 		if ($AssayPotency === '' || $AssayPotency === null) {
-		// 			$data['status'] = 'False';
-		// 			$data['DocEntry'] = '';
-		// 			$data['message'] = ' Please Enter value in AssayPotency % is empty';
-		// 			echo json_encode($data);
-		// 			exit();
-		// 		} else {
-		// 			// Convert AssayPotency to a float
-		// 			$AssayPotency = floatval($AssayPotency);
+	// 		// Check if AssayPotency is empty
+	// 		if ($AssayPotency === '' || $AssayPotency === null) {
+	// 			$data['status'] = 'False';
+	// 			$data['DocEntry'] = '';
+	// 			$data['message'] = ' Please Enter value in AssayPotency % is empty';
+	// 			echo json_encode($data);
+	// 			exit();
+	// 		} else {
+	// 			// Convert AssayPotency to a float
+	// 			$AssayPotency = floatval($AssayPotency);
 
-		// 			// Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
-		// 			if ($AssayPotency > 100) {
-		// 				$data['status'] = 'False';
-		// 				$data['DocEntry'] = '';
-		// 				$data['message'] = 'AssayPotency %  not greater than 100';
-		// 				echo json_encode($data);
-		// 				exit();
-		// 			}
+	// 			// Check if AssayPotency is equal to 0 or not less than 0 and not greater than 100
+	// 			if ($AssayPotency > 100) {
+	// 				$data['status'] = 'False';
+	// 				$data['DocEntry'] = '';
+	// 				$data['message'] = 'AssayPotency %  not greater than 100';
+	// 				echo json_encode($data);
+	// 				exit();
+	// 			}
 
-		// 			if ($AssayPotency <= 0) {
-		// 				$data['status'] = 'False';
-		// 				$data['DocEntry'] = '';
-		// 				$data['message'] = 'AssayPotency % is not equal to 0 or not less than 0';
-		// 				echo json_encode($data);
-		// 				exit();
-		// 			}
-		// 		}
-		// 		// <!-- AssayPotency validation end ----------------- -->
+	// 			if ($AssayPotency <= 0) {
+	// 				$data['status'] = 'False';
+	// 				$data['DocEntry'] = '';
+	// 				$data['message'] = 'AssayPotency % is not equal to 0 or not less than 0';
+	// 				echo json_encode($data);
+	// 				exit();
+	// 			}
+	// 		}
+	// 		// <!-- AssayPotency validation end ----------------- -->
 
-		// 		// <!-- Factor validation start --------------------- -->
-		// 		$Factor = trim(addslashes(strip_tags($_POST['factor'])));
-		// 		if (empty($Factor)) {
-		// 			$data['status'] = 'False';
-		// 			$data['DocEntry'] = '';
-		// 			$data['message'] = ' Please Enter value in Factor.';
-		// 			echo json_encode($data);
-		// 			exit();
-		// 		}
-		// 		// <!-- Factor validation end ----------------------- -->	
-		// 	}
-		// }
+	// 		// <!-- Factor validation start --------------------- -->
+	// 		$Factor = trim(addslashes(strip_tags($_POST['factor'])));
+	// 		if (empty($Factor)) {
+	// 			$data['status'] = 'False';
+	// 			$data['DocEntry'] = '';
+	// 			$data['message'] = ' Please Enter value in Factor.';
+	// 			echo json_encode($data);
+	// 			exit();
+	// 		}
+	// 		// <!-- Factor validation end ----------------------- -->	
+	// 	}
+	// }
 
-		if (empty($_POST['routStage_SampleType'])) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'Sample Type is required.';
-			echo json_encode($data);
-			exit;
-		}
+	if (empty($_POST['routStage_SampleType'])) {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = 'Sample Type is required.';
+		echo json_encode($data);
+		exit;
+	}
 
-		if (empty($_POST['routStage_PostingDate'])) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'Posting Date is required.';
-			echo json_encode($data);
-			exit;
-		}
+	if (empty($_POST['routStage_PostingDate'])) {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = 'Posting Date is required.';
+		echo json_encode($data);
+		exit;
+	}
 
-		// if (empty($_POST['routStage_AnalysisDate'])) {
-		// 	$data['status'] = 'False';
-		// 	$data['DocEntry'] = '';
-		// 	$data['message'] = 'Analysis Date is required.';
-		// 	echo json_encode($data);
-		// 	exit;
-		// }
+	// if (empty($_POST['routStage_AnalysisDate'])) {
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'Analysis Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 
-		// if (empty($_POST['routStage_ValidUpTo'])) {
-		// 	$data['status'] = 'False';
-		// 	$data['DocEntry'] = '';
-		// 	$data['message'] = 'ValidUpTo Date is required.';
-		// 	echo json_encode($data);
-		// 	exit;
-		// }
+	// if (empty($_POST['routStage_ValidUpTo'])) {
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'ValidUpTo Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 	//<!-- ------ valdiation end ----------------------------------- --> 
-	
+
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['routStage_DocNo'])));
@@ -8317,32 +8301,32 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckRouteStageBtn'])) {
 
 if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteStage_Selected_row') {
 	// <!-- ------- Replace blank space to %20 start here -------- -->
-		$API = $RSQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'];
-		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-		// print_r($API);
-		// die;
+	$API = $RSQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'];
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+	// print_r($API);
+	// die;
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-		$response = $obj->get_OTFSI_SingleData($FinalAPI);
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 
 
-		$FinalResponce['SampleCollDetails'] = $response;
-		// <!-- ------ Array declaration End Here  --------------------------------- -->
-		$general_data = $response[0]->RSQCPOSTDOCGENERALDATA;
-		$qcStatus = $response[0]->RSQCPOSTDOCQCSTATUS; // Etra issue response seperate here 
-		$qcAttach = $response[0]->RSQCPOSTDOCATTACH; //External issue reponce seperate here
+	$FinalResponce['SampleCollDetails'] = $response;
+	// <!-- ------ Array declaration End Here  --------------------------------- -->
+	$general_data = $response[0]->RSQCPOSTDOCGENERALDATA;
+	$qcStatus = $response[0]->RSQCPOSTDOCQCSTATUS; // Etra issue response seperate here 
+	$qcAttach = $response[0]->RSQCPOSTDOCATTACH; //External issue reponce seperate here
 
-		// echo "<pre>";
-		// print_r($API);
-		// echo "</pre>";
-		// exit;
+	// echo "<pre>";
+	// print_r($API);
+	// echo "</pre>";
+	// exit;
 
-		if (!empty($general_data)) {
-			for ($i = 0; $i < count($general_data); $i++) {
-				$SrNo = $i;
-				$index = $i + 1;
+	if (!empty($general_data)) {
+		for ($i = 0; $i < count($general_data); $i++) {
+			$SrNo = $i;
+			$index = $i + 1;
 
-				$FinalResponce['general_data'] .= '<tr>
+			$FinalResponce['general_data'] .= '<tr>
 						<td class="desabled">' . $index . '</td>
 
 						<td class="desabled"><input  type="text" class="form-control textbox_bg" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly></td>
@@ -8353,18 +8337,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 						
 						<td><input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="' . $general_data[$i]->GDRemarks . '" class="form-control" style="width:200px;"></td>';
 
-				if ($general_data[$i]->PDType == 'Range') {
-					$FinalResponce['general_data'] .= '<td>
+			if ($general_data[$i]->PDType == 'Range') {
+				$FinalResponce['general_data'] .= '<td>
 							<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->LowMin1 . '" class="form-control" style="width:100px;" onfocusout="CalculateResultOut(' . $SrNo . ')">
 						</td>';
-				} else {
-					$FinalResponce['general_data'] .= '<td class="desabled">
+			} else {
+				$FinalResponce['general_data'] .= '<td class="desabled">
 							<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->LowMin1 . '" class="form-control textbox_bg" style="width:100px;">
 						</td>';
-				}
+			}
 
 
-				$FinalResponce['general_data'] .= '
+			$FinalResponce['general_data'] .= '
 						<td id="ResultOutputByQCDeptTd' . $SrNo . '">
 							<input type="hidden" id="ResultOutputByQCDept_Old' . $SrNo . '" name="ResultOutputByQCDept_Old[]" value="' . $general_data[$i]->ROutput . '">
 
@@ -8462,117 +8446,117 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 
 						<td ><input type="time" id="end_time' . $SrNo . '" name="end_time[]" class="form-control" value="' . (!empty($general_data[$i]->ETime) ? date("H:i", strtotime($general_data[$i]->ETime)) : '') . '"></td>
 					</tr>';
-			}
-			// for ($i=0; $i <count($general_data) ; $i++) { 
-			// 	$SrNo=$i;
-			// 	$index=$i+1;
-
-			// 	$FinalResponce['general_data'].='<tr>
-			// 		<td class="desabled">'.$index.'</td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="parameter_code'.$SrNo.'" name="parameter_code[]" value="'.$general_data[$i]->PCode.'" readonly></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="PName'.$SrNo.'" name="PName[]" value="'.$general_data[$i]->PName.'" readonly></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Standard'.$SrNo.'" name="Standard[]" value="'.$general_data[$i]->Standard.'" readonly></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Release'.$SrNo.'" name="Release[]" value="'.$general_data[$i]->Release.'" readonly></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="PDType'.$SrNo.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" readonly></td>
-
-			// 		<td><input  type="text" class="form-control" id="descriptive_details'.$SrNo.'" name="descriptive_details[]" value="'.$general_data[$i]->DesDetils.'"></td>
-
-			// 		<td><input  type="text" class="form-control" id="logical'.$SrNo.'" name="logical[]" value="'.$general_data[$i]->Logical.'" style="width: 100px;"></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMin'.$SrNo.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" readonly style="width: 100px;"></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMax'.$SrNo.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" readonly style="width: 100px;"></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMin'.$SrNo.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" readonly style="width: 100px;"></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMax'.$SrNo.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" readonly style="width: 100px;"></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Min'.$SrNo.'" name="Min[]" value="'.$general_data[$i]->Min.'" readonly style="width: 100px;"></td>
-
-			// 		<td><input  type="text" id="lower_min_result'.$SrNo.'" name="lower_min_result[]" onfocusout="CalculateResultOut('.$SrNo.')" class="form-control" value="'.$general_data[$i]->LowMin1.'"></td>
-
-			// 		<td><input  type="text" id="lower_max_result'.$SrNo.'" name="lower_max_result[]" class="form-control" value="'.$general_data[$i]->LowMax1.'"></td>
-
-			// 		<td><input  type="text" id="upper_min_result'.$SrNo.'" name="upper_min_result[]" class="form-control" value="'.$general_data[$i]->UppMin1.'"></td>
-
-			// 		<td><input  type="text" id="upper_max_result'.$SrNo.'" name="upper_max_result[]" class="form-control" value="'.$general_data[$i]->UppMax1.'"></td>
-
-			// 		<td ><input type="text" id="mean'.$SrNo.'" name="mean[]" class="form-control" value="'.$general_data[$i]->Min1.'" style="width: 100px;"></td>
-
-			// 		<td id="ResultOutTd'.$SrNo.'">
-			// 			<select id="result_output'.$SrNo.'" name="result_output[]" class="form-select dropdownResutl'.$SrNo.'" onchange="ManualSelectedTResultOut('.$SrNo.')"><option value="'.$general_data[$i]->ROutput.'">'.$general_data[$i]->ROutput.'</option></select>
-			// 		</td>
-
-			// 		<td ><input type="text" id="remarks'.$SrNo.'" name="remarks[]" class="form-control" value="'.$general_data[$i]->Remarks.'"></td>
-
-			// 		<td id="QC_StatusByAnalystTd'.$SrNo.'">
-			// 			<select id="qC_status_by_analyst'.$SrNo.'" name="qC_status_by_analyst[]" class="form-select qc_statusbyab'.$SrNo.'" onchange="SelectedQCStatus('.$SrNo.')">
-			// 			</select>
-			// 		</td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="TMethod'.$SrNo.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" readonly></td>
-
-			// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="MType'.$SrNo.'" name="MType[]" value="'.$general_data[$i]->MType.'" readonly></td>
-
-			// 		<td><input type="text" id="user_text1_'.$SrNo.'" name="user_text1_[]" class="form-control" value="'.$general_data[$i]->UText1.'"></td>
-
-			// 		<td><input type="text" id="user_text2_'.$SrNo.'" name="user_text2_[]" class="form-control" value="'.$general_data[$i]->UText2.'"></td>
-
-			// 		<td><input type="text" id="user_text3_'.$SrNo.'" name="user_text3_[]" class="form-control" value="'.$general_data[$i]->UText3.'"></td>
-
-			// 		<td><input type="text" id="user_text4_'.$SrNo.'" name="user_text4_[]" class="form-control" value="'.$general_data[$i]->UText4.'"></td>
-
-			// 		<td ><input type="text" id="user_text5_'.$SrNo.'" name="user_text5_[]" class="form-control" value="'.$general_data[$i]->UText5.'"></td>
-
-			// 		<td class="desabled"><input type="text" id="GDQCStatus'.$SrNo.'" name="GDQCStatus[]" class="form-control input_disable" value="'.$general_data[$i]->GDQCStatus.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="GDUOM'.$SrNo.'" name="GDUOM[]" class="form-control input_disable" value="'.$general_data[$i]->GDUOM.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="Retest'.$SrNo.'" name="Retest[]" class="form-control input_disable" value="'.$general_data[$i]->Retest.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="GDStab'.$SrNo.'" name="GDStab[]" class="form-control input_disable" value="'.$general_data[$i]->GDStab.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="ExSample'.$SrNo.'" name="ExSample[]" class="form-control input_disable" value="'.$general_data[$i]->ExSample.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="Appassay'.$SrNo.'" name="Appassay[]" class="form-control input_disable" value="'.$general_data[$i]->Appassay.'" readonly></td>
-
-			// 		<td class="desabled"><input type="text" id="AppLOD'.$SrNo.'" name="AppLOD[]" class="form-control input_disable" value="'.$general_data[$i]->AppLOD.'" readonly></td>
-
-			// 		<td><input  type="text" id="qc_analysis_by'.$SrNo.'" name="qc_analysis_by[]" class="form-control" value="'.$general_data[$i]->AnlBy.'"></td>
-
-			// 		<td><input  type="text" id="analyst_remark'.$SrNo.'" name="analyst_remark[]" class="form-control" value="'.$general_data[$i]->ARRemark.'"></td>
-
-			// 		<td ><input type="text" id="instrument_code'.$SrNo.'" name="instrument_code[]" class="form-control" value="'.$general_data[$i]->Inscode.'"></td>
-
-			// 		<td class="desabled"><input type="text" id="InsName'.$SrNo.'" name="InsName[]" class="form-control input_disable" value="'.$general_data[$i]->InsName.'" readonly></td>
-
-			// 		<td><input  type="text" id="star_date'.$SrNo.'" name="star_date[]" class="form-control" value="'.$general_data[$i]->SDate.'"></td>
-
-			// 		<td><input  type="text" id="start_time'.$SrNo.'" name="start_time[]" class="form-control" value="'.$general_data[$i]->STime.'"></td>
-
-			// 		<td ><input type="text" id="end_date'.$SrNo.'" name="end_date[]" class="form-control" value="'.$general_data[$i]->EDate.'"></td>
-
-			// 		<td ><input type="text" id="end_time'.$SrNo.'" name="end_time[]" class="form-control" value="'.$general_data[$i]->ETime.'"></td>
-
-			// 	</tr>';
-			// }
-		} else {
-			$FinalResponce['general_data'] .= '<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
 		}
+		// for ($i=0; $i <count($general_data) ; $i++) { 
+		// 	$SrNo=$i;
+		// 	$index=$i+1;
 
-		$FinalResponce['count'] = count($general_data);
+		// 	$FinalResponce['general_data'].='<tr>
+		// 		<td class="desabled">'.$index.'</td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="parameter_code'.$SrNo.'" name="parameter_code[]" value="'.$general_data[$i]->PCode.'" readonly></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="PName'.$SrNo.'" name="PName[]" value="'.$general_data[$i]->PName.'" readonly></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Standard'.$SrNo.'" name="Standard[]" value="'.$general_data[$i]->Standard.'" readonly></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Release'.$SrNo.'" name="Release[]" value="'.$general_data[$i]->Release.'" readonly></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="PDType'.$SrNo.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" readonly></td>
+
+		// 		<td><input  type="text" class="form-control" id="descriptive_details'.$SrNo.'" name="descriptive_details[]" value="'.$general_data[$i]->DesDetils.'"></td>
+
+		// 		<td><input  type="text" class="form-control" id="logical'.$SrNo.'" name="logical[]" value="'.$general_data[$i]->Logical.'" style="width: 100px;"></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMin'.$SrNo.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" readonly style="width: 100px;"></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMax'.$SrNo.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" readonly style="width: 100px;"></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMin'.$SrNo.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" readonly style="width: 100px;"></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMax'.$SrNo.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" readonly style="width: 100px;"></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="Min'.$SrNo.'" name="Min[]" value="'.$general_data[$i]->Min.'" readonly style="width: 100px;"></td>
+
+		// 		<td><input  type="text" id="lower_min_result'.$SrNo.'" name="lower_min_result[]" onfocusout="CalculateResultOut('.$SrNo.')" class="form-control" value="'.$general_data[$i]->LowMin1.'"></td>
+
+		// 		<td><input  type="text" id="lower_max_result'.$SrNo.'" name="lower_max_result[]" class="form-control" value="'.$general_data[$i]->LowMax1.'"></td>
+
+		// 		<td><input  type="text" id="upper_min_result'.$SrNo.'" name="upper_min_result[]" class="form-control" value="'.$general_data[$i]->UppMin1.'"></td>
+
+		// 		<td><input  type="text" id="upper_max_result'.$SrNo.'" name="upper_max_result[]" class="form-control" value="'.$general_data[$i]->UppMax1.'"></td>
+
+		// 		<td ><input type="text" id="mean'.$SrNo.'" name="mean[]" class="form-control" value="'.$general_data[$i]->Min1.'" style="width: 100px;"></td>
+
+		// 		<td id="ResultOutTd'.$SrNo.'">
+		// 			<select id="result_output'.$SrNo.'" name="result_output[]" class="form-select dropdownResutl'.$SrNo.'" onchange="ManualSelectedTResultOut('.$SrNo.')"><option value="'.$general_data[$i]->ROutput.'">'.$general_data[$i]->ROutput.'</option></select>
+		// 		</td>
+
+		// 		<td ><input type="text" id="remarks'.$SrNo.'" name="remarks[]" class="form-control" value="'.$general_data[$i]->Remarks.'"></td>
+
+		// 		<td id="QC_StatusByAnalystTd'.$SrNo.'">
+		// 			<select id="qC_status_by_analyst'.$SrNo.'" name="qC_status_by_analyst[]" class="form-select qc_statusbyab'.$SrNo.'" onchange="SelectedQCStatus('.$SrNo.')">
+		// 			</select>
+		// 		</td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="TMethod'.$SrNo.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" readonly></td>
+
+		// 		<td class="desabled"><input  type="text" class="form-control input_disable" id="MType'.$SrNo.'" name="MType[]" value="'.$general_data[$i]->MType.'" readonly></td>
+
+		// 		<td><input type="text" id="user_text1_'.$SrNo.'" name="user_text1_[]" class="form-control" value="'.$general_data[$i]->UText1.'"></td>
+
+		// 		<td><input type="text" id="user_text2_'.$SrNo.'" name="user_text2_[]" class="form-control" value="'.$general_data[$i]->UText2.'"></td>
+
+		// 		<td><input type="text" id="user_text3_'.$SrNo.'" name="user_text3_[]" class="form-control" value="'.$general_data[$i]->UText3.'"></td>
+
+		// 		<td><input type="text" id="user_text4_'.$SrNo.'" name="user_text4_[]" class="form-control" value="'.$general_data[$i]->UText4.'"></td>
+
+		// 		<td ><input type="text" id="user_text5_'.$SrNo.'" name="user_text5_[]" class="form-control" value="'.$general_data[$i]->UText5.'"></td>
+
+		// 		<td class="desabled"><input type="text" id="GDQCStatus'.$SrNo.'" name="GDQCStatus[]" class="form-control input_disable" value="'.$general_data[$i]->GDQCStatus.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="GDUOM'.$SrNo.'" name="GDUOM[]" class="form-control input_disable" value="'.$general_data[$i]->GDUOM.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="Retest'.$SrNo.'" name="Retest[]" class="form-control input_disable" value="'.$general_data[$i]->Retest.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="GDStab'.$SrNo.'" name="GDStab[]" class="form-control input_disable" value="'.$general_data[$i]->GDStab.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="ExSample'.$SrNo.'" name="ExSample[]" class="form-control input_disable" value="'.$general_data[$i]->ExSample.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="Appassay'.$SrNo.'" name="Appassay[]" class="form-control input_disable" value="'.$general_data[$i]->Appassay.'" readonly></td>
+
+		// 		<td class="desabled"><input type="text" id="AppLOD'.$SrNo.'" name="AppLOD[]" class="form-control input_disable" value="'.$general_data[$i]->AppLOD.'" readonly></td>
+
+		// 		<td><input  type="text" id="qc_analysis_by'.$SrNo.'" name="qc_analysis_by[]" class="form-control" value="'.$general_data[$i]->AnlBy.'"></td>
+
+		// 		<td><input  type="text" id="analyst_remark'.$SrNo.'" name="analyst_remark[]" class="form-control" value="'.$general_data[$i]->ARRemark.'"></td>
+
+		// 		<td ><input type="text" id="instrument_code'.$SrNo.'" name="instrument_code[]" class="form-control" value="'.$general_data[$i]->Inscode.'"></td>
+
+		// 		<td class="desabled"><input type="text" id="InsName'.$SrNo.'" name="InsName[]" class="form-control input_disable" value="'.$general_data[$i]->InsName.'" readonly></td>
+
+		// 		<td><input  type="text" id="star_date'.$SrNo.'" name="star_date[]" class="form-control" value="'.$general_data[$i]->SDate.'"></td>
+
+		// 		<td><input  type="text" id="start_time'.$SrNo.'" name="start_time[]" class="form-control" value="'.$general_data[$i]->STime.'"></td>
+
+		// 		<td ><input type="text" id="end_date'.$SrNo.'" name="end_date[]" class="form-control" value="'.$general_data[$i]->EDate.'"></td>
+
+		// 		<td ><input type="text" id="end_time'.$SrNo.'" name="end_time[]" class="form-control" value="'.$general_data[$i]->ETime.'"></td>
+
+		// 	</tr>';
+		// }
+	} else {
+		$FinalResponce['general_data'] .= '<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
+	}
+
+	$FinalResponce['count'] = count($general_data);
 
 
-		if (!empty($qcStatus)) {
-			for ($j = 0; $j < count($qcStatus); $j++) {
-				$SrNo = $j + 1;
+	if (!empty($qcStatus)) {
+		for ($j = 0; $j < count($qcStatus); $j++) {
+			$SrNo = $j + 1;
 
-				$FinalResponce['qcStatus'] .= '<tr>
+			$FinalResponce['qcStatus'] .= '<tr>
 						
 						<td class="desabled">' . $SrNo . '</td>
 
@@ -8607,13 +8591,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 						<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1' . $SrNo . '" name="qCStsRemark1[]"  value="' . $qcStatus[$j]->QCStsRemark1 . '" readonly></td>
 
 					</tr>';
-			}
-		} else {
-			// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		}
+	} else {
+		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+	}
 
-		$SrNo_Ex = (count($qcStatus) + 1);
-		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $SrNo_Ex . '">
+	$SrNo_Ex = (count($qcStatus) + 1);
+	$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $SrNo_Ex . '">
 				<td>' . $SrNo_Ex . '</td>
 
 				<td><select id="qc_Status_' . $SrNo_Ex . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $SrNo_Ex . ')"></select></td>
@@ -8646,11 +8630,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 			</tr>';
 
 
-		if (!empty($qcAttach)) {
-			for ($j = 0; $j < count($qcAttach); $j++) {
-				$SrNo = $j + 1;
-				// <tr>
-				$FinalResponce['qcAttach'] .= '<tr>
+	if (!empty($qcAttach)) {
+		for ($j = 0; $j < count($qcAttach); $j++) {
+			$SrNo = $j + 1;
+			// <tr>
+			$FinalResponce['qcAttach'] .= '<tr>
 						<td class="desabled">' . $SrNo . '</td>
 						<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath' . $SrNo . '" name="targetPath[]" class="form-control" value="' . $qcAttach[$j]->TargetPath . '" readonly>
 						</td>
@@ -8658,17 +8642,17 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 						<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate' . $SrNo . '" name="attachDate[]"  class="form-control" value="' . $qcAttach[$j]->AttachDate . '" readonly></td>
 						<td><input class="border_hide" type="text" id="freeText' . $SrNo . '" name="freeText[]"  class="form-control" value="' . $qcAttach[$j]->FreeText . '"></td>
 					</tr>';
-			}
-		} else {
-			$FinalResponce['qcAttach'] .= '<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		}
+	} else {
+		$FinalResponce['qcAttach'] .= '<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+	}
 
-		// echo "<pre>";
-		// print_r($FinalResponce);
-		// echo "</pre>";
-		// exit;
-		echo json_encode($FinalResponce);
-		exit(0);
+	// echo "<pre>";
+	// print_r($FinalResponce);
+	// echo "</pre>";
+	// exit;
+	echo json_encode($FinalResponce);
+	exit(0);
 
 
 
@@ -8686,7 +8670,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCCheckRouteSt
 
 
 if (isset($_POST['addQcPostDocumentBtn_RouteStage'])) {
-	
+
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['Object'] = trim(addslashes(strip_tags('SCS_QCRSTAGE')));
@@ -8817,16 +8801,16 @@ if (isset($_POST['addQcPostDocumentBtn_RouteStage'])) {
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
 		// <!-- ------ File upload code start here ----------------------------- -->
-			$uploadDir = '../include/uploads/';
+		$uploadDir = '../include/uploads/';
 
-			$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
-			$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
 
-			$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 
 		$tdata['SCS_QCRSTAGE2Collection'][] = $qcStatus; // row data append on this array
@@ -8847,64 +8831,64 @@ if (isset($_POST['addQcPostDocumentBtn_RouteStage'])) {
 	$mainArray = $tdata; // all child array append in main array define here
 
 	// <!-- ------------- form validation start here -------------------------------------------- -->
-		if (empty($_POST['qc_post_doc_Routestage_SampleType'])){
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'Sample Type is required.';
-			echo json_encode($data);
-			exit;
-		}
+	if (empty($_POST['qc_post_doc_Routestage_SampleType'])) {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = 'Sample Type is required.';
+		echo json_encode($data);
+		exit;
+	}
 
-		if (empty($_POST['qc_post_doc_Routestage_PostingDate'])) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = 'Posting Date is required.';
-			echo json_encode($data);
-			exit;
-		}
+	if (empty($_POST['qc_post_doc_Routestage_PostingDate'])) {
+		$data['status'] = 'False';
+		$data['DocEntry'] = '';
+		$data['message'] = 'Posting Date is required.';
+		echo json_encode($data);
+		exit;
+	}
 
-		// if (empty($_POST['qc_post_doc_Routestage_AnalysisDate'])){
-		// 	$data['status'] = 'False';
-		// 	$data['DocEntry'] = '';
-		// 	$data['message'] = 'Analysis Date is required.';
-		// 	echo json_encode($data);
-		// 	exit;
-		// }
+	// if (empty($_POST['qc_post_doc_Routestage_AnalysisDate'])){
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'Analysis Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 
-		// if (empty($_POST['qc_post_doc_Routestage_ValidUpTo'])) {
-		// 	$data['status'] = 'False';
-		// 	$data['DocEntry'] = '';
-		// 	$data['message'] = 'ValidUpTo Date is required.';
-		// 	echo json_encode($data);
-		// 	exit;
-		// }
+	// if (empty($_POST['qc_post_doc_Routestage_ValidUpTo'])) {
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'ValidUpTo Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 	// <!-- ------------- form validation end here ---------------------------------------------- -->
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
-		$res = $obj->SAP_Login();
-		if (!empty($res)) {
-			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCRSTAGE . '(' . $_POST['qc_post_doc_Routestage_DocEntry'] . ')';
-			$responce_encode = $obj->PATCH_ServiceLayerMasterFunctionWithB1Replace($mainArray, $Final_API);
-			$responce = json_decode($responce_encode);
+	$res = $obj->SAP_Login();
+	if (!empty($res)) {
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCRSTAGE . '(' . $_POST['qc_post_doc_Routestage_DocEntry'] . ')';
+		$responce_encode = $obj->PATCH_ServiceLayerMasterFunctionWithB1Replace($mainArray, $Final_API);
+		$responce = json_decode($responce_encode);
 
-			// <!-- ------- service layer function responce manage Start Here ------------ -->
-				if (empty($responce)) {
-					$data['status'] = 'True';
-					$data['DocEntry'] = $_POST['qc_post_doc_Routestage_DocEntry'];
-					$data['message'] = "QC Post document (QC Check) - Route Stage Successfully Updated.";
-					echo json_encode($data);
-				} else {
-					if (array_key_exists('error', (array)$responce)) {
-						$data['status'] = 'False';
-						$data['DocEntry'] = '';
-						$data['message'] = $responce->error->message->value;
-						echo json_encode($data);
-					}
-				}
-			// <!-- ------- service layer function responce manage End Here -------------- -->
+		// <!-- ------- service layer function responce manage Start Here ------------ -->
+		if (empty($responce)) {
+			$data['status'] = 'True';
+			$data['DocEntry'] = $_POST['qc_post_doc_Routestage_DocEntry'];
+			$data['message'] = "QC Post document (QC Check) - Route Stage Successfully Updated.";
+			echo json_encode($data);
+		} else {
+			if (array_key_exists('error', (array)$responce)) {
+				$data['status'] = 'False';
+				$data['DocEntry'] = '';
+				$data['message'] = $responce->error->message->value;
+				echo json_encode($data);
+			}
 		}
-		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-		exit(0);
+		// <!-- ------- service layer function responce manage End Here -------------- -->
+	}
+	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	exit(0);
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
 
