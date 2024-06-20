@@ -15,10 +15,10 @@
                     <!-- form start -->
                     <form role="form" class="form-horizontal" id="SampleIntimationFinishedGoods_Form" method="post">
                         <input type="hidden" id="finished_good_LineNum" name="finished_good_LineNum">
-                        <input type="hidden" id="finished_good_Unit" name="finished_good_Unit">
                         <input type="hidden" id="finished_good_FromCont" name="finished_good_FromCont">
                         <input type="hidden" id="finished_good_RetestDate" name="finished_good_RetestDate">
                         <input type="hidden" id="finished_good_Series" name="finished_good_Series">
+                        <input type="hidden" id="finished_good_Unit" name="finished_good_Unit">
                         <!-- <input type="text" id="finished_good_Location" name="finished_good_Location"> -->
                         <!-- <input type="text" id="finished_good_BatchQty" name="finished_good_BatchQty"> -->
 
@@ -106,7 +106,7 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">GRPO Qty</label>
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt Qty</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="finished_good_GRPOQty" name="finished_good_GRPOQty" readonly>
                                     </div>
@@ -275,15 +275,6 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
-                                    <div class="col-lg-8">
-                                        <input class="form-control desabled" type="text" id="finished_good_Container" name="finished_good_Container" readonly>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-md-6">
-                                <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="finished_good_Location" name="finished_good_Location" readonly>
@@ -296,6 +287,15 @@
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="finished_good_MakeBy" name="finished_good_MakeBy" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container UOM</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="finished_good_Container" name="finished_good_Container" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -691,7 +691,22 @@
 
     <!-- --------------After inventory transfer-------------- -->
 
-
+<!-- --------Sample Intimation - In Process RPT View Modal Start ------------------- -->
+<div class="modal fade Sample_Inti_FG_RPT" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="RPT_title"></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="View_RPT_Close()"></button>
+            </div>
+            
+            <div class="modal-body">
+               <iframe id="RPT_Link" src="" style="width: 100%;height: 88vh;"></iframe>
+            </div><!--body end-->
+         </div>
+      </div>
+   </div>
+<!-- --------Sample Intimation - In Process RPT View Modal Start ------------------- -->
 
 
         <script type="text/javascript">

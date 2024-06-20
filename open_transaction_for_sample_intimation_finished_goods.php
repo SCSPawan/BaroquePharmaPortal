@@ -279,6 +279,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
+                // console.log('JSONObject=>', JSONObject);
 
                 $(`#finished_good_RFPNo`).val(JSONObject[0].RFPNo);
                 $(`#finished_good_RFPODocEntry`).val(JSONObject[0].RFPODocEntry);
@@ -290,15 +291,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#finished_good_GRPOQty`).val(JSONObject[0].WOQty);
                 $(`#finished_good_SampleQty`).val(JSONObject[0].SQty);
                 $(`#finished_good_RetainQty`).val(JSONObject[0].RQty);
+                // $(`#finished_good_ReceiptQty`).val(JSONObject[0].WOQty);
+                
                 $(`#finished_good_MFGBy`).val(JSONObject[0].MfgBy);
                 $(`#finished_good_TotalNoofcontainer`).val(JSONObject[0].TotNoCont);
                 $(`#finished_good_FromContainer`).val(JSONObject[0].FromCont);
                 $(`#finished_good_ToContainer`).val(JSONObject[0].ToCont);
                 $(`#finished_good_BatchNo`).val(JSONObject[0].BatchNo);
                 $(`#finished_good_BatchQty`).val(JSONObject[0].BatchQty);
+
                 $(`#finished_good_MFGDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
                 $(`#finished_good_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
                 $(`#finished_good_RetestDate`).val(DateFormatingDMY(JSONObject[0].RetestDate));
+
                 $(`#finished_good_Status`).val(JSONObject[0].Status);
                 $(`#finished_good_Branch`).val(JSONObject[0].BranchName);
                 $(`#finished_good_ChallanNo`).val(JSONObject[0].ChNo);
@@ -409,6 +414,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     }
 
     function DateFormatingDMY(DateOG){
+        alert(DateOG);
         if(DateOG!=''){
             let [day, month, year] = DateOG.split(" ")[0].split("-");
             let Date = `${day}-${month}-${year}`;
@@ -431,7 +437,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(".loader123").show();
             },
             success: function(result){
-                console.log(result);
+                // console.log(result);
                 var JSONObject = JSON.parse(result);
                 var status = JSONObject['status'];
                 var message = JSONObject['message'];

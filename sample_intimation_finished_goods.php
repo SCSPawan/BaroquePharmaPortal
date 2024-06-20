@@ -298,8 +298,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 <div class="card">
                                  <div class="card-body">
                                      <div class="row">
-                                        <input type="text" id="SI_FG_DocEntry" name="SI_FG_DocEntry">
-                                         <input type="text" id="SI_FG_BranchID" name="SI_FG_BranchID">
+        <input type="text" id="SI_FG_DocNo" name="SI_FG_DocNo">
+        <input type="text" id="SI_FG_BranchID" name="SI_FG_BranchID">
+        <input type="text" id="SI_FG_Unit" name="SI_FG_Unit">
                                         
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -317,13 +318,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                                 <div class="col-lg-4">
-                                                     <input class="form-control desabled" readonly type="number" id="SI_FG_DocNo" name="SI_FG_DocNo">
+                                                <input class="form-control desabled" readonly type="text" id="SI_FG_DocName" name="SI_FG_DocName">
                                                    <!--  <select class="form-select desabled" id="fg_DocNo" name="fg_DocNo">
                                                         <option></option>
                                                     </select> -->
                                                 </div>
+                                                
                                                  <div class="col-lg-4">
-                                                    <input class="form-control desabled" readonly type="text" id="SI_FG_DocName" name="SI_FG_DocName">
+                                                    
+                                                 <input class="form-control desabled" readonly type="number" id="SI_FG_DocEntry" name="SI_FG_DocEntry">
                                                 </div>
                                                 <!-- <div class="col-lg-6">
                                                     <select class="form-select desabled" disabled>
@@ -390,7 +393,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                         <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
                                                 <div class="col-lg-8">
@@ -399,9 +402,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>   
 
-                                         <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">GRPO Qty</label>
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt Qty</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="SI_FG_GRPO_Qty" name="SI_FG_GRPO_Qty" readonly>
                                                 </div>
@@ -522,7 +525,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="date" id="SI_FG_TRDate" name="SI_FG_TRDate" disabled>
+                                                    <input class="form-control desabled" type="text" id="SI_FG_TRDate" name="SI_FG_TRDate" disabled>
                                                 </div>
                                             </div>
                                         </div> 
@@ -572,58 +575,70 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container Nos</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="SI_FG_ContainerNos" name="SI_FG_ContainerNos" readonly>
-                                                </div>
-                                            </div>
-                                        </div> 
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container UOM</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" type="text" id="SI_FG_Container" name="SI_FG_Container" readonly>
+        </div>
+    </div>
+</div>  
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="SI_FG_Container" name="SI_FG_Container" readonly>
-                                                </div>
-                                            </div>
-                                        </div>  
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" type="text" id="SI_FG_MakeBy" name="SI_FG_MakeBy" readonly="">
+        </div>
+    </div>
+</div>
+        
+<div class="col-xl-6 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+        <div class="col-lg-10">
+            <textarea class="form-control desabled" id="SI_FG_ContainerNos" name="SI_FG_ContainerNos" rows="4" readonly=""></textarea>
+        </div>
+    </div>
+</div>
 
+                                         
                                       
                                      <!-- Toggle States Button -->
-                                             <!-- Toggle States Button -->
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <!-- Toggle States Button -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-primary" id="befor" data-bs-toggle="modal" data-bs-target=".inventory_transfer" autocomplete="off" onclick="TransferToUndertest();">Transfer To Undertest</button>
 
-                                                    <button type="button" class="btn btn-primary" id="befor" data-bs-toggle="modal" data-bs-target=".inventory_transfer" autocomplete="off" onclick="TransferToUndertest();">Transfer To Undertest</button>
+                                                        <button type="button" class="btn btn-primary" id="after" data-bs-toggle="modal" data-bs-target=".after_inventory_transfer" autocomplete="off" onclick="TransferToUndertestAfter()">Transfer To Undertest</button>
 
-                                                    <button type="button" class="btn btn-primary" id="after" data-bs-toggle="modal" data-bs-target=".after_inventory_transfer" autocomplete="off" onclick="TransferToUndertestAfter()">Transfer To Undertest</button>
-                                                    
-                                                     <input type="text" id="U_UTTrans" name="U_UTTrans" readonly class="desabled">
+                                                        <input type="text" id="U_UTTrans" name="U_UTTrans" readonly class="desabled">
 
-                                                   <!--  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" autocomplete="off">Transfer To Undertest</button>
-                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".after_inventory_transfer" autocomplete="off">After Transfer To Undertest</button> -->
+                                                        <!--  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" autocomplete="off">Transfer To Undertest</button>
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".after_inventory_transfer" autocomplete="off">After Transfer To Undertest</button> -->
 
+                                                        <!-- <input type="text" name="" class="desabled"> -->
+                                                    </div>
 
-                                                     <!-- <input type="text" name="" class="desabled"> -->
-                                                     </div>
-                                                      <div class="col-md-6 text-right">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Print Undertest Label</button>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Print Quarantine</button>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Print Sample Intimation</button>
-                                                 </div>
-                                                 </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_FG_RPT" autocomplete="off" onclick="View_RPT_Open_PUT('FGSAMPLEINTIUNDERTESTPRINTLAYOUT','Print Undertest Label');">Print Undertest Label</button>
+
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_FG_RPT" autocomplete="off" onclick="View_RPT_Open('FGSAMPLEINTIQUARANPRINTLAYOUT','Print Quarantine');">Print Quarantine</button>
+
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".Sample_Inti_FG_RPT" autocomplete="off" onclick="View_RPT_Open('FGSAMPLEINTISAMPLINTIPRINTLAYOUT','Print Sample Intimation');">Print Sample Intimation</button>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <hr>
+                                            <!-- <hr> -->
 
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-md-12">
                                                 <button type="button" class="btn btn-primary " data-bs-toggle="button" autocomplete="off">Add</button>
                                                     <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" aria-pressed="true">Cancel</button>
                                             </div>
-                                        </div><!--row end-->
+                                        </div>
+                                        row end -->
                               
                                         </div>
                                     <!-- end card body -->
@@ -654,7 +669,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                  $("#footerProcess").hide(); // Afer Doc Selection Process default hide script
 
 
-                     $(document).ready(function(){
+                $(document).ready(function(){
                     var fromDate=document.getElementById('FromDate').value;
                     var toDate=document.getElementById('ToDate').value;
                     var DocEntry=document.getElementById('DocEntry').value;
@@ -677,7 +692,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                             // Hide image container
                             $(".loader123").hide();
                         }
-                   });
+                   })
                 });
 
 
@@ -757,7 +772,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#SI_FG_TRBy`).val(JSONObject[0].TRBy);
                     $(`#SI_FG_ItemCode`).val(JSONObject[0].ItemCode);
                     $(`#SI_FG_ItemName`).val(JSONObject[0].ItemName);
-                    $(`#SI_FG_GRPO_Qty`).val(JSONObject[0].SQty);
+                    $(`#SI_FG_GRPO_Qty`).val(JSONObject[0].WOQty);
                     $(`#SI_FG_SampleQty`).val(JSONObject[0].SQty);
                     $(`#SI_FG_SampleType`).val(JSONObject[0].SampleType);
                     
@@ -769,18 +784,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#SI_FG_ToCont`).val(JSONObject[0].ToCont);
                     $(`#SI_FG_BatchNo`).val(JSONObject[0].BatchNo);
                     $(`#SI_FG_BatchQty`).val(JSONObject[0].BatchQty);
-                    $(`#SI_FG_MfgDate`).val(JSONObject[0].MfgDate);
-                    $(`#SI_FG_ExpiryDate`).val(JSONObject[0].ExpiryDate);
                     $(`#SI_FG_Status`).val(JSONObject[0].Status);
-                    $(`#SI_FG_TRDate`).val(JSONObject[0].TRDate);
                     $(`#SI_FG_BranchName`).val(JSONObject[0].BranchName);
                     $(`#SI_FG_ChNo`).val(JSONObject[0].ChNo);
-                    $(`#SI_FG_ChDate`).val(JSONObject[0].ChDate);
                     $(`#SI_FG_GateEntryNo`).val(JSONObject[0].GateEntryNo);
-                    $(`#SI_FG_GateEntryDate`).val(JSONObject[0].GateEntryDate);
                     $(`#SI_FG_ContainerNos`).val(JSONObject[0].ContainerNos);
                     $(`#SI_FG_Container`).val(JSONObject[0].Container);
                     $(`#SI_FG_BranchID`).val(JSONObject[0].BranchID);
+                    $(`#SI_FG_Unit`).val(JSONObject[0].Unit);
+                    
+                    $(`#SI_FG_MakeBy`).val(JSONObject[0].MakeBy);
+
+            $(`#SI_FG_GateEntryDate`).val(DateFormatingDMY(JSONObject[0].GateEntryDate));
+            $(`#SI_FG_ChDate`).val(DateFormatingDMY(JSONObject[0].ChDate));
+            $(`#SI_FG_TRDate`).val(DateFormatingDMY(JSONObject[0].TRDate));
+            $(`#SI_FG_MfgDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
+            $(`#SI_FG_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
 
 
                      var Canceled=JSONObject[0]['Canceled'];
@@ -819,35 +838,44 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // Hide image container
                 $(".loader123").hide();
             }
-        });
+        })
     } 
 
 
-function SearchData(){
-        var fromDate=document.getElementById('FromDate').value;
-        var toDate=document.getElementById('ToDate').value;
-        var DocEntry=document.getElementById('DocEntry').value;
-
-        var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
-
-        $.ajax({  
-            type: "POST",  
-            url: window.location.href,  
-            data: dataString,  
-            beforeSend: function(){
-                // Show image container
-                $(".loader123").show();
-            },
-            success: function(result)
-            {  
-                $('#list-append').html(result);
-            },
-            complete:function(data){
-                // Hide image container
-                $(".loader123").hide();
-            }
-       });
+function DateFormatingDMY(DateOG){
+    if(DateOG!=''){
+        let [day, month, year] = DateOG.split(" ")[0].split("-");
+        let Date = `${day}-${month}-${year}`;
+        return Date;
     }
+}
+
+function SearchData(){
+    var fromDate=document.getElementById('FromDate').value;
+    var toDate=document.getElementById('ToDate').value;
+    var DocEntry=document.getElementById('DocEntry').value;
+
+    var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
+
+    $.ajax({  
+        type: "POST",  
+        url: window.location.href,  
+        data: dataString,  
+        beforeSend: function(){
+            // Show image container
+            $(".loader123").show();
+        },
+        success: function(result)
+        {  
+            $('#list-append').html(result);
+        },
+        complete:function(data){
+            // Hide image container
+            $(".loader123").hide();
+        }
+    });
+}
+
 
   function TransferToUndertest()
     {
@@ -977,26 +1005,22 @@ function TransferToUndertestAfter()
 
 
     function ContainerSelection_after(){
-
         var DocEntry=document.getElementById('after_TransferToUndertest_DocEntry').value;
         var BNo=document.getElementById('after_TransferToUndertest_i_BatchNo').value;
         var ItemCode=document.getElementById('after_TransferToUndertest_i_ItemCode').value;
         var FromWhs=document.getElementById('after_TransferToUndertest_i_ToWhs').value;
 
         var dataString ='DocEntry='+DocEntry+'&BNo='+BNo+'&ItemCode='+ItemCode+'&FromWhs='+FromWhs+'&action=sample_intimation_Finished_Good_ContainerList_after_ajax';
-
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
                 // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
                 $('#ContainerSelectionItemAppend_after').html(JSONObject);
             },
@@ -1004,10 +1028,10 @@ function TransferToUndertestAfter()
                 // Hide image container
                 $(".loader123").hide();
             }
-        }); 
+        }) 
     }
 
- function getSelectedContener(un_id){
+    function getSelectedContener(un_id){
         //Create an Array.
         var selected = new Array();
  
@@ -1075,7 +1099,7 @@ function TransferToUndertestAfter()
     }
 
 
-  function getSelectedContenerGI_Manual(un_id){
+    function getSelectedContenerGI_Manual(un_id){
         //Create an Array.
         var selected = new Array();
  
@@ -1106,5 +1130,26 @@ function TransferToUndertestAfter()
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
     }
 
-  </script>
+    
+    function View_RPT_Open_PUT(API_Name,RPT_Title){
+        var DocEntry=$('#U_UTTrans').val();
+        var PrintOutURL=`http://192.168.1.30:8082/API/SAP/${API_Name}?DocEntry=${DocEntry}`;
+
+        document.getElementById('RPT_title').innerHTML= RPT_Title; // Append Title dynamiclly
+        document.getElementById("RPT_Link").src = PrintOutURL;
+    }
+
+    function View_RPT_Open(API_Name,RPT_Title){
+        var DocEntry=$('#SI_FG_DocEntry').val();
+        var PrintOutURL=`http://192.168.1.30:8082/API/SAP/${API_Name}?DocEntry=${DocEntry}`;
+
+        document.getElementById('RPT_title').innerHTML= RPT_Title; // Append Title dynamiclly
+        document.getElementById("RPT_Link").src = PrintOutURL;
+    }
+
+    function View_RPT_Close(){
+        document.getElementById('RPT_title').innerHTML= '';
+        document.getElementById("RPT_Link").src = '';
+    }
+</script>
 <!-- 1110 OG Line 19 June 2024 -->
