@@ -4986,6 +4986,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'getInventoryFinishedGoodsQcc
 if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata = array();
 	$data = array(); // this array handel validation responce
+	
 	$tdata['Object'] = 'SCS_SINTIFG';
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['finished_good_Series'])));
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['finished_good_LineNum'])));
@@ -5014,21 +5015,22 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['finished_good_BatchQty'])));
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));	
 	$tdata['U_PC_RcQty'] = trim(addslashes(strip_tags($_POST['finished_good_GRPOQty'])));
+	
 	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate']))? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
- 
+
 	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate']))? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
- 
+
 	$tdata['U_PC_RDt'] = (!empty($_POST['finished_good_RetestDate']))? date("Y-m-d", strtotime($_POST['finished_good_RetestDate'])) : null;
- 
+
 	$tdata['U_PC_TRDte'] = (!empty($_POST['finished_good_TRDate']))? date("Y-m-d", strtotime($_POST['finished_good_TRDate'])) : null;
- 
+
 	$tdata['U_PC_ChDate'] = (!empty($_POST['finished_good_ChallanDate']))? date("Y-m-d", strtotime($_POST['finished_good_ChallanDate'])) : null;
- 
+
 	$tdata['U_PC_UTTrans'] = null;
 	$tdata['U_PC_BPLId'] = null;
 	$tdata['U_PC_LCode'] = null;
 	$tdata['U_PC_TNCont1'] = null;
- 
+
 	// <!-- ---------------------- sample Intimation popup validation start Here -------------------- -->
 		if ($_POST['finished_good_SampleType'] == '') {
 			$data['status'] = 'False';
@@ -5037,7 +5039,7 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 			echo json_encode($data);
 			exit(0);
 		}
- 
+
 		if ($_POST['finished_good_TRBy'] == '') {
 			$data['status'] = 'False';
 			$data['DocEntry'] = '';
@@ -5045,7 +5047,7 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 			echo json_encode($data);
 			exit(0);
 		}
- 
+
 		if ($_POST['finished_good_TRDate'] == '') {
 			$data['status'] = 'False';
 			$data['DocEntry'] = '';
@@ -5054,30 +5056,30 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 			exit(0);
 		}
 	// <!-- ---------------------- sample Intimation popup validation end Here ---------------------- -->
- 
+
     //<!-- ------------- function & function responce code Start Here ---- -->
     $res = $obj->SAP_Login();  // SAP Service Layer Login Here
- 
+
     if (!empty($res)) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINTIFG_API;
- 
+
         $responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
         $responce = json_decode($responce_encode);
- 
+
         //  <!-- ------- service layer function responce manage Start Here ------------ -->
         $data = array();
- 
+
         if (!empty($responce->DocNum)) {
             $InventoryGenEntries = array();
             $InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
             $InventoryGenEntries['GRDocEntry'] = trim($_POST['finished_good_RFPODocEntry']);
             $InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
             $InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
- 
+
             $Final_API = $GRSAMPLEINTIFG_APi;
             $responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
             $responce1 = json_decode($responce_encode1);
- 
+
             if (empty($responce1)) {
                 $data['status'] = 'True';
                 $data['DocEntry'] = $responce->DocEntry;
@@ -5101,7 +5103,7 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
         }
         //  <!-- ------- service layer function responce manage End Here -------------- --> 
     }
- 
+
     $res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here   
     exit(0);
     //<!-- ------------- function & function responce code end Here ---- -->
