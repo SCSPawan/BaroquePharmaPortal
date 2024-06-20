@@ -5070,7 +5070,8 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['finished_good_BatchNo'])));
 	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['finished_good_BatchQty'])));
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags(($_POST['finished_good_MakeBy']))));	
-
+	$tdata['U_PC_RcQty'] = trim(addslashes(strip_tags($_POST['finished_good_GRPOQty'])));
+	
 	$tdata['U_PC_MfgDt'] = (!empty($_POST['finished_good_MFGDate']))? date("Y-m-d", strtotime($_POST['finished_good_MFGDate'])) : null;
 
 	$tdata['U_PC_ExpDt'] = (!empty($_POST['finished_good_ExpiryDate']))? date("Y-m-d", strtotime($_POST['finished_good_ExpiryDate'])) : null;
@@ -5085,7 +5086,6 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
 	$tdata['U_PC_BPLId'] = null;
 	$tdata['U_PC_LCode'] = null;
 	$tdata['U_PC_TNCont1'] = null;
-	$tdata['U_PC_RcQty'] = null;
 
 	// <!-- ---------------------- sample Intimation popup validation start Here -------------------- -->
 		if ($_POST['finished_good_SampleType'] == '') {
@@ -5144,7 +5144,7 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
             } else {
                 if (array_key_exists('error', (array)$responce1)) {
                     $data['status'] = 'False';
-                    $data['DocEntry'] = '22222222222222';
+                    $data['DocEntry'] = '';
                     $data['message'] = $responce1->error->message->value;
                     echo json_encode($data);
                 }
@@ -5152,7 +5152,7 @@ if (isset($_POST['SampleIntimationfinishedGoodBtn'])) {
         } else {
             if (array_key_exists('error', (array)$responce)) {
                 $data['status'] = 'False';
-                $data['DocEntry'] = '1111111111111';
+                $data['DocEntry'] = '';
                 $data['message'] = $responce->error->message->value;
                 echo json_encode($data);
             }
