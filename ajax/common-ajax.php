@@ -255,13 +255,15 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
 }
 
 if(isset($_POST['action']) && $_POST['action'] =='getSeriesDropdown_ajax')
-{
+{	
+	// print_r($_POST);
+	// die();
 	$TrDate=date('Ymd', strtotime(str_replace('/', '-',$_POST['TrDate'])));
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 	
-	// print_r($Final_API);
-	// die();
+// print_r($Final_API);
+// die();
 
 	$response=$obj->GetSeriesDropdown($Final_API);
 	echo json_encode($response);
