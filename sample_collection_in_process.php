@@ -312,8 +312,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                         <input type="hidden" id="si_Series" name="si_Series">
                                         <input type="hidden" id="gd_docNo" name="gd_docNo">
                                         
-                                         <input type="hidden" id="numner_Series" name="numner_Series">
+                                         <!-- <input type="hidden" id="numner_Series" name="numner_Series"> -->
+
                                         <input type="hidden" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
+
                                         <input type="hidden" id="itP_FromWhs" name="itP_FromWhs">
 
 
@@ -821,7 +823,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
         }
         totalRowCount=rows.length;
-        // console.log('rowCount=>', rowCount);
+        console.log('rowCount=>', rowCount);
         // ---------------------------------------------------------------------------------------------------------------
 
         var totalRowCount_N = 0;
@@ -837,7 +839,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }
       
         totalRowCount_N=rows_N.length;
-        // console.log('totalRowCount_N=>', totalRowCount_N);
+        console.log('totalRowCount_N=>', totalRowCount_N);
         // ---------------------------------------------------------------------------------------------------------------
 
         var dataString ='DocEntry='+DocEntry+'&rowCount_N='+rowCount_N+'&rowCount='+rowCount+'&action=sample_collecton_in_process_ajax';
@@ -853,7 +855,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $("#footerProcess").show();
                 var JSONObjectAll = JSON.parse(result);
 
-                        console.log(JSONObjectAll['SampleCollDetails']);
+                        //console.log(JSONObjectAll['SampleCollDetails']);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
                 
@@ -904,6 +906,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#SCRTQCB_SupplierCode`).val('');
                 $(`#itP_FromWhs`).val(JSONObject[0].RISSFromWhs);
 
+                getSeriesDropdown_gd();
                 
                 // <!-- ------------ IntimationDate Start Here --------------------- -->
                     var IntimationDateOG = JSONObject[0]['IntimationDate'];
@@ -1136,7 +1139,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     // }
 
 
-    function ExternalIssueSelectedBP(un_id){
+function ExternalIssueSelectedBP(un_id){
         
     var CardCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
     var Loc = $('#Location').val();
@@ -1177,47 +1180,46 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 function GetExtraIuuseWhs(un_id){
+    var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
 
-var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
+    var Loc = $('#Location').val();
+    var Branch= $('#Branch').val();
+    var ItemCode = $('#ItemCode').val();
+    var MakeBy = $('#makeby').val();  
+    var UOM = $('#UOM').val();
 
-var Loc = $('#Location').val();
-var Branch= $('#Branch').val();
-var ItemCode = $('#ItemCode').val();
-var MakeBy = $('#makeby').val();  
-var UOM = $('#UOM').val();
+    var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
 
-var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
-
-$.ajax({
-    type: "POST",
-    url: 'ajax/common-ajax.php',
-    data: dataString,  
-    beforeSend: function(){
-        // $(".loader123").show();
-    },
-    success: function(result){
-        // console.log(result);
-        var JSONObject = JSON.parse(result);
-        // console.log(JSONObject);
-        // console.log(JSONObject['SampleBy']);
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,  
+        beforeSend: function(){
+            // $(".loader123").show();
+        },
+        success: function(result){
+            // console.log(result);
+            var JSONObject = JSON.parse(result);
+            // console.log(JSONObject);
+            // console.log(JSONObject['SampleBy']);
 
 
-        if(SampleQuantity!=''){
-            $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
-            $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
-            $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
-            $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
-        }else{
-            $('#SC_FEI_UOM'+un_id).val('');
-            $('#SC_FEI_Warehouse'+un_id).val('');
-            $('#SC_FEI_SampleBy'+un_id).val('');
-            $('#SC_FEI_IssueDate'+un_id).val('');
+            if(SampleQuantity!=''){
+                $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
+                $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
+                $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
+                $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
+            }else{
+                $('#SC_FEI_UOM'+un_id).val('');
+                $('#SC_FEI_Warehouse'+un_id).val('');
+                $('#SC_FEI_SampleBy'+un_id).val('');
+                $('#SC_FEI_IssueDate'+un_id).val('');
+            }
+        },
+        complete:function(data){
+            // $(".loader123").hide();
         }
-    },
-    complete:function(data){
-        // $(".loader123").hide();
-    }
-});
+    })
 }
 
 
@@ -1304,6 +1306,8 @@ $.ajax({
         }); 
     }
 
+
+
     function OpenInventoryTransferModel_RetailsIssue()
     {
         var Branch=document.getElementById('Branch').value;
@@ -1347,7 +1351,7 @@ $.ajax({
     function getSeriesDropdown_gd()
     {  
         var TrDate=$('#gd_PostingDate_extra').val();
-        var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
+        var dataString ='TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
@@ -1360,7 +1364,7 @@ $.ajax({
                 var SeriesDropdown = JSON.parse(result);
                
 
-                console.log('SeriesDropdown',SeriesDropdown);
+                //console.log('SeriesDropdown',SeriesDropdown);
                 
                 $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
 
@@ -1371,15 +1375,82 @@ $.ajax({
         }); 
     }
 
+function getSeriesDropdown_gd_extra()
+{
+    // alert('hii');
+    var TrDate=$('#gd_PostingDate_extra').val();
+    var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
+    $.ajax({
+        type: "POST",
+        url: 'ajax/common-ajax.php',
+        data: dataString,
+        cache: false,
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result){
+            var SeriesDropdown = JSON.parse(result);
+
+            console.log('SeriesDropdown',SeriesDropdown);
+            $('#gd_Series_extra').html(SeriesDropdown);
+        },
+        complete:function(data){
+            selectedSeries_gd_extra()
+        }
+    })
+}
+
+    
+
+
+
+    function selectedSeries_gd_extra()
+    {
+
+      
+        var TrDate=$('#gd_PostingDate_extra').val();
+        var Series=document.getElementById('gd_Series_extra').value;
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_production_common_ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+            },
+            success: function(result)
+            {
+                var JSONObject = JSON.parse(result);
+
+                console.log('JSONObject111=>',JSONObject)
+
+            var NextNumber=JSONObject[0]['NextNumber'];
+                var Series=JSONObject[0]['Series'];         
+                $('#it_numner_Series').val(Series);                
+                $('#extra_docNo').val(NextNumber);
+            },
+            complete:function(data){
+                    $(".loader123").hide();
+            }
+        }); 
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 function selectedSeries_gd(){
-    alert('hii');
-
-
-    var TrDate=$('#gd_PostingDate').val();
-    var Series=document.getElementById('gd_SeriesName').value;
-    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
+   
+    var TrDate=$('#gd_PostingDate_extra').val();
+    var Series=document.getElementById('iT_InventoryTransfer_external_series').value;
+    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
     $.ajax({
         type: "POST",
         url: 'ajax/kri_production_common_ajax.php',
@@ -1390,14 +1461,12 @@ function selectedSeries_gd(){
         },
         success: function(result)
         {
-            var JSONObject = JSON.parse(result);
-             alert("hii")
-            console.log('JSONObject=>',JSONObject);
-            var NextNumber=JSONObject[0]['NextNumber'];
-            var Series=JSONObject[0]['Series'];
-                         
-            $('#numner_Series').val(Series);                
-            $('#gd_docNo').val(NextNumber);
+            var JSONObject = JSON.parse(result);            
+            //console.log('JSONObject=>',JSONObject);
+         var NextNumber=JSONObject[0]['NextNumber'];
+            var Series=JSONObject[0]['Series'];         
+            $('#it_numner_Series').val(Series);                
+            $('#external_docNo').val(NextNumber);
         },
         complete:function(data){
                 $(".loader123").hide();
@@ -1696,7 +1765,7 @@ function selectedSeries_gd(){
                                     success: function(result)
                                     {
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
@@ -1814,7 +1883,7 @@ function selectedSeries_gd(){
                                     success: function(result)
                                     {
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
@@ -1963,7 +2032,9 @@ function selectedSeries_gd(){
 
 function OpenInventoryExternalTransferModel(){
 
+
      var un_id=document.getElementById('RowLevelSelectedExternalIssue').value;  // selected row un_id
+
 
         var Branch=document.getElementById('Branch').value;
         var Series=document.getElementById('si_Series').value;
@@ -2007,6 +2078,20 @@ function OpenInventoryExternalTransferModel(){
 
 function ContainerSelection_extenal(){
 
+    // alert('hii');
+  
+var selectedRadio = document.querySelector('input[name="listRado"]:checked');
+
+// Check if a radio button is selected
+ if (selectedRadio) {
+    // Get the value of the selected radio button
+    var selectedValue = selectedRadio.value;
+    var SC_ExternalQty_Row = $('#SC_FEXI_SampleQuantity' + selectedValue).val()
+    var SC_ExternalLineId_Row = $('#SC_FEXI_Linenum' + selectedValue).val();
+} else {
+    var SC_ExternalQty_Row = 0.000;
+    var SC_ExternalLineId_Row = '';
+}
     var DocEntry=document.getElementById('it__DocEntry').value;
     var BatchNo=document.getElementById('it_BatchNo').value;
     var ItemCode=document.getElementById('itP_ItemCode').value;
@@ -2028,8 +2113,9 @@ function ContainerSelection_extenal(){
             var JSONObject = JSON.parse(result);
             
             // $('#ContainerSelectionItemAppend_retails').html(JSONObject); 
-            $('#ContainerSelectionItemAppend_external').html(JSONObject); 
-            
+            $('#ContainerSelectionItemAppend_external').html(JSONObject);
+            $('#itP_BQty').val(SC_ExternalQty_Row);
+            $('#it_Linenum').val(SC_ExternalLineId_Row);           
         },
         complete:function(data){
             $(".loader123").hide();
@@ -2130,74 +2216,76 @@ function getSelectedContener_extenal(un_id)
             document.getElementById("cs_selectedQtySum_external").value = parseFloat(sum).toFixed(6); // Container Selection final sum
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
     }
-//   function getSeriesDropdown_gd_extra()
-//     {
-//         var dataString ='ObjectCode=60&action=getSempleCSeriesDropdown_ajax';
-//         $.ajax({
-//             type: "POST",
-//             url: 'ajax/kri_production_common_ajax.php',
-//             data: dataString,
-//             cache: false,
-//             beforeSend: function(){
-//                 $(".loader123").show();
-//             },
-//             success: function(result){
-//                 var SeriesDropdown = JSON.parse(result);
 
-//                 $('#gd_Series_extra').html(SeriesDropdown);
-//             },
-//             complete:function(data){
-//                 $(".loader123").hide();
-//             }
-//         }); 
-//     }
+
 
 
     
 
 
- function OpenInventoryTransferModel_extraIssue()
-    {
-        var Branch=document.getElementById('Branch').value;
-        var Series=document.getElementById('si_Series').value;
-        var DocEntry=document.getElementById('it__DocEntry').value;
-        var BPLId=document.getElementById('BPLId').value;
-        
-        var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferExtraIssue_In_ajax';
+function OpenInventoryTransferModel_extraIssue()
+{
+    var Branch=document.getElementById('Branch').value;
+    var Series=document.getElementById('si_Series').value;
+    var DocEntry=document.getElementById('it__DocEntry').value;
+    var BPLId=document.getElementById('BPLId').value;
+    
+    var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferExtraIssue_In_ajax';
 
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: dataString,
+        cache: false,
 
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result)
+        {
+            var JSONObject = JSON.parse(result);
 
-                $('#gd_BaseDocType_extra').val('SCS_SCINPROC');
-                $('#gd_BaseDocNum_extra').val(DocEntry);
-                $('#gd_branch_extra').val(Branch);
-                $('#gd_Series_extra').val(Series);
-                $('#it_BPLId_extra').val(BPLId);
-                $('#it_DocEntry_extra').val(DocEntry);
-                $('#InventoryTransferItemAppend_extra').html(JSONObject);
+            $('#gd_BaseDocType_extra').val('SCS_SCINPROC');
+            $('#gd_BaseDocNum_extra').val(DocEntry);
+            $('#gd_branch_extra').val(Branch);
+            $('#gd_Series_extra').val(Series);
+            $('#it_BPLId_extra').val(BPLId);
+            $('#it_DocEntry_extra').val(DocEntry);
+            $('#InventoryTransferItemAppend_extra').html(JSONObject);
 
-                getSeriesDropdown_gd_extra()
-                getSeriesDropdown_gd() // DocName By using API to get dropdown 
-                ContainerSelection_extraIssue(); // get Container Selection Table List
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
+            getSeriesDropdown_gd_extra()
+            // getSeriesDropdown_gd() // DocName By using API to get dropdown 
+            ContainerSelection_extraIssue(); // get Container Selection Table List
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    }) 
+}
 
 
      function ContainerSelection_extraIssue(){
+
+       // alert("hii");
+
+        var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
+
+
+// Check if a radio button is selected
+if (selectedRadio) {
+    // console.log('If');
+    // Get the value of the selected radio button
+    var selectedValue = selectedRadio.value;
+    var SC_ExteraQty_Row = $('#SC_FEI_SampleQuantity' + selectedValue).val();
+    var SC_ExteraLineId_Row = $('#SC_FEI_Linenum' + selectedValue).val();
+} else {
+    // console.log('else');
+    var SC_ExteraQty_Row = 0.000;
+    var SC_ExteraLineId_Row = '';
+}
+
+// console.log('SC_ExteraQty_Row=>', SC_ExteraQty_Row);
+// console.log('SC_ExteraLineId_Row->', SC_ExteraLineId_Row);
 
         var DocEntry=document.getElementById('it__DocEntry').value;
         var BatchNo=document.getElementById('BatchNo').value;
@@ -2221,7 +2309,9 @@ function getSelectedContener_extenal(un_id)
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
-                 $('#ContainerSelectionItemAppend_extra').html(JSONObject);
+                $('#ContainerSelectionItemAppend_extra').html(JSONObject);
+                $('#itP_BQty_extra').val(SC_ExteraQty_Row);
+                $('#it_LineId').val(SC_ExteraLineId_Row);           
             },
             complete:function(data){
                 $(".loader123").hide();
@@ -2334,7 +2424,7 @@ function getSelectedContener_extenal(un_id)
  function SubmitInventoryTransfer_external()
     {
         var selectedQtySum=document.getElementById('cs_selectedQtySum_external').value; // final Qty sum
-        var PostingDate=document.getElementById('iT_InventoryTransfer_external_PostingDate').value;
+        var PostingDate=document.getElementById('gd_PostingDate_extra').value;
         var DocDate=document.getElementById('iT_InventoryTransfer_external_DocumentDate').value;
         var ItemCode=document.getElementById('itP_ItemCode').value;
         var ItemName=document.getElementById('itP_ItemName').value;
@@ -2342,6 +2432,12 @@ function getSelectedContener_extenal(un_id)
         var fromWhs=document.getElementById('itP_FromWhs').value;
         var ToWhs=document.getElementById('itP_ToWhs').value;
         var Location=document.getElementById('itP_Loction').value;
+
+
+
+
+
+
 
         if(selectedQtySum==item_BQty){ // Container selection Qty validation
 
@@ -2354,7 +2450,6 @@ function getSelectedContener_extenal(un_id)
                         // <!-- ---------------- form submit process start here ----------------- -->
                             var formData = new FormData($('#inventory_transfer_form_external')[0]); 
                             formData.append("SubIT_Btn_transfer",'SubIT_Btn_transfer'); 
-// SubIT_Btn_Retails_issue
                             var error = true;
 
                             if(error)
@@ -2460,7 +2555,7 @@ function SubmitInventoryTransfer_extra(){
                                     success: function(result)
                                     {
                                         var JSONObject = JSON.parse(result);
-                                        console.log(JSONObject);
+                                        //console.log(JSONObject);
 
                                         var status = JSONObject['status'];
                                         var message = JSONObject['message'];
