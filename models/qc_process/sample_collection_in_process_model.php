@@ -786,6 +786,8 @@
                    
                      <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_BPLId" name="it_InventoryTransfer_BPLId">
                      <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_DocEntry" name="it_InventoryTransfer_DocEntry">
+                         <input type="hidden" id="it_numner_Series" name="it_numner_Series">
+                         <input type="hidden" id="it_Linenum" name="it_Linenum">
                                     <div class="row">
 
                                        <!--  <div class="col-xl-3 col-md-6">
@@ -801,7 +803,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                                  <div class="col-lg-4">
-                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series"></select>
+                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
                                                 </div>
 
                                                  <div class="col-lg-4">
@@ -943,11 +945,12 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_extra" method="post">
 
-                    <input type="hidden" id="it_BPLId_extra" name="it_BPLId_extra">
-                    <input type="hidden" id="it_DocEntry_extra" name="it_DocEntry_extra">
+                    <input type="text" id="it_BPLId_extra" name="it_BPLId_extra">
+                    <input type="text" id="it_DocEntry_extra" name="it_DocEntry_extra">
+                    <input type="text" id="it_LineId" name="it_LineId">
+                    <input type="text" id="it_Docno" name="it_Docno">
 
                     <div class="row">
-
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
@@ -979,19 +982,24 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                 <div class="col-lg-4">
-                                    <select class="form-control desabled" type="text" id="gd_Series_extra" name="gd_Series_extra"></select>
+                                    <select class="form-control " type="text" id="gd_Series_extra" name="gd_Series_extra" onchange="selectedSeries_gd_extra();"></select>
                                 </div>
                                  <div class="col-lg-4">
-                                 <input class="form-control desabled" type="text" id="extra_docNo" name="extra_docNo">
+                                 <input class="form-control " type="text" id="extra_docNo" name="extra_docNo" readonly>
                              </div>
                             </div>
                         </div>
+<?php
+                        
+$currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
+?>
+
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra">
+                                    <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
                                 </div>
                             </div>
                         </div>
@@ -1000,7 +1008,7 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="gd_DocumentDate_extra" name="gd_DocumentDate_extra">
+                                    <input class="form-control" type="date" id="gd_DocumentDate_extra" name="gd_DocumentDate_extra"  value="<?php echo $currentDate; ?>">
                                 </div>
                             </div>
                         </div>
