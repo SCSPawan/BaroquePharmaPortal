@@ -750,7 +750,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {  
                 $("#footerProcess").show();
                 var JSONObject = JSON.parse(result);
-                  console.log(JSONObject);
+                //   console.log(JSONObject);
                 
                     // var JSONObject=JSONObjectAll['SampleCollDetails'];
                     // $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
@@ -811,14 +811,27 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         }
 
                     
+                    // console.log('TransferToUnderTest=>', JSONObject[0]['TransferToUnderTest']);
+                    // if(JSONObject[0]['TransferToUnderTes']==''){
+                    //     alert('if');
+                    //     $("#befor").show(); // Add Process Popup
+                    //     $("#after").hide(); // View Process Popup
+                    // }else{
+                    //     alert('else');
+                    //     $("#befor").hide(); // Add Process Popup
+                    //     $("#after").show(); // View Process Popup
+                    // }
 
-                    if(JSONObject[0]['TransferToUnderTes']==''){
+                    if (!JSONObject[0]['TransferToUnderTes']) {
+                        // alert('if');
                         $("#befor").show(); // Add Process Popup
                         $("#after").hide(); // View Process Popup
-                    }else{
+                    } else {
+                        // alert('else');
                         $("#befor").hide(); // Add Process Popup
                         $("#after").show(); // View Process Popup
                     }
+
 
                     // $(`#it__DocEntry`).val(JSONObject[0].DocEntry);
                     // $(`#BPLId`).val(JSONObject[0].BPLId);
@@ -900,10 +913,11 @@ function SearchData(){
             },
             success: function(result)
             {
+                // console.log('result->', result);
                 // $('#SIRTIT_SupplierCode').val(SupplierCode);
                 // $('#SIRTIT_SupplierName').val(SupplierName);
                 $('#TransferToUndertest_Branch').val(BranchName);
-                $('#TransferToUndertest_Series').val(Series);
+                // $('#TransferToUndertest_Series').val(Series);
                 $('#TransferToUndertest_DocEntry').val(DocEntry);
                 $('#TransferToUndertest_BaseDocType').val('SCS_SINTIFG');
                 $('#TransferToUndertest_BPL_Id').val(BPL_Id);
@@ -914,16 +928,103 @@ function SearchData(){
                 $('#SampleIntimationInventoryTransferItemAppend').html(JSONObject);
 
                 // getSeriesDropdown() // DocName By using API to get dropdown 
-                ContainerSelection() // get Container Selection Table List
+                // ContainerSelection() // get Container Selection Table List
             },
             complete:function(data){
                 // Hide image container
-                $(".loader123").hide();
+                // $(".loader123").hide();
+                ContainerSelection() // get Container Selection Table List
             }
-        }); 
+        })
     }
 
-function TransferToUndertestAfter()
+    function ContainerSelection(){
+
+        var DocEntry=document.getElementById('TransferToUndertest_DocEntry').value;
+        var BNo=document.getElementById('TransferToUndertest_i_BatchNo').value;
+        var ItemCode=document.getElementById('TransferToUndertest_i_ItemCode').value;
+        var FromWhs=document.getElementById('TransferToUndertest_i_FromWhs').value;
+
+        var dataString ='DocEntry='+DocEntry+'&BNo='+BNo+'&ItemCode='+ItemCode+'&FromWhs='+FromWhs+'&action=sample_intimation_Finished_Good_ContainerList_ajax';
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_production_common_ajax.php',
+            data: dataString,
+            cache: false,
+
+            beforeSend: function(){
+                // Show image container
+                // $(".loader123").show();
+            },
+            success: function(result)
+            {
+                var JSONObject = JSON.parse(result);
+                $('#ContainerSelectionItemAppend').html(JSONObject);
+            },
+            complete:function(data){
+                // Hide image container
+                // $(".loader123").hide();
+                getSeriesDropdown() // DocName By using API to get dropdown 
+            }
+        })
+    }
+
+
+    function getSeriesDropdown(){
+        var TrDate= $('#TransferToUndertest_PostingDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var SeriesDropdown = JSON.parse(result);
+                $('#TransferToUndertest_DocName').html(SeriesDropdown);
+            },
+            complete:function(data){
+                selectedSeries(); // call Selected Series Single data function
+            }
+        })
+    }
+
+    function selectedSeries(){
+        var TrDate= $('#TransferToUndertest_PostingDate').val();
+        var Series=document.getElementById('TransferToUndertest_DocName').value;
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+
+                var NextNumber=JSONObject[0]['NextNumber'];
+                var Series=JSONObject[0]['Series'];
+
+                $('#TransferToUndertest_DocNo').val(NextNumber);
+                $('#TransferToUndertest_Series').val(Series);
+            },
+            complete:function(data){
+                // TR_ByDropdown();
+                $(".loader123").hide();
+            }
+        })
+    }  
+
+
+
+
+
+
+    function TransferToUndertestAfter()
     {
         // var SupplierCode=document.getElementById('SIRTAD_SupplierCode').value;
         // var SupplierName=document.getElementById('SIRTAD_SupplierName').value;
@@ -968,41 +1069,6 @@ function TransferToUndertestAfter()
             }
         }); 
     }
-
-
-
-
-     function ContainerSelection(){
-
-        var DocEntry=document.getElementById('TransferToUndertest_DocEntry').value;
-        var BNo=document.getElementById('TransferToUndertest_i_BatchNo').value;
-        var ItemCode=document.getElementById('TransferToUndertest_i_ItemCode').value;
-        var FromWhs=document.getElementById('TransferToUndertest_i_ToWhs').value;
-
-        var dataString ='DocEntry='+DocEntry+'&BNo='+BNo+'&ItemCode='+ItemCode+'&FromWhs='+FromWhs+'&action=sample_intimation_Finished_Good_ContainerList_ajax';
-
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-                // Show image container
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-                $('#ContainerSelectionItemAppend').html(JSONObject);
-            },
-            complete:function(data){
-                // Hide image container
-                $(".loader123").hide();
-            }
-        }); 
-    }
-
 
     function ContainerSelection_after(){
         var DocEntry=document.getElementById('after_TransferToUndertest_DocEntry').value;
@@ -1098,7 +1164,6 @@ function TransferToUndertestAfter()
         getSelectedContenerGI_Manual(un_id); // if user change selected Qty value after selection       
     }
 
-
     function getSelectedContenerGI_Manual(un_id){
         //Create an Array.
         var selected = new Array();
@@ -1130,7 +1195,6 @@ function TransferToUndertestAfter()
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
     }
 
-    
     function View_RPT_Open_PUT(API_Name,RPT_Title){
         var DocEntry=$('#U_UTTrans').val();
         var PrintOutURL=`http://192.168.1.30:8082/API/SAP/${API_Name}?DocEntry=${DocEntry}`;
