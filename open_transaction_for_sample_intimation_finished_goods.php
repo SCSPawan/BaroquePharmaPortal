@@ -414,7 +414,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     }
 
     function DateFormatingDMY(DateOG){
-        alert(DateOG);
+        // alert(DateOG);
         if(DateOG!=''){
             let [day, month, year] = DateOG.split(" ")[0].split("-");
             let Date = `${day}-${month}-${year}`;
