@@ -307,7 +307,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <input type="hidden" id="Remark" name="Remark">
                                 <input type="hidden" id="LineNum" name="LineNum">
                                 <input type="hidden" id="U_PC_Unit" name="U_PC_Unit">
-                                <input type="hidden" id="Location" name="Location">
                                 <input type="hidden" id="RetestDate" name="RetestDate">
                                 <input type="hidden" id="QtyPerContainer" name="QtyPerContainer">
                                 <input type="hidden" id="LocCode" name="LocCode">
@@ -436,7 +435,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
                                     </div>  
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display: none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG By</label>
                                             <div class="col-lg-8">
@@ -447,8 +446,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                                     <div class="col-xl-3 col-md-6">
                                         <div class="form-group row mb-2">
-                                            <label class="col-lg-5 col-form-label mt-6" for="val-skill">Total No of container</label>
-                                            <div class="col-lg-7">
+                                            <label class="col-lg-6 col-form-label mt-6" for="val-skill">Total No of container</label>
+                                            <div class="col-lg-6">
                                                 <input class="form-control desabled" type="number" id="totalNoOfContainer" name="totalNoOfContainer" readonly>
                                             </div>
                                             <!-- <div class="col-lg-3">
@@ -497,7 +496,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG Date</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="date" id="MFGDate" name="MFGDate">
+                                                <input class="form-control desabled" type="text" id="MFGDate" name="MFGDate" readonly>
                                             </div>
                                         </div>
                                     </div> 
@@ -506,7 +505,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="date" id="ExpiryDate" name="ExpiryDate">
+                                                <input class="form-control desabled" type="text" id="ExpiryDate" name="ExpiryDate" readonly>
                                             </div>
                                         </div>
                                     </div> 
@@ -617,6 +616,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                             </div>
                                         </div>
                                     </div>
+                                       
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="Location" name="Location" readonly>
+                                            </div>
+                                        </div>
+                                    </div> 
 
                                     <!-- Toggle States Button -->
                                     <div class="row">
@@ -725,7 +733,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $("#footerProcess").show();
                     var JSONObject = JSON.parse(result); // all responce holde and convert here
 
-                    // console.log('JSONObject=>', JSONObject);
+                    console.log('JSONObject=>', JSONObject);
 
                     $(`#ReceiptNo`).val(JSONObject[0].RFPNo);
                     $(`#ReceiptNo1`).val(JSONObject[0].RFPODocEntry);
@@ -738,7 +746,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $(`#wOQty`).val(JSONObject[0].WOQty);
                     $(`#sampleQty`).val(JSONObject[0].SQty);
                     $(`#RetainQty`).val(JSONObject[0].RQty);
-                    $(`#MfgBy`).val(JSONObject[0].MfgBy);
+                    // $(`#MfgBy`).val(JSONObject[0].MfgBy);
                     $(`#totalNoOfContainer`).val(JSONObject[0].TotNoCont);
                     $(`#fromContainer`).val(JSONObject[0].FromCont);
                     $(`#ToContainer`).val(JSONObject[0].ToCont);
@@ -769,7 +777,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         var MfgDateOG = JSONObject[0]['MfgDate'];
                         if(MfgDateOG!=''){
                             let [day, month, year] = MfgDateOG.split(" ")[0].split("-");
-                            let MfgDate = `${year}-${month}-${day}`;
+                            // let MfgDate = `${year}-${month}-${day}`;
+                            let MfgDate = `${day}-${month}-${year}`;
                             $(`#MFGDate`).val(MfgDate);
                         }
                     // <!-- ------------ Mfg Date End Here ----------------------- -->
@@ -778,7 +787,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         var ExpiryDateOG = JSONObject[0]['ExpiryDate'];
                         if(ExpiryDateOG!=''){
                             let [day, month, year] = ExpiryDateOG.split(" ")[0].split("-");
-                            let ExpiryDate = `${year}-${month}-${day}`;
+                            // let ExpiryDate = `${year}-${month}-${day}`;
+                            let ExpiryDate = `${day}-${month}-${year}`;
                             $(`#ExpiryDate`).val(ExpiryDate);
                         }
                     // <!-- ------------ Expiry Date End Here ----------------------- -->

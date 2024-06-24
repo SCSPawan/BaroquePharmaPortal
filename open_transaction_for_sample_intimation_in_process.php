@@ -9,8 +9,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
   exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($INPROCESSOPENSAMPLEINTIMATION);
     $count=count($getAllData);
 
@@ -122,6 +121,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Item View</th>
                         <th>Sr. No </th>  
                         <th>WO No</th>
+                        <th>RFP No</th>
                         <th>RFP Entry</th>
                         <th>Material Type</th>
                         <th>Item Code</th>
@@ -133,6 +133,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Mfg Date</th>
                         <th>Expiry Date</th>
                         <th>Branch Name</th>
+                        <th>Location</th>
+                        <th>MakeBy</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -163,6 +165,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                         </a>
                                     </td>
                                     <td class="desabled">'.$getAllData[$i]->WONo.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->RFPNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RFPODocEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->MaterialType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
@@ -174,6 +177,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Location.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
                                 </tr>';
                         }
                     }
@@ -188,82 +193,70 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     exit(0);
 }
 ?>
-
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/sample_intimation_in_process_model_kri.php' ?>
-        <!-- gridjs css -->
-        <link rel="stylesheet" href="assets/libs/gridjs/theme/mermaid.min.css">
+    <!-- gridjs css -->
+    <link rel="stylesheet" href="assets/libs/gridjs/theme/mermaid.min.css">
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
-        <!-- Bootstrap Css -->
-        <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-        <!-- Icons Css -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <!-- App Css-->
-        <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
+    </style>
 
-        <style type="text/css">
-            body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
-        </style>
+    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+        </div>
+    </div>
 
-         <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-                <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-                    <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
-                </div>
-            </div>
-    
-            <div class="main-content">
-
-                <div class="page-content">
-                    <div class="container-fluid">
-
-                        <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0">Open Transactions for Sample Intimation - In Process</h4>
-
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                            <li class="breadcrumb-item active">Open Transactions for Sample Intimation - In Process</li>
-                                        </ol>
-                                    </div>
-
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0">Open Transactions for Sample Intimation - In Process</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Open Transactions for Sample Intimation - In Process</li>
+                                </ol>
                                 </div>
                             </div>
                         </div>
-                        <!-- end page title -->
+                    </div>
+                <!-- end page title -->
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header justify-content-between d-flex align-items-center">
-                                        <h4 class="card-title mb-0">Open Transactions for Sample Intimation - In Process</h4>  
-                                    </div><!-- end card header -->
-                                        <div class="card-body">
-                                                <div class="table-responsive" id="list-append">
-                                        </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                        
-                    </div> <!-- container-fluid -->
-                </div>
-                <!-- End Page-content -->
-                
-           <?php include 'include/footer.php' ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header justify-content-between d-flex align-items-center">
+                                <h4 class="card-title mb-0">Open Transactions for Sample Intimation - In Process</h4>  
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div class="table-responsive" id="list-append"></div>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div> <!-- container-fluid -->
+        </div> <!-- page-content -->
+    </div>
+    <!-- End Page-content -->
+
+<?php include 'include/footer.php' ?>
 
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var dataString ='action=list';
-        
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -271,14 +264,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
     function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum){
@@ -286,13 +278,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
             data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'LineNum':LineNum,'action':"OT_Sample_Collection_popup"},
-
             beforeSend: function(){
                 $(".loader123").show();
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
-                // console.log('JSONObject=> ', JSONObject);
+                // console.log('OT_PoPup_SampleCollection=>', JSONObject);
 
                 $(`#ReceiptNo`).val(JSONObject[0].RFPNo);
                 $(`#ReceiptNo1`).val(JSONObject[0].RFPODocEntry);
@@ -317,11 +308,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#GateEntryNo`).val(JSONObject[0].GateEntryNo);
                 $(`#GateEntryDate`).val(JSONObject[0].GateEntryDate);
                 $(`#ContainerNo`).val(JSONObject[0].ContainerNos);
-
                 $(`#Container`).val(JSONObject[0].ContainerUOM);
                 $(`#MakeBy`).val(JSONObject[0].MakeBy);
                 $(`#Unit`).val(JSONObject[0].Unit);
-
                 $(`#Location`).val(JSONObject[0].Location);
                 $(`#RetestDate`).val(JSONObject[0].RetestDate);
                 $(`#QtyPerContainer`).val(JSONObject[0].QtyPerContainer);
@@ -339,7 +328,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     var ExpiryDateOG = JSONObject[0]['ExpiryDate'];
                     if(ExpiryDateOG!=''){
                         let [day, month, year] = ExpiryDateOG.split(" ")[0].split("-");
-                        let ExpiryDate = `${year}-${month}-${day}`;
+                        let ExpiryDate = `${day}-${month}-${year}`;
                         $(`#ExpiryDate`).val(ExpiryDate);
                     }
                 // <!-- ------------ Expiry Date End Here ----------------------- -->
@@ -348,7 +337,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     var MfgDateOG = JSONObject[0]['MfgDate'];
                     if(MfgDateOG!=''){
                         let [day, month, year] = MfgDateOG.split(" ")[0].split("-");
-                        let MfgDate = `${year}-${month}-${day}`;
+                        let MfgDate = `${day}-${month}-${year}`;
                         $(`#MFGDate`).val(MfgDate);
                     }
                 // <!-- ------------ Mfg Date End Here ----------------------- -->
@@ -360,11 +349,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        }) 
     }
 
-    function getSeriesDropdown()
-    {
+    function getSeriesDropdown(){
         var TrDate = $('#TrDate').val();
         var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SINPROCESS&action=getSeriesDropdown_ajax';
         $.ajax({
@@ -383,7 +371,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
     }
 
     function selectedSeries(){
@@ -395,12 +383,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             url: 'ajax/kri_production_common_ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
                 var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];
@@ -410,60 +396,51 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
     }
 
     function SampleTypeDropdown(){
-
-        var dataString ='TableId=@SCS_SINPROCESS&Alias=PC_SType&action=dropdownMaster_ajax';
-        $.ajax({
+        $.ajax({ 
             type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-
+            url: 'ajax/common-ajax.php',
+            data:{'action':"SampleTypeDropdown_ajax"},
             beforeSend: function(){
                 $(".loader123").show();
             },
             success: function(result){
-                var JSONObject = JSON.parse(result);
-                $('#sampleType').html(JSONObject);
+                var SampleTypeDrop = JSON.parse(result);
+                $('#sampleType').html(SampleTypeDrop);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 
-    function TR_ByDropdown()
-    {
+    function TR_ByDropdown(){
         $.ajax({ 
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
             data:{'action':"TR_ByDropdown_ajax"},
-
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SampleTypeDrop = JSON.parse(result);
                 $('#TrBy').html(SampleTypeDrop);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
     }
 
     function SendSampleIntimationData(){
-
         var formData = new FormData($('#SampleIntimationFormInProcess')[0]);  // Form Id
         formData.append("SampleIntimationInProcessBtn",'SampleIntimationInProcessBtn');  // Button Id
         var error = true;
-
         $.ajax({
-            url: 'ajax/kri_production_common_ajax.php',
+        url: 'ajax/kri_production_common_ajax.php',
             type: "POST",
             data:formData,
             processData: false,
@@ -471,8 +448,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];
@@ -480,11 +456,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var DocEntry = JSONObject['DocEntry'];
                 if(status=='True'){
                     swal({
-                      title: "Sample Intimation-In Process Added Successfully.!",
-                      text: `${DocEntry}`,
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: false,
+                        title: "Sample Intimation-In Process Added Successfully.!",
+                        text: `${DocEntry}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
@@ -499,6 +475,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 </script>
