@@ -293,14 +293,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         </div>
                         <!-- end row -->
                         <br>
-                           <div class="row" id="footerProcess">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                 <div class="card-body">
-                                     <div class="row">
-        <input type="text" id="SI_FG_DocNo" name="SI_FG_DocNo">
-        <input type="text" id="SI_FG_BranchID" name="SI_FG_BranchID">
-        <input type="text" id="SI_FG_Unit" name="SI_FG_Unit">
+                    <div class="row" id="footerProcess">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <input type="hidden" id="SI_FG_DocNo" name="SI_FG_DocNo">
+                                        <input type="hidden" id="SI_FG_BranchID" name="SI_FG_BranchID">
+                                        <input type="hidden" id="SI_FG_Unit" name="SI_FG_Unit">
                                         
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -939,8 +939,8 @@ function SearchData(){
     }
 
     function ContainerSelection(){
-
-        var DocEntry=document.getElementById('TransferToUndertest_DocEntry').value;
+        
+        var DocEntry=document.getElementById('TransferToUndertest_i_GRNEntry').value;
         var BNo=document.getElementById('TransferToUndertest_i_BatchNo').value;
         var ItemCode=document.getElementById('TransferToUndertest_i_ItemCode').value;
         var FromWhs=document.getElementById('TransferToUndertest_i_FromWhs').value;

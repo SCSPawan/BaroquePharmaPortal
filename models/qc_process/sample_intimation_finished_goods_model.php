@@ -337,9 +337,9 @@
             <div class="modal-body">
                 <!-- form start -->
                     <form role="form" class="form-horizontal" id="inventory_transfer_finished_good_form" method="post">
-                        <input type="text" id="TransferToUndertest_DocEntry" name="TransferToUndertest_DocEntry">
-                        <input type="text" id="TransferToUndertest_BPL_Id" name="TransferToUndertest_BPL_Id">
-                        <input type="text" id="TransferToUndertest_Series" name="TransferToUndertest_Series">
+                        <input type="hidden" id="TransferToUndertest_DocEntry" name="TransferToUndertest_DocEntry">
+                        <input type="hidden" id="TransferToUndertest_BPL_Id" name="TransferToUndertest_BPL_Id">
+                        <input type="hidden" id="TransferToUndertest_Series" name="TransferToUndertest_Series">
         
 
                         <div class="row">

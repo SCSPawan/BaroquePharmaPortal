@@ -370,9 +370,6 @@ if (isset($_POST['SampleIntimationInProcessBtn'])) {
 	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['RetainQty'])));
 	$tdata['U_PC_Unit'] = trim(addslashes(strip_tags($_POST['Unit'])));
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['Branch'])));
-	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['ChallanNo'])));
-	$tdata['U_PC_ChDate'] = trim(addslashes(strip_tags($_POST['ChallanDate'])));
-	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['GateEntryNo'])));
 	$tdata['U_PC_CNos'] = trim(addslashes(strip_tags($_POST['ContainerNo'])));
 	$tdata['U_PC_Cont'] = $_POST['Container'] != '' ? $_POST['Container'] : 0;
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['BatchNo'])));
@@ -395,12 +392,6 @@ if (isset($_POST['SampleIntimationInProcessBtn'])) {
 		$tdata['U_PC_TRDte'] = date('Y-m-d', strtotime($_POST['TrDate']));
 	} else {
 		$tdata['U_PC_TRDte'] = '';
-	}
-
-	if (!empty($_POST['GateEntryDate'])) {
-		$tdata['U_PC_GEDte'] = date('Y-m-d', strtotime($_POST['GateEntryDate']));
-	} else {
-		$tdata['U_PC_GEDte'] = '';
 	}
 
 	if (!empty($_POST['MFGDate'])) {
@@ -1128,7 +1119,6 @@ if (isset($_POST['SC_SubIT_Btn_post_doc'])) {
 }
 
 if (isset($_POST['SampleIntimationUpdateForm_Btn'])) {
-
 
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -4341,8 +4331,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenSampleIntimationFinished
 		$option = '<tr>
 				<td class="desabled">
 						
-					<input type="text" id="TransferToUndertest_i_GRNEntry" name="TransferToUndertest_i_GRNEntry" value="' . $response[0]->RFPODocEntry . '">
-					<input type="text" id="TransferToUndertest_i_BatchNo" name="TransferToUndertest_i_BatchNo" value="' . $response[0]->BatchNo . '">
+					<input type="hidden" id="TransferToUndertest_i_GRNEntry" name="TransferToUndertest_i_GRNEntry" value="' . $response[0]->RFPODocEntry . '">
+					<input type="hidden" id="TransferToUndertest_i_BatchNo" name="TransferToUndertest_i_BatchNo" value="' . $response[0]->BatchNo . '">
 
 					1
 				</td>

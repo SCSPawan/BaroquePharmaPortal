@@ -209,7 +209,7 @@ class Web {
 		// 		}
 		// 	}  
 		// }
-
+		$option='';
 		$option.='<option value="R">Regular</option>';
 		return $option;
     }
