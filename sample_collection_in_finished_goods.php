@@ -535,6 +535,25 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>
 
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make by</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" readonly type="text" id="fg_Makeby" name="fg_Makeby">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Uom</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" readonly type="text" id="fg_Uom" name="fg_Uom">
+                                                </div>
+                                            </div>
+                                        </div>
                                        <!--  <div class="d-flex flex-wrap gap-2">
                                           
                                             <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Container Selection</button>
@@ -1012,7 +1031,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#LineNo`).val(JSONObject[0].LineNo);
                     $(`#LocCode`).val(JSONObject[0].LocCode);
                     $(`#BatchQty`).val(JSONObject[0].BatchQty);
-                    
+                    $(`#fg_Makeby`).val(JSONObject[0].MakeBy);
+                    $(`#fg_Uom`).val(JSONObject[0].UOM);
                     
 
                      getSupplierDropdown(totalRowCount);
@@ -1194,33 +1214,77 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
-  function getSupplierDropdown(totalRowCount){
-var dataString ='action=SupplierDropdown_ajax';
+//   function getSupplierDropdown(totalRowCount){
+// var dataString ='action=SupplierDropdown_ajax';
 
-$.ajax({  
-        type: "POST",  
-        url: 'ajax/kri_production_common_ajax.php',   
-        data: dataString,  
-        beforeSend: function(){
-        // Show image container
-                  $(".loader123").show();
-                },
-                success: function(result)
-                {  
-                // console.log('supplier drop=>', result);
-                   var JSONObject = JSON.parse(result);
-                // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
-                let un_id=totalRowCount; 
-                // console.log(un_id);
-                   $('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
-                // <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
-                },
-                complete:function(data){
-                // Hide image container
-                   $(".loader123").hide();
+// $.ajax({  
+//         type: "POST",  
+//         url: 'ajax/kri_production_common_ajax.php',   
+//         data: dataString,  
+//         beforeSend: function(){
+//         // Show image container
+//                   $(".loader123").show();
+//                 },
+//                 success: function(result)
+//                 {  
+//                 // console.log('supplier drop=>', result);
+//                    var JSONObject = JSON.parse(result);
+//                 // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
+//                 let un_id=totalRowCount; 
+//                 // console.log(un_id);
+//                    $('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
+//                 // <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
+//                 },
+//                 complete:function(data){
+//                 // Hide image container
+//                    $(".loader123").hide();
+//                 }
+//         });
+// }
+
+
+
+
+    function getSupplierDropdown(totalRowCount) {
+            // ==============================Table tr count inside tbody start here ===================
+            var totalRowCount = 0;
+            var rowCount = 0;
+            var table = document.getElementById("External-issue-list-append");
+            var rows = table.getElementsByTagName("tr")
+            for (var i = 0; i < rows.length; i++) {
+                totalRowCount++;
+                if (rows[i].getElementsByTagName("td").length > 0) {
+                    rowCount++;
                 }
-        });
-}
+            }
+
+            // ==============================Table tr count inside tbody End here ====================
+
+            var dataString = 'action=SupplierDropdown_ajax';
+
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: dataString,
+                beforeSend: function() {
+                    // Show image container
+                    $(".loader123").show();
+                },
+                success: function(result) {
+                    // console.log('supplier drop=>', result);
+                    var JSONObject = JSON.parse(result);
+                    // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
+                    let un_id = rowCount;
+                    $('#SC_ExternalI_SupplierCode' + un_id).html(JSONObject);
+                    // <!-- ------- this loop mapped supplier list dropdown end here---------------- -->
+                },
+                complete: function(data) {
+                    // Hide image container
+                    $(".loader123").hide();
+                }
+            });
+        }
+
 
 
 function getWareHouseDropdown(totalRowCount){
@@ -1774,7 +1838,7 @@ swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
 
 
 
- function getSelectedContener_retails(un_id){
+  function getSelectedContener_retails(un_id){
         //Create an Array.
         var selected = new Array();
  
@@ -1939,10 +2003,10 @@ swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
 
          function ExternalIssueSelectedBP(un_id) {
             var CardCode = document.getElementById('SC_ExternalI_SupplierCode' + un_id).value;
-            var Loc = $('#SCRTQCB_Location').val();
-            var Branch = $('#SCRTQCB_Branch').val();
-            var ItemCode = $('#SCRTQCB_ItemCode').val();
-            var MakeBy = $('#SCRTQCB_MakeBy').val();
+            var Loc = $('#fg_Loction').val();
+            var Branch = $('#fg_Branch').val();
+            var ItemCode = $('#fg_ItemCode').val();
+            var MakeBy = $('#fg_Makeby').val();
 
             var dataString = 'CardCode=' + CardCode + '&Loc=' + Loc + '&Branch=' + Branch + '&ItemCode=' + ItemCode + '&MakeBy=' + MakeBy + '&action=SupplierSingleData_ajax';
 
@@ -1955,17 +2019,17 @@ swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
                 },
                 success: function(result) {
                     var JSONObject = JSON.parse(result);
-                    // console.log(JSONObject);
+                    
 
                     if (CardCode != '') {
                         $('#SC_FEXI_SupplierName' + un_id).val(JSONObject['CardName']);
                         $('#SC_ExternalI_Warehouse' + un_id).val(JSONObject['Whse']);
                         $('#SC_FEXI_SampleDate' + un_id).val(JSONObject['SampleDate']);
-                        $('#SC_FEXI_UOM' + un_id).val($('#SCRTQCB_SampleQtyUnit').val());
+                        $('#SC_FEXI_UOM' + un_id).val($('#fg_Uom').val());
                     } else {
                         $('#SC_FEXI_SupplierName' + un_id).val('');
                         $('#SC_ExternalI_Warehouse' + un_id).val('');
-                        $('#SC_FEXI_SampleDate' + un_id).val('');
+                        $('#SC_FEXI_SampleDate' + un_id).val(''); 
                         $('#SC_FEXI_UOM' + un_id).val('');
                     }
                 },
@@ -1975,6 +2039,52 @@ swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
             });
         }
 
+
+
+
+
+        function GetExtraIuuseWhs(un_id) {
+
+         var SampleQuantity = $('#SC_FEI_SampleQuantity' + un_id).val();
+            var Loc = $('#fg_Loction').val();
+            var Branch = $('#fg_Branch').val();
+            var ItemCode = $('#fg_ItemCode').val();
+            var MakeBy = $('#fg_Makeby').val();
+            var UOM = $('#SC_FEI_UOM').val();
+
+    var dataString = 'UOM=' + UOM + '&Loc=' + Loc + '&Branch=' + Branch + '&ItemCode=' + ItemCode + '&MakeBy=' + MakeBy + '&action=GetExtraIuuseWhs_Ajax';
+
+   $.ajax({
+    type: "POST",
+    url: 'ajax/common-ajax.php',
+    data: dataString,
+    beforeSend: function() {
+        // $(".loader123").show();
+    },
+    success: function(result) {
+        // console.log(result);
+        var JSONObject = JSON.parse(result);
+        // console.log(JSONObject);
+        // console.log(JSONObject['SampleBy']);
+
+
+        if (SampleQuantity != '') {
+            $('#SC_FEI_UOM' + un_id).val(JSONObject['UOM']);
+            $('#SC_FEI_Warehouse' + un_id).val(JSONObject['Whse']);
+            $('#SC_FEI_SampleBy' + un_id).val(JSONObject['SampleBy']);
+            $('#SC_FEI_IssueDate' + un_id).val(JSONObject['IssueDate']);
+        } else {
+            $('#SC_FEI_UOM' + un_id).val('');
+            $('#SC_FEI_Warehouse' + un_id).val('');
+            $('#SC_FEI_SampleBy' + un_id).val('');
+            $('#SC_FEI_IssueDate' + un_id).val('');
+        }
+    },
+    complete: function(data) {
+        // $(".loader123").hide();
+    }
+});
+}
 
 
 

@@ -3360,7 +3360,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 				    <td class="desabled">
 				    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control desabled" readonly>
 
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control desabled" readonly>
+				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control desabled" readonly onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
 			    	</td>
 
 				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control desabled" readonly></td>
@@ -3382,26 +3382,26 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 			    </td>
 
 			    <td>
-				    <input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" readonly>
+				    <input class="border_hide" type="hidden" id="SC_FEI_Linenum' . $SrNo . '" name="SC_FEI_Linenum[]" value="' . $ExtraIssue[$i]->LineNum . '" class="form-control" readonly >
 
-				    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control">
+				    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity' . $SrNo . '" name="SC_FEI_SampleQuantity[]" value="' . $ExtraIssue[$i]->sampleQty2 . '" class="form-control" onfocusout="GetExtraIuuseWhs('.$SrNo.')">
 			    </td>
 
 			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control">
+			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM2 . '" class="form-control" readonly>
 		    	</td>
 
 			    <td>
-			    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" style="width: 200px;">
-					</select>
+			    	<input class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse' . $SrNo . '" name="SC_FEI_Warehouse[]" style="width: 200px;" readonly  disbled>
+					</input>
 		    	</td>
 
 			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control">
+			    	<input class="border_hide" type="text" id="SC_FEI_SampleBy' . $SrNo . '" name="SC_FEI_SampleBy[]" value="' . $ExtraIssue[$i]->SampleBy . '" class="form-control" readonly>
 		    	</td>
 
 			    <td>
-			    	<input class="border_hide" type="date" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control">
+			    	<input class="border_hide" type="text" id="SC_FEI_IssueDate' . $SrNo . '" name="SC_FEI_IssueDate[]" value="' . $IssueDate . '" class="form-control" readonly>
 		    	</td>
 
 			    <td>
@@ -3424,7 +3424,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 			    </td>
 
 			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM . '" class="form-control">
+			    	<input class="border_hide" type="text" id="SC_FEI_UOM' . $SrNo . '" name="SC_FEI_UOM[]" value="' . $ExtraIssue[$i]->UOM . '" class="form-control" readonly>
 		    	</td>
 
 			    <td>
@@ -3473,7 +3473,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 				    
 				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName' . $SrNo . '" name="SC_FEXI_SupplierName[]" value="' . $ExternalIssue[$j]->SupplierName . '" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" value="' . $ExternalIssue[$j]->UOM1 . '" class="form-control desabled" readonly></td>
+				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM' . $SrNo . '" name="SC_FEXI_UOM[]" value="' . $ExternalIssue[$j]->UOM . '" class="form-control desabled" readonly></td>
 				    
 				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" value="' . $SampleDate . '" class="form-control desabled" readonly></td>
 				    
@@ -3517,7 +3517,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate' . $SrNo . '" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
 			    <td>
-					<select class="form-control ExternalIssueWareHouseWithData" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
+					<input class="border_hide" id="SC_ExternalI_Warehouse' . $SrNo . '" name="SC_ExternalI_Warehouse[]" style="width: 200px;" desabled readonly></input>
 				</td>
 			    
 			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity' . $SrNo . '" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
