@@ -1119,44 +1119,37 @@ if (isset($_POST['SC_SubIT_Btn_post_doc'])) {
 }
 
 if (isset($_POST['SampleIntimationUpdateForm_Btn'])) {
-
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
-
-	// $tdata['Series']=trim(addslashes(strip_tags($_POST['DocNo'])));
 	$tdata['Remark'] = trim(addslashes(strip_tags($_POST['Remark'])));
 	$tdata['Object'] = trim(addslashes(strip_tags('SCS_SINPROCESS')));
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['LineNum'])));
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['ReceiptNo'])));
-
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['ReceiptNo1'])));
-
 	$tdata['U_PC_WoNo'] = trim(addslashes(strip_tags($_POST['woNo'])));
-
 	$tdata['U_PC_WoEnt'] = trim(addslashes(strip_tags($_POST['woEntry'])));
-
 	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['sampleType'])));
-
 	$tdata['U_PC_TRBy'] = trim(addslashes(strip_tags($_POST['TrBy'])));
-
 	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['itemCode'])));
-
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['itemName'])));
-
 	$tdata['U_PC_RcQty'] = null;
-
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['sampleQty'])));
-
 	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['RetainQty'])));
-
 	$tdata['U_PC_Unit'] = trim(addslashes(strip_tags($_POST['U_PC_Unit'])));
-
+	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['Branch'])));
 	$tdata['U_PC_TNCont'] = $_POST['totalNoOfContainer'] != '' ? $_POST['totalNoOfContainer'] : 0;
-
 	$tdata['U_PC_TNCont1'] = $_POST['QtyPerContainer'] != '' ? $_POST['QtyPerContainer'] : 0;
-
 	$tdata['U_PC_FCont'] = $_POST['fromContainer'] != '' ? $_POST['fromContainer'] : 0;
 	$tdata['U_PC_TCont'] = $_POST['ToContainer'] != '' ? $_POST['ToContainer'] : 0;
+	$tdata['U_PC_CNos'] = trim(addslashes(strip_tags($_POST['ContainerNo'])));
+	$tdata['U_PC_Cont'] = $_POST['Container'] != '' ? $_POST['Container'] : 0;
+	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['BatchNo'])));
+	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['BatchQty'])));
+	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['BPLId'])));
+	$tdata['U_PC_LCode'] = trim(addslashes(strip_tags($_POST['LocCode'])));
+	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['Location'])));
+	$tdata['U_PC_UTTrans'] = null;
+	$tdata['U_PC_DType'] = null;
 
 	if (!empty($_POST['TrDate'])) {
 		$tdata['U_PC_TRDte'] = date('Y-m-d', strtotime($_POST['TrDate']));
@@ -1164,30 +1157,11 @@ if (isset($_POST['SampleIntimationUpdateForm_Btn'])) {
 		$tdata['U_PC_TRDte'] = '';
 	}
 
-	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['Branch'])));
-
-	$tdata['U_PC_ChNo'] = trim(addslashes(strip_tags($_POST['ChallanNo'])));
-	$tdata['U_PC_ChDate'] = trim(addslashes(strip_tags($_POST['ChallanDate'])));
-	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['GateEntryNo'])));
-
-	if (!empty($_POST['GateEntryDate'])) {
-		$tdata['U_PC_GEDte'] = date('Y-m-d', strtotime($_POST['GateEntryDate']));
-	} else {
-		$tdata['U_PC_GEDte'] = '';
-	}
-
-	$tdata['U_PC_CNos'] = trim(addslashes(strip_tags($_POST['ContainerNo'])));
-	$tdata['U_PC_Cont'] = $_POST['Container'] != '' ? $_POST['Container'] : 0;
-
-	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['BatchNo'])));
-	$tdata['U_PC_BQty'] = trim(addslashes(strip_tags($_POST['BatchQty'])));
-
 	if (!empty($_POST['MFGDate'])) {
 		$tdata['U_PC_MfgDt'] = date('Y-m-d', strtotime($_POST['MFGDate']));
 	} else {
 		$tdata['U_PC_MfgDt'] = '';
 	}
-
 
 	if (!empty($_POST['ExpiryDate'])) {
 		$tdata['U_PC_ExpDt'] = date('Y-m-d', strtotime($_POST['ExpiryDate']));
@@ -1201,179 +1175,62 @@ if (isset($_POST['SampleIntimationUpdateForm_Btn'])) {
 		$tdata['U_PC_RDt'] = '';
 	}
 
-	// $tdata['U_PC_RDt']=trim(addslashes(strip_tags($_POST['RetestDate'])));
-
-	$tdata['U_PC_UTTrans'] = null;
-	$tdata['U_PC_DType'] = null;
-
-	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['BPLId'])));
-	$tdata['U_PC_LCode'] = trim(addslashes(strip_tags($_POST['LocCode'])));
-	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['Location'])));
-	// echo "<pre>";
-	// 	print_r($tdata);
-	// 	echo "</pre>";
-	// 	exit;
-	// ---------------------------------------
-	// $tdata['U_ChNo']=trim(addslashes(strip_tags($_POST['ChNo'])));
-	// if(!empty($_POST['ChNo'])){
-	// 	$tdata['U_ChNo']=trim(addslashes(strip_tags($_POST['ChNo'])));
-	// }else{
-	// 	$tdata['U_ChNo']=null;
-	// }
-
-
-
-	// $tdata['U_FCont'] = $_POST['FromContainer'] !='' ? $_POST['FromContainer'] : 0;
-	// $tdata['U_TCont'] = $_POST['ToContainer'] !='' ? $_POST['ToContainer'] : 0;
-	// $tdata['U_TNCont'] = $_POST['NoOfcontainer'] !='' ? $_POST['NoOfcontainer'] : 0;
-	// $tdata['U_Cont'] = $_POST['Container'] !='' ? $_POST['Container'] : 0;
-	// $tdata['U_TNCont1'] = $_POST['QtyPerContainer'] !='' ? $_POST['QtyPerContainer'] : 0;
-
-	// if(!empty($_POST['GateEntryNo'])){
-	// 	$tdata['U_GEntNo']=trim(addslashes(strip_tags($_POST['GateEntryNo'])));
-	// }else{
-	// 	$tdata['U_GEntNo']=null;
-	// }
-	// $tdata['U_GEntDate']=trim(addslashes(strip_tags('null'))); // missing field date on screen
-	// $tdata['U_Cont']=trim(addslashes(strip_tags('0')));
-
-	// $tdata['U_UTTrans']=null;
-	// $tdata['U_DType']=trim(addslashes(strip_tags('Batch')));
-	// $tdata['U_CNos']=trim($_POST['ContainerNOS']);
-	// $tdata['U_Loc']=trim($_POST['Location']);
-	// ---------------------------------Date Var Prepare Start Here ------------------------------------
-	// if(!empty($_POST['PostingDate'])){
-	// 	$tdata['U_GEntDate']=date('Y-m-d', strtotime($_POST['PostingDate']));
-	// }else{
-	// 	$tdata['U_GEntDate']='';
-	// }
-
-	// if(!empty($_POST['ExpiryDate'])){
-	// 	$tdata['U_MfgDate']=date('Y-m-d', strtotime($_POST['ExpiryDate']));
-	// }else{
-	// 	$tdata['U_MfgDate']='';
-	// }
-
-	// if(!empty($_POST['MfgDate'])){
-	// 	$tdata['U_ExpDate']=date('Y-m-d', strtotime($_POST['MfgDate']));
-	// }else{
-	// 	$tdata['U_ExpDate']='';
-	// }
-
-	// if(!empty($_POST['ChDate'])){
-	// 	$tdata['U_ChDate']=date('Y-m-d', strtotime($_POST['ChDate']));
-	// }else{
-	// 	$tdata['U_ChDate']='';
-	// }
-
-	// if(!empty($_POST['TrDate'])){
-	// 	$tdata['U_TRDate']=date('Y-m-d', strtotime($_POST['TrDate']));
-	// }else{
-	// 	$tdata['U_TRDate']='';
-	// }
-	// ---------------------------------Date Var Prepare End Here   ------------------------------------
-
-	// if(!empty($_POST['Container'])){
-	// 	$Container=$_POST['Container'];
-	// }else{
-	// 	$Container=0;
-	// }
-	// print_r($tdata);
-	// die();
 	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
-	if ($_POST['sampleType'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "Sample Type Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
-
-	if ($_POST['TrBy'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "TR Type Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
-
-	if ($_POST['TrDate'] == '') {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "TR Date Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
-
-
-	$mainArray = $tdata;
-
-	// 	echo "<pre>";
-	// print_r($mainArray);
-	// echo "</pre>";
-	// exit;
-
-	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
-
-	//<!-- ------------- function & function responce code Start Here ---- -->
-	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
-
-	if (!empty($res)) {
-
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINPROCESS . '(' . $_POST['it_DocEntry'] . ')';
-
-		$responce_encode = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($mainArray, $Final_API);
-		$responce = json_decode($responce_encode);
-		// $Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SINPROCESS;
-
-		// $responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
-		// $responce=json_decode($responce_encode);
-
-		//    echo "<pre>";
-		// print_r($responce);
-		// echo "</pre>";
-		// exit;
-
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		$data = array();
-
-		if ($responce == '') {
-			$data['status'] = 'True';
-			$data['DocEntry'] = $_POST['it_DocEntry'];
-			$data['message'] = "Inventory Transfer Successfully Updated.";
+		if ($_POST['sampleType'] == '') {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = "Sample Type Mandatory.";
 			echo json_encode($data);
-		} else {
-			if (array_key_exists('error', (array)$responce)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = '';
-				$data['message'] = $responce->error->message->value;
-				echo json_encode($data);
-			}
+			exit(0);
 		}
 
+		if ($_POST['TrBy'] == '') {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = "TR Type Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
 
+		if ($_POST['TrDate'] == '') {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = "TR Date Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
+	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
+	
+	$mainArray = $tdata;
+	
+	//<!-- ------------- function & function responce code Start Here ---- -->
+		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
-		// if($responce->DocNum!=""){
+		if (!empty($res)) {
+			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINPROCESS . '(' . $_POST['it_DocEntry'] . ')';
 
-		// 	$data['status']='True';
-		// 	$data['DocEntry']=$responce->DocEntry;
-		// 	$data['message']="Inventory Transfer Successfully Updated.";
-		// 	echo json_encode($data);
-		// }else{
-		// 	if(array_key_exists('error', (array)$responce)){
-		// 		$data['status']='False';
-		// 		$data['DocEntry']='';
-		// 		$data['message']=$responce->error->message->value;
-		// 		echo json_encode($data);
-		// 	}
-		// }
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
+			$responce_encode = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($mainArray, $Final_API);
+			$responce = json_decode($responce_encode);
 
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+				$data = array();
 
-	// ========================================================================		
+				if ($responce == '') {
+					$data['status'] = 'True';
+					$data['DocEntry'] = $_POST['it_DocEntry'];
+					$data['message'] = "Inventory Transfer Successfully Updated.";
+					echo json_encode($data);
+				} else {
+					if (array_key_exists('error', (array)$responce)) {
+						$data['status'] = 'False';
+						$data['DocEntry'] = '';
+						$data['message'] = $responce->error->message->value;
+						echo json_encode($data);
+					}
+				}
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
+		}
+
+		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
+		//<!-- ------------- function & function responce code end Here ------ -->
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'IngrediantTypeDropdown_SampleCollection_ajax') {

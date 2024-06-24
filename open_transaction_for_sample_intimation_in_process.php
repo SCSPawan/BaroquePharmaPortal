@@ -132,6 +132,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Batch Qty</th>
                         <th>Mfg Date</th>
                         <th>Expiry Date</th>
+                        <th>Doc Date</th>
                         <th>Branch Name</th>
                         <th>Location</th>
                         <th>MakeBy</th>
@@ -154,6 +155,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 }else{
                                     $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
                                 }
+
+                                if(empty($getAllData[$i]->DocDate)){
+                                    $DocDate='';
+                                }else{
+                                    $DocDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
+                                }
+
+                                
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -176,6 +185,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
+                                    <td class="desabled">'.$DocDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Location.'</td>
                                     <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>

@@ -545,7 +545,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
                                     </div>  
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display:none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                                             <div class="col-lg-8">
@@ -554,7 +554,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
                                     </div> 
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display:none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                             <div class="col-lg-8">
@@ -563,7 +563,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
                                     </div> 
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display:none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                                             <div class="col-lg-8">
@@ -572,7 +572,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                         </div>
                                     </div> 
 
-                                    <div class="col-xl-3 col-md-6">
+                                    <div class="col-xl-3 col-md-6" style="display:none;">
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                             <div class="col-lg-8">
