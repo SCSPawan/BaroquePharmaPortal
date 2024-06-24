@@ -208,33 +208,34 @@
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                                  <!-- <div class="col-lg-8"> -->
                                                     <div class="col-lg-4">
-                                                     <input class="form-control desabled" readonly type="number" id="sample_issue_DocNo" name="sample_issue_DocNo">
+                                                     <select class="form-control desabled" readonly type="number" id="sample_issue_DocNo" name="sample_issue_DocNo" onchange="selectedSeries();"></select>
                                                    <!--  <select class="form-select desabled" id="fg_DocNo" name="fg_DocNo">
                                                         <option></option>
                                                     </select> -->
                                                 </div>
                                                  <div class="col-lg-4">
-                                                    <select class="form-control desabled" readonly type="text" id="sample_issue_DocName" name="sample_issue_DocName"></select>
+                                                    <input class="form-control desabled" readonly type="text" id="sample_issue_DocNum" name="sample_issue_DocNum"></input>
                                                 </div>
                                                     <!-- <input class="form-control desabled" type="text" id="sample_issue_Series" name="sample_issue_Series" readonly> -->
                                                 <!-- </div> -->
                                             </div>
                                         </div>
+                                        <div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="sample_issue_PostingDate" name="sample_issue_PostingDate" value="<?php echo date('Y-m-d'); ?>">
+        </div>
+    </div>
+</div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="sample_issue_PostingDate" name="sample_issue_PostingDate">
-                                                </div>
-                                            </div>
-                                        </div>
+
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="sample_issue_DocumentDate" name="sample_issue_DocumentDate">
+                                                    <input class="form-control" type="date" id="sample_issue_DocumentDate" name="sample_issue_DocumentDate" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>

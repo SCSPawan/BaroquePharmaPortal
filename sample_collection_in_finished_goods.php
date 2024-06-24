@@ -330,7 +330,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <input type="hidden" id="LineNo" name="LineNo">
                                     <input type="hidden" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
                                     <input type="hidden" id="LocCode" name="LocCode">
-                                    <input type="hidden" id="BatchQty" name="BatchQty">
+                                    <!-- <input type="hidden" id="BatchQty" name="BatchQty"> -->
                                         
 
 
@@ -395,6 +395,21 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div>
 
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" readonly type="text" id="BatchQty" name="BatchQty">
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated By</label>
@@ -458,10 +473,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">DocDate</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="fg_DocDate" name="fg_DocDate">
+                                                    <input class="form-control" type="date" id="fg_DocDate" name="fg_DocDate"   >
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -590,7 +608,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <div class="col-xl-3 col-md-6" style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                     <div class="col-md-7">
 
@@ -607,7 +625,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                                          <div class="row">
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <!-- <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                                     <div class="col-lg-3">
@@ -617,9 +635,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                         <input type="text" name="RetainQtyUom" id="RetainQtyUom" class="form-control desabled" readonly>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
-                                                             <div class="col-xl-3 col-md-6">
+                                                             <div class="col-xl-3 col-md-6" style="display: none;">
                                                                 <div class="form-group row mb-2">
                                                                     <div class="col-md-4">
                                                                        <!--  <button type="button" class="pad_btn btn btn-primary"data-bs-toggle="modal" data-bs-target=".inventory_transfer_retails_issue" style="padding: 7px 5px 7px 5px;">Retain Issue</button> -->
@@ -1111,12 +1129,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         });
     } 
 
- function getSeriesDropdown()
+    function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=60&action=getSeriesDropdown_ajax';
+
+        var TrDate=$(`#sample_issue_PostingDate`).val();
+
+        var dataString = 'TrDate=' + TrDate +'&ObjectCode=60&action=getSeriesDropdown_ajax';
+        // console.log('dataString',dataString);
         $.ajax({
             type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
+            url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
             beforeSend: function(){
@@ -1125,9 +1147,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result){
                 var SeriesDropdown = JSON.parse(result);
-                // console.log(SeriesDropdown);
-                $('#sample_issue_DocName').html(SeriesDropdown);
-                $('#iT_InventoryTransfer_DocName').html(SeriesDropdown);
+                 //console.log('SeriesDropdown',SeriesDropdown);
+                $('#sample_issue_DocNo').html(SeriesDropdown);
+                // $('#sample_issue_DocNum').html(SeriesDropdown);
 
                 selectedSeries(); // call Selected Series Single data function
             },
@@ -1139,13 +1161,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
 
- function selectedSeries(){
-
-        var Series=document.getElementById('sample_issue_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
+      function selectedSeries(){
+        var TrDate = $('#sample_issue_PostingDate').val();
+        var Series=document.getElementById('sample_issue_DocNo').value;
+        var dataString ='TrDate=' + TrDate +'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
         $.ajax({
             type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
+            url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
 
@@ -1156,13 +1178,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
+
+                console.log('JSONObject=>',JSONObject);
                 var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];
-                $('#sample_issue_DocNo').val(Series);
-                $('#iT_InventoryTransfer_DocNo').val(Series);
+                // $('#sample_issue_DocNum').val(Series);
+                // $('#sample_issue_DocNum').val(Series);
                 // alert(Series)
                 
-                $('#NextNumber').val(NextNumber);
+                $('#sample_issue_DocNum').val(NextNumber);
             },
             complete:function(data){
                 $(".loader123").hide();
@@ -1398,7 +1422,7 @@ $.ajax({
 
         var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_Retails_issue_Finished_Goods_ajax';
 // alert('g');
-        console.log(dataString);
+        // console.log(dataString);
 
         $.ajax({
             type: "POST",
@@ -1429,12 +1453,13 @@ $.ajax({
       
        function ContainerSelection_sample_issue(){
 
+       
+
         var DocEntry=document.getElementById('it__DocEntry').value;
         var BatchNo=document.getElementById('it_BatchNo').value;
         var ItemCode=document.getElementById('itP_ItemCode').value;
         var itP_FromWhs=document.getElementById('itP_FromWhs').value;
-       // ItemCode=SFG00001&WareHouse=RETN-WHS&BatchNo=C0121157
-
+    
         var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_Simple_issue_finied_good_ajax';
         // console.log(dataString);
         $.ajax({
@@ -1449,6 +1474,7 @@ $.ajax({
             },
             success: function(result)
             {
+                // console.log('hhhh=>',result);
                 var JSONObject = JSON.parse(result);
                  $('#ContainerSelectionItemAppend').html(JSONObject);
             },
@@ -1460,7 +1486,7 @@ $.ajax({
 
     }
 
-
+    
 
      function getSelectedContener(un_id){
         //Create an Array.
@@ -1748,7 +1774,7 @@ swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
 
 
 
-function getSelectedContener_retails(un_id){
+ function getSelectedContener_retails(un_id){
         //Create an Array.
         var selected = new Array();
  
@@ -1847,7 +1873,7 @@ function getSelectedContener_retails(un_id){
 
         var DocEntry=document.getElementById('it__DocEntry').value;
         var dataString ='DocEntry='+DocEntry+'&action=SCReverseSampleIsuue_ajax';
-console.log(dataString);
+
 
         $.ajax({
             type: "POST",
@@ -1908,4 +1934,50 @@ console.log(dataString);
 
             $('#result').html("id : " + userid + ", name : " + username);
          }
+
+
+
+         function ExternalIssueSelectedBP(un_id) {
+            var CardCode = document.getElementById('SC_ExternalI_SupplierCode' + un_id).value;
+            var Loc = $('#SCRTQCB_Location').val();
+            var Branch = $('#SCRTQCB_Branch').val();
+            var ItemCode = $('#SCRTQCB_ItemCode').val();
+            var MakeBy = $('#SCRTQCB_MakeBy').val();
+
+            var dataString = 'CardCode=' + CardCode + '&Loc=' + Loc + '&Branch=' + Branch + '&ItemCode=' + ItemCode + '&MakeBy=' + MakeBy + '&action=SupplierSingleData_ajax';
+
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: dataString,
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(result) {
+                    var JSONObject = JSON.parse(result);
+                    // console.log(JSONObject);
+
+                    if (CardCode != '') {
+                        $('#SC_FEXI_SupplierName' + un_id).val(JSONObject['CardName']);
+                        $('#SC_ExternalI_Warehouse' + un_id).val(JSONObject['Whse']);
+                        $('#SC_FEXI_SampleDate' + un_id).val(JSONObject['SampleDate']);
+                        $('#SC_FEXI_UOM' + un_id).val($('#SCRTQCB_SampleQtyUnit').val());
+                    } else {
+                        $('#SC_FEXI_SupplierName' + un_id).val('');
+                        $('#SC_ExternalI_Warehouse' + un_id).val('');
+                        $('#SC_FEXI_SampleDate' + un_id).val('');
+                        $('#SC_FEXI_UOM' + un_id).val('');
+                    }
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            });
+        }
+
+
+
+
+
+
 </script>

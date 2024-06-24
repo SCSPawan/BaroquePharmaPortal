@@ -1426,7 +1426,7 @@ function getSeriesDropdown_gd_extra()
 
             var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];         
-                $('#it_numner_Series').val(Series);                
+                $('#it_Docno').val(Series);                
                 $('#extra_docNo').val(NextNumber);
             },
             complete:function(data){
@@ -1436,21 +1436,11 @@ function getSeriesDropdown_gd_extra()
     }
 
 
-
-
-
-
-
-
-
-
-
-
 function selectedSeries_gd(){
    
     var TrDate=$('#gd_PostingDate_extra').val();
     var Series=document.getElementById('iT_InventoryTransfer_external_series').value;
-    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
+    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
     $.ajax({
         type: "POST",
         url: 'ajax/kri_production_common_ajax.php',

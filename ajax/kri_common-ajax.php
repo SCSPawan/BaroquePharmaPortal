@@ -2589,7 +2589,6 @@ if(isset($_POST['SubIT_Btn_SCRT_transfer']))
 	$tdata['U_BFType']=trim(addslashes(strip_tags($_POST['transfer_it_BaseDocType'])));
 // SCS_SCRETEST
 	$mainArray=$tdata;
-
 // --------------------- Item and batch row data preparing start here -------------------------------- -->
 	$item['LineNum']=trim(addslashes(strip_tags('0')));
 	$item['ItemCode']=trim(addslashes(strip_tags($_POST['transfer_it_IL_ItemCode'])));
@@ -3079,6 +3078,7 @@ if(isset($_POST['action']) && $_POST['action'] =='kri_SC_OpenInventoryTransferCS
 
 // <!--------------- Preparing API Start Here ------------------------------------------ -->
 	$API=$RETESTQCSAMPLECOLLCONTSEL.'?ItemCode='.$ItemCode.'&WareHouse='.$FromWhs.'&BatchNo='.$BNo;
+
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 // <!--------------- Preparing API End Here ------------------------------------------ -->
 		// print_r($FinalAPI);
