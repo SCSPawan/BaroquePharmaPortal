@@ -2792,12 +2792,17 @@ if(isset($_POST['action']) && $_POST['action'] =='SupplierSingleData_ajax')
 	$API=$SAMPLECOLLEXTENALINWARD_APi.'?CardCode='.$CardCode.'&Loc='.$Loc.'&Branch='.$Branch.'&ItemCode='.$ItemCode.'&MakeBy='.$MakeBy;
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
+	// print_r($FinalAPI);
+	// die();
 	$responce_encode=$obj->GetMethodQuerryBasedAPI($FinalAPI);
 	$responce=json_decode($responce_encode);
 
+	// print_r($responce);
+	// die();
 	$tdata=array();
 	$tdata['CardName']=trim(addslashes(strip_tags($responce[0]->CardName)));
 	$tdata['Whse']=trim(addslashes(strip_tags($responce[0]->Whse)));
+	$tdata['Uom']=trim(addslashes(strip_tags($responce[0]->UOM)));
 	$tdata['SampleDate']=date("Y-m-d");
 
 	echo json_encode($tdata);
