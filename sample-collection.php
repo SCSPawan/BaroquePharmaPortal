@@ -1146,6 +1146,11 @@ function GetExtraIuuseWhs(un_id){
     });
 }
 
+
+
+
+
+
     function tablayoutvalidation(){
         var sampleIssue=document.getElementById('SC_SCD_SampleIssue').value;
         // var RevSampleIssue=document.getElementById('SC_SCD_RevSampleIssue').value;

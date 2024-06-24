@@ -2028,7 +2028,11 @@ if (isset($_POST['SubIT_Btn_S_sample_issue'])) {
 			$data['DocEntry'] = '1111111';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
-		} else {
+		} 
+		
+		
+		
+		else {
 
 			// <!-- ------- row data preparing start here --------------------- -->
 			$UT_data = array();
@@ -3329,7 +3333,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
+
+
 	// print_r($FinalAPI);die();
+
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 	//    echo "<pre>";
 	// print_r($response);
@@ -3707,7 +3714,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 
 	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
 
-	http: //10.80.4.55:8081/API/SAP/FGSAMCOLLCONTSEL?ItemCode=&WareHouse=&BatchNo=
+	//http: //10.80.4.55:8081/API/SAP/FGSAMCOLLCONTSEL?ItemCode=&WareHouse=&BatchNo=
 
 	// ItemCode=P00003&WareHouse=RETN-WHS&DocEntry=297&BatchNo=BQ13
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
@@ -3718,6 +3725,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 	// $API='http://10.80.4.55:8081/API/SAP/INPROCESSSAMINTICONTSEL?ItemCode=SFG00001&WareHouse=QCUT-GEN&DocEntry=359&BatchNo=asd';
 	// 
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+	// print_r($FinalAPI);
+	// die();
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 	// echo "<pre>";
@@ -3822,7 +3832,6 @@ if (isset($_POST['SubIT_Btn_finied_goods_sample_issue'])) {
 	$tdata['BPL_IDAssignedToInvoice'] = trim(addslashes(strip_tags($_POST['sample_issue_BPLId'])));
 	// $tdata['U_PC_SCFG']=trim(addslashes(strip_tags($_POST['sample_issue_DocEntry'])));
 	$tdata['U_PC_SCIProc'] = trim(addslashes(strip_tags($_POST['sample_issue_DocEntry'])));
-
 	// $tdata['Document_ApprovalRequests']=array();
 	$tdata['TaxDate'] = date("Y-m-d", strtotime($_POST['sample_issue_DocumentDate']));
 	$tdata['U_BFType'] = trim(addslashes(strip_tags('SCS_SCINPROC')));
@@ -3863,7 +3872,7 @@ if (isset($_POST['SubIT_Btn_finied_goods_sample_issue'])) {
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 	// echo json_encode($mainArray);
 	// exit;
-	// echo "<pre>";
+	//  echo "<pre>";
 	// print_r($mainArray);
 	// echo "<pre>";
 	// exit;
@@ -3888,29 +3897,26 @@ if (isset($_POST['SubIT_Btn_finied_goods_sample_issue'])) {
 			$data['DocEntry'] = '';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
-		} else {
+		} 
+		
+		else {
 
 			// <!-- ------- row data preparing start here --------------------- -->
 			$UT_data = array();
 			$UT_data['DocEntry'] = trim(addslashes(strip_tags($_POST['sample_issue_DocEntry'])));
-			$UT_data['U_PC_UTNo'] = trim(addslashes(strip_tags($responce->DocEntry)));
+			$UT_data['U_PC_SIssue'] = trim(addslashes(strip_tags($responce->DocEntry)));
 			// <!-- ------- row data preparing end here ----------------------- -->
 
-			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG . '(' . $UT_data['DocEntry'] . ')';
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API . '(' . $UT_data['DocEntry'] . ')';
 			$underTestNumber = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data, $Final_API2);
 			$underTestNumber_decode = json_decode($underTestNumber);
 
 			if ($underTestNumber_decode == '') {
 				$data['status'] = 'True';
 				$data['DocEntry'] = $responce->DocEntry;
-				$data['message'] = "Inventory Transfer Successfully Added.";
+				$data['message'] = "Sample Issue Successfully Added.";
 				echo json_encode($data);
 			} else {
-				// $data['status']='False';
-				// $data['DocEntry']='';
-				// $data['message']='Sample Intimation Under Test Update From Inventory Transfer Failed';
-				// echo json_encode($data);
-
 				if (array_key_exists('error', (array)$underTestNumber_decode)) {
 					$data['status'] = 'False';
 					$data['DocEntry'] = '';
@@ -7922,7 +7928,7 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 	// echo "</pre>";
 	// exit;
 
-	$tdata['Series'] = trim(addslashes(strip_tags($_POST['extra_docNo'])));
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['it_Docno'])));
 	$tdata['DocDate'] = date("Y-m-d", strtotime($_POST['gd_PostingDate_extra']));
 	$tdata['DueDate'] = date("Y-m-d", strtotime($_POST['gd_DocumentDate_extra']));
 	$tdata['CardCode'] = null;
@@ -7954,7 +7960,7 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 		if ($_POST['usercheckList_extra'][$i] == '1') {
 
 			$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_ContainerNo_extra'][$i])));
-			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['itp_BatchQty_extra'][$i])));
+			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty_extra'][$i])));
 			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
 			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode_extra'][$i])));
 			$item['BatchNumbers'][] = $batch;
@@ -7966,10 +7972,10 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 	// echo json_encode($mainArray);
 	// exit;
-	echo "<pre>";
-	print_r($mainArray);
-	echo "<pre>";
-	exit;
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "<pre>";
+	// exit;
 	// echo json_encode($mainArray);
 	// exit;
 	//<!-- ------------- function & function responce code Start Here ---- -->
@@ -7990,7 +7996,7 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 		$data = array();
 		if (array_key_exists('error', (array)$responce)) {
 			$data['status'] = 'False';
-			$data['DocEntry'] = '';
+			$data['DocEntry'] = '1111111111';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
 		} else {
@@ -8009,9 +8015,6 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 					]
 				]
 			];
-
-
-
 
 			// <!-- ------- row data preparing end here ----------------------- -->
 
@@ -8032,7 +8035,7 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 
 				if (array_key_exists('error', (array)$underTestNumber_decode)) {
 					$data['status'] = 'False';
-					$data['DocEntry'] = '';
+					$data['DocEntry'] = '2222222222';
 					$data['message'] = $responce->error->message->value;
 					echo json_encode($data);
 				}
