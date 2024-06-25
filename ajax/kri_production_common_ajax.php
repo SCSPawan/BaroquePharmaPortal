@@ -1244,12 +1244,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'IngrediantTypeDropdown_Sampl
 		$responce = json_decode($responce_encode);
 
 		for ($i = 0; $i < count($responce->value); $i++) {
-
-			if ($responce->value[$i]->Name == 'None') {
-				$option .= '<option value="' . $responce->value[$i]->Name . '" selected>' . $responce->value[$i]->Name . '</option>';
-			} else {
-				$option .= '<option value="' . $responce->value[$i]->Name . '">' . $responce->value[$i]->Name . '</option>';
-			}
+			$selected = ($responce->value[$i]->Name == 'None')? 'selected' : null;
+			$option .= '<option value="' . $responce->value[$i]->Name . '" '.$selected.'>' . $responce->value[$i]->Name . '</option>';
 		}
 	}
 

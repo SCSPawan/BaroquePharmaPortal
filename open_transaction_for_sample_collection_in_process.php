@@ -125,7 +125,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                 <thead class="fixedHeader1">
                     <tr>
-                         <th>Sr.No </th> 
+                        <th>Sr.No </th> 
                         <th>Item View</th>
                         <th>WO No</th>
                         <th>RFP Entry</th>
@@ -133,12 +133,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Unit</th>
-                        <th>WO Qty</th> 
+                        <th>Sample Qty</th> 
                         <th>Batch No</th>
+                        <th>Batch Qty</th>
                         <th>MFG Date</th>
                         <th>Expiry Date</th>
-                        <th>Batch Qty</th>
+                        <th>Doc Date</th>
                         <th>Branch Name</th>
+                        <th>Sample Intimation No</th>
+                        <th>Loaction</th>
+                        <th>MakeBy</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -157,6 +161,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     $ExpiryDate='';
                                 }else{
                                     $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpDate));
+                                }
+
+                                if(empty($getAllData[$i]->DocDate)){
+                                    $DocumentDate='';
+                                }else{
+                                    $DocumentDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
                                 }
                             // --------------- Convert String code End Here-- ---------------------------
 
@@ -179,7 +189,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
+                                    <td class="desabled">'.$DocumentDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Branch.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->SampleIntimationNo.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Loaction.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
                                 </tr>';
                         }
                     }
@@ -286,16 +300,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
-
+                
+                // console.log('OT_PoPup_SampleCollection_in_process=>', JSONObject);
+                
                 $(`#IP_SC_RFPNo`).val(JSONObject[0].RFPNo);
                 $(`#IP_SC_RFPEntry`).val(JSONObject[0].RFPEntry);
                 $(`#IP_SC_WOEntry`).val(JSONObject[0].WOEntry);
                 $(`#IP_SC_WONo`).val(JSONObject[0].WONo);
                 $(`#IP_SC_Location`).val(JSONObject[0].Loaction);
-                $(`#IP_SC_IntimatedBy`).val('');
+                $(`#IP_SC_IntimatedBy`).val(JSONObject[0].IntimatedBy);
                 $(`#IP_SC_ItemCode`).val(JSONObject[0].ItemCode);
                 $(`#IP_SC_ItemName`).val(JSONObject[0].ItemName);
                 $(`#IP_SC_BatchNo`).val(JSONObject[0].BatchNum);
+                $(`#IP_SC_BatchQty`).val(JSONObject[0].BatchQty);
                 $(`#IP_SC_MakeBy`).val(JSONObject[0].MakeBy);
                 $(`#IP_SC_SampleQty`).val(JSONObject[0].SampleQty);
                 $(`#IP_SC_SampleQtyUOM`).val(JSONObject[0].SampleQtyUOM);
@@ -314,7 +331,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#IP_SC_RetainQtyUOM`).val(JSONObject[0].RetainQtyUOM);
                 $(`#IP_SC_LineNum`).val(JSONObject[0].LineNo);
                 $(`#IP_SC_BPLId`).val(JSONObject[0].BPLId);
-                $(`#IP_SC_BatchQty`).val(JSONObject[0].BatchQty);
                 $(`#IP_SC_LocCode`).val(JSONObject[0].LocCode);
                 $(`#IP_SC_TRNo`).val(JSONObject[0].TRNo);
                 $(`#IP_SC_Branch`).val(JSONObject[0].Branch);
@@ -323,7 +339,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     var IntimationDateOG = JSONObject[0]['IntimationDate'];
                     if(IntimationDateOG!=''){
                         let [day, month, year] = IntimationDateOG.split(" ")[0].split("-");
-                        let IntimationDate = `${year}-${month}-${day}`;
+                        let IntimationDate = `${day}-${month}-${year}`;
                         $(`#IP_SC_IntimatedDate`).val(IntimationDate);
                     }
                 // <!-- ------------ IntimationDate End Here ----------------------- -->
@@ -343,7 +359,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             beforeSend: function(){
             },
             success: function(result){
+                // console.log(result);
                 $('#IP_SC_IngediantType').html(result);
+                IP_SC_IngediantType
             },
             complete:function(data){
                 getSeriesDropdown(); // DocName By using API to get dropdown 

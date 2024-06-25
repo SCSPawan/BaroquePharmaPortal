@@ -3,23 +3,22 @@
 </style>
 
 <!--start sample collection in process model-->
-<div class="modal fade sample-collection-in-process" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade sample-collection-in-process" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Sample Collection5666 - In Process </h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Sample Collection - In Process </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="OTSCP_Form" method="post">
                     <div class="row">
-                        <input type="text" id="IP_SC_LineNum" name="IP_SC_LineNum">
-                        <input type="text" id="IP_SC_BPLId" name="IP_SC_BPLId">
-                        <input type="text" id="IP_SC_BatchQty" name="IP_SC_BatchQty">
-                        <input type="text" id="IP_SC_LocCode" name="IP_SC_LocCode">
-                        <input type="text" id="IP_SC_RetainQtyUOM" name="IP_SC_RetainQtyUOM">
-                        <input type="text" id="IP_Series" name="IP_Series">
+                        <input type="hidden" id="IP_SC_LineNum" name="IP_SC_LineNum">
+                        <input type="hidden" id="IP_SC_BPLId" name="IP_SC_BPLId">
+                        <input type="hidden" id="IP_SC_LocCode" name="IP_SC_LocCode">
+                        <input type="hidden" id="IP_SC_RetainQtyUOM" name="IP_SC_RetainQtyUOM">
+                        <input type="hidden" id="IP_Series" name="IP_Series">
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -90,7 +89,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="IP_SC_IntimatedDate" name="IP_SC_IntimatedDate">
+                                    <input class="form-control desabled" type="text" id="IP_SC_IntimatedDate" name="IP_SC_IntimatedDate" readonly>
                                 </div>
                             </div>
                         </div>
@@ -189,12 +188,12 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
-                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No.Of Container</label>
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" id="IP_SC_NoOfContainer" name="IP_SC_NoOfContainer">
+                                    <input class="form-control desabled" type="text" id="IP_SC_BatchQty" name="IP_SC_BatchQty" readonly>
                                 </div>
                             </div>
                         </div>
@@ -204,6 +203,15 @@
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
                                 <div class="col-lg-8">
                                     <input class="form-control desabled" type="text" id="IP_SC_MakeBy" name="IP_SC_MakeBy" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No.Of Container</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" id="IP_SC_NoOfContainer" name="IP_SC_NoOfContainer">
                                 </div>
                             </div>
                         </div>
@@ -472,7 +480,7 @@
             </div>
         </div>
     </div>
-    <!-- </div> -->
+<!-- </div> -->
 
      <!--end sample collection model-->
 
