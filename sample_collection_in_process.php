@@ -402,7 +402,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="IntimatedDate" name="IntimatedDate">
+                                                    <input class="form-control desabled" type="date" id="IntimatedDate" name="IntimatedDate" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -823,7 +823,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
         }
         totalRowCount=rows.length;
-        console.log('rowCount=>', rowCount);
+        // console.log('rowCount=>', rowCount);
         // ---------------------------------------------------------------------------------------------------------------
 
         var totalRowCount_N = 0;
@@ -839,7 +839,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }
       
         totalRowCount_N=rows_N.length;
-        console.log('totalRowCount_N=>', totalRowCount_N);
+        // console.log('totalRowCount_N=>', totalRowCount_N);
         // ---------------------------------------------------------------------------------------------------------------
 
         var dataString ='DocEntry='+DocEntry+'&rowCount_N='+rowCount_N+'&rowCount='+rowCount+'&action=sample_collecton_in_process_ajax';
@@ -2607,3 +2607,4 @@ function SubmitInventoryTransfer_extra(){
     }
 
 </script>
+<!-- 2610 -->
