@@ -516,6 +516,25 @@
                                             </div>
                                         </div>
 
+
+
+
+
+
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                                 <div class="col-lg-4">
+                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
+                                                </div>
+
+                                                 <div class="col-lg-4">
+                                                     <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo">
+                                                 </div>
+                                            </div>
+                                        </div>
+
                                        <!--  <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
@@ -806,7 +825,7 @@
                                                     <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
                                                 </div>
 
-                                                 <div class="col-lg-4">
+                                                <div class="col-lg-4">
                                                      <input class="form-control desabled" type="text" id="external_docNo" name="external_docNo">
                                                  </div>
                                             </div>
@@ -850,6 +869,7 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
             <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
         </div>
     </div>
+
 </div>
 
                                          <div class="col-xl-3 col-md-6">

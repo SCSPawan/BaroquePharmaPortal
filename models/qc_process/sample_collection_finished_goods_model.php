@@ -826,12 +826,16 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="" name="" readonly>
+                                                 <div class="col-lg-4">
+                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_series" onchange="selectedSeries_gd();"></select>
                                                 </div>
+
+                                                 <div class="col-lg-4">
+                                                     <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo" readonly>
+                                                 </div>
                                             </div>
                                         </div>
 
@@ -848,7 +852,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="" name="" readonly>
+                                                    <input class="form-control desabled" type="text" id="inveTra_branch" name="inveTra_branch" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -857,25 +861,26 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="" name="" readonly>
+                                                    <input class="form-control desabled" type="text" id="inveTra_doctyp" name="inveTra_doctyp" readonly>
                                                 </div>
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="" name="">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="posting-date" name="posting-date" value="<?php echo date('Y-m-d'); ?>">
+        </div>
+    </div>
+</div>
+
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="" name="">
+                                                    <input class="form-control" type="date" id="" name="" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -884,7 +889,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="" name="" readonly>
+                                                    <input class="form-control desabled" type="text" id="inveTra_basedocnum" name="inveTra_basedocnum" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -900,70 +905,19 @@
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
                                                             <tr>
-                                                                <th>select</th>
-                                                                <th>Sr. No </th>  
+                                                            <th>Sr. No </th>  
                                                                 <th>Item Code</th>
                                                                 <th>Item Name</th>
                                                                 <th>Quality</th>
                                                                 <th>From Whs</th>
                                                                 <th>To Whs</th>
-                                                                <th>From Bin</th>
-                                                                <th>To Bin</th> 
                                                                 <th>Location</th>
                                                                 <th>UOM</th>
                                                             </tr>
+                                                          
+                                                            <tbody id="InventoryTransferItemAppend_external"></tbody> 
+                                                            
                                                         </thead>
-                                                     <tbody>
-                                                        <tr>
-                                                             <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                          <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                          <tr>
-                                                           <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         
-                                                     </tbody> 
                                                    </table>
                                                </div>
                                 <!-- table end -->
@@ -972,7 +926,7 @@
                     <div class="table-responsive mt-2" id="list">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
-                                                            <tr>
+                                                        <tr>
                                                                 <th>Select</th>
                                                                 <th>Item Code</th>
                                                                 <th>Item Name</th>
@@ -983,59 +937,9 @@
                                                                 <th>Mfg Date</th> 
                                                                 <th>Expiry Date</th>
                                                             </tr>
+                                                          
                                                         </thead>
-                                                     <tbody>
-                                                        <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                          <tr>
-                                                            <td colspan="6"></td>
-                                                            <td class="desabled">788</td>
-                                                            <td colspan="2"></td>
-                                                         </tr>
-                                           
-                                           
-                                                         
-                                                     </tbody> 
+                                                        <tbody id="ContainerSelectionItemAppend_external"></tbody> 
                                                    </table>
                                                </div>
                                                <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button>
@@ -1093,20 +997,33 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
+                                         <!-- <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                                  <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="" name="" readonly>
                                                 </div>
                                             </div>
+                                        </div> -->
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                                 <div class="col-lg-4">
+                                                    <select class="form-control desabled" type="text" id="iT_extra_series" name="iT_extra_series" onchange="selectedSeries_gd_extra();"></select>
+                                                </div>
+
+                                                 <div class="col-lg-4">
+                                                     <input class="form-control desabled" type="text" id="iT_extra_docNo" name="iT_extra_docNo" readonly>
+                                                 </div>
+                                            </div>
                                         </div>
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill" >Posting Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="" name="">
+                                                    <input class="form-control" type="date" id="iT_extra_posting" name="iT_extra_posting" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -1115,7 +1032,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                                  <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="" name="">
+                                                    <input class="form-control" type="date" id="iT_extra_docdate" name="iT_extra_docdate" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -1130,65 +1047,21 @@
                                     <div class="table-responsive" id="list">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>select</th>
+                                                        <tr>
+                                                                <!-- <th>select</th> -->
                                                                 <th>Sr. No </th>  
                                                                 <th>Item Code</th>
                                                                 <th>Item Name</th>
                                                                 <th>Quality</th>
-                                                                <th>Warehouse</th>
-                                                                <th>Item Cost</th>
-                                                                <th>To Bin</th> 
+                                                                <th>From Whs</th>
+                                                                <th>To Whs</th>
                                                                 <th>Location</th>
                                                                 <th>UOM</th>
                                                             </tr>
                                                         </thead>
                                                      <tbody>
-                                                        <tr>
-                                                             <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                          <tr>
-                                                             <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         <tr>
-                                                             <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td>1</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-                                           
+                                                      
+                                                     <tbody id="InventoryTransferItemAppend"> </tbody> 
                                                          
                                                      </tbody> 
                                                    </table>
@@ -1203,8 +1076,8 @@
                        <div class="table-responsive mt-2" id="list">
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Select</th>
+                                                        <tr>
+                                                             <th>Select</th>
                                                                 <th>Item Code</th>
                                                                 <th>Item Name</th>
                                                                 <th>Container No</th>
@@ -1216,54 +1089,7 @@
                                                             </tr>
                                                         </thead>
                                                      <tbody>
-                                                        <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-
-                                                         <tr>
-                                                            <td style="text-align: center;">
-                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                                            </td>
-                                                            <td class="desabled">R00010</td>
-                                                            <td class="desabled">CITARIO ITEM</td>
-                                                            <td class="desabled">CENTRAL/1/20068778</td>
-                                                            <td class="desabled">879999</td>
-                                                            <td class="desabled">25</td>
-                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97"></td>
-                                                            <td class="desabled"></td>
-                                                            <td class="desabled"></td>
-                                                         </tr>
-                                                         <tr>
-                                                            <td colspan="6"></td>
-                                                            <td class="desabled">788</td>
-                                                            <td colspan="2"></td>
-                                                         </tr>
-                                           
-                                                         
+                                                     <tbody id="ContainerSelectionItemAppend"></tbody> 
                                                      </tbody> 
                                                    </table>
                                                </div>

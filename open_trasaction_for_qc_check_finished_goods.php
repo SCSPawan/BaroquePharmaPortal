@@ -561,9 +561,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
-                var NextNumber=JSONObject[0]['NextNumber'];
+                //var NextNumber=JSONObject[0]['NextNumber'];
                
-                $('#OTFQCCFG_DocNo').val(NextNumber);
+               // $('#OTFQCCFG_DocNo').val(NextNumber);
             },
             complete:function(data){
                 AssayCalculationBasedOn();

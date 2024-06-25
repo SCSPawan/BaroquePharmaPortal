@@ -1194,6 +1194,25 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             });
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // function ExternalIssueSelectedBP(un_id){
 
         // var SupplierCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
