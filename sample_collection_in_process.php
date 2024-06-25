@@ -1179,6 +1179,7 @@ function ExternalIssueSelectedBP(un_id){
 }
 
 
+
 function GetExtraIuuseWhs(un_id){
     var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
 
@@ -1374,6 +1375,8 @@ function GetExtraIuuseWhs(un_id){
             }
         }); 
     }
+
+    
 
 function getSeriesDropdown_gd_extra()
 {

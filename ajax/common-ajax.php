@@ -2851,6 +2851,11 @@ if(isset($_POST['action']) && $_POST['action'] =='GetExtraIuuseWhs_Ajax'){
 	$API=$SAMPLECOLLEXTRAINWARD_APi.'?Loc='.$Loc.'&Branch='.$Branch.'&ItemCode='.$ItemCode.'&MakeBy='.$MakeBy;
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
+
+	// print_r($FinalAPI);
+
+	// die();
+
 	$responce_encode=$obj->GetMethodQuerryBasedAPI($FinalAPI);
 	$responce=json_decode($responce_encode);
 

@@ -203,7 +203,8 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="OTFQCCFG_PostingDate" name="OTFQCCFG_PostingDate">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_PostingDate" name="OTFQCCFG_PostingDate"   
+                                                    value="<?php echo date("Y-m-d"); ?>"   >
                                                 </div>
                                             </div>
                                         </div>
@@ -212,7 +213,8 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="OTFQCCFG_AnalysisDate" name="OTFQCCFG_AnalysisDate">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_AnalysisDate" name="OTFQCCFG_AnalysisDate" 
+                                                    value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
                                             </div>
                                         </div>
