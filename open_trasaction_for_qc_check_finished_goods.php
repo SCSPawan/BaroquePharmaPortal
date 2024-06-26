@@ -223,13 +223,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
      box-shadow: none; 
 }
 </style>
-<!-- ---------- loader start here---------------------- -->
-    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+            </div>
         </div>
-    </div>
-<!-- ---------- loader end here---------------------- -->
+    <!-- ---------- loader end here---------------------- -->
 
     <div class="main-content">
 
@@ -431,34 +431,45 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {
+
+
+        // RFPDocEntry: "3120"
+        // RFPNo: "11019"
+
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject=JSONObjectAll['AllData'];
-                // console.log(JSONObject);
+                console.log(JSONObject);
                 $(`#Qc_Post_FG_GD_list_append`).html(JSONObjectAll['general_data']); // General Data Append here
 
                 // 1st Line
+                    $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
+                    $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
                     $(`#OTFQCCFG_WONo`).val(JSONObject[0]['WONo']);
                     $(`#OTFQCCFG_WODocEntry`).val(JSONObject[0]['WODocEntry']);
                     $(`#OTFQCCFG_ItemCode`).val(JSONObject[0]['ItemCode']);
                     $(`#OTFQCCFG_ItemName`).val(JSONObject[0]['ItemName']);
-                    $(`#OTFQCCFG_GenericName`).val('*****'); // -------------------------------------------------- Missing
+                    $(`#OTFQCCFG_GenericName`).val(JSONObject[0]['FrgnName']);
 
                 // 2nd Line
                     $(`#OTFQCCFG_LabelClaim`).val(JSONObject[0]['LabelClaim']);
-                    $(`#OTFQCCFG_RecievedQty`).val('*****'); // -------------------------------------------------- Missing
+                    $(`#OTFQCCFG_RecievedQty`).val(JSONObject[0]['BatchQty']);
                     $(`#OTFQCCFG_MfgBy`).val(JSONObject[0]['MfgBy']);
-                    $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
 
                 // 3rd Line
                     $(`#OTFQCCFG_BatchNo`).val(JSONObject[0]['BatchNo']);
-                    $(`#OTFQCCFG_BatchQty`).val(JSONObject[0]['BatchQty']);
+                    $(`#OTFQCCFG_BatchSize`).val(JSONObject[0]['BatchSize']);
                     $(`#OTFQCCFG_PackSize`).val(JSONObject[0]['PackSize']);
 
                 // 4th Line
                     $(`#OTFQCCFG_MaterialType`).val(JSONObject[0]['MaterialType']);
                     $(`#OTFQCCFG_BranchName`).val(JSONObject[0]['BranchName']);
                     $(`#OTFQCCFG_ARNo`).val(JSONObject[0]['ARNo']);
+
+                    
+                    $(`#OTFQCCFG_Location`).val(JSONObject[0]['Location']);
+                    $(`#OTFQCCFG_MakeBy`).val(JSONObject[0]['MakeBy']);
+                    
 
                 // <!-- --------------- footer section data mapping start here ----------------- -->
                     $(`#OTFQCCFG_Factor`).val(JSONObject[0]['Factor']);
@@ -472,16 +483,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#OTFQCCFG_BPLId`).val(JSONObject[0]['BPLId']);
                     $(`#OTFQCCFG_BpRefNo`).val(JSONObject[0]['BpRefNo']);
                     $(`#OTFQCCFG_ExpiryDate`).val(JSONObject[0]['ExpiryDate']);
-                    $(`#OTFQCCFG_FrgnName`).val(JSONObject[0]['FrgnName']);
+                    // $(`#OTFQCCFG_FrgnName`).val(JSONObject[0]['FrgnName']);
                     $(`#OTFQCCFG_GEDate`).val(JSONObject[0]['GEDate']);
                     $(`#OTFQCCFG_GateENo`).val(JSONObject[0]['GateENo']);
                     $(`#OTFQCCFG_LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
                     $(`#OTFQCCFG_LineNum`).val(JSONObject[0]['LineNum']);
                     $(`#OTFQCCFG_LocCode`).val(JSONObject[0]['LocCode']);
-                    $(`#OTFQCCFG_Location`).val(JSONObject[0]['Location']);
                     $(`#OTFQCCFG_MfgDate`).val(JSONObject[0]['MfgDate']);
                     $(`#OTFQCCFG_Qty`).val(JSONObject[0]['Qty']);
-                    $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
                     $(`#OTFQCCFG_RetestDate`).val(JSONObject[0]['RetestDate']);
                     $(`#OTFQCCFG_SampleCollectionNo`).val(JSONObject[0]['SampleCollectionNo']);
                     $(`#OTFQCCFG_SampleIntimationNo`).val(JSONObject[0]['SampleIntimationNo']);
@@ -500,7 +509,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
-     function SampleTypeDropdown(){
+    function SampleTypeDropdown(){
 
         var dataString ='TableId=@SCS_QCPD&Alias=SamType&action=dropdownMaster_ajax';
         $.ajax({
@@ -524,7 +533,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=SCS_QCPDFG&action=getSeriesDropdown_ajax';
+        var TrDate = $('#OTFQCCFG_PostingDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_QCPDFG&action=getSeriesDropdown_ajax';
 
         $.ajax({
             type: "POST",
@@ -545,10 +555,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
-    function selectedSeries(){
-
+    function selectedSeries(){        
+        var TrDate = $('#OTFQCCFG_PostingDate').val();
         var Series=document.getElementById('OTFQCCFG_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_QCPDFG&action=getSeriesSingleData_ajax';
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_QCPDFG&action=getSeriesSingleData_ajax';
 
         $.ajax({
             type: "POST",
@@ -561,9 +571,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             success: function(result)
             {
                 var JSONObject = JSON.parse(result);
-                //var NextNumber=JSONObject[0]['NextNumber'];
-               
-               // $('#OTFQCCFG_DocNo').val(NextNumber);
+                var NextNumber=JSONObject[0]['NextNumber'];
+               $('#OTFQCCFG_DocNo').val(NextNumber);
             },
             complete:function(data){
                 AssayCalculationBasedOn();
@@ -841,6 +850,4 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
 </script>
-
-<!-- 152 OG line -->
-<!-- 846 current total line -->
+<!-- 844 current total line (26 June 2024)-->

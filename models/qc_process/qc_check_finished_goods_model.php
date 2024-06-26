@@ -32,10 +32,9 @@
                                             <input type="text" id="OTFQCCFG_LabelClaimUOM" name="OTFQCCFG_LabelClaimUOM">
                                             <input type="text" id="OTFQCCFG_LineNum" name="OTFQCCFG_LineNum">
                                             <input type="text" id="OTFQCCFG_LocCode" name="OTFQCCFG_LocCode">
-                                            <input type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location">
+                                            <!-- <input type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location"> -->
                                             <input type="text" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
                                             <input type="text" id="OTFQCCFG_Qty" name="OTFQCCFG_Qty">
-                                            <input type="text" id="OTFQCCFG_RFPDocEntry" name="OTFQCCFG_RFPDocEntry">
                                             <input type="text" id="OTFQCCFG_RetestDate" name="OTFQCCFG_RetestDate">
                                             <input type="text" id="OTFQCCFG_SampleCollectionNo" name="OTFQCCFG_SampleCollectionNo">
                                             <input type="text" id="OTFQCCFG_SampleIntimationNo" name="OTFQCCFG_SampleIntimationNo">
@@ -46,6 +45,18 @@
                                             <input type="text" id="OTFQCCFG_SupplierName" name="OTFQCCFG_SupplierName">
                                             <input type="text" id="OTFQCCFG_Unit" name="OTFQCCFG_Unit">
                                             <input type="text" id="OTFQCCFG_WOQty" name="OTFQCCFG_WOQty">
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
+                                                <div class="col-lg-4">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_RFPNo" name="OTFQCCFG_RFPNo" readonly>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_RFPDocEntry" name="OTFQCCFG_RFPDocEntry" readonly>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-xl-3 col-md-6">
@@ -118,7 +129,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ref No</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="OTFQCCFG_RFPNo" name="OTFQCCFG_RFPNo">
+                                                    <input class="form-control" type="text" id="OTFQCCFG_RefNo" name="OTFQCCFG_RefNo">
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +147,7 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Size</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_BatchQty" name="OTFQCCFG_BatchQty" readonly>
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_BatchSize" name="OTFQCCFG_BatchSize" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,7 +199,7 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                                 <div class="col-lg-5">
                                                     <select class="form-select" id="OTFQCCFG_DocName" name="OTFQCCFG_DocName" onchange="selectedSeries()"></select>
                                                 </div>
@@ -201,10 +212,10 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control" type="date" id="OTFQCCFG_PostingDate" name="OTFQCCFG_PostingDate"   
-                                                    value="<?php echo date("Y-m-d"); ?>"   >
+                                                    value="<?php echo date("Y-m-d"); ?>" onchange="getSeriesDropdown();">
                                                 </div>
                                             </div>
                                         </div>
@@ -219,14 +230,17 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="OTFQCCFG_QcTestType" name="OTFQCCFG_QcTestType" style="border: 1px solid red;">
-                                                </div>
-                                            </div>
-                                        </div>
+
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
+        <div class="col-lg-8">
+            <select class="form-control" type="text" id="OTFQCCFG_QcTestType" name="OTFQCCFG_QcTestType"></select>
+        </div>
+    </div>
+</div>
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -237,14 +251,62 @@
                                             </div>
                                         </div>
 
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location" readonly="">
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" type="text" id="OTFQCCFG_MakeBy" name="OTFQCCFG_MakeBy" readonly="">
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+        <div class="col-lg-5">
+            <select class="form-select" id="OTFQCCFG_RelMaterialWithoutQC" name="OTFQCCFG_RelMaterialWithoutQC">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="OTFQCCFG_ReleaseDate" name="OTFQCCFG_ReleaseDate" value="<?php echo date('Y-m-d');?>">
+        </div>
+    </div>
+</div>
+
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="OTFQCCFG_ValidUpTo" name="OTFQCCFG_ValidUpTo" style="border: 1px solid red;">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_ValidUpTo" name="OTFQCCFG_ValidUpTo">
                                                 </div>
                                             </div>
                                         </div>
+
+<div class="col-xl-3 col-md-6">
+        <div class="form-group row mb-2">
+            <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
+            <div class="col-lg-8">
+                <input class="form-control desabled" type="text" id="OTFQCCFG_NoOfContainer" name="OTFQCCFG_NoOfContainer" readonly="">
+            </div>
+        </div>
+    </div>
 
                                    </div>
                                 </div>
