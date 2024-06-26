@@ -351,6 +351,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'SampleTypeDropdown_ajax') {
 	exit(0);
 }
 
+
 if (isset($_POST['SampleIntimationInProcessBtn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -1315,71 +1316,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 }
 
 
-if (isset($_POST['action']) && $_POST['action'] == 'SCFG_IT_ExternalIssue_ajax') {
-	// $DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
-
-	// $API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
-
-	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
-
-	$API = $FGSAMPCOLLADD . '?DocEntry=' . $DocEntry;
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
 
-	// print_r($FinalAPI);
-
-	// die();
 
 
-	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
-	$BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
 
-	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
-	if (!empty($response)) {
-		$option = '<tr>
-				<td class="desabled">
-					<input type="text" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
-					<input type="text" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
 
-					1
-				</td>
-				
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
-				</td>
 
-				<td class="desabled">
-				 <input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
-				
-				</td>
-				<td>
-					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
-				</td>
-				<td class="desabled">
-				   <input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
-				</td>
-				<td class="desabled">
-				   <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
-				</td>
-			</tr>';
-	} else {
-		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-	}
-	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
 
-	$data=array();
-	$data['html'] = $option;
-	$data['res'] = $response;
-	echo json_encode($data);
-	exit(0);
-}
 
 
 
@@ -1439,6 +1384,19 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferExtraIs
 	echo json_encode($option);
 	exit(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1637,6 +1595,139 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_ExtraI
 	echo json_encode($option);
 	exit(0);
 }
+
+
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_fg_ExtraIssueProcess_in_ajax') {
+
+	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
+	$FromWhs = trim(addslashes(strip_tags($_POST['WareHouse'])));
+	$GRPODEnt = trim(addslashes(strip_tags($_POST['DocEntry'])));
+	$BNo = trim(addslashes(strip_tags($_POST['BatchNo'])));
+
+	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
+
+	// <!--------------- Preparing API Start Here ------------------------------------------ -->
+	$API = $FGSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+	// <!--------------- Preparing API End Here -------------------------------------------- -->
+
+
+	// print_r($API);
+	// die();
+
+
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
+
+	// echo "<pre>";
+	// print_r($response);
+	// echo "</pre>";
+	// exit;
+
+	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
+	if (!empty($response)) {
+
+		for ($i = 0; $i < count($response); $i++) {
+
+			if (!empty($response[$i]->MfgDate)) {
+				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
+			} else {
+				$MfgDate = '';
+			}
+
+			if (!empty($response[$i]->ExpDate)) {
+				$ExpiryDate = date("d-m-Y", strtotime($response[$i]->ExpDate));
+			} else {
+				$ExpiryDate = '';
+			}
+
+
+			$option .= '
+			<tr>
+                
+                <td style="text-align: center;">
+					<input type="hidden" id="usercheckList_extra' . $i . '" name="usercheckList_extra[]" value="0">
+					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS_extra' . $i . '" name="itp_CS_extra[]" style="width: 17px;height: 17px;" onclick="getSelectedContener_extra(' . $i . ')">
+				</td>
+
+                <td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode_extra' . $i . '" name="itp_ItemCode_extra[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ItemName_extra' . $i . '" name="itp_ItemName_extra[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo_extra' . $i . '" name="itp_ContainerNo_extra[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+				</td>
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_Batche_extra' . $i . '" name="itp_Batch_extra[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty_extra' . $i . '" name="itp_BatchQty_extra[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" readonly>
+
+
+				</td>
+
+				
+				<td style="text-align: center;">
+				   <input class="border_hide" type="text" id="SelectedQty_extra' . $i . '" name="SelectedQty_extra[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" onfocusout="EnterQtyValidation_extra(' . $i . ')">
+
+				  
+				</td>
+				
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate_extra' . $i . '" name="itp_MfgDate_extra[]" class="form-control" value="' . $MfgDate . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate_extra' . $i . '" name="itp_ExpiryDate_extra[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+				</td>
+			</tr>';
+		}
+
+		$option .= '<tr>
+			<td colspan="6"></td>
+			<td class="desabled">
+				<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum_extra" name="cs_selectedQtySum_extra" class="form-control" value="0.000000" readonly></td>
+			<td colspan="2"></td>
+		</tr>';
+	} else {
+		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+	}
+	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
+	echo json_encode($option);
+	exit(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Retails_issue_process_in_ajax') {
@@ -1841,6 +1932,112 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_extern
 	exit(0);
 }
 
+
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_fg_external_process_in_ajax') {
+
+	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
+	$FromWhs = trim(addslashes(strip_tags($_POST['WareHouse'])));
+	$GRPODEnt = trim(addslashes(strip_tags($_POST['DocEntry'])));
+	$BNo = trim(addslashes(strip_tags($_POST['BatchNo'])));
+
+	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
+
+	// ItemCode=P00003&WareHouse=RETN-WHS&DocEntry=297&BatchNo=BQ13
+	// <!--------------- Preparing API Start Here ------------------------------------------ -->
+	$API = $FGSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
+
+	// $API='http://10.80.4.55:8081/API/SAP/INPROCESSSAMINTICONTSEL?ItemCode=SFG00001&WareHouse=QCUT-GEN&DocEntry=359&BatchNo=asd';
+	// 
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+	// <!--------------- Preparing API End Here ------------------------------------------ -->
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
+	// echo "<pre>";
+	// print_r($response);
+	// echo "<pre>";
+	// exit;
+	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
+	if (!empty($response)) {
+
+		for ($i = 0; $i < count($response); $i++) {
+
+			if (!empty($response[$i]->MfgDate)) {
+				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
+			} else {
+				$MfgDate = '';
+			}
+
+			if (!empty($response[$i]->ExpDate)) {
+				$ExpiryDate = date("d-m-Y", strtotime($response[$i]->ExpDate));
+			} else {
+				$ExpiryDate = '';
+			}
+
+
+			$option .= '
+			<tr>
+                
+                <td style="text-align: center;">
+					<input type="hidden" id="usercheckList_external' . $i . '" name="usercheckList_external[]" value="0">
+					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS_external' . $i . '" name="itp_CS_external[]" style="width: 17px;height: 17px;" onclick="getSelectedContener_extenal(' . $i . ')">
+				</td>
+
+                <td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode_external' . $i . '" name="itp_ItemCode_external[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ItemName_external' . $i . '" name="itp_ItemName_external[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo_external' . $i . '" name="itp_ContainerNo_external[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+				</td>
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_Batche_external' . $i . '" name="itp_Batch_external[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty_external' . $i . '" name="itp_BatchQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" readonly>
+
+
+				</td>
+
+				
+				<td style="text-align: center;">
+				   <input class="border_hide" type="text" id="SelectedQty_external' . $i . '" name="SelectedQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" onfocusout="EnterQtyValidation_external(' . $i . ')">
+
+				  
+				</td>
+				
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate_external' . $i . '" name="itp_MfgDate_external[]" class="form-control" value="' . $MfgDate . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate_external' . $i . '" name="itp_ExpiryDate_external[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+				</td>
+			</tr>';
+		}
+
+		$option .= '<tr>
+			<td colspan="6"></td>
+			<td class="desabled">
+				<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum_external" name="cs_selectedQtySum_external" class="form-control" value="0.000000" readonly></td>
+			<td colspan="2"></td>
+		</tr>';
+	} else {
+		$option = '<tr><td colspan="9" style="text-align: center;color:red;">'.$API.'</td></tr>';
+	}
+	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
+	// $data=array();
+	// $data['html'] = $option;
+	// $data['res'] = $response;
+	echo json_encode($option);
+
+	exit(0);
+}
 
 
 
@@ -3270,7 +3467,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 	if (!empty($ExtraIssue)) {
 		for ($i = 0; $i < count($ExtraIssue); $i++) {
 			// $SrNo=$i+1;
-			$SrNo = $rowCount_N + 1;
+			$SrNo = $rowCount_N + $i + 1;
 
 			if (!empty($ExtraIssue[$i]->IssueDate)) {
 				$IssueDate = date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
@@ -3280,7 +3477,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Sample_Collection_Finished_G
 
 			$FinalResponce['ExtraIssue'] .= '<tr>
 				    <td>
-				    	<input type="radio" id="ExtraIslist' . $SrNo . '" name="ExtraIslistRado" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue(' . $SrNo . ')">
+				    	<input type="radio" id="ExtraIslist' . $SrNo . '" name="ExtraIslistRado[]" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue(' . $SrNo . ')">
 				    </td>
 
 				    <td class="desabled">
@@ -3739,6 +3936,102 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 	echo json_encode($option);
 	exit(0);
 }
+
+
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'SCFG_IT_ExternalIssue_ajax') {
+    // $DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
+ 
+    // $API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
+ 
+    $DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
+ 
+    $API = $FGSAMPCOLLADD . '?DocEntry=' . $DocEntry;
+    $FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+ 
+ 
+    // print_r($FinalAPI);
+ 
+    // die();
+ 
+ 
+    $response = $obj->get_OTFSI_SingleData($FinalAPI);
+ 
+    $BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
+ 
+    // <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ -->
+    if (!empty($response)) {
+        $option = '<tr>
+                <td class="desabled">
+                    <input type="text" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
+                    <input type="text" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
+ 
+                    1
+                </td>
+               
+                <td class="desabled">
+                    <input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
+                </td>
+ 
+                <td class="desabled">
+                 <input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
+               
+                </td>
+                <td>
+                    <input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="" readonly>
+                </td>
+                <td class="desabled">
+                    <input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
+                </td>
+                <td class="desabled">
+                    <input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
+                </td>
+                <td class="desabled">
+                   <input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
+                </td>
+                <td class="desabled">
+                   <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
+                </td>
+            </tr>';
+    } else {
+        $option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+    }
+    // <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- -->
+ 
+    $data=array();
+    $data['html'] = $option;
+    $data['res'] = $response;
+    echo json_encode($data);
+    exit(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5594,6 +5887,10 @@ if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 
 	if (!empty($res)) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API;
+
+		// print_r($Final_API);	
+
+		// die();
 
 		$responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
 		$responce = json_decode($responce_encode);
@@ -7852,6 +8149,166 @@ if (isset($_POST['SubIT_Btn_transfer'])) {
 
 
 
+
+
+
+
+if (isset($_POST['SubIT_Btn_fg_transfer'])) {
+	$mainArray = array(); // This array hold all type of declare array
+	$tdata = array(); //This array hold header data
+	$item = array(); //This array hold item data
+	$batch = array(); //This array hold batch data
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['iT_InventoryTransfer_series'])));
+	$tdata['DocDate'] = date("Y-m-d", strtotime($_POST['docdate']));
+	$tdata['DueDate'] = date("Y-m-d", strtotime($_POST['docdate']));
+	$tdata['CardCode'] = null;
+	$tdata['Comments'] = null;
+	$tdata['FromWarehouse'] = trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
+	$tdata['ToWarehouse'] = trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
+	$tdata['TaxDate'] = trim(addslashes(strip_tags($_POST['iT_InventoryTransfer_external_DocumentDate'])));
+	$tdata['DocObjectCode'] = '67';
+	$tdata['BPLID'] = trim(addslashes(strip_tags($_POST['BPLId'])));
+	$tdata['U_PC_SIIProc'] = trim(addslashes(strip_tags($_POST['fg_RFPEntry'])));
+	$tdata['U_BFType'] = trim(addslashes(strip_tags($_POST['inveTra_doctyp'])));
+	$mainArray = $tdata;
+// echo "<pre>";
+// print_r($_POST);
+// echo "<pre>";
+// exit;
+	// --------------------- Item and batch row data preparing start here   -------------------------------- -->
+	$item['LineNum'] = trim(addslashes(strip_tags('0')));
+	$item['ItemCode'] = trim(addslashes(strip_tags($_POST['itP_ItemCode'])));
+	$item['Quantity'] = trim(addslashes(strip_tags($_POST['itP_BQty'])));
+	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
+	$item['FromWarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
+	// <!-- Item Batch row data prepare start here ----------- -->
+	$BL = 0;
+	for ($i = 0; $i < count($_POST['usercheckList_external']); $i++) {
+		if ($_POST['usercheckList_external'][$i] == '1') {
+			$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_ContainerNo_external'][$i])));
+			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty_external'][$i])));
+			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
+			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode_external'][$i])));
+			$item['BatchNumbers'][] = $batch;
+			$BL++;
+		}
+	}
+	// <!-- Item Batch row data prepare end here ------------- -->
+	$mainArray['StockTransferLines'][] = $item;
+	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
+	
+	// echo "<pre>";
+	// print_r($_POST);
+	// echo "<pre>";
+	// exit;
+
+	//<!-- ------------- function & function responce code Start Here ---- -->
+	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+
+	if (!empty($res)) {
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_StockTransfers;
+
+		$responce_encode = $objKri->SaveSampleIntimation_kris($mainArray, $Final_API);
+		$responce = json_decode($responce_encode);
+
+		// echo "<pre>";
+		// 	print_r($responce);
+		// 	echo "<pre>";
+		// 	exit;
+
+		//  <!-- ------- service layer function responce manage Start Here ------------ -->
+		$data = array();
+		if (array_key_exists('error', (array)$responce)) {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = $responce->error->message->value;
+			echo json_encode($data);
+		} else {
+			// <!-- ------- row data preparing start here --------------------- -->
+			// $UT_data = array();
+			// $UT_data['DocEntry'] = trim(addslashes(strip_tags($_POST['it_InventoryTransfer_DocEntry'])));
+			// $UT_data['U_PC_UTTrans'] = trim(addslashes(strip_tags($responce->DocEntry)));
+
+
+		
+
+			$UT_data = [
+				'DocEntry' => $_POST['it_InventoryTransfer_external_DocEntry'],
+				'SCS_SCOLFG1Collection' => [
+					[
+						'LineId' => $_POST['it_Linenum'],
+						'U_PC_Trans' => $responce->DocEntry
+					]
+				]
+			];
+
+			
+			// <!-- ------- row data preparing end here ----------------------- -->
+			// SCS_SCINPROCESS_SL
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API . '(' . $_POST['it_InventoryTransfer_external_DocEntry'] . ')';
+			$underTestNumber = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data, $Final_API2);
+			$underTestNumber_decode = json_decode($underTestNumber);
+
+			if (empty($underTestNumber_decode)) {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $responce->DocEntry;
+				$data['message'] = "Inventory Transfer Successfully Added.";
+				echo json_encode($data);
+			} else {
+				if (array_key_exists('error', (array)$underTestNumber_decode)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '222222222222222 <-- PayLoad -->'.json_encode($UT_data).'<-- Final API -->'.$Final_API2;
+					$data['message'] = $responce->error->message->value;
+					echo json_encode($data);
+				}
+			}
+		}
+		//  <!-- ------- service layer function responce manage End Here -------------- -->	
+	}
+
+	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	exit(0);
+	//<!-- ------------- function & function responce code end Here ---- -->
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 	$mainArray = array(); // This array hold all type of declare array
 	$tdata = array(); //This array hold header data
@@ -7984,6 +8441,157 @@ if (isset($_POST['SubIT_Btn_post_extra_issue'])) {
 	exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
+
+
+
+
+
+
+
+
+
+
+if (isset($_POST['SubIT_Btn_post_extra_issue_fg'])) {
+
+	$mainArray = array(); // This array hold all type of declare array
+	$tdata = array(); //This array hold header data
+	$item = array(); //This array hold item data
+	$batch = array(); //This array hold batch data
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['iT_extra_series'])));
+	$tdata['DocDate'] = date("Y-m-d", strtotime($_POST['iT_extra_docdate']));
+	$tdata['DueDate'] = date("Y-m-d", strtotime($_POST['iT_extra_docdate']));
+	$tdata['CardCode'] = null;
+	$tdata['Comments'] = null;
+	$tdata['FromWarehouse'] = trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
+	$tdata['ToWarehouse'] = trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
+	$tdata['TaxDate'] = trim(addslashes(strip_tags($_POST['iT_InventoryTransfer_external_DocumentDate'])));
+	$tdata['DocObjectCode'] = '67';
+	$tdata['BPLID'] = trim(addslashes(strip_tags($_POST['fg_it_BPLID'])));
+	$tdata['U_PC_SIIProc'] = trim(addslashes(strip_tags($_POST['fg_it_RcDocEntry'])));
+	$tdata['U_BFType'] = trim(addslashes(strip_tags($_POST['invtr_Extra_doctyp'])));
+	$mainArray = $tdata;
+
+	// --------------------- Item and batch row data preparing start here   -------------------------------- -->
+	$item['LineNum'] = trim(addslashes(strip_tags('0')));
+	$item['ItemCode'] = trim(addslashes(strip_tags($_POST['itP_ItemCode'])));
+	$item['Quantity'] = trim(addslashes(strip_tags($_POST['itP_BQty'])));
+	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_ToWhs'])));
+	$item['FromWarehouseCode'] = trim(addslashes(strip_tags($_POST['itP_FromWhs'])));
+	// <!-- Item Batch row data prepare start here ----------- -->
+
+// echo "<pre>";
+// print_r($_POST);
+// echo "<pre>";
+// exit;
+
+	for ($i = 0; $i < count($_POST['usercheckList_extra']); $i++) {
+		if ($_POST['usercheckList_extra'][$i] == '1') {
+			$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_Batche_extra'][$i])));
+			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty_extra'][$i])));
+			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
+			$batch['ItemCode'] = trim(addslashes(strip_tags($_POST['itp_ItemCode_extra'][$i])));
+			$item['BatchNumbers'][] = $batch;
+			$BL++;
+		}
+	}
+	// <!-- Item Batch row data prepare end here ------------- -->
+	$mainArray['StockTransferLines'][] = $item;
+	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
+	
+	// echo "<pre>";
+	// print_r($_POST);
+	// echo "<pre>";
+	// exit;
+echo "<pre>";
+print_r($mainArray);
+echo "<pre>";
+exit;
+
+
+	//<!-- ------------- function & function responce code Start Here ---- -->
+	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+
+	if (!empty($res)) {
+		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $API_StockTransfers;
+
+		$responce_encode = $objKri->SaveSampleIntimation_kris($mainArray, $Final_API);
+		$responce = json_decode($responce_encode);
+
+		// echo "<pre>";
+		// 	print_r($responce);
+		// 	echo "<pre>";
+		// 	exit;
+
+		//  <!-- ------- service layer function responce manage Start Here ------------ -->
+		$data = array();
+		if (array_key_exists('error', (array)$responce)) {
+			$data['status'] = 'False';
+			$data['DocEntry'] = '';
+			$data['message'] = $responce->error->message->value;
+			echo json_encode($data);
+		} else {
+			// <!-- ------- row data preparing start here --------------------- -->
+			// $UT_data = array();
+			// $UT_data['DocEntry'] = trim(addslashes(strip_tags($_POST['it_InventoryTransfer_DocEntry'])));
+			// $UT_data['U_PC_UTTrans'] = trim(addslashes(strip_tags($responce->DocEntry)));
+
+
+		
+
+			$UT_data = [
+				'DocEntry' => $_POST['it_InventoryTransfer_external_DocEntry'],
+				'SCS_SCOLFG1Collection' => [
+					[
+						'LineId' => $_POST['it_Linenum'],
+						'U_PC_Trans' => $responce->DocEntry
+					]
+				]
+			];
+
+			
+			// <!-- ------- row data preparing end here ----------------------- -->
+			// SCS_SCINPROCESS_SL
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API . '(' . $_POST['it_InventoryTransfer_external_DocEntry'] . ')';
+			$underTestNumber = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data, $Final_API2);
+			$underTestNumber_decode = json_decode($underTestNumber);
+
+			if (empty($underTestNumber_decode)) {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $responce->DocEntry;
+				$data['message'] = "Inventory Transfer Successfully Added.";
+				echo json_encode($data);
+			} else {
+				if (array_key_exists('error', (array)$underTestNumber_decode)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '222222222222222 <-- PayLoad -->'.json_encode($UT_data).'<-- Final API -->'.$Final_API2;
+					$data['message'] = $responce->error->message->value;
+					echo json_encode($data);
+				}
+			}
+		}
+		//  <!-- ------- service layer function responce manage End Here -------------- -->	
+	}
+
+	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+	exit(0);
+	//<!-- ------------- function & function responce code end Here ---- -->
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

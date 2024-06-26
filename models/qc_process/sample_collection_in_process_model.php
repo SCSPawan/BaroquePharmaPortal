@@ -785,7 +785,7 @@
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_sample_issue()">Add</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" >Add</button>
 
                     <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
 
@@ -1083,7 +1083,7 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                         </table>
                     </div>
 <!-- SubmitInventoryTransfer_sample_issue -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_extra()">Add</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_extra()">Add </button>
 
                     <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
 

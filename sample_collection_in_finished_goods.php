@@ -263,7 +263,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                             <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Intimation No</label>
                                             <div class="col-lg-8">
                                                 <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" name="DocEntry" id="DocEntry">
+                                                    <input type="text" class="form-control" name="DocEntry" id="DocEntry" value="1200">
                                                 </div>
                                             </div>
                                         </div>
@@ -746,7 +746,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                         </div>
                                                         <div class="d-flex flex-wrap gap-2">
                                                             <!-- Toggle States Button -->
-                                                            <button type="button" class="btn btn-primary" id="SC_ExtraIssue_FG_Btn" data-bs-toggle="modal" data-bs-target=".goods_issue" disabled>Post Extra Issue</button>
+                                                            <button type="button" class="btn btn-primary" id="SC_ExtraIssue_FG_Btn" data-bs-toggle="modal" data-bs-target=".goods_issue" disabled onclick="OpenInventoryTransferModel_extraIssue()">Post Extra Issue</button>
 
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Slip</button>
 
@@ -1573,7 +1573,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         $(".loader123").show();
                                     },
                                     success: function(result) {
-                                        console.log(result);
+                                        //console.log(result);
                                         var JSONObject = JSON.parse(result);
                                         // console.log(JSONObject);
 
@@ -1666,7 +1666,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         $(".loader123").show();
                                     },
                                     success: function(result) {
-                                        console.log(result);
+                                        //console.log(result);
                                         var JSONObject = JSON.parse(result);
                                         // console.log(JSONObject);
 
@@ -1970,7 +1970,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
 
 
-        function OpenInventoryExternalTransferModel() {
+    function OpenInventoryExternalTransferModel() {
     var Branch = document.getElementById('fg_Branch').value;
     var Series = document.getElementById('fg_DocName').value;
     var DocEntry = document.getElementById('it__DocEntry').value;
@@ -1991,11 +1991,11 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             var Response = JSONObject.res[0]; // Assume the response array contains only one object for this example
 
        
-            $('#iT_InventoryTransfer_external_BaseDocType').val(Response.DocType);
-            $('#iT_InventoryTransfer_external_BaseDocNum').val(Response.DocEntry);
+            // $('#iT_InventoryTransfer_external_BaseDocType').val(Response.DocType);
+            // $('#iT_InventoryTransfer_external_BaseDocNum').val(Response.DocEntry);
             $('#inveTra_branch').val(Branch);
             $('#it_InventoryTransfer_external_BPLId').val(BPLId);
-            $('#it_InventoryTransfer_external_DocEntry').val(Response.DocEntry);
+            $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
             $('#inveTra_basedocnum').val(Response.DocNum);
             $('#inveTra_doctyp').val(Response.DocType);
 
@@ -2015,7 +2015,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 // alert('hii');
 
-    var selectedRadio = document.querySelector('input[name="listRado"]:checked');
+    var selectedRadio = document.querySelector('input[name="listRado[]"]:checked');
 
     // Check if a radio button is selected
     if (selectedRadio) {
@@ -2033,7 +2033,7 @@ var BatchNo=document.getElementById('it_BatchNo').value;
 var ItemCode=document.getElementById('itP_ItemCode').value;
 var itP_FromWhs=document.getElementById('itP_FromWhs').value;
 
-var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
+var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_fg_external_process_in_ajax';
 
 $.ajax({
     type: "POST",
@@ -2046,12 +2046,14 @@ $.ajax({
     },
     success: function(result)
     {
+        // console.log(result);
         var JSONObject = JSON.parse(result);
         
         // $('#ContainerSelectionItemAppend_retails').html(JSONObject); 
         $('#ContainerSelectionItemAppend_external').html(JSONObject);
         $('#itP_BQty').val(SC_ExternalQty_Row);
-        $('#it_Linenum').val(SC_ExternalLineId_Row);           
+        $('#it_Linenum').val(SC_ExternalLineId_Row); 
+        $('#fg_ITRFPEntry').val($('#fg_RFPEntry').val());          
     },
     complete:function(data){
         $(".loader123").hide();
@@ -2075,9 +2077,10 @@ $.ajax({
                     var SeriesDropdown = JSON.parse(result);
 
 
-                    //console.log('SeriesDropdown',SeriesDropdown);
+                    console.log('SeriesDropdown',SeriesDropdown);
 
                     $('#iT_InventoryTransfer_series').html(SeriesDropdown);
+                    ///$('#iT_InventoryTransfer_series').html(SeriesDropdown);
 
                 },
                 complete: function(data) {
@@ -2087,12 +2090,12 @@ $.ajax({
         }
 
       
-        function selectedSeries_gd(){
+ function selectedSeries_gd(){
        
-   var TrDate=$('#posting-date').val();
+    var TrDate=$('#posting-date').val();
    
    var Series=document.getElementById('iT_InventoryTransfer_series').value;
-
+ 
    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
 
    
@@ -2140,7 +2143,7 @@ function getSeriesDropdown_gd_extra()
         success: function(result){
             var SeriesDropdown = JSON.parse(result);
 
-            console.log('SeriesDropdown',SeriesDropdown);
+            //console.log('SeriesDropdown',SeriesDropdown);
             $('#iT_extra_series').html(SeriesDropdown);
         },
         complete:function(data){
@@ -2168,7 +2171,7 @@ function getSeriesDropdown_gd_extra()
             {
                 var JSONObject = JSON.parse(result);
 
-                console.log('JSONObject111=>',JSONObject)
+                // console.log('JSONObject111=>',JSONObject)
 
             var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];         
@@ -2180,4 +2183,513 @@ function getSeriesDropdown_gd_extra()
             }
         }); 
     }
-    </script>
+
+    function getSelectedContener_extenal(un_id)
+
+    {
+        //Create an Array.
+        var selected = new Array();
+ 
+        //Reference the Table.
+        var tblFruits = document.getElementById("ContainerSelectionItemAppend_external");
+ 
+        //Reference all the CheckBoxes in Table.
+        var chks = tblFruits.getElementsByTagName("INPUT");
+ 
+        // Loop and push the checked CheckBox value in Array.
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                selected.push(chks[i].value);
+            }
+        }
+        // console.log('selected=>', selected);
+
+        // <!-- ------------------- Container Selection Final Sum calculate Start Here ------------- -->
+            const array = selected;
+            let sum = 0;
+
+            for (let i = 0; i < array.length; i++) {
+                sum += parseFloat(array[i]);
+            }
+            // console.log('sum=>', sum);
+            document.getElementById("cs_selectedQtySum_external").value = parseFloat(sum).toFixed(6); // Container Selection final sum
+        // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
+        // <!-- --------------------- when user select checkbox update flag start here -------------- -->
+            var usercheckListVal=document.getElementById('usercheckList_external'+un_id).value;
+            if(usercheckListVal=='0'){
+                $(`#usercheckList_external`+un_id).val('1');
+            }else{
+                $(`#usercheckList_external`+un_id).val('0');
+            }
+        // <!-- --------------------- when user select checkbox update flag End here ---------------- -->
+    }
+
+
+    function EnterQtyValidation_external(un_id) {
+        var BatchQty=document.getElementById('itp_BatchQty_external'+un_id).value;
+        var SelectedQty=document.getElementById('SelectedQty_external'+un_id).value;
+
+        if(SelectedQty!=''){
+
+            if(parseFloat(SelectedQty)<=parseFloat(BatchQty)){
+
+                $('#SelectedQty_external'+un_id).val(parseFloat(SelectedQty).toFixed(6));
+                $('#itp_CS_external'+un_id).val(parseFloat(SelectedQty).toFixed(6)); // same value set on checkbox value
+            }else{
+                $('#SelectedQty_external'+un_id).val(BatchQty); // if user enter grater than val
+                swal("Oops!", "User Not Allow to Enter Selected Qty greater than Batch Qty!", "error");
+            }
+
+        }else{
+            $('#SelectedQty_external'+un_id).val(BatchQty); // if user enter blank val
+            swal("Oops!", "User Not Allow to Enter Selected Qty is blank!", "error")
+        }
+        getSelectedContener_num_external(un_id);
+    }
+
+    function getSelectedContener_num_external(un_id){
+        //Create an Array.
+        var selected = new Array();
+ 
+        //Reference the Table.
+        var tblFruits = document.getElementById("ContainerSelectionItemAppend_external");
+ 
+        //Reference all the CheckBoxes in Table.
+        var chks = tblFruits.getElementsByTagName("INPUT");
+ 
+        // Loop and push the checked CheckBox value in Array.
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                selected.push(chks[i].value);
+            }
+        }
+        // console.log('selected=>', selected);
+        // <!-- ------------------- Container Selection Final Sum calculate Start Here ------------- -->
+            const array = selected;
+            let sum = 0;
+
+            for (let i = 0; i < array.length; i++) {
+                sum += parseFloat(array[i]);
+
+            }
+            // console.log('sum=>', sum);
+            document.getElementById("cs_selectedQtySum_external").value = parseFloat(sum).toFixed(6); // Container Selection final sum
+        // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
+    }
+
+
+
+    function SubmitInventoryTransfer_external()
+
+    // alert("HIII");
+
+    {
+        var selectedQtySum=document.getElementById('cs_selectedQtySum_external').value; // final Qty sum
+        var PostingDate=document.getElementById('posting-date').value;
+        var DocDate=document.getElementById('docdate').value;
+        var ItemCode=document.getElementById('itP_ItemCode').value;
+        var ItemName=document.getElementById('itP_ItemName').value;
+        var item_BQty=parseFloat(document.getElementById('itP_BQty').value).toFixed(6);  // item available Qty
+        var fromWhs=document.getElementById('itP_FromWhs').value;
+        var ToWhs=document.getElementById('itP_ToWhs').value;
+        var Location=document.getElementById('itP_Loction').value;
+
+
+
+
+
+
+
+        if(selectedQtySum==item_BQty){ // Container selection Qty validation
+
+            if(ToWhs!=''){ // Item level To Warehouse validation
+
+                if(PostingDate!=''){ // Posting Date validation
+
+                    if(DocDate!=''){ // Document Date validation
+
+                        // <!-- ---------------- form submit process start here ----------------- -->
+                            var formData = new FormData($('#inventory_transfer_form_fg_external')[0]); 
+                            formData.append("SubIT_Btn_fg_transfer",'SubIT_Btn_fg_transfer'); 
+                            var error = true;
+
+                            if(error)
+                            {
+                                $.ajax({
+                                    url: 'ajax/kri_production_common_ajax.php',
+                                    type: "POST",
+                                    data:formData,
+                                    processData: false,
+                                    contentType: false,
+                                    beforeSend: function(){
+                                        $(".loader123").show();
+                                    },
+                                    success: function(result)
+                                    {
+                                        var JSONObject = JSON.parse(result);
+                                        console.log(JSONObject);
+
+                                        var status = JSONObject['status'];
+                                        var message = JSONObject['message'];
+                                        var DocEntry = JSONObject['DocEntry'];
+                                        if(status=='True'){
+                                            swal({
+                                              title: `${DocEntry}`,
+                                              text: `${message}`,
+                                              icon: "success",
+                                              buttons: true,
+                                              dangerMode: false,
+                                            })
+                                            .then((willDelete) => {
+                                                if (willDelete) {
+                                                    location.replace(window.location.href); //ok btn... cuurent URL called
+                                                }else{
+                                                    location.replace(window.location.href); // cancel btn... cuurent URL called
+                                                }
+                                            });
+                                        }else{
+                                            swal("Oops!", `${message}`, "error");
+                                        }
+                                    },complete:function(data){
+                                        $(".loader123").hide();
+                                    }
+                                });
+                            }
+                        // <!-- ---------------- form submit process end here ------------------- -->
+                    }else{
+                        wal("Oops!", "Please Select A Document Date.", "error");
+                    }
+
+                }else{
+                    swal("Oops!", "Please Select A Posting Date.", "error");
+                }
+
+            }else{
+                swal("Oops!", "To Warehouse Mandatory.", "error");
+            }
+
+        }else{
+            swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
+        }
+    }
+
+
+
+    // Extera issue functionality code here...
+
+    function OpenInventoryTransferModel_extraIssue()
+{
+
+
+
+    // var Branch=document.getElementById('Branch').value;
+    // var Series=document.getElementById('si_Series').value;
+    var DocEntry=document.getElementById('it__DocEntry').value;
+    // var BPLId=document.getElementById('BPLId').value;
+    
+    var dataString ='DocEntry='+DocEntry+'&action=SCFG_IT_ExternalIssue_ajax';
+
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: dataString,
+        cache: false,
+
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result)
+        {
+
+
+            
+            var JSONObject = JSON.parse(result);
+
+            var Response = JSONObject.res[0];
+            
+
+            //  console.log('Response',Response);
+            //  console.log('Response DocNum->',Response.DocNum);
+            
+            //  console.log('Response111',Response[0]['Branch']);
+            $('#invtr_Extra_branch').val(Response.Branch);
+            
+            // $('#it_InventoryTransfer_external_BPLId').val(BPLId);
+            // $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
+            // $('#invtr_Extra_docnum').val(Response.DocNum);
+             $('#invtr_Extra_doctyp').val(Response.DocType);
+            $('#InventoryTransferItemAppend_extra').html(JSONObject.html);
+           
+
+            // getSeriesDropdown_gd_extra()
+            // // getSeriesDropdown_gd() // DocName By using API to get dropdown 
+             ContainerSelection_extraIssue(); // get Container Selection Table List
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    }) 
+}
+
+
+
+    function ContainerSelection_extraIssue(){
+        var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
+        // Check if a radio button is selected
+
+        if (selectedRadio) {
+            // console.log('If');
+            // Get the value of the selected radio button
+            var selectedValue = selectedRadio.value;
+            var SC_ExteraQty_Row = $('#SC_FEI_SampleQuantity' + selectedValue).val();
+            var SC_ExteraLineId_Row = $('#SC_FEI_Linenum' + selectedValue).val();
+        } else {
+            // console.log('else');
+            var SC_ExteraQty_Row = 0.000;
+            var SC_ExteraLineId_Row = '';
+        }
+
+        var DocEntry=$('#it__DocEntry').val();
+        var BatchNo=$('#it_BatchNo').val();
+        var ItemCode=$('#itP_ItemCode').val();
+        var itP_FromWhs=$('#itP_FromWhs').val();
+
+        var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_fg_ExtraIssueProcess_in_ajax';
+
+        $.ajax({
+            type: "POST",
+            url: 'ajax/kri_production_common_ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                // console.log('ContainerSelection_extraIssue=>', JSONObject);
+                $('#ContainerSelectionItemAppend_extra').html(JSONObject);
+                $('#itP_BQty').val(SC_ExteraQty_Row);
+
+                $('#fg_it_LineId').val(SC_ExteraLineId_Row);  
+                $('#fg_it_DocEntry').val($('#it__DocEntry').val());
+                $('#fg_it_RcDocEntry').val($('#fg_RFPEntry').val());
+                $('#fg_it_BPLID').val($('#BPLId').val());
+                //          
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        })
+    }
+
+
+
+
+
+
+    function getSelectedContener_extra(un_id){
+        
+        //Create an Array.
+
+        var selected = new Array();
+ 
+        //Reference the Table.
+
+        var tblFruits = document.getElementById("ContainerSelectionItemAppend_extra");
+        // console.log('tblFruits=>', tblFruits);
+
+ 
+        //Reference all the CheckBoxes in Table.
+
+        var chks = tblFruits.getElementsByTagName("INPUT");
+        
+        // Loop and push the checked CheckBox value in Array.
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                selected.push(chks[i].value);
+            }
+        }
+
+        // console.log('selected=>', selected);
+
+        // <!-- ------------------- Container Selection Final Sum calculate Start Here ------------- -->
+            const array = selected;
+            let sum = 0;
+
+            for (let i = 0; i < array.length; i++) {
+                sum += parseFloat(array[i]);
+
+            }
+
+            // console.log('sum=>', sum);
+            document.getElementById("cs_selectedQtySum_extra").value = parseFloat(sum).toFixed(6); // Container Selection final sum
+
+        // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
+
+        // <!-- --------------------- when user select checkbox update flag start here -------------- -->
+
+            var usercheckListVal=document.getElementById('usercheckList_extra'+un_id).value;
+
+            if(usercheckListVal=='0'){
+                $(`#usercheckList_extra`+un_id).val('1');
+            }else{
+                $(`#usercheckList_extra`+un_id).val('0');
+            }
+        // <!-- --------------------- when user select checkbox update flag End here ---------------- -->
+    }
+
+
+
+
+
+     function EnterQtyValidation_extra(un_id) {
+        var BatchQty=document.getElementById('itp_BatchQty_extra'+un_id).value;
+        var SelectedQty=document.getElementById('SelectedQty_extra'+un_id).value;
+
+        if(SelectedQty!=''){
+
+            if(parseFloat(SelectedQty)<=parseFloat(BatchQty)){
+
+                $('#SelectedQty_extra'+un_id).val(parseFloat(SelectedQty).toFixed(6));
+                $('#itp_CS_extra'+un_id).val(parseFloat(SelectedQty).toFixed(6)); // same value set on checkbox value
+
+            }else{
+                $('#SelectedQty_extra'+un_id).val(BatchQty); // if user enter grater than val
+                swal("Oops!", "User Not Allow to Enter Selected Qty greater than Batch Qty!", "error");
+            }
+
+        }else{
+            $('#SelectedQty_extra'+un_id).val(BatchQty); // if user enter blank val
+            swal("Oops!", "User Not Allow to Enter Selected Qty is blank!", "error")
+        }
+
+        getSelectedContenerGI_Manual_extra(un_id);
+    }
+
+
+
+    function getSelectedContenerGI_Manual_extra(un_id){
+        //Create an Array.
+        var selected = new Array();
+ 
+        //Reference the Table.
+        var tblFruits = document.getElementById("ContainerSelectionItemAppend_extra");
+ 
+        //Reference all the CheckBoxes in Table.
+        var chks = tblFruits.getElementsByTagName("INPUT");
+ 
+        // Loop and push the checked CheckBox value in Array.
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                selected.push(chks[i].value);
+            }
+        }
+        // console.log('selected=>', selected);
+        // <!-- ------------------- Container Selection Final Sum calculate Start Here ------------- -->
+            const array = selected;
+            let sum = 0;
+
+            for (let i = 0; i < array.length; i++) {
+                sum += parseFloat(array[i]);
+
+            }
+            document.getElementById("cs_selectedQtySum_extra").value = parseFloat(sum).toFixed(6); // Container Selection final sum
+        // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
+    }
+    
+
+
+
+    function SubmitInventoryTransfer_extra(){
+
+    var selectedQtySum=document.getElementById('cs_selectedQtySum_extra').value; // final Qty sum
+    var PostingDate=document.getElementById('iT_extra_posting').value;
+    var DocDate=document.getElementById('iT_extra_docdate').value;
+    var ItemCode=document.getElementById('itP_ItemCode').value;
+    var ItemName=document.getElementById('itP_ItemName').value;
+    var item_BQty=parseFloat(document.getElementById('itP_BQty').value).toFixed(6);  // item available Qty
+    var fromWhs=document.getElementById('itP_FromWhs').value;
+    var ToWhs=document.getElementById('itP_ToWhs').value;
+    var Location=document.getElementById('itP_Loction').value;
+
+   if(selectedQtySum==item_BQty){ // Container selection Qty validation
+
+       if(ToWhs!=''){ // Item level To Warehouse validation
+
+           if(PostingDate!=''){ // Posting Date validation
+
+               if(DocDate!=''){ // Document Date validation
+
+                   // <!-- ---------------- form submit process start here ----------------- -->
+                       var formData = new FormData($('#SubIT_Btn_post_extra_issue_fg')[0]); 
+                       formData.append("SubIT_Btn_post_extra_issue_fg",'SubIT_Btn_post_extra_issue_fg'); 
+
+                       var error = true;
+
+                       if(error)
+                       {
+                           $.ajax({
+                               url: 'ajax/kri_production_common_ajax.php',
+                               type: "POST",
+                               data:formData,
+                               processData: false,
+                               contentType: false,
+                               beforeSend: function(){
+                                   $(".loader123").show();
+                               },
+                               success: function(result)
+                               {
+                                   var JSONObject = JSON.parse(result);
+                                   //console.log(JSONObject);
+
+                                   var status = JSONObject['status'];
+                                   var message = JSONObject['message'];
+                                   var DocEntry = JSONObject['DocEntry'];
+                                   if(status=='True'){
+                                       swal({
+                                         title: `${DocEntry}`,
+                                         text: `${message}`,
+                                         icon: "success",
+                                         buttons: true,
+                                         dangerMode: false,
+                                       })
+                                       .then((willDelete) => {
+                                           if (willDelete) {
+                                               location.replace(window.location.href); //ok btn... cuurent URL called
+                                           }else{
+                                               location.replace(window.location.href); // cancel btn... cuurent URL called
+                                           }
+                                       });
+                                   }else{
+                                       swal("Oops!", `${message}`, "error");
+                                   }
+                               },complete:function(data){
+                                   $(".loader123").hide();
+                               }
+                           });
+                       }
+                   // <!-- ---------------- form submit process end here ------------------- -->
+               }else{
+                   wal("Oops!", "Please Select A Document Date.", "error");
+               }
+
+           }else{
+               swal("Oops!", "Please Select A Posting Date.", "error");
+           }
+
+       }else{
+           swal("Oops!", "To Warehouse Mandatory.", "error");
+       }
+
+   }else{
+       swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
+   }
+}
+
+
+
+
+
+
+
+</script>
