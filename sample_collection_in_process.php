@@ -2120,6 +2120,24 @@ var selectedRadio = document.querySelector('input[name="listRado"]:checked');
 
 
 function getSelectedContener_extenal(un_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {
         //Create an Array.
         var selected = new Array();
@@ -2257,28 +2275,26 @@ function OpenInventoryTransferModel_extraIssue()
 }
 
 
-     function ContainerSelection_extraIssue(){
-
-       // alert("hii");
-
-        var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
-
-
+function ContainerSelection_extraIssue(){
+    var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
 // Check if a radio button is selected
-if (selectedRadio) {
-    // console.log('If');
-    // Get the value of the selected radio button
-    var selectedValue = selectedRadio.value;
-    var SC_ExteraQty_Row = $('#SC_FEI_SampleQuantity' + selectedValue).val();
-    var SC_ExteraLineId_Row = $('#SC_FEI_Linenum' + selectedValue).val();
-} else {
-    // console.log('else');
-    var SC_ExteraQty_Row = 0.000;
-    var SC_ExteraLineId_Row = '';
-}
 
-// console.log('SC_ExteraQty_Row=>', SC_ExteraQty_Row);
-// console.log('SC_ExteraLineId_Row->', SC_ExteraLineId_Row);
+
+                    if (selectedRadio) {
+                        // console.log('If');
+                        // Get the value of the selected radio button
+                        var selectedValue = selectedRadio.value;
+                        var SC_ExteraQty_Row = $('#SC_FEI_SampleQuantity' + selectedValue).val();
+                        var SC_ExteraLineId_Row = $('#SC_FEI_Linenum' + selectedValue).val();
+                    } else {
+                        // console.log('else');
+                        var SC_ExteraQty_Row = 0.000;
+                        var SC_ExteraLineId_Row = '';
+                    }
+ 
+
+            // console.log('SC_ExteraQty_Row=>', SC_ExteraQty_Row);
+            // console.log('SC_ExteraLineId_Row->', SC_ExteraLineId_Row);
 
         var DocEntry=document.getElementById('it__DocEntry').value;
         var BatchNo=document.getElementById('BatchNo').value;
@@ -2314,7 +2330,7 @@ if (selectedRadio) {
 // -----
 
 
- function getSelectedContener_extra(un_id){
+    function getSelectedContener_extra(un_id){
         //Create an Array.
         var selected = new Array();
  

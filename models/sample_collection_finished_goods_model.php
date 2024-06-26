@@ -434,7 +434,7 @@
 
                           <div class="d-flex flex-wrap gap-2 mt-2">
                               <!-- Toggle States Button -->
-                              <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button>
+                              <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off"  onclick="SubmitInventoryTransfer_external()">Add</button>
 
                                <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off">Cancel</button>
 
