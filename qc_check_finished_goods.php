@@ -1576,6 +1576,39 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
         }); 
     }
+
+
+    function addMore(num) {
+            // Formate manula enter Quantity
+            var QC_Quantity = $('#qCStsQty_' + num).val();
+            $('#qCStsQty_' + num).val(parseFloat(QC_Quantity).toFixed(3));
+
+            var tr_count = $('#tr-count').val();
+            var QCS_Qty = AutocalculateQC_Qty();
+
+            // Proceed with AJAX request only if QCS_Qty is not equal to 0.00
+            if (parseFloat(QCS_Qty) !== 0.00) {
+                var tr_count = $('#tr-count').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'ajax/kri_common-ajax.php',
+                    data: ({
+                        index: tr_count,
+                        action: 'add_qc_status_input_more'
+                    }),
+                    success: function(result) {
+                        $('#add-more_' + tr_count).after(result);
+                        tr_count++;
+                        $('#tr-count').val(tr_count);
+                        $('#qCStsQty_' + tr_count).val(QCS_Qty);
+
+                        getQcStatusDropodwn(tr_count);
+                        getDoneByDroopdown(tr_count);
+                    }
+                });
+            }
+        }
+
  
     function ContainerSelection(){
 
