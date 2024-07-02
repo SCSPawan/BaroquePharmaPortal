@@ -2,31 +2,28 @@
 require_once './classes/function.php';
 $obj= new web();
 if(empty($_SESSION['Baroque_EmployeeID'])) {
-  header("Location:login.php");
-  exit(0);
+    header("Location:login.php");
+    exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($FGQCPOSTDOC_API);
     $count=count($getAllData);
-// print_r($getAllData);
-// die();
 
     $adjacents = 1;
 
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -191,38 +188,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 }
 ?>
 
-<?php
-
-// require_once './classes/function.php';
-// require_once './classes/kri_function.php';
-// $obj= new web();
-// $objKri=new webKri();
-
-// if(empty($_SESSION['Baroque_EmployeeID'])) {
-//   header("Location:login.php");
-//   exit(0);
-// }
-?>
-
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/qc_check_finished_goods_model.php' ?>
-<style type="text/css">
-    body[data-layout=horizontal] .page-content {
-        padding: 20px 0 0 0;
-        padding: 40px 0 60px 0;
-    }
-    .form-control[readonly] {
-        background-color: #efefef;
-        opacity: 1;
-        border: 1px solid #efefef !important;
-    }
-    .form-select:focus {
-    border-color: #cbced1;
-    outline: 0;
-     /*-webkit-box-shadow: 0 0 0 0.15rem rgb(57 128 192 / 25%); */
-     box-shadow: none; 
-}
-</style>
+    <style type="text/css">
+        body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
+        .form-control[readonly] {background-color: #efefef;opacity: 1;border: 1px solid #efefef !important;}
+        .form-select:focus {border-color: #cbced1;outline: 0;box-shadow: none;}
+    </style>
+
     <!-- ---------- loader start here---------------------- -->
         <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
             <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
@@ -232,26 +205,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     <!-- ---------- loader end here---------------------- -->
 
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
                 <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0">Open Transaction For QC Check - Finished Goods</h4>
-
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Open Transaction For QC Check - Finished Goods</li>
-                                </ol>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0">Open Transaction For QC Check - Finished Goods</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Open Transaction For QC Check - Finished Goods</li>
+                                    </ol>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
                 <!-- end page title -->
 
                 <div class="row">
@@ -262,102 +231,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                             </div>
 
                             <div class="card-body">
-
                                 <div class="table-responsive" id="list-append"></div>
-
-                               <!--  <div class="table-responsive" id="list">
-                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                        <thead class="fixedHeader1">
-                                            <tr>
-                                                <th>Item View</th>
-                                                <th>Sr.No </th>  
-                                                <th>WO No</th>
-                                                <th>RFP Entry</th>
-                                                <th>Material Type</th>
-                                                <th>Item Code</th>
-                                                <th>Item Name</th>
-                                                <th>Unit</th>
-                                                <th>WO Qty</th> 
-                                                <th>Batch No</th>
-                                                <th>MFG Date</th>
-                                                <th>Expiry Date</th>
-                                                <th>Batch Qty</th>
-                                                <th>Branch Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="width: 100px;vertical-align: middle; text-align: center;">
-                                                    <a href="" class="" data-bs-toggle="modal" data-bs-target=".qc-check-finished-goods">
-                                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="desabled">1</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">FG</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97" readonly></td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="AIDES MARKETTI" readonly></td>
-                                                <td class="desabled">Kgs</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="20210709" readonly></td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled">ABS Company Pvt. Ltd</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td style="width: 100px;vertical-align: middle; text-align: center;">
-                                                    <a href="" class="" data-bs-toggle="modal" data-bs-target=".qc-check-finished-goods">
-                                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="desabled">1</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">FG</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97" readonly></td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="AIDES MARKETTI" readonly></td>
-                                                <td class="desabled">Kgs</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="20210709" readonly></td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled">ABS Company Pvt. Ltd</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td style="width: 100px;vertical-align: middle; text-align: center;">
-                                                    <a href="" class="" data-bs-toggle="modal" data-bs-target=".qc-check-finished-goods">
-                                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="desabled">1</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">1001</td>
-                                                <td class="desabled">FG</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="FG_DR_97" readonly></td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="AIDES MARKETTI" readonly></td>
-                                                <td class="desabled">Kgs</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled"><input class="desabled border_hide" type="text" id="" name="" class="form-control" value="20210709" readonly></td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">08-10-2021</td>
-                                                <td class="desabled">30,000</td>
-                                                <td class="desabled">ABS Company Pvt. Ltd</td>
-                                            </tr>
-
-                                        </tbody> 
-                                    </table>
-                                </div>  -->
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 <!-- End Page-content -->
@@ -366,115 +244,86 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var dataString ='action=list';
-        
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
             data: dataString,  
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
-                // console.log(result);
+            success: function(result){
                 $('#list-append').html(result);
             },
             complete:function(data){
-                // Hide image container
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
-    function change_page(page_id)
-    { 
+    function change_page(page_id){ 
         var dataString ='page_id='+page_id+'&action=list';
-
         $.ajax({
             type: "POST",
-             url: window.location.href,  
+            url: window.location.href,  
             data: dataString,
             cache: false,
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 $('#list-append').html(result);
             },
             complete:function(data){
-                // Hide image container
                 $(".loader123").hide();
             }
-        });
+        })
     }
 
-    function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum)
-    {
-        // console.log('DocEntry=>', DocEntry);
-        // console.log('BatchNo=>', BatchNo);
-        // console.log('ItemCode=>', ItemCode);
-        // console.log('LineNum=>', LineNum);
+    function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'LineNum':LineNum,'action':"OT_QC_check_FG_ajax"},
-
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {
-
-
-        // RFPDocEntry: "3120"
-        // RFPNo: "11019"
-
+            success: function(result){
                 var JSONObjectAll = JSON.parse(result);
-
                 var JSONObject=JSONObjectAll['AllData'];
-                console.log(JSONObject);
+                
+                console.log('Get All Data=>', JSONObject);
+
                 $(`#Qc_Post_FG_GD_list_append`).html(JSONObjectAll['general_data']); // General Data Append here
+                $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); //QC Status Data Append here
 
-                // 1st Line
-                    $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
-                    $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
-                    $(`#OTFQCCFG_WONo`).val(JSONObject[0]['WONo']);
-                    $(`#OTFQCCFG_WODocEntry`).val(JSONObject[0]['WODocEntry']);
-                    $(`#OTFQCCFG_ItemCode`).val(JSONObject[0]['ItemCode']);
-                    $(`#OTFQCCFG_ItemName`).val(JSONObject[0]['ItemName']);
-                    $(`#OTFQCCFG_GenericName`).val(JSONObject[0]['FrgnName']);
+                $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
+                $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
+                $(`#OTFQCCFG_WONo`).val(JSONObject[0]['WONo']);
+                $(`#OTFQCCFG_WODocEntry`).val(JSONObject[0]['WODocEntry']);
+                $(`#OTFQCCFG_ItemCode`).val(JSONObject[0]['ItemCode']);
+                $(`#OTFQCCFG_ItemName`).val(JSONObject[0]['ItemName']);
+                $(`#OTFQCCFG_GenericName`).val(JSONObject[0]['FrgnName']);
 
-                // 2nd Line
-                    $(`#OTFQCCFG_LabelClaim`).val(JSONObject[0]['LabelClaim']);
-                    $(`#OTFQCCFG_RecievedQty`).val(JSONObject[0]['BatchQty']);
-                    $(`#OTFQCCFG_MfgBy`).val(JSONObject[0]['MfgBy']);
+                $(`#OTFQCCFG_LabelClaim`).val(JSONObject[0]['LabelClaim']);
+                $(`#OTFQCCFG_RecievedQty`).val(JSONObject[0]['BatchQty']);
+                $(`#OTFQCCFG_MfgBy`).val(JSONObject[0]['MfgBy']);
 
-                // 3rd Line
-                    $(`#OTFQCCFG_BatchNo`).val(JSONObject[0]['BatchNo']);
-                    $(`#OTFQCCFG_BatchSize`).val(JSONObject[0]['BatchSize']);
-                    $(`#OTFQCCFG_PackSize`).val(JSONObject[0]['PackSize']);
+                $(`#OTFQCCFG_BatchNo`).val(JSONObject[0]['BatchNo']);
+                $(`#OTFQCCFG_BatchSize`).val(JSONObject[0]['BatchSize']);
+                $(`#OTFQCCFG_PackSize`).val(JSONObject[0]['PackSize']);
 
-                // 4th Line
-                    $(`#OTFQCCFG_MaterialType`).val(JSONObject[0]['MaterialType']);
-                    $(`#OTFQCCFG_BranchName`).val(JSONObject[0]['BranchName']);
-                    $(`#OTFQCCFG_ARNo`).val(JSONObject[0]['ARNo']);
+                $(`#OTFQCCFG_MaterialType`).val(JSONObject[0]['MaterialType']);
+                $(`#OTFQCCFG_BranchName`).val(JSONObject[0]['BranchName']);
+                $(`#OTFQCCFG_ARNo`).val(JSONObject[0]['ARNo']);
 
-                    
-                    $(`#OTFQCCFG_Location`).val(JSONObject[0]['Location']);
-                    $(`#OTFQCCFG_MakeBy`).val(JSONObject[0]['MakeBy']);
-                    
+                $(`#OTFQCCFG_Location`).val(JSONObject[0]['Location']);
+                $(`#OTFQCCFG_MakeBy`).val(JSONObject[0]['MakeBy']);
 
                 // <!-- --------------- footer section data mapping start here ----------------- -->
                     $(`#OTFQCCFG_Factor`).val(JSONObject[0]['Factor']);
-
-                    $(`#OTFQCCFG_TNCont`).val(JSONObject[0]['TNCont']);
+                    $(`#OTFQCCFG_NoOfContainer`).val(JSONObject[0]['TNCont']);
                     $(`#OTFQCCFG_FCont`).val(JSONObject[0]['FCont']);
                     $(`#OTFQCCFG_TCont`).val(JSONObject[0]['TCont']);
                 // <!-- --------------- footer section data mapping end here ------------------- -->
@@ -483,7 +332,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#OTFQCCFG_BPLId`).val(JSONObject[0]['BPLId']);
                     $(`#OTFQCCFG_BpRefNo`).val(JSONObject[0]['BpRefNo']);
                     $(`#OTFQCCFG_ExpiryDate`).val(JSONObject[0]['ExpiryDate']);
-                    // $(`#OTFQCCFG_FrgnName`).val(JSONObject[0]['FrgnName']);
                     $(`#OTFQCCFG_GEDate`).val(JSONObject[0]['GEDate']);
                     $(`#OTFQCCFG_GateENo`).val(JSONObject[0]['GateENo']);
                     $(`#OTFQCCFG_LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
@@ -502,85 +350,83 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#OTFQCCFG_Unit`).val(JSONObject[0]['Unit']);
                     $(`#OTFQCCFG_WOQty`).val(JSONObject[0]['WOQty']);
                 // <!-- --------------- Hidden data mapping End here --------------------------- -->
+
+                getstageDropdown(); // Stage Dropdown
+                QC_TestTypeDropdown(); //QC Test type Dropdown
+                Compiled_ByDropdown();
+
+                getResultOutputDropdown(JSONObjectAll.count);
+                QC_StatusByAnalystDropdown(JSONObjectAll.count);
+                GetRowLevelAnalysisByDropdown(JSONObjectAll.count);
             },
             complete:function(data){
                 SampleTypeDropdown(); //Sample Type API to Get Dropdown
             }
-        }); 
+        })
     }
 
     function SampleTypeDropdown(){
-
         var dataString ='TableId=@SCS_QCPD&Alias=SamType&action=dropdownMaster_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
                 $('#OTFQCCFG_SampleType').html(JSONObject);
             },
             complete:function(data){
                 getSeriesDropdown();
             }
-        });
+        })
     }
 
-    function getSeriesDropdown()
-    {
+    function getSeriesDropdown(){
         var TrDate = $('#OTFQCCFG_PostingDate').val();
         var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_QCPDFG&action=getSeriesDropdown_ajax';
-
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SeriesDropdown = JSON.parse(result);
                 $('#OTFQCCFG_DocName').html(SeriesDropdown);
             },
             complete:function(data){
                 selectedSeries(); // call Selected Series Single data function
             }
-        }); 
+        })
     }
 
-    function selectedSeries(){        
+    function selectedSeries(){
         var TrDate = $('#OTFQCCFG_PostingDate').val();
         var Series=document.getElementById('OTFQCCFG_DocName').value;
         var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_QCPDFG&action=getSeriesSingleData_ajax';
-
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
                 var NextNumber=JSONObject[0]['NextNumber'];
-               $('#OTFQCCFG_DocNo').val(NextNumber);
+                $('#OTFQCCFG_DocNo').val(NextNumber);
             },
             complete:function(data){
                 AssayCalculationBasedOn();
             }
-        }); 
+        })
     }
 
-     function AssayCalculationBasedOn(){
+    function AssayCalculationBasedOn(){
         var dataString ='action=qc_assay_Calculation_Based_On_ajax';
         $.ajax({  
             type: "POST",  
@@ -592,62 +438,123 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $('#assay_CalBasedOn').html(result);
             },
             complete:function(data){
-                getResultOutputDropdown();
+                $(".loader123").hide();
             }
-       });
+        })
     }
 
-    function getResultOutputDropdown(){
-
-        var table = document.getElementById("tblQCCFG_GD");
-        var trcount = table.tBodies[0].rows.length;
-
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data:{'action':"ResultOutputDropdown_ajax"},
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                for (let i = 0; i < trcount; i++) {
-                    $('.dropdownResutl'+i).html(result); // dropdown set using class                            
-                }
-            },
-            complete:function(data){
-                QC_StatusByAnalystDropdown(trcount);
-            }
-        });         
-    }
-
-    function QC_StatusByAnalystDropdown(trcount){
-
-        var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
-
+    function getstageDropdown() {
+        var dataString = 'action=getstageDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
-            beforeSend: function(){
+            beforeSend: function() {
+                $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result) {
                 var JSONObject = JSON.parse(result);
-                for (let i = 0; i < trcount; i++) {
-                    $('.qc_statusbyab'+i).html(JSONObject); // dropdown set using Class                            
-                }
+                $('#OTFQCCFG_Stage').html(JSONObject);
             },
-            complete:function(data){
-                // $(".loader123").hide();
-                getQcStatusDropodwn();
+            complete: function(data) {
+                $(".loader123").hide();
             }
-        });
+        })
     }
 
-    function getQcStatusDropodwn(){
+    function QC_TestTypeDropdown(){
+        var dataString ='TableId=@SCS_QCINPROC&Alias=PC_QCTType&action=dropdownMaster_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                $('#OTFQCCFG_QcTestType').html(JSONObject);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        })
+    }
+
+    function Compiled_ByDropdown(){
+        var dataString ='action=Compiled_By_dropdown_ajax';
+        $.ajax({  
+            type: "POST",  
+            url: 'ajax/kri_production_common_ajax.php',  
+            data: dataString, 
+            beforeSend: function(){
+                $(".loader123").show();
+            }, 
+            success: function(result){
+                $('#OTFQCCFG_ComplitedBy').html(result);
+            },
+            complete:function(data){
+                getQcStatusDropodwn(1);
+            }
+        })
+    }
+
+    function getResultOutputDropdown(trcount){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'action':"ResultOutputDropdown_ajax"},
+            success: function(result){
+                for (let i = 0; i < trcount; i++) {
+                    $('#ResultOutputByQCDept'+i).html(result);
+                }
+            }
+        })
+    }
+
+    function QC_StatusByAnalystDropdown(trcount){
+        var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                for (let i = 0; i < trcount; i++) {
+                    $('#QC_StatusByAnalyst'+i).html(JSONObject); // dropdown set using Class
+                }
+            }
+        })
+    }
+
+    function GetRowLevelAnalysisByDropdown(trcount){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'action':"GetRowLevelAnalysisByDropdown_Ajax"},
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var dropdown = JSON.parse(result);
+
+                for (let i = 0; i < trcount; i++) {
+                    $('#AnalysisBy'+i).html(dropdown); // dropdown set using Id
+                }
+
+                $('#OTFQCCFG_CheckedBy').html(dropdown); // Bottom dropdown set using Id
+                $('#OTFQCCFG_AnalysisBy').html(dropdown); // Bottom dropdown set using Id
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        })
+    }
+
+    function getQcStatusDropodwn(un_id){
         var dataString ='action=qc_api_OQCSTATUS_ajax';
         $.ajax({  
             type: "POST",  
@@ -656,16 +563,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
             },  
             success: function(result){ 
-                $('.qc_status_selecte1').html(result);
+                $('#qc_Status_'+un_id).html(result);
             },
             complete:function(data){
-                // $(".loader123").hide();
-                getDoneByDroopdown();
+                getDoneByDroopdown(1);
             }
-       });
+        })
     }
 
-    function getDoneByDroopdown(){
+    function getDoneByDroopdown(un_id){
         var dataString ='action=qc_get_SAMINTTRBY_ajax';
         $.ajax({  
             type: "POST",  
@@ -674,8 +580,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             data: dataString,
             beforeSend: function(){
             }, 
-            success: function(result){ 
-
+            success: function(result){
                 var html="";
                 result.forEach(function(value,index){
                     if(value.TRBy!=""){
@@ -683,22 +588,240 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     }
                 });
 
-                $('.done-by-mo1').html(html);
+                $('#doneBy_'+un_id).html(html);
             },
             complete:function(data){
                 $(".loader123").hide();
-                // getDoneByDroopdown();
             }
-        });
+        })
     }
+
+    // <!-- ---------------- General Data tab row level onclick and onchange logic start here ----------------------- -->
+        function OnChangeResultOutputByQCDept(un_id) {
+            var ResultOutputByQCDept=$('#ResultOutputByQCDept'+un_id).val();
+
+            if(ResultOutputByQCDept=='FAIL'){
+                $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+            }else if(ResultOutputByQCDept=='PASS'){
+                $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+            }else {
+                $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+            }
+        }
+
+        function CalculateResultOut(un_id){
+            var lowMin=document.getElementById('LowMin'+un_id).value;
+            var uppMax=document.getElementById('UppMax'+un_id).value;
+            var UOM=document.getElementById('UOM'+un_id).value;
+
+            var ComparisonResultOG=document.getElementById('ComparisonResult'+un_id).value; // this value enter by user
+
+            if(ComparisonResultOG!=''){
+                $('#ResultOut'+un_id).val(ComparisonResultOG+' '+UOM);
+
+                if (parseFloat(uppMax) === 0) {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin)) {
+
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
+
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                } else {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin) && parseFloat(ComparisonResultOG) <= parseFloat(uppMax)) {
+
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
+
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                }
+            }else{
+
+                $('#ResultOut'+un_id).val('');
+                $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+
+                setSelectedIndex(document.getElementById("ResultOutputByQCDept"+un_id),"-");
+            }
+        }
+
+        function setSelectedIndex(s, valsearch){
+            for (i = 0; i< s.options.length; i++){ 
+                if (s.options[i].value == valsearch){
+                    // Item is found. Set its property and exit
+                    s.options[i].selected = true;
+                    break;
+                }
+            }
+            return;
+        }
+
+        function SelectedQCStatus(un_id){
+            var QC_StatusByAnalyst=document.getElementById('QC_StatusByAnalyst'+un_id).value;
+
+            if(QC_StatusByAnalyst=='Complies'){
+                $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #c7f3c7');
+                $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+            }else if(QC_StatusByAnalyst=='Non Complies'){
+                $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #f8a4a4');
+                $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+            }else {
+                $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #ffffff');
+                $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
+            }
+        }
+
+        function OpenInstrmentModal(un_id){
+            $.ajax({ 
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data:{'un_id':un_id,'action':"OpenInstrmentModal_Ajax"},
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var Table = JSON.parse(result);
+                    $('#append_instrument_table').html(Table);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })        
+        }
+
+        let favorite = [];
+        let total_uid = 0;
+        function GetSelectedInstumentdata(un_id) {
+            const ids_new_radio = [];
+
+            $("input[name='InstrumentId[]']:checked").each(function() {
+                const uid = parseInt($(this).val()); // Parse the value to integer
+                favorite.push(uid);
+                total_uid += uid;
+                ids_new_radio.push(uid);
+            });
+
+            const InstrumentCode = $('#Html_InstrumentCode' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+            const InstrumentName = $('#Html_InstrumentName' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+
+            $('#InstrumentCode' + un_id).val(InstrumentCode);
+            $('#InstrumentName' + un_id).val(InstrumentName);
+        }
+    // <!-- ---------------- General Data tab row level onclick and onchange logic end here ------------------------- -->
+
+    // <!-- ---------------- QC Status tab row level onclick and onchange logic start here -------------------------- -->
+        function SelectionOfQC_Status(un_id) {
+            var tr_count = $('#qc-status-list-append tr').length;
+
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0');
+            var day = now.getDate().toString().padStart(2, '0');
+            var formattedDate = `${day}-${month}-${year}`;
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var formattedTime = `${hours}:${minutes}`;
+
+            $('#qCReleaseDate_' + un_id).val(formattedDate);
+            $('#qCReleaseTime_' + un_id).val(formattedTime);
+
+            if (tr_count !== 1) {
+                var rows = $('#qc-status-list-append tr');
+                var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+                var valid = true;
+                var message = "";
+
+                rows.each(function(index) {
+                    if (index < rows.length - 1) {
+                        var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                        if (qcStatusDropdown === Selected_QC_Status) {
+                            valid = false;
+                            message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                        }
+                    }
+                });
+
+                if (valid) {
+                    if (!$('#qCStsQty_' + un_id).val()) {
+                        $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                    }
+                } else {
+                    $('#qCStsQty_' + un_id).val('');
+                    $('#qc_Status_' + un_id).val('');
+                    swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
+                }
+            } else {
+                $('#qCStsQty_' + un_id).val($('#OTFQCCFG_BatchSize').val());
+            }
+        }
+
+        function AutocalculateQC_Qty(){
+            // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+                var rows = document.querySelectorAll('#qc-status-list-append tr');
+
+                // Get the count of tr elements
+                var rowCount = rows.length;
+
+                // Initialize sum
+                var sum = 0;
+
+                // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+                rows.forEach(function(row) {
+                var input = row.querySelector('input[name="qCStsQty[]"]');
+                    if (input) {
+                        sum += parseFloat(input.value) || 0;
+                    }
+                });
+
+                var BatchQty = $('#OTFQCCFG_BatchSize').val();
+                var QCS_Qty=parseFloat(parseFloat(BatchQty)- parseFloat(sum)).toFixed(3);
+                return QCS_Qty;
+            // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+        }
+
+        function addMore(num) {
+            // Format and set Quantity value
+            var QC_Quantity = parseFloat($('#qCStsQty_' + num).val()).toFixed(3);
+            $('#qCStsQty_' + num).val(QC_Quantity);
+
+            // Calculate QC Quantity
+            var QCS_Qty = AutocalculateQC_Qty();
+
+            // Proceed with AJAX request only if QCS_Qty is not 0.00
+            if (parseFloat(QCS_Qty) !== 0.00) {
+                var tr_count = $('#qc-status-list-append tr').length;
+
+                $.ajax({
+                    type: "POST",
+                    url: 'ajax/kri_common-ajax.php',
+                    data: { index: tr_count, action: 'add_qc_status_input_more' },
+                    success: function(result) {
+                        $('#add-more_' + tr_count).after(result);
+                        $('#qCStsQty_' + (tr_count + 1)).val(QCS_Qty);
+
+                        getQcStatusDropodwn(tr_count + 1);
+                        getDoneByDroopdown(tr_count + 1);
+                    }
+                })
+            }
+        }
+    // <!-- ---------------- QC Status tab row level onclick and onchange logic end here ---------------------------- -->
 </script>
 
-
 <script type="text/javascript">
-    // indipandent function
-
-    function CalculatePotency()
-    {
+    function CalculatePotency(){
         // <!-- -----------  LoD / Water Value Preparing Start Here ------------------------------- -->
             var lod_waterOG=document.getElementById('LoD_Water').value;
 
@@ -724,7 +847,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         // <!-- -----------  AssayPotency Value Preparing End Here --------------------------------- -->
 
         var Potency=((100- parseFloat(lod_water))/100)*parseFloat(assayPotency); // Calculation
-
         $('#Potency').val(parseFloat(Potency).toFixed(6)); // Set Potency calculated val
     }
 
@@ -748,60 +870,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }
     }
 
-    function SelectedQCStatus(un_id){
-
-        var QC_StatusByAnalyst=document.getElementById('qC_status_by_analyst'+un_id).value;
-        
-        if(QC_StatusByAnalyst=='Complies'){
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #c7f3c7');
-            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-        
-        }else if(QC_StatusByAnalyst=='Non Complies'){
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #f8a4a4');
-            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-        
-        }else {
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #ffffff');
-            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
-        }
-    }
-
-     function CalculateResultOut(un_id){
-
-        var lowMin=document.getElementById('LowMin'+un_id).value;
-        var uppMax=document.getElementById('UppMax'+un_id).value;
-        var UOM=document.getElementById('GDUOM'+un_id).value;
-
-        var lowMinResOG=document.getElementById('lower_min_result'+un_id).value; // this value enter by user
-
-        var lowMinRes=parseFloat(lowMinResOG).toFixed(6); // this value enter by user
-
-        if(lowMinRes!=''){
-            $('#lower_min_result'+un_id).val(lowMinRes);
-
-            $('#remarks'+un_id).val(lowMinResOG+' '+UOM);
-
-            if(parseFloat(lowMinRes)>=parseFloat(lowMin) && parseFloat(lowMinRes)<=parseFloat(uppMax)){
-
-                $('.dropdownResutl'+un_id).val('PASS');    
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #c7f3c7');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-            
-            }else{
-
-                $('.dropdownResutl'+un_id).val('FAIL');
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #f8a4a4');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-
-            }
-        }
-    }
-
     function AddOTFQCCFG_Fun(){
-
         var formData = new FormData($('#OTFQCCFG_FORM')[0]);  // Form Id
         formData.append("OTFQCCFG_Btn",'OTFQCCFG_Btn');  // Button Id
         var error = true;
@@ -812,12 +881,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             data:formData,
             processData: false,
             contentType: false,
-            // beforeSend: function(){
-            //     $(".loader123").show();
-            // },
-            success: function(result)
-            {     
-            console.log(result);           
+            beforeSend: function(){
+                // $(".loader123").show();
+            },
+            success: function(result){     
+                console.log(result);     
                 // var JSONObject = JSON.parse(result);
 
                 // var status = JSONObject['status'];
@@ -825,11 +893,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // var DocEntry = JSONObject['DocEntry'];
                 // if(status=='True'){
                 //     swal({
-                //       title: `${message}`,
-                //       text: `${DocEntry}`,
-                //       icon: "success",
-                //       buttons: true,
-                //       dangerMode: false,
+                //         title: `${message}`,
+                //         text: `${DocEntry}`,
+                //         icon: "success",
+                //         buttons: true,
+                //         dangerMode: false,
                 //     })
                 //     .then((willDelete) => {
                 //         if (willDelete) {
@@ -841,13 +909,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // }else{
                 //     swal("Oops!", `${message}`, "error");
                 // }
-
+            },
+            complete:function(data){
+                // $(".loader123").hide();
             }
-            // ,complete:function(data){
-            //    $(".loader123").hide();
-            // }
-        });
+        })
     }
-
 </script>
-<!-- 844 current total line (26 June 2024)-->
+<!-- 844 current total line (26 June 2024) {1246}-->
