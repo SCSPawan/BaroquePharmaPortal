@@ -229,7 +229,7 @@
 
                                                         <a href="sample_collection_in_finished_goods.php" class="dropdown-item check" data-key="t-chat">Sample Collection - Finished Goods</a>
 
-                                                        <a href="open_trasaction_for_qc_check_finished_goods.php" class="dropdown-item working" data-key="t-chat">Open Transaction For QC Check - Finished Goods</a>
+                                                        <a href="open_trasaction_for_qc_check_finished_goods.php" class="dropdown-item" data-key="t-chat">Open Transaction For QC Check - Finished Goods</a>
 
                                                         <a href="qc_check_finished_goods.php" class="dropdown-item" data-key="t-chat">QC Check - Finished Goods</a>
                                                     </div>

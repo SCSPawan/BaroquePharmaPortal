@@ -293,10 +293,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 var JSONObjectAll = JSON.parse(result);
                 var JSONObject=JSONObjectAll['AllData'];
                 
-                console.log('Get All Data=>', JSONObject);
+                // console.log('Get All Data=>', JSONObject);
 
                 $(`#Qc_Post_FG_GD_list_append`).html(JSONObjectAll['general_data']); // General Data Append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); //QC Status Data Append here
+                $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); //Attachment Table Data Append here
 
                 $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
                 $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
@@ -882,36 +883,36 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             processData: false,
             contentType: false,
             beforeSend: function(){
-                // $(".loader123").show();
+                $(".loader123").show();
             },
             success: function(result){     
-                console.log(result);     
-                // var JSONObject = JSON.parse(result);
+                // console.log(result);     
+                var JSONObject = JSON.parse(result);
 
-                // var status = JSONObject['status'];
-                // var message = JSONObject['message'];
-                // var DocEntry = JSONObject['DocEntry'];
-                // if(status=='True'){
-                //     swal({
-                //         title: `${message}`,
-                //         text: `${DocEntry}`,
-                //         icon: "success",
-                //         buttons: true,
-                //         dangerMode: false,
-                //     })
-                //     .then((willDelete) => {
-                //         if (willDelete) {
-                //             location.replace(window.location.href); //ok btn
-                //         }else{
-                //             location.replace(window.location.href); // cancel btn
-                //         }
-                //     });
-                // }else{
-                //     swal("Oops!", `${message}`, "error");
-                // }
+                var status = JSONObject['status'];
+                var message = JSONObject['message'];
+                var DocEntry = JSONObject['DocEntry'];
+                if(status=='True'){
+                    swal({
+                        title: `${message}`,
+                        text: `${DocEntry}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.replace(window.location.href); //ok btn
+                        }else{
+                            location.replace(window.location.href); // cancel btn
+                        }
+                    });
+                }else{
+                    swal("Oops!", `${message}`, "error");
+                }
             },
             complete:function(data){
-                // $(".loader123").hide();
+                $(".loader123").hide();
             }
         })
     }

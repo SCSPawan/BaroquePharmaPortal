@@ -292,8 +292,8 @@ aria-hidden="true">
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                <div class="col-lg-8">
+                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">No Of Container</label>
+                                                <div class="col-lg-7">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_NoOfContainer" name="OTFQCCFG_NoOfContainer" readonly="">
                                                 </div>
                                             </div>
@@ -428,8 +428,8 @@ aria-hidden="true">
                                                                             <th>Free Text</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                        <tr>
+                                                                    <tbody id="qc-attach-list-append">
+                                                                        <!-- <tr>
                                                                             <td class="desabled">1</td>
                                                                             <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
                                                                             <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
@@ -451,7 +451,7 @@ aria-hidden="true">
                                                                             <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
                                                                             <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
                                                                             <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        </tr>
+                                                                        </tr> -->
                                                                     </tbody> 
                                                                 </table>
                                                             </div>
