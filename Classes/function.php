@@ -470,6 +470,7 @@ class Web {
 		$Final_url = str_replace(' ', '%20', $stripped); // All blank space replace to %20
 		// print_r($Final_url);
 		// die();
+
 		$ch = curl_init();  
 		curl_setopt($ch,CURLOPT_URL,$Final_url);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
