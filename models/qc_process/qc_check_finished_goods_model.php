@@ -1,13 +1,12 @@
- <style type="text/css">
+<style type="text/css">
     .mt-6{margin-top: -6px !important;}
     .FreightInput {width: 100px;border: transparent;}
     .FreightInput:focus {border: transparent;outline: none;}
- </style>
- <!--start qc check model-->
-
+</style>
+<!--start qc check model-->
 
 <div class="modal fade qc-check-finished-goods" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-    aria-hidden="true">
+aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,7 +20,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-
                                         <div class="col-xl-12 col-md-6">
                                             <input type="text" id="OTFQCCFG_BPLId" name="OTFQCCFG_BPLId">
                                             <input type="text" id="OTFQCCFG_BpRefNo" name="OTFQCCFG_BpRefNo">
@@ -32,7 +30,6 @@
                                             <input type="text" id="OTFQCCFG_LabelClaimUOM" name="OTFQCCFG_LabelClaimUOM">
                                             <input type="text" id="OTFQCCFG_LineNum" name="OTFQCCFG_LineNum">
                                             <input type="text" id="OTFQCCFG_LocCode" name="OTFQCCFG_LocCode">
-                                            <!-- <input type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location"> -->
                                             <input type="text" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
                                             <input type="text" id="OTFQCCFG_Qty" name="OTFQCCFG_Qty">
                                             <input type="text" id="OTFQCCFG_RetestDate" name="OTFQCCFG_RetestDate">
@@ -80,7 +77,7 @@
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
                                                 <div class="col-lg-8">
@@ -136,16 +133,16 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_BatchNo" name="OTFQCCFG_BatchNo" readonly>
                                                 </div>
                                             </div>
                                         </div>
 
-                                         <div class="col-xl-3 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Size</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Size</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_BatchSize" name="OTFQCCFG_BatchSize" readonly>
                                                 </div>
@@ -181,7 +178,7 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_BranchName" name="OTFQCCFG_BranchName" readonly>
                                                 </div>
@@ -190,7 +187,7 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No.</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No.</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_ARNo" name="OTFQCCFG_ARNo" readonly>
                                                 </div>
@@ -203,7 +200,6 @@
                                                 <div class="col-lg-5">
                                                     <select class="form-select" id="OTFQCCFG_DocName" name="OTFQCCFG_DocName" onchange="selectedSeries()"></select>
                                                 </div>
-
                                                 <div class="col-lg-3">
                                                     <input class="form-control desabled" type="text" id="OTFQCCFG_DocNo" name="OTFQCCFG_DocNo" readonly>
                                                 </div>
@@ -214,101 +210,95 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="OTFQCCFG_PostingDate" name="OTFQCCFG_PostingDate"   
-                                                    value="<?php echo date("Y-m-d"); ?>" onchange="getSeriesDropdown();">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_PostingDate" name="OTFQCCFG_PostingDate" value="<?php echo date("Y-m-d"); ?>" onchange="getSeriesDropdown();">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="OTFQCCFG_AnalysisDate" name="OTFQCCFG_AnalysisDate" 
-                                                    value="<?php echo date("Y-m-d"); ?>">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_AnalysisDate" name="OTFQCCFG_AnalysisDate" value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
                                             </div>
                                         </div>
 
-
-
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
-        <div class="col-lg-8">
-            <select class="form-control" type="text" id="OTFQCCFG_QcTestType" name="OTFQCCFG_QcTestType"></select>
-        </div>
-    </div>
-</div>
-
-
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">QC Test type</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="text" id="OTFQCCFG_Stage" name="OTFQCCFG_Stage" style="border: 1px solid red;">
+                                                    <select class="form-select" type="text" id="OTFQCCFG_QcTestType" name="OTFQCCFG_QcTestType"></select>
                                                 </div>
                                             </div>
                                         </div>
 
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
-        <div class="col-lg-8">
-            <input class="form-control desabled" type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location" readonly="">
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
-        <div class="col-lg-8">
-            <input class="form-control desabled" type="text" id="OTFQCCFG_MakeBy" name="OTFQCCFG_MakeBy" readonly="">
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
-        <div class="col-lg-5">
-            <select class="form-select" id="OTFQCCFG_RelMaterialWithoutQC" name="OTFQCCFG_RelMaterialWithoutQC">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
-        <div class="col-lg-8">
-            <input class="form-control" type="date" id="OTFQCCFG_ReleaseDate" name="OTFQCCFG_ReleaseDate" value="<?php echo date('Y-m-d');?>">
-        </div>
-    </div>
-</div>
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stage</label>
+                                                <div class="col-lg-8">
+                                                    <select class="form-select" type="text" id="OTFQCCFG_Stage" name="OTFQCCFG_Stage"></select>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_Location" name="OTFQCCFG_Location" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_MakeBy" name="OTFQCCFG_MakeBy" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+                                                <div class="col-lg-5">
+                                                    <select class="form-select" id="OTFQCCFG_RelMaterialWithoutQC" name="OTFQCCFG_RelMaterialWithoutQC">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_ReleaseDate" name="OTFQCCFG_ReleaseDate" value="<?php echo date('Y-m-d');?>">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control" type="date" id="OTFQCCFG_ValidUpTo" name="OTFQCCFG_ValidUpTo">
                                                 </div>
                                             </div>
                                         </div>
 
-<div class="col-xl-3 col-md-6">
-        <div class="form-group row mb-2">
-            <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-            <div class="col-lg-8">
-                <input class="form-control desabled" type="text" id="OTFQCCFG_NoOfContainer" name="OTFQCCFG_NoOfContainer" readonly="">
-            </div>
-        </div>
-    </div>
-
-                                   </div>
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_NoOfContainer" name="OTFQCCFG_NoOfContainer" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <br><br>
@@ -317,21 +307,21 @@
                                 <div class="col-xl-12">
                                     <div class="card">                                
                                         <div class="card-body">
-
                                             <ul class="nav nav-tabs" role="tablist">
-
                                                 <li class="nav-item">
                                                     <a class="nav-link active" data-bs-toggle="tab" href="#general_data" role="tab">
                                                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                                         <span class="d-none d-sm-block">General Data</span>    
                                                     </a>
                                                 </li>
+
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-bs-toggle="tab" href="#qc_status" role="tab">
                                                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                                         <span class="d-none d-sm-block">QC Status</span>    
                                                     </a>
                                                 </li>
+
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-bs-toggle="tab" href="#attatchment" role="tab">
                                                         <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
@@ -342,177 +332,150 @@
 
                                             <div class="tab-content p-3 text-muted">
                                                 <div class="tab-pane active" id="general_data" role="tabpanel">
-                                            
                                                     <div class="table-responsive qc_list_table table_item_padding" id="list2">
-                                                        <table id="tblQCCFG_GD" class="table sample-table-responsive table-bordered" style="">
+                                                        <table id="tblQCCFG_GD" class="table sample-table-responsive table-bordered">
                                                             <thead class="fixedHeader1">
                                                                 <tr>
-                                                                    <th>Sr. No</th>
+                                                                    <th>Sr.No</th>
                                                                     <th>Parameter Code</th>
-                                                                    <th>Parameter Name </th>  
-                                                                    <th>Standard</th>
-                                                                    <th>Release</th>
-                                                                    <th>Parameter Data Type</th> 
-                                                                    <th>Descriptive Details</th> 
+                                                                    <th>Parameter Name</th>
+                                                                    <th>Specification</th>
+                                                                    <th>Result OutPut</th>
+                                                                    <th>Comparison Result</th>
+                                                                    <th>Result Output By QC Dept.</th>
+                                                                    <th>Parameter Data Type</th>
                                                                     <th>Logical</th>
-                                                                    <th>Lower Min</th> 
-                                                                    <th>Lower Max</th> 
-                                                                    <th>Upper Min</th> 
-                                                                    <th>Upper Max</th> 
+                                                                    <th>Lower Min</th>
+                                                                    <th>Upper Max</th>
                                                                     <th>Mean</th>
-                                                                    <th>Lower Min - Result</th>
-                                                                    <th>Lower Max - Result</th>
-                                                                    <th>Upper Min - Result</th> 
-                                                                    <th>Upper Max - Result</th>
-                                                                    <th>Mean</th>
-                                                                    <th>Result Output</th>
-                                                                    <th>Remarks</th>
                                                                     <th>QC Status by Analyst</th>
                                                                     <th>Test Method</th>
                                                                     <th>Material Type</th>
+                                                                    <th>Pharmacopoeial Standard</th>
+                                                                    <th>UOM</th>
+                                                                    <th>Retest</th>
+                                                                    <th>External Sample</th>
+                                                                    <th>Analysis By</th>
+                                                                    <th>Analyst Remarks</th>
+                                                                    <th>Lower Max</th>
+                                                                    <th>Release</th>
+                                                                    <th>Descriptive Details</th>
+                                                                    <th>Upper Min</th>
+                                                                    <th>Lower Min - Result</th>
+                                                                    <th>Upper Min - Result</th>
+                                                                    <th>Upper Max - Result</th>
+                                                                    <th>Mean - Result</th>
                                                                     <th>User Text-1</th>
                                                                     <th>User Text-2</th>
                                                                     <th>User Text-3</th>
                                                                     <th>User Text-4</th>
                                                                     <th>User Text-5</th>
-                                                                    <th>QC Status Result</th>
-                                                                    <th>UOM</th> 
-                                                                    <th>Retest</th> 
-                                                                    <th>Stability</th> 
-                                                                    <th>External Sample</th>
-                                                                    <th>Applicable For As</th>
-                                                                    <th>Applicable For LOD</th> 
-                                                                    <th>Analysis By</th>
-                                                                    <th>Analyst Remark</th>
-                                                                    <th>Instrument Code</th> 
+                                                                    <th>QC Setup Remark</th>
+                                                                    <th>Stability</th>
+                                                                    <th>Applicable for Assay</th>
+                                                                    <th>Applicable for LOD</th>
+                                                                    <th>Instrument Code</th>
                                                                     <th>Instrument Name</th>
-                                                                    <th>Star Date</th>
+                                                                    <th>Start Date</th>
                                                                     <th>Start Time</th>
                                                                     <th>End Date</th>
-                                                                    <th>End Time</th> 
+                                                                    <th>End Time</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="Qc_Post_FG_GD_list_append">
-                                                            </tbody> 
-                                                       </table>
+                                                            <tbody id="Qc_Post_FG_GD_list_append"></tbody> 
+                                                        </table>
                                                     </div> 
                                                 </div>
 
                                                 <div class="tab-pane" id="qc_status" role="tabpanel">
-
                                                     <div class="table-responsive" id="list">
                                                         <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                             <thead class="fixedHeader1">
                                                                 <tr>
                                                                     <th>Sr. No</th>
-                                                                    <th>Status</th>
+                                                                    <th style="width:150px;display: block;">Status</th>
                                                                     <th>Quantity</th>
+                                                                    <th>Release Date</th>
+                                                                    <th>Release Time</th>
                                                                     <th>IT No</th>
-                                                                    <th>Done By</th>  
+                                                                    <th style="width:150px;display: block;">Done By</th>
+                                                                    <th>Attachment 1</th>
+                                                                    <th>Attachment 2</th>
+                                                                    <th>Attachment 3</th>
+                                                                    <th>Deviation Date</th>
+                                                                    <th>Deviation No</th>
+                                                                    <th>Deviation Reason</th>
                                                                     <th>Remarks</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>
-                                                                        <select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"></select>
-                                                                    </td>
-                                                                    <td><input class="border_hide" type="text" id="qCStsQty_1" name="qCStsQty[]" value=""></td>
-                                                                    <td><input class="border_hide" type="text" id="qCitNo_1" name="qCitNo[]" value=""></td>
-                                                                    <td>
-                                                                        <select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-                                                                    </td>
-                                                                    <td><input class="border_hide" type="text" id="qCStsRemark1_1" name="qCStsRemark1[]" value=""></td>
-                                                                </tr>
-                                                            </tbody> 
-
+                                                            <tbody id="qc-status-list-append"></tbody>
                                                         </table>
-                                                    </div>
-
-                                                    <div class="row">
-
-                                                            <div class="col-xl-3 col-md-6">
-                                                                <div class="form-group row mb-2">
-                                                                    <label class="col-lg-5 col-form-label mt-6" for="val-skill">GRPO Remaining Qty</label>
-                                                                    <div class="col-lg-7">
-                                                                        <input class="form-control" type="text" id="" name="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                     </div>
                                                     <hr>       
                                                 </div>
 
                                                 <div class="tab-pane" id="attatchment" role="tabpanel">
-
                                                     <div class="row">
                                                         <div class="col-md-10">
                                                             <div class="table-responsive" id="list">
-                                                            <table id="tblItemRecord" class="table table-bordered" style="">
-                                                                <thead class="fixedHeader1">
-                                                                    <tr>
-                                                                        <th>Sr. No</th>
-                                                                        <th>Target Path</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Attatchment Date</th>
-                                                                        <th>Free Text</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="desabled">1</td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                    </tr>
+                                                                <table id="tblItemRecord" class="table table-bordered" style="">
+                                                                    <thead class="fixedHeader1">
+                                                                        <tr>
+                                                                            <th>Sr. No</th>
+                                                                            <th>Target Path</th>
+                                                                            <th>File Name</th>
+                                                                            <th>Attatchment Date</th>
+                                                                            <th>Free Text</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="desabled">1</td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
+                                                                        </tr>
+                                                                        
+                                                                        <tr>
+                                                                            <td class="desabled">1</td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
+                                                                        </tr>
 
-                                                                    <tr>
-                                                                        <td class="desabled">1</td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <td class="desabled">1</td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                        <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                    </tr>
-
-                                                                </tbody> 
-                                                            </table>
+                                                                        <tr>
+                                                                            <td class="desabled">1</td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
+                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
+                                                                        </tr>
+                                                                    </tbody> 
+                                                                </table>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-2">
-
                                                             <div class="gap-2">
-
                                                                 <label class="btn btn-primary active mb-2">Browse <input type="file" hidden></label>
                                                                 <br>
                                                                 <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Display</button>
                                                                 <br>
                                                                 <button type="button" class="btn btn-primary mb-2" data-bs-toggle="button" autocomplete="off">Delete</button>
-
                                                             </div>
-                                                        
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="general_data_footer">
                                                     <div class="row">
-
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-5 col-form-label mt-6" for="val-skill">Assay Potency %</label>
                                                                 <div class="col-lg-7">
-                                                                   <input class="form-control" type="number" id="AssayPotency" name="AssayPotency" value="0.000000" onfocusout="CalculatePotency()">
+                                                                    <input class="form-control" type="number" id="AssayPotency" name="AssayPotency" value="0.000000" onfocusout="CalculatePotency()">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -557,7 +520,7 @@
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Compiled By</label>
                                                                 <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_ComplitedBy" name="OTFQCCFG_ComplitedBy" style="border: 1px solid red;">
+                                                                    <select class="form-select" type="text" id="OTFQCCFG_ComplitedBy" name="OTFQCCFG_ComplitedBy"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -566,7 +529,7 @@
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Checked By</label>
                                                                 <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_CheckedBy" name="OTFQCCFG_CheckedBy" style="border: 1px solid red;">
+                                                                    <select class="form-select" type="text" id="OTFQCCFG_CheckedBy" name="OTFQCCFG_CheckedBy"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -575,96 +538,46 @@
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
                                                                 <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_AnalysisBy" name="OTFQCCFG_AnalysisBy" style="border: 1px solid red;">
+                                                                    <select class="form-select" type="text" id="OTFQCCFG_AnalysisBy" name="OTFQCCFG_AnalysisBy"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-xl-3 col-md-6">
                                                             <div class="form-group row mb-2">
-                                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                                <div class="col-lg-7">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_TNCont" name="OTFQCCFG_TNCont">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">From Container</label>
-                                                                <div class="col-lg-7">
+                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">No. of Container</label>
+                                                                <div class="col-lg-4">
                                                                     <input class="form-control" type="text" id="OTFQCCFG_FCont" name="OTFQCCFG_FCont">
                                                                 </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-6 col-form-label mt-6" for="val-skill">Qty Per Container</label>
-                                                                <div class="col-lg-6">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_QtyperCont" name="OTFQCCFG_QtyperCont" style="border: 1px solid red;">
+                                                                <div class="col-lg-4">
+                                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_TCont" name="OTFQCCFG_TCont" readonly="">
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <div class="col-xl-6 col-md-6">
                                                             <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
-                                                                <div class="col-lg-8">
-                                                                    <input class="form-control" type="text" id="OTFQCCFG_TCont" name="OTFQCCFG_TCont">
+                                                                <label class="col-lg-2 col-form-label mt-6" for="val-skill">Remarks</label>
+                                                                <div class="col-lg-10">
+                                                                    <textarea class="form-control" rows="1" id="OTFQCCFG_Remark" name="OTFQCCFG_Remark"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
-                                                        <div class="col-xl-3 col-md-6">
-                                                            <div class="form-group row mb-2">
-                                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Remarks</label>
-                                                                <div class="col-lg-8">
-                                                                    <textarea class="form-control" rows="1" id="OTFQCCFG_Remark" name="OTFQCCFG_Remark" style="border: 1px solid red;"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                     </div>    
                                                 </div>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="d-flex flex-wrap gap-2">
-
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-
-<button type="button" class="btn btn-primary" id="OTFQCCFG_Btn" name="OTFQCCFG_Btn" onclick="return AddOTFQCCFG_Fun();">Add</button>
+                                                            <button type="button" class="btn btn-primary" id="OTFQCCFG_Btn" name="OTFQCCFG_Btn" onclick="return AddOTFQCCFG_Fun();">Add</button>
 
                                                             <button type="button" class="btn btn-danger active" data-bs-dismiss="modal" aria-label="Close"  data-bs-toggle="button" autocomplete="off">Cancel</button>
 
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off">Inventory Transfer</button>
-
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Update Result</button>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" data-bs-toggle="button" autocomplete="off" disabled>Inventory Transfer</button>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-md-6">
-                                                       <div class="btn-group">
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Work Sheet Print</button>
-
-                                                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i><span class="visually-hidden"></span></button>
-
-                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                                              <li><a class="dropdown-item" href="#">Approval Label Print</a></li>
-                                                              <li><a class="dropdown-item" href="#">Rejected Label Print</a></li>
-                                                              <li><a class="dropdown-item" href="#">On-Hold Label Print</a></li>
-                                                              <li><a class="dropdown-item" href="#">Print Certificate</a></li>
-                                                            </ul>
-                                                         
-                                                        </div>
-                                                    </div>
-
                                                 </div>
-                                            
                                             </div>
-                   
                                         </div>
                                     </div>
                                 </div>
@@ -679,11 +592,26 @@
 
 </div>
 </div>
+<!--end qc check model-->
 
-     <!--end qc check model-->
+<!-- ---------instrument modal------------- -->
+    <div class="modal fade instrument_modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myLargeModalLabel">Instrument List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-           <!-- --------inventory transfer------------ -->
+                <div class="modal-body">
+                    <div class="table-responsive table_item_padding" id="append_instrument_table"></div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<!-- ---------instrument modal end------------- -->
 
+<!-- --------inventory transfer------------ -->
 <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -924,10 +852,7 @@
     </div>
   </div>
 </div>
-
-
-
-    <!-- --------------inventory transfer-------------- -->
+<!-- --------------inventory transfer-------------- -->
 
      <style type="text/css">
     .modal-body{padding: 1 !important;}
