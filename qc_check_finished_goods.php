@@ -9,6 +9,23 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
   exit(0);
 }
 
+
+// $UT_data = array();
+// $itme = array();
+
+// $UT_data['DocEntry'] = 1126;
+// // $UT_data['Object'] = 'SCS_QCPDFG';
+// $itme['LineId'] = 1;
+// $itme['Object'] = 'SCS_QCPDFG';
+// $itme['U_PC_ITNo'] = 20407;
+
+// $UT_data['SCS_QCPDFG2Collection'][] = $itme;
+
+// echo '<pre>';
+// print_r(json_encode($UT_data));
+// die ();
+
+
 if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 {
     $tdata=array();
@@ -1608,7 +1625,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         $.ajax({
             type: "POST",
             url: 'ajax/kri_production_common_ajax.php',
-            data:{'DocEntry':qcD_DocEntry,'action':"qc_post_document_QC_Check_Finished_Goods_pupup_ajax"},
+            data:{'DocEntry':qcD_DocEntry,'QC_Status': QCstatus,'action':"qc_post_document_QC_Check_Finished_Goods_pupup_ajax"},
             cache: false,
             beforeSend: function(){
                 $(".loader123").show();
@@ -1629,7 +1646,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // $('#IT_QC_DocumentDate').val('');
                 $('#IT_QC_BaseDocNum').val(JSONObject[0].DocNum);
 
-                // $('#IT_QC_BranchId').val('');
+                $('#IT_QC_BranchId').val($('#QC_P_DOC_FG_BranchID').val());
+
+                $('#inventoryTransferFG_i_BQty').val(qCStsQty);
+                $('#QCPD_QCS_LineId').val(QCS_LineId);
 
                 ContainerSelection(); // get Container Selection Table List
             },
@@ -1687,7 +1707,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         var FromWhs=document.getElementById('QC_P_DOC_FG_FromWhs').value;
         var ToWhse=document.getElementById('QC_P_DOC_FG_ToWhs').value;
       
-        var dataString ='ItemCode='+ItemCode+'&WareHouse='+ToWhse+'&BatchNo='+BatchNo+'&DocEntry='+DocEntry+'&action=getInventoryFinishedGoodsQccotainerSelection_ajax';
+        var dataString ='ItemCode='+ItemCode+'&WareHouse='+FromWhs+'&BatchNo='+BatchNo+'&DocEntry='+DocEntry+'&action=getInventoryFinishedGoodsQccotainerSelection_ajax';
 
         $.ajax({
             type: "POST",
@@ -1912,7 +1932,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     // $('#itP_series').val(Series);
                     $('#IT_QC_Series_DocNo').val(NextNumber);
 
-                    $('#IT_QC_BranchId').val(Series);
+                    // $('#IT_QC_BranchId').val(Series);
                 },
                 complete: function(data) {
                     // Hide image container

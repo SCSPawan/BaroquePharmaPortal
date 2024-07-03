@@ -624,8 +624,9 @@ aria-hidden="true">
               <form method="post" action="#" id="inventrotyTransferQC_ckecked">
                                      <div class="row">
                                       <input class="form-control desabled" type="text" id="IT_QC_BranchId" name="IT_QC_BranchId">
+                                      <input class="form-control desabled" type="text" id="QCPD_QCS_LineId" name="QCPD_QCS_LineId">
+                                      
                                         
-
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
