@@ -73,48 +73,61 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                 <div class="card-body">
                                     <div class="row">
 
-                                        <input type="hidden" id="Admin" name="Admin">
-                                        <input type="hidden" id="Cephalosporin" name="Cephalosporin">
-                                        <input type="hidden" id="Factor" name="Factor">
-                                        <input type="hidden" id="General" name="General">
-                                        <input type="hidden" id="InStock" name="InStock">
-                                        <input type="hidden" id="ItemGroup" name="ItemGroup">
-                                        <input type="hidden" id="ItemNo" name="ItemNo">
-                                        <input type="hidden" id="Location" name="Location">
-                                        <input type="hidden" id="ManageBatchNo" name="ManageBatchNo">
-                                        <input type="hidden" id="Penicillin" name="Penicillin">
-                                        <input type="hidden" id="PharmacopialStatus" name="PharmacopialStatus">
-                                        <input type="hidden" id="RandD" name="RandD">
-                                        <input type="hidden" id="SubGroup" name="SubGroup">
-                                        <input type="hidden" id="NextNumber" name="NextNumber">
+                                        <input type="text" id="Admin" name="Admin">
+                                        <input type="text" id="Cephalosporin" name="Cephalosporin">
+                                        <input type="text" id="Factor" name="Factor">
+                                        <input type="text" id="General" name="General">
+                                        <input type="text" id="InStock" name="InStock">
+                                        <input type="text" id="ItemGroup" name="ItemGroup">
+                                        <input type="text" id="ItemNo" name="ItemNo">
+                                        <input type="text" id="Location" name="Location">
+                                        <input type="text" id="ManageBatchNo" name="ManageBatchNo">
+                                        <input type="text" id="Penicillin" name="Penicillin">
+                                        <input type="text" id="PharmacopialStatus" name="PharmacopialStatus">
+                                        <input type="text" id="RandD" name="RandD">
+                                        <input type="text" id="SubGroup" name="SubGroup">
+                                        <!-- <input type="text" id="NextNumber" name="NextNumber"> -->
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code<span class="required">*</span></label>
-                                                <div class="col-lg-8">
-                                                    <select class="form-select" id="ItemCode" name="ItemCode" onchange="SelectedItem()">
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code<span class="required">*</span></label>
+        <div class="col-lg-8">
+            <select class="form-select" id="ItemCode" name="ItemCode" onchange="SelectedItem()">
+            </select>
+        </div>
+    </div>
+</div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ItemName" name="ItemName" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" type="text" id="ItemName" name="ItemName" readonly>
+        </div>
+    </div>
+</div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">Sample Qty</label>
-                                                <div class="col-lg-7">
-                                                    <input class="form-control desabled" type="text" id="ExtraSampleQty" name="ExtraSampleQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-5 col-form-label mt-6" for="val-skill">Sample Qty</label>
+        <div class="col-lg-7">
+            <input class="form-control desabled" type="text" id="ExtraSampleQty" name="ExtraSampleQty" readonly>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc. No</label>
+        <div class="col-lg-4">
+            <select class="form-select" id="DocNoName" name="DocNoName" onchange="selectedSeries()"></select>
+        </div>
+        <div class="col-lg-4">
+                <input class="form-control desabled" type="text" id="NextNumber" name="NextNumber" readonly>
+        </div>
+    </div>
+</div>
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -134,18 +147,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc. No</label>
-                                                <div class="col-lg-4">
-                                                    <select class="form-select" id="DocNoName" name="DocNoName"></select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                       
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Stability Type<span class="required">*</span></label>
@@ -154,6 +156,16 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Loading Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="LoadingDate" name="LoadingDate" value="<?php echo  date('Y-m-d');?>" onchange="getSeriesDropdown()">
+        </div>
+    </div>
+</div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -185,14 +197,15 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Pack Size</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="PackSize" name="PackSize" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-3 col-form-label mt-6" for="val-skill">Remarks</label>
+        <div class="col-lg-9">
+            <textarea class="form-control" rows="2" id="Remarks" name="Remarks"></textarea>
+        </div>
+    </div>
+</div>
+
 
                                     </div>
                                 </div>
@@ -212,34 +225,38 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                                             <th>Station No</th>
                                                             <th>Sample Qty</th>  
                                                             <th>Sample Qty UOM</th>
+                                                            <th>Sample Quantity As Per Original Batch UOM</th>
                                                             <th>Type of Analysis</th>
                                                             <th>Ref.Page No.</th>
                                                             <th>Ref.Protocol No.</th>
                                                             <th>Stability Date</th>
-                                                            <th>User Text 1</th>
-                                                            <th>User Text 2</th>
-                                                            <th>User Text 3</th>
-                                                            <th>User Text 4</th>
+                                                            <th>Loading Analyst</th>
+                                                            <th>Withdrawal Date</th>
+                                                            <th>Withdrawal Analyst</th>
+                                                            <th>Chamber ID</th>
+                                                            <th>Tray ID</th>
                                                             <th>User Text 5</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr id='1'>
                                                             <td class="desabled"><input  type="text" id="" name="" class="form-control desabled" value="1." readonly style="border:1px solid #efefef !important;"></td>
-                                                            
+
                                                             <td class=""><select class="form-select focusCSS" id="StationNo1" name="StationNo[]" onchange="selectSationNo();" style="width: 140px;border: 1px solid white;"></select></td>
 
                                                             <td class=""><input type="text" id="SampleQty1" name="SampleQty[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="SampleQtyUOM1" name="SampleQtyUOM[]" class="form-control" ></td>
+                                                            <td class=""><input type="text" id="SampleQtyAsPerOrgBatchUOM1" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control" ></td>
                                                             <td class=""><select class="form-select focusCSS" id="TypeOfAnalysis1" name="TypeOfAnalysis[]" style="width: 170px;border: 1px solid white;"></select></td>
                                                             <td class=""><input type="text" id="RefPageNO1" name="RefPageNO[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="RefProtocolNo1" name="RefProtocolNo[]" class="form-control" ></td>
                                                             <td class=""><input type="date" id="StabilityDate1" name="StabilityDate[]" class="form-control" ></td>
 
-                                                            <td class=""><input type="text" id="UserText11" name="UserText1[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="UserText21" name="UserText2[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="UserText31" name="UserText3[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="UserText41" name="UserText4[]" class="form-control" ></td>
+                                                            <td class=""><input type="text" id="LoadingAnalyst1" name="LoadingAnalyst[]" class="form-control" ></td>
+                                                            <td class=""><input type="date" id="WithdrawalDate1" name="WithdrawalDate[]" value="<?php echo date('Y-m-d');?>" class="form-control" ></td>
+                                                            <td class=""><input type="text" id="WithdrawalAnalyst1" name="WithdrawalAnalyst[]" class="form-control" ></td>
+                                                            <td class=""><input type="text" id="ChamberID1" name="ChamberID[]" class="form-control" ></td>
+                                                            <td class=""><input type="text" id="TrayID1" name="TrayID[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="UserText51" name="UserText5[]" class="form-control" ></td>
                                                         </tr>                                      
                                                     </tbody> 
@@ -278,50 +295,15 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
     $(document).ready(function()
     {
         GetItemDropdown();
+        getSeriesDropdown();
     });
-
-    function GetItemDropdown()
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"getItemDropdown_ajax"},
-
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                $('#ItemCode').html(result);
-            },
-            complete:function(data){
-                GetStabilityTypeDropdown();
-            }
-        }); 
-    }
-
-    function GetStabilityTypeDropdown()
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"getStabilityTypeDropdown_ajax"},
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                $('#StabilityType').html(result);
-            },
-            complete:function(data){
-                getSeriesDropdown();
-            }
-        }); 
-    }
 
     function getSeriesDropdown()
     {
-        var dataString ='ObjectCode=SCS_STAB&action=getSeriesDropdown_ajax';
+        var LoadingDate = $('#LoadingDate').val();
+        var dataString ='TrDate='+LoadingDate+'&ObjectCode=SCS_STAB&action=getSeriesDropdown_ajax';
+
+        // var dataString ='ObjectCode=SCS_STAB&action=getSeriesDropdown_ajax';
 
         $.ajax({
             type: "POST",
@@ -330,6 +312,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
             cache: false,
 
             beforeSend: function(){
+                $(".loader123").show();
             },
             success: function(result)
             {
@@ -337,16 +320,22 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                 $('#DocNoName').html(SeriesDropdown);
             },
             complete:function(data){
+                
+                $(".loader123").hide();
                 selectedSeries(); // call Selected Series Single data function
             }
-        }); 
+        }) 
     }
 
     function selectedSeries(){
 
-        var Series=document.getElementById('DocNoName').value;
+        var Series=$('#DocNoName').val();
+        var LoadingDate = $('#LoadingDate').val();
+        // alert(LoadingDate);
+        var dataString ='Series='+Series+'&TrDate='+LoadingDate+'&ObjectCode=SCS_STAB&action=getSeriesSingleData_ajax';
 
-        var dataString ='Series='+Series+'&ObjectCode=SCS_STAB&action=getSeriesSingleData_ajax';
+        // console.log('dataString=>', dataString);
+        // var dataString ='Series='+Series+'&ObjectCode=SCS_STAB&action=getSeriesSingleData_ajax';
 
         $.ajax({
             type: "POST",
@@ -355,66 +344,113 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
             cache: false,
 
             beforeSend: function(){
+                $(".loader123").show();
             },
             success: function(result)
             {
+                // console.log('selectedSeries=>', result);
                 var JSONObject = JSON.parse(result);
 
                 var NextNumber=JSONObject[0]['NextNumber'];
-                $('#DocNo').val(NextNumber);
-            },
-            complete:function(data){
-                GetStationNoDropdown();
-            }
-        }); 
-    }
-
-    function GetStationNoDropdown(){
-        // <!-- -----  get table tr count start here ------------------------ -->
-            var allTableData = document.getElementById("tblItemRecord");
-            var totalNumbeOfRows = (allTableData.rows.length)-1;
-        // <!-- -----  get table tr count end here -------------------------- -->
-        
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"getStationNoDropdown_ajax"},
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                // console.log(result);
-                $('#StationNo'+totalNumbeOfRows).html(result);
-            },
-            complete:function(data){
-                GetTypeOfAnalysisDropdown();
-            }
-        }); 
-    }
-
-     function GetTypeOfAnalysisDropdown(){
-        // <!-- -----  get table tr count start here ------------------------ -->
-            var allTableData = document.getElementById("tblItemRecord");
-            var totalNumbeOfRows = (allTableData.rows.length)-1;
-        // <!-- -----  get table tr count end here -------------------------- -->
-
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"getTypeOfAnalysis_ajax"},
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                $('#TypeOfAnalysis'+totalNumbeOfRows).html(result);
+                $('#NextNumber').val(NextNumber);
             },
             complete:function(data){
                 $(".loader123").hide();
+               
             }
-        }); 
+        }) 
     }
+
+        
+            function GetItemDropdown()
+            {
+                $.ajax({ 
+                    type: "POST",
+                    url: 'ajax/common-ajax.php',
+                    data:{'action':"getItemDropdown_ajax"},
+
+                    beforeSend: function(){
+                        $(".loader123").show();
+                    },
+                    success: function(result)
+                    {
+                        $('#ItemCode').html(result);
+                    },
+                    complete:function(data){
+                        GetStabilityTypeDropdown();
+                    }
+                }) 
+            }
+
+            function GetStabilityTypeDropdown()
+            {
+                $.ajax({ 
+                    type: "POST",
+                    url: 'ajax/common-ajax.php',
+                    data:{'action':"getStabilityTypeDropdown_ajax"},
+
+                    beforeSend: function(){
+                    },
+                    success: function(result)
+                    {
+                        $('#StabilityType').html(result);
+                    },
+                    complete:function(data){
+                        GetStationNoDropdown();
+                    }
+                })
+            }
+
+            function GetStationNoDropdown(){
+                // <!-- -----  get table tr count start here ------------------------ -->
+                    var allTableData = document.getElementById("tblItemRecord");
+                    var totalNumbeOfRows = (allTableData.rows.length)-1;
+                // <!-- -----  get table tr count end here -------------------------- -->
+                
+                $.ajax({ 
+                    type: "POST",
+                    url: 'ajax/common-ajax.php',
+                    data:{'action':"getStationNoDropdown_ajax"},
+
+                    beforeSend: function(){
+                    },
+                    success: function(result)
+                    {
+                        // console.log(result);
+                        $('#StationNo'+totalNumbeOfRows).html(result);
+                    },
+                    complete:function(data){
+                        GetTypeOfAnalysisDropdown();
+                    }
+                }) 
+            }
+
+            function GetTypeOfAnalysisDropdown(){
+                // <!-- -----  get table tr count start here ------------------------ -->
+                    var allTableData = document.getElementById("tblItemRecord");
+                    var totalNumbeOfRows = (allTableData.rows.length)-1;
+                // <!-- -----  get table tr count end here -------------------------- -->
+
+                $.ajax({ 
+                    type: "POST",
+                    url: 'ajax/common-ajax.php',
+                    data:{'action':"getTypeOfAnalysis_ajax"},
+
+                    beforeSend: function(){
+                    },
+                    success: function(result)
+                    {
+                        $('#TypeOfAnalysis'+totalNumbeOfRows).html(result);
+                    },
+                    complete:function(data){
+                        $(".loader123").hide();
+                    }
+                }) 
+            }
+
+
+   
+   
 
     function GetStabilityConditionAndTimePeriodDropdown()
     {
@@ -437,7 +473,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        }) 
     }
 
 // <!-- ------------- On page load call all this function end here ----------------------------------------------------------------- -->
@@ -491,7 +527,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                 complete:function(data){
                     GetBatchDropdown();
                 }
-            }); 
+            }) 
         }
     }
 
@@ -507,14 +543,14 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
             },
             success: function(result)
             {
-                // console.log(result);
+                console.log(result);
                 // console.log(result);
                 $('#BatchNo').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        }) 
     }
 
     function SelectBatch(){
@@ -555,7 +591,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                 complete:function(data){
                     $(".loader123").hide();
                 }
-            }); 
+            }) 
         }
         
     }
@@ -586,7 +622,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                 complete:function(data){
                     GetStationNoDropdown();
                 }
-            }); 
+            }) 
         }
     }
 
@@ -635,6 +671,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
             },complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 </script>
+<!-- 3rd July 2024 (641) -->
