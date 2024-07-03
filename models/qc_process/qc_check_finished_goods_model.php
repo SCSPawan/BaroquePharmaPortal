@@ -21,27 +21,27 @@ aria-hidden="true">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-6">
-                                            <input type="text" id="OTFQCCFG_BPLId" name="OTFQCCFG_BPLId">
-                                            <input type="text" id="OTFQCCFG_BpRefNo" name="OTFQCCFG_BpRefNo">
-                                            <input type="text" id="OTFQCCFG_ExpiryDate" name="OTFQCCFG_ExpiryDate">
-                                            <input type="text" id="OTFQCCFG_FrgnName" name="OTFQCCFG_FrgnName">
-                                            <input type="text" id="OTFQCCFG_GEDate" name="OTFQCCFG_GEDate">
-                                            <input type="text" id="OTFQCCFG_GateENo" name="OTFQCCFG_GateENo">
-                                            <input type="text" id="OTFQCCFG_LabelClaimUOM" name="OTFQCCFG_LabelClaimUOM">
-                                            <input type="text" id="OTFQCCFG_LineNum" name="OTFQCCFG_LineNum">
-                                            <input type="text" id="OTFQCCFG_LocCode" name="OTFQCCFG_LocCode">
-                                            <input type="text" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
-                                            <input type="text" id="OTFQCCFG_Qty" name="OTFQCCFG_Qty">
-                                            <input type="text" id="OTFQCCFG_RetestDate" name="OTFQCCFG_RetestDate">
-                                            <input type="text" id="OTFQCCFG_SampleCollectionNo" name="OTFQCCFG_SampleCollectionNo">
-                                            <input type="text" id="OTFQCCFG_SampleIntimationNo" name="OTFQCCFG_SampleIntimationNo">
-                                            <input type="text" id="OTFQCCFG_SampleQty" name="OTFQCCFG_SampleQty">
-                                            <input type="text" id="OTFQCCFG_SpecfNo" name="OTFQCCFG_SpecfNo">
-                                            <input type="text" id="OTFQCCFG_SrNo" name="OTFQCCFG_SrNo">
-                                            <input type="text" id="OTFQCCFG_SupplierCode" name="OTFQCCFG_SupplierCode">
-                                            <input type="text" id="OTFQCCFG_SupplierName" name="OTFQCCFG_SupplierName">
-                                            <input type="text" id="OTFQCCFG_Unit" name="OTFQCCFG_Unit">
-                                            <input type="text" id="OTFQCCFG_WOQty" name="OTFQCCFG_WOQty">
+                                            <input type="hidden" id="OTFQCCFG_BPLId" name="OTFQCCFG_BPLId">
+                                            <input type="hidden" id="OTFQCCFG_BpRefNo" name="OTFQCCFG_BpRefNo">
+                                            <input type="hidden" id="OTFQCCFG_ExpiryDate" name="OTFQCCFG_ExpiryDate">
+                                            <input type="hidden" id="OTFQCCFG_FrgnName" name="OTFQCCFG_FrgnName">
+                                            <input type="hidden" id="OTFQCCFG_GEDate" name="OTFQCCFG_GEDate">
+                                            <input type="hidden" id="OTFQCCFG_GateENo" name="OTFQCCFG_GateENo">
+                                            <input type="hidden" id="OTFQCCFG_LabelClaimUOM" name="OTFQCCFG_LabelClaimUOM">
+                                            <input type="hidden" id="OTFQCCFG_LineNum" name="OTFQCCFG_LineNum">
+                                            <input type="hidden" id="OTFQCCFG_LocCode" name="OTFQCCFG_LocCode">
+                                            <input type="hidden" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
+                                            <input type="hidden" id="OTFQCCFG_Qty" name="OTFQCCFG_Qty">
+                                            <input type="hidden" id="OTFQCCFG_RetestDate" name="OTFQCCFG_RetestDate">
+                                            <input type="hidden" id="OTFQCCFG_SampleCollectionNo" name="OTFQCCFG_SampleCollectionNo">
+                                            <input type="hidden" id="OTFQCCFG_SampleIntimationNo" name="OTFQCCFG_SampleIntimationNo">
+                                            <input type="hidden" id="OTFQCCFG_SampleQty" name="OTFQCCFG_SampleQty">
+                                            <input type="hidden" id="OTFQCCFG_SpecfNo" name="OTFQCCFG_SpecfNo">
+                                            <input type="hidden" id="OTFQCCFG_SrNo" name="OTFQCCFG_SrNo">
+                                            <input type="hidden" id="OTFQCCFG_SupplierCode" name="OTFQCCFG_SupplierCode">
+                                            <input type="hidden" id="OTFQCCFG_SupplierName" name="OTFQCCFG_SupplierName">
+                                            <input type="hidden" id="OTFQCCFG_Unit" name="OTFQCCFG_Unit">
+                                            <input type="hidden" id="OTFQCCFG_WOQty" name="OTFQCCFG_WOQty">
                                         </div>
 
                                         <div class="col-xl-3 col-md-6">
@@ -389,7 +389,7 @@ aria-hidden="true">
 
                                                 <div class="tab-pane" id="qc_status" role="tabpanel">
                                                     <div class="table-responsive" id="list">
-                                                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                             <thead class="fixedHeader1">
                                                                 <tr>
                                                                     <th>Sr. No</th>
@@ -418,7 +418,7 @@ aria-hidden="true">
                                                     <div class="row">
                                                         <div class="col-md-10">
                                                             <div class="table-responsive" id="list">
-                                                                <table id="tblItemRecord" class="table table-bordered" style="">
+                                                                <table id="tblItemRecord" class="table table-bordered">
                                                                     <thead class="fixedHeader1">
                                                                         <tr>
                                                                             <th>Sr. No</th>
@@ -428,31 +428,7 @@ aria-hidden="true">
                                                                             <th>Free Text</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody id="qc-attach-list-append">
-                                                                        <!-- <tr>
-                                                                            <td class="desabled">1</td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        </tr>
-                                                                        
-                                                                        <tr>
-                                                                            <td class="desabled">1</td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td class="desabled">1</td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td class="desabled"><input class="border_hide desabled" type="text" id="" name="" class="form-control" readonly></td>
-                                                                            <td><input class="border_hide" type="text" id="" name="" class="form-control"></td>
-                                                                        </tr> -->
-                                                                    </tbody> 
+                                                                    <tbody id="qc-attach-list-append"></tbody> 
                                                                 </table>
                                                             </div>
                                                         </div>

@@ -236,8 +236,7 @@ if(isset($_POST['SampleIntimationBtn'])){
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
-{		
+if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax'){		
 	// $TrDate=date('Ymd', strtotime($_POST['TrDate']));
 	$TrDate=date('Ymd', strtotime(str_replace('/', '-',$_POST['TrDate'])));
 	$ObjectCode=trim(addslashes(strip_tags($_POST['ObjectCode'])));
@@ -245,9 +244,8 @@ if(isset($_POST['action']) && $_POST['action'] =='getSeriesSingleData_ajax')
 
 	$Final_API=$INWARDQCSERIES_API.$ObjectCode.'&Series='.$Series.'&TRDate='.$TrDate.'&UserName='.$_SESSION['Baroque_eMail'];
 
-	//  print_r($Final_API);
-
-	//  die();
+	// print_r($Final_API);
+	// die();
 
 	$response=$obj->GetSeriesSingleData($Final_API);
 	echo json_encode($response);
