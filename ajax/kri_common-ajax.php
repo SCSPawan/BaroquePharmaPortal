@@ -1904,8 +1904,8 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_post_document_retest_qc_pup
     
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&Status='.$_POST['QC_Status'];
-		print_r($API);
-		die();
+		// print_r($API);
+		// die();
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 

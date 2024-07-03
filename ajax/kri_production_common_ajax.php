@@ -5209,16 +5209,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'StageDropdown_ajax') {
 
 if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_QC_Check_Finished_Goods_pupup_ajax') {
 	// $API=$RETESTQCPOSTDOCUMENTDETAILS.'?DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-	$API = $FGQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'];
+	$API = $FGQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'] . '&Status=' . $_POST['QC_Status'];
 	// $API=$RETESTQCPOSTDOC.'?DocEntry='.$_POST['DocEntry'];
 	// echo $API;
 	// exit;
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
-	print_r($FinalAPI);
+	// print_r($FinalAPI);
 
-	die();
+	// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 	$response = $objKri->get_QcPostDocument_RetestQcSingleData($FinalAPI);
 
@@ -5253,7 +5253,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_QC_Check_Fi
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="inventoryTransferFG_i_ToWhs" name="inventoryTransferFG_i_ToWhs" class="form-control" value="' . $response[0]->ToWhse . '" readonly>
 				</td>
-				<td class="desabled">' . $response[0]->Location . '</td>
+				<td class="desabled">' . $response[0]->Loc . '</td>
 				<td class="desabled">' . $response[0]->Unit . '</td>
 			</tr>';
 	} else {
@@ -5271,11 +5271,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'getInventoryFinishedGoodsQcc
 
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['WareHouse'])));
-	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
+	///$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
 	$BNo = trim(addslashes(strip_tags($_POST['BatchNo'])));
 	// ItemCode=A00116&WareHouse=QCUT-GEN&BatchNo=BT2106-2
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $FGQCCHECKCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo . '&DocEntry=' . $DocEntry;
+	$API = $FGQCCHECKCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
+
 
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
@@ -6080,6 +6081,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_Co
 	$API = $INPROCESSQCPOSTDOCUMENTCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
 
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+
+
+	// print_r($FinalAPI);
+	// die();
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
@@ -6200,10 +6206,10 @@ if (isset($_POST['SubIT_Btn_In_process_QC_check_sample_issue'])) {
 	$mainArray['StockTransferLines'][] = $item;
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 
-	echo "<pre>";
-	print_r($mainArray);
-	echo "<pre>";
-	exit;
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "<pre>";
+	// exit;
 	//<!-- ------------- function & function responce code Start Here ---- -->
 	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -6271,6 +6277,22 @@ if (isset($_POST['SubIT_Btn_In_process_QC_check_sample_issue'])) {
 	exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // =========
@@ -6937,9 +6959,9 @@ if (isset($_POST['SampleCollectionStabilityUpdateForm_Btn'])) {
 	// $res1=$obj->SAP_Logout();  // SAP Service Layer Logout Here	
 	// exit(0);
 
-	echo "<pre>";
-	print_r($mainArray);
-	echo "</pre>";
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "</pre>";
 
 	// exit();
 	//    $ganaralData=array();
@@ -7911,10 +7933,10 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 
 
 
-	echo "<pre>";
-	print_r($mainArray);
-	echo "<pre>";
-	exit;
+	// echo "<pre>";
+	// print_r($mainArray);
+	// echo "<pre>";
+	// exit;
 
 	if ($_POST['QC_P_DOC_FG_SampleType'] == "") {
 		$data['status'] = 'False';
@@ -8025,59 +8047,30 @@ if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 	$mainArray = array(); // This array hold all type of declare array
 	$tdata = array(); //This array hold header data
 	$item = array(); //This array hold item data
-	$batch = array(); //This array hold batch data
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	// exit;
-	// $tdata['DocType']= "dDocument_Items";
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['IT_QC_Series'])));
 	$tdata['DocDate'] = date("Y-m-d", strtotime($_POST['IT_QC_PostingDate']));
 	$tdata['DueDate'] = date("Y-m-d", strtotime($_POST['IT_QC_DocumentDate']));
-
 	$tdata['CardCode'] = trim(addslashes(strip_tags($_POST['IT_QC_supplierCode'])));
 	$tdata['Comments'] = null;
 	$tdata['FromWarehouse'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_FromWhs'])));
 	$tdata['ToWarehouse'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_ToWhs'])));
-
 	$tdata['TaxDate'] = date("Y-m-d", strtotime($_POST['IT_QC_DocumentDate']));
 	$tdata['DocObjectCode'] = '67';
 	$tdata['BPLID'] = trim(addslashes(strip_tags($_POST['IT_QC_BranchId'])));
+	$tdata['U_PC_QCFG'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_DocEntry'])));
+	$tdata['U_BFType'] = trim(addslashes(strip_tags('SCS_QCPDFG')));
 
-	$tdata['U_PC_SIFG'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_DocEntry'])));
-	$tdata['U_BFType'] = trim(addslashes(strip_tags('SCS_SINTIFG')));
-
-
-	// $tdata['BPL_IDAssignedToInvoice']=trim(addslashes(strip_tags($_POST['sample_issue_BPLId'])));
-	// $tdata['U_PC_SCFG']=trim(addslashes(strip_tags($_POST['sample_issue_DocEntry'])));
-
-
-	// $tdata['Document_ApprovalRequests']=array();
-
-
-	// $tdata['DocType']='dDocument_Items';
-	// $tdata['U_PC_SCRtest']=trim(addslashes(strip_tags($_POST['SCRTQC_GI_SCRTQCB_DocEntry'])));
-	// 
-	// $tdata['Comments']=null;
-	// 
-	// 
-	// 
-	// $tdata['U_PC_SIntiNo']=trim(addslashes(strip_tags($_POST['it_DocEntry'])));
 	$mainArray = $tdata;
 	// --------------------- Item and batch row data preparing start here -------------------------------- -->
 	$item['LineNum'] = trim(addslashes(strip_tags('0')));
 	$item['ItemCode'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_ItemCode'])));
 	$item['Quantity'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_BQty'])));
 	$item['WarehouseCode'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_ToWhs'])));
-	// $item['LineTaxJurisdictions']=array();
-	// $item['SerialNumbers']=array();
 	$item['FromWarehouseCode'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_FromWhs'])));
 	// <!-- Item Batch row data prepare start here ----------- -->
 	$BL = 0;
 	for ($i = 0; $i < count($_POST['usercheckList']); $i++) {
-
 		if ($_POST['usercheckList'][$i] == '1') {
-
 			$batch['BatchNumber'] = trim(addslashes(strip_tags($_POST['itp_ContainerNo'][$i])));
 			$batch['Quantity'] = trim(addslashes(strip_tags($_POST['SelectedQty'][$i])));
 			$batch['BaseLineNumber'] = trim(addslashes(strip_tags('0')));
@@ -8092,10 +8085,12 @@ if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 	// echo json_encode($mainArray);
 	// exit;
+	
 	// echo "<pre>";
-	// print_r($mainArray);
+	// print_r($_POST);
 	// echo "<pre>";
 	// exit;
+
 	// echo json_encode($mainArray);
 	// exit;
 	//<!-- ------------- function & function responce code Start Here ---- -->
@@ -8114,29 +8109,25 @@ if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 		$data = array();
 		if (array_key_exists('error', (array)$responce)) {
 			$data['status'] = 'False';
-			$data['DocEntry'] = '';
+			$data['DocEntry'] = '1111111111';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
 		} else {
+				$UT_data = array();
+				$itme = array();
 
-			// <!-- ------- row data preparing start here --------------------- -->
-			$UT_data = array();
-			$itme = array();
-			$UT_data['DocEntry'] = trim(addslashes(strip_tags($_POST['qc_check_DocEntry'])));
-			// $UT_data['Object']='SCS_SINTIFG';
+				$UT_data['DocEntry'] = trim(addslashes(strip_tags($_POST['inventoryTransferFG_i_DocEntry'])));
+				// $UT_data['Object'] = 'SCS_QCPDFG';
+				$itme['LineId'] = trim(addslashes(strip_tags($_POST['QCPD_QCS_LineId'])));
+				$itme['Object'] = 'SCS_QCPDFG';
+				$itme['U_PC_ITNo'] = trim(addslashes(strip_tags($responce->DocEntry)));
+				
+				$UT_data['SCS_QCPDFG2Collection'] []= $itme;
 
-			// $itme=array();
-			// $itme['LineId']=2;
-			// $itme['Object']='SCS_SINTIFG';
-			$UT_data['U_PC_UTTrans'] = trim(addslashes(strip_tags($responce->DocEntry)));
-
-			// $UT_data['SCS_QCINPROC2Collection']=$itme;
-
-			// $UT_data['U_PC_UTNo']=trim(addslashes(strip_tags($responce->DocEntry)));
 			// <!-- ------- row data preparing end here ----------------------- -->
 
-			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINTIFG_API . '(' . $UT_data['DocEntry'] . ')';
-			$underTestNumber = $obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data, $Final_API2);
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCPDFG_API . '(' . $_POST['inventoryTransferFG_i_DocEntry'] . ')';
+			$underTestNumber = $obj->PATCH_ServiceLayerMasterFunction($UT_data, $Final_API2);
 			$underTestNumber_decode = json_decode($underTestNumber);
 
 			if ($underTestNumber_decode == '') {
@@ -8152,7 +8143,7 @@ if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 
 				if (array_key_exists('error', (array)$underTestNumber_decode)) {
 					$data['status'] = 'False';
-					$data['DocEntry'] = '';
+					$data['DocEntry'] = '22222222222 api error=>'.$Final_API2.$UT_data;
 					$data['message'] = $responce->error->message->value;
 					echo json_encode($data);
 				}
@@ -8165,6 +8156,30 @@ if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 	exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
