@@ -267,7 +267,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>" >
+                                                        <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,7 +294,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="form-group row">
-                                                    <div class="col-lg-4" style="">
+                                                    <div class="col-lg-4">
                                                         <div class="">
                                                             <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                         </div>

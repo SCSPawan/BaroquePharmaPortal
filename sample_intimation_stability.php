@@ -15,7 +15,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $tdata['DocEntry']=trim(addslashes(strip_tags($_POST['DocEntry'])));
 
     $getAllData=$obj->getSimpleIntimation($STABSAMPINTIAFTERADD_API,$tdata);
-
+    // echo '<pre>';
+    // print_r($getAllData[0]);
     $count=count($getAllData);
 
     $adjacents = 1;
@@ -23,15 +24,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -297,7 +298,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="FromDate" name="FromDate">
+                                                    <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -306,7 +307,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="ToDate" name="ToDate">
+                                                    <input class="form-control" type="date" id="ToDate" name="ToDate" value="<?php echo date("Y-m-d") ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +325,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row">
-                                                <div class="col-lg-4" style="">
+                                                <div class="col-lg-4">
                                                     <div class="">
                                                         <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                     </div>

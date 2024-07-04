@@ -161,35 +161,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         if(!empty($getAllData[$i]->SrNo)){   //  this condition save to extra blank loop
 
                             // --------------- Convert String code Start Here ---------------------------
-                                if(empty($getAllData[$i]->DocDate)){
-                                    $DocDate='';
-                                }else{
-                                    $DocDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
-                                }
+                                $DocDate=(!empty($getAllData[$i]->DocDate)) ? date('Y-m-d', strtotime($getAllData[$i]->DocDate)) : null;
 
-                                if(empty($getAllData[$i]->ExpiryDate)){
-                                    $ExpiryDate='';
-                                }else{
-                                    $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
-                                }
+                                $ExpiryDate=(!empty($getAllData[$i]->ExpiryDate)) ? date('Y-m-d', strtotime($getAllData[$i]->ExpiryDate)) : null;
 
-                                if(empty($getAllData[$i]->MfgDate)){
-                                    $MfgDate='';
-                                }else{
-                                    $MfgDate=date("d-m-Y", strtotime($getAllData[$i]->MfgDate));
-                                }
+                                $MfgDate=(!empty($getAllData[$i]->MfgDate)) ? date('Y-m-d', strtotime($getAllData[$i]->MfgDate)) : null;
 
-                                if(empty($getAllData[$i]->StabilityLoadingDate)){
-                                    $StabilityLoadingDate='';
-                                }else{
-                                    $StabilityLoadingDate=date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate));
-                                }
+                                $StabilityLoadingDate=(!empty($getAllData[$i]->StabilityLoadingDate)) ? date('Y-m-d', strtotime($getAllData[$i]->StabilityLoadingDate)) : null;
 
-                                if(empty($getAllData[$i]->EndDate)){
-                                    $EndDate='';
-                                }else{
-                                    $EndDate=date("d-m-Y", strtotime($getAllData[$i]->EndDate));
-                                }                        
+                                $EndDate=(!empty($getAllData[$i]->EndDate)) ? date('Y-m-d', strtotime($getAllData[$i]->EndDate)) : null;
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -261,13 +241,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 </style>
 
-<!-- ---------- loader start here---------------------- -->
-    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+            </div>
         </div>
-    </div>
-<!-- ---------- loader end here---------------------- -->
+    <!-- ---------- loader end here---------------------- -->
 
     <div class="main-content">
 
@@ -317,15 +297,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 <?php include 'include/footer.php' ?>
 <script type="text/javascript">
-
     // <!-- -------------- Direct called function diclear Start Here --------------------------------
         $(".loader123").hide(); // loader default hide script
     // <!-- -------------- Direct called function diclear End Here ----------------------------------
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var dataString ='action=list';
-        
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -333,50 +310,43 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
-    function change_page(page_id)
-    { 
+    function change_page(page_id){ 
         var dataString ='page_id='+page_id+'&action=list';
-
         $.ajax({
             type: "POST",
-             url: window.location.href,  
+            url: window.location.href,  
             data: dataString,
             cache: false,
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 
-    function sample_intimation(DocEntry,ItemCode,BatchNo)
-    {
+    function sample_intimation(DocEntry,ItemCode,BatchNo){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'DocEntry':DocEntry,'BatchNo':BatchNo,'ItemCode':ItemCode,'action':"OT_sample_intimationStability_popup"},
-
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 // 1st Line-------------------------------------------------------------------------------------
@@ -408,17 +378,17 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#SIS_P_BatchNo`).val(JSONObject[0]['BatchNo']);
                     $(`#SIS_P_BatchQty`).val(JSONObject[0]['BatchQty']);
 
-                    // <!-- ----------- MfgDate Start Here ---------------------------- -->
-                        var mfgDateOG = JSONObject[0]['MfgDate'];
-                        mfgDate = mfgDateOG.split(' ')[0];
-                        $(`#SIS_P_MfgDate`).val(mfgDate);
-                    // <!-- ----------- MfgDate End Here ------------------------------ -->
+                // <!-- ----------- MfgDate Start Here ---------------------------- -->
+                    var mfgDateOG = JSONObject[0]['MfgDate'];
+                    mfgDate = mfgDateOG.split(' ')[0];
+                    $(`#SIS_P_MfgDate`).val(mfgDate);
+                // <!-- ----------- MfgDate End Here ------------------------------ -->
 
-                    // <!-- ----------- Expiry Date Start Here ----------------------- -->
-                        var expiryDateOG = JSONObject[0]['ExpiryDate'];
-                        ExpiryDate = expiryDateOG.split(' ')[0];
-                        $(`#SIS_P_ExpiryDate`).val(ExpiryDate);
-                    // <!-- ----------- Expiry Date End Here ------------------------- -->
+                // <!-- ----------- Expiry Date Start Here ----------------------- -->
+                    var expiryDateOG = JSONObject[0]['ExpiryDate'];
+                    ExpiryDate = expiryDateOG.split(' ')[0];
+                    $(`#SIS_P_ExpiryDate`).val(ExpiryDate);
+                // <!-- ----------- Expiry Date End Here ------------------------- -->
 
                 // 6th Line-------------------------------------------------------------------------------------
                     $(`#SIS_P_StabilityTransferNoFromWo`).val(JSONObject[0]['StabilityTransferNoFromWo']);
@@ -480,85 +450,77 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // Hidden field mapped End Here ---------------------------------------------------------------- 
             },
             complete:function(data){
-                getSeriesDropdown() // DocName By using API to get dropdown 
+                TR_ByDropdown() // DocName By using API to get dropdown 
             }
-        }); 
+        })
     }
 
-    function getSeriesDropdown()
-    {
-        var dataString ='ObjectCode=SCS_SISTAB&action=getSeriesDropdown_ajax';
+    function TR_ByDropdown(){
+        $.ajax({ 
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data:{'action':"TR_ByDropdown_ajax"},
+            beforeSend: function(){
+            },
+            success: function(result){
+                var SampleTypeDrop = JSON.parse(result);
+                $('#SIS_P_TrBy').html(SampleTypeDrop);
+            },
+            complete:function(data){
+                getSeriesDropdown();
+            }
+        })
+    }
 
+    function getSeriesDropdown(){
+        var TrDate = $('#SIS_P_TrDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SISTAB&action=getSeriesDropdown_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
+                $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SeriesDropdown = JSON.parse(result);
                 $('#SIS_P_DocNoName').html(SeriesDropdown);
             },
             complete:function(data){
+                $(".loader123").hide();
                 selectedSeries(); // call Selected Series Single data function
             }
-        }); 
+        })
     }
 
     function selectedSeries(){
-
         var Series=document.getElementById('SIS_P_DocNoName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SISTAB&action=getSeriesSingleData_ajax';
-
+        var TrDate = $('#SIS_P_TrDate').val();
+        var dataString ='Series='+Series+'&TrDate='+TrDate+'&ObjectCode=SCS_SISTAB&action=getSeriesSingleData_ajax';
         $.ajax({
             type: "POST",
             url: 'ajax/common-ajax.php',
             data: dataString,
             cache: false,
-
             beforeSend: function(){
+                $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
                 var NextNumber=JSONObject[0]['NextNumber'];
                 $('#SIS_P_DocNo').val(NextNumber);
             },
             complete:function(data){
-                TR_ByDropdown() //TR By API to Get Dropdown
-            }
-        }); 
-    }
-
-    function TR_ByDropdown()
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data:{'action':"TR_ByDropdown_ajax"},
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                var SampleTypeDrop = JSON.parse(result);
-                $('#SIS_P_TrBy').html(SampleTypeDrop);
-            },
-            complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
     }
 
     function SendOT_SampleIntimationData(){
-
         var formData = new FormData($('#OT_SampleIntimationForm')[0]);  // Form Id
         formData.append("OP_SampleIntimationBtn",'OP_SampleIntimationBtn');  // Button Id
         var error = true;
-
         $.ajax({
             url: 'ajax/common-ajax.php',
             type: "POST",
@@ -566,10 +528,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             processData: false,
             contentType: false,
             beforeSend: function(){
-                $(".loader123").show();
+            $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];
@@ -577,11 +538,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var DocEntry = JSONObject['DocEntry'];
                 if(status=='True'){
                     swal({
-                      title: `${DocEntry}`,
-                      text: `${message}`,
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: false,
+                        title: `${DocEntry}`,
+                        text: `${message}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
@@ -591,11 +552,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         }
                     });
                 }else{
-                    swal("Oops!", `${message}`, "error");
+                swal("Oops!", `${message}`, "error");
                 }
             },complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 </script>

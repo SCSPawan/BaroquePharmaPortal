@@ -7,8 +7,7 @@
 </style>
 
 <!-- ----------------------- Sample Intimation Model Start --------------------------------- -->
-    <div class="modal fade stability-qc-check" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
+    <div class="modal fade stability-qc-check" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -19,20 +18,20 @@
 
                     <form role="form" class="form-horizontal" id="OT_SampleIntimationForm" method="post">
                         <div class="row">
-                            <input type="hidden" id="SIS_P_StatusChekBoxValue" name="SIS_P_StatusChekBoxValue">
-                            <input type="hidden" id="SIS_P_BPLId" name="SIS_P_BPLId">
-                            <input type="hidden" id="SIS_P_LocCode" name="SIS_P_LocCode">
-                            <input type="hidden" id="SIS_P_WhsTotal" name="SIS_P_WhsTotal">
-                            <input type="hidden" id="SIS_P_BaseType" name="SIS_P_BaseType">
-                            <input type="hidden" id="SIS_P_BaseEntry" name="SIS_P_BaseEntry">
-                            <input type="hidden" id="SIS_P_BaseNum" name="SIS_P_BaseNum">
-                            <input type="hidden" id="SIS_P_DocDate" name="SIS_P_DocDate">
-                            <input type="hidden" id="SIS_P_Quantity" name="SIS_P_Quantity">
-                            <input type="hidden" id="SIS_P_AdditionalYear" name="SIS_P_AdditionalYear">
-                            <input type="hidden" id="SIS_P_EndDate" name="SIS_P_EndDate">
-                            <input type="hidden" id="SIS_P_PeriodType" name="SIS_P_PeriodType">
-                            <input type="hidden" id="SIS_P_PeriodInMonths" name="SIS_P_PeriodInMonths">
-                            <input type="hidden" id="SIS_P_PlannedQty" name="SIS_P_PlannedQty">
+                            <input type="text" id="SIS_P_StatusChekBoxValue" name="SIS_P_StatusChekBoxValue">
+                            <input type="text" id="SIS_P_BPLId" name="SIS_P_BPLId">
+                            <input type="text" id="SIS_P_LocCode" name="SIS_P_LocCode">
+                            <input type="text" id="SIS_P_WhsTotal" name="SIS_P_WhsTotal">
+                            <input type="text" id="SIS_P_BaseType" name="SIS_P_BaseType">
+                            <input type="text" id="SIS_P_BaseEntry" name="SIS_P_BaseEntry">
+                            <input type="text" id="SIS_P_BaseNum" name="SIS_P_BaseNum">
+                            <input type="text" id="SIS_P_DocDate" name="SIS_P_DocDate">
+                            <input type="text" id="SIS_P_Quantity" name="SIS_P_Quantity">
+                            <input type="text" id="SIS_P_AdditionalYear" name="SIS_P_AdditionalYear">
+                            <input type="text" id="SIS_P_EndDate" name="SIS_P_EndDate">
+                            <input type="text" id="SIS_P_PeriodType" name="SIS_P_PeriodType">
+                            <input type="text" id="SIS_P_PeriodInMonths" name="SIS_P_PeriodInMonths">
+                            <input type="text" id="SIS_P_PlannedQty" name="SIS_P_PlannedQty">
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
@@ -48,11 +47,9 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
                                     <div class="col-lg-4" id="SIS_P_" name="SIS_P_">
-                                        <select class="form-select" id="SIS_P_DocNoName" name="SIS_P_DocNoName">
-                                        <option>Primary</option>
-                                        </select>
+                                        <select class="form-select" id="SIS_P_DocNoName" name="SIS_P_DocNoName" onchange="selectedSeries()"></select>
                                     </div>
                                     <div class="col-lg-2">
                                         <input class="form-control desabled" type="text" id="SIS_P_DocNo" name="SIS_P_DocNo" readonly>
@@ -285,9 +282,9 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="date" id="SIS_P_TrDate" name="SIS_P_TrDate" value="<?php echo date("Y-m-d");?>">
+                                        <input class="form-control" type="date" id="SIS_P_TrDate" name="SIS_P_TrDate" value="<?php echo date("Y-m-d");?>" onchange="getSeriesDropdown()">
                                     </div>
                                 </div>
                             </div> 

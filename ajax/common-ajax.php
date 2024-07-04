@@ -5348,7 +5348,7 @@ if(isset($_POST['action']) && $_POST['action'] =='getBatchDropdown_ajax')
 {
 	$itemCode=trim(addslashes(strip_tags($_POST['itemCode'])));
 	$Final_API=$STABILITYBATCHNOLIST_API.'?ItemCode='.$itemCode;
-
+	
 	$response=$obj->get_OTFSI_SingleData($Final_API);
 
 	$option.='<option value="">Select Batch</option>';
@@ -5414,8 +5414,7 @@ if(isset($_POST['action']) && $_POST['action'] =='getTypeOfAnalysis_ajax')
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='addStabilityPlanNewRow_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='addStabilityPlanNewRow_ajax'){
 	$un_id=(trim(addslashes(strip_tags($_POST['un_id']))))+1;
 
 	$option.='<tr id="'.$un_id.'">
@@ -5423,25 +5422,25 @@ if(isset($_POST['action']) && $_POST['action'] =='addStabilityPlanNewRow_ajax')
         <td class=""><select class="form-select focusCSS" id="StationNo'.$un_id.'" name="StationNo[]" onchange="selectSationNo('.$un_id.');" style="width: 140px;border: 1px solid white;"></select></td>
         <td class=""><input type="text" id="SampleQty'.$un_id.'" name="SampleQty[]" class="form-control" ></td>
         <td class=""><input type="text" id="SampleQtyUOM'.$un_id.'" name="SampleQtyUOM[]" class="form-control" ></td>
+        <td class=""><input type="text" id="SampleQtyAsPerOrgBatchUOM'.$un_id.'" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control" ></td>
         <td class=""><select class="form-select focusCSS" id="TypeOfAnalysis'.$un_id.'" name="TypeOfAnalysis[]" style="width: 170px;border: 1px solid white;"></select></td>
         <td class=""><input type="text" id="RefPageNO'.$un_id.'" name="RefPageNO[]" class="form-control" ></td>
         <td class=""><input type="text" id="RefProtocolNo'.$un_id.'" name="RefProtocolNo[]" class="form-control" ></td>
         <td class=""><input type="date" id="StabilityDate'.$un_id.'" name="StabilityDate[]" class="form-control" ></td>
 
-		<td class=""><input type="text" id="UserText1'.$un_id.'" name="UserText1[]" class="form-control" ></td>
-		<td class=""><input type="text" id="UserText2'.$un_id.'" name="UserText2[]" class="form-control" ></td>
-		<td class=""><input type="text" id="UserText3'.$un_id.'" name="UserText3[]" class="form-control" ></td>
-		<td class=""><input type="text" id="UserText4'.$un_id.'" name="UserText4[]" class="form-control" ></td>
+		<td class=""><input type="text" id="LoadingAnalyst'.$un_id.'" name="LoadingAnalyst[]" class="form-control" ></td>
+		<td class=""><input type="date" id="WithdrawalDate1'.$un_id.'" name="WithdrawalDate[]" value="'.date('Y-m-d').'" class="form-control" ></td>
+		<td class=""><input type="text" id="WithdrawalAnalyst'.$un_id.'" name="WithdrawalAnalyst[]" class="form-control" ></td>
+		<td class=""><input type="text" id="ChamberID'.$un_id.'" name="ChamberID[]" class="form-control" ></td>
+		<td class=""><input type="text" id="TrayID'.$un_id.'" name="TrayID[]" class="form-control" ></td>
 		<td class=""><input type="text" id="UserText5'.$un_id.'" name="UserText5[]" class="form-control" ></td>
 
     </tr>';
-	
 	echo $option;
 	exit(0);
 }
 
-if(isset($_POST['StabilityPlanBtn']))
-{
+if(isset($_POST['StabilityPlanBtn'])){
 	$mainArray=array();
 	$tadat=array();
 	$RowLevel=array();
@@ -5489,33 +5488,34 @@ if(isset($_POST['StabilityPlanBtn']))
 			echo json_encode($data);
 			exit(0);
 		}
+
+		if(count($_POST['StationNo'])==1){
+			$data['status']='False';$data['DocEntry']='';$data['message']="Pls. Fill Row Level Data.";
+			echo json_encode($data);
+			exit(0);
+		}
 	// <!-- ---------------------- Stability Plan All Validation End Here -------------------------------------------- -->
-		
-	$tdata['Series']=trim(addslashes(strip_tags($_POST['DocNoName'])));
-	$tdata['Remark']=null;
+	
 	$tdata['Object']='SCS_STAB';
+	$tdata['Series']=trim(addslashes(strip_tags($_POST['DocNoName'])));
 	$tdata['U_PC_ICode']=trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$tdata['U_PC_IName']=trim(addslashes(strip_tags($_POST['ItemName'])));
 	$tdata['U_PC_ESQty']=trim(addslashes(strip_tags($_POST['ExtraSampleQty'])));
-	$tdata['U_PC_ESUoM']=tirm(addslashes(strip_tags($_POST['UOM'])));
-	$tdata['U_PC_ESam']=null;
-	$tdata['U_PC_UTxt2']=trim(addslashes(strip_tags($_POST['BatchNo'])));
-	$tdata['U_PC_StbType']=trim(addslashes(strip_tags($_POST['StabilityType'])));
-	$tdata['U_PC_TPer']=trim(addslashes(strip_tags($_POST['TimePeriod'])));
+	$tdata['U_PC_ESUoM']=trim(addslashes(strip_tags($_POST['UOM'])));
+	$tdata['U_PC_StbTyp']=trim(addslashes(strip_tags($_POST['StabilityType'])));
 	$tdata['U_PC_StbCon']=trim(addslashes(strip_tags($_POST['StabilityCondition'])));
-	$tdata['U_PC_StbTyp']=null;
-
-	$tdata['U_PC_LDate']=null;
+	$tdata['U_PC_TPer']=trim(addslashes(strip_tags($_POST['TimePeriod'])));
 	$tdata['U_PC_BtchQty']=trim(addslashes(strip_tags($_POST['b_qty'])));
+	$tdata['U_PC_LDate']=trim(addslashes(strip_tags($_POST['LoadingDate'])));
 	$tdata['U_PC_InvUoM']=trim(addslashes(strip_tags($_POST['InventoryUom'])));
-	
+	$tdata['U_PC_UTxt2']=trim(addslashes(strip_tags($_POST['BatchNo'])));
+	$tdata['Remark']=trim(addslashes(strip_tags($_POST['Remarks'])));
+
 	$mainArray=$tdata;
 
 	// <!-- ------------------------ Row Level Data Preparing Start Here --------------------------------------------------------- --> 
 		for ($i=0; $i <(count($_POST['StationNo'])-1) ; $i++) { 
-
 			$RowLevel['LineId']=trim(addslashes(strip_tags(($i+1))));
-			$RowLevel['Object']='SCS_STAB';
 
 			if($_POST['StationNo'][$i]==''){
 				$data['status']='False';
@@ -5526,32 +5526,25 @@ if(isset($_POST['StabilityPlanBtn']))
 			}else{
 				$RowLevel['U_PC_StNo']=trim(addslashes(strip_tags($_POST['StationNo'][$i]))); 
 			}
-			
-			$RowLevel['U_PC_SQty']=trim(addslashes(strip_tags($_POST['SampleQty'][$i]))); 
+
+			$RowLevel['U_PC_SQty']=trim(addslashes(strip_tags($_POST['SampleQty'][$i])));
+			$RowLevel['U_PC_SQUom']=trim(addslashes(strip_tags($_POST['SampleQtyUOM'][$i])));
+			$RowLevel['U_PC_SBQty']=trim(addslashes(strip_tags($_POST['SampleQtyAsPerOrgBatchUOM'][$i])));
 			$RowLevel['U_PC_TAna']=trim(addslashes(strip_tags($_POST['TypeOfAnalysis'][$i]))); 
 			$RowLevel['U_PC_RPge']=trim(addslashes(strip_tags($_POST['RefPageNO'][$i])));
 			$RowLevel['U_PC_RPrNo']=trim(addslashes(strip_tags($_POST['RefProtocolNo'][$i])));
-
-			if(!empty($_POST['StabilityDate'][$i])){
-				$RowLevel['U_PC_StDt']=date('Y-m-d', strtotime($_POST['StabilityDate'][$i]));
-			}else{
-				$RowLevel['U_PC_StDt']=null;
-			}
-
-			$RowLevel['U_PC_UTxt1']=trim(addslashes(strip_tags($_POST['UserText1'][$i])));
-			$RowLevel['U_PC_UTxt2']=trim(addslashes(strip_tags($_POST['UserText2'][$i])));
-			$RowLevel['U_PC_UTxt3']=trim(addslashes(strip_tags($_POST['UserText3'][$i])));
-			$RowLevel['U_PC_UTxt4']=trim(addslashes(strip_tags($_POST['UserText4'][$i])));
+			$RowLevel['U_PC_StDt']=(!empty($_POST['StabilityDate'][$i])) ? date('Y-m-d', strtotime($_POST['StabilityDate'][$i])) : null;
+			$RowLevel['U_PC_UTxt1']=trim(addslashes(strip_tags($_POST['LoadingAnalyst'][$i])));
+			$RowLevel['U_PC_UTxt2']=trim(addslashes(strip_tags($_POST['WithdrawalAnalyst'][$i])));
+			$RowLevel['U_PC_UTxt3']=trim(addslashes(strip_tags($_POST['ChamberID'][$i])));
+			$RowLevel['U_PC_UTxt4']=trim(addslashes(strip_tags($_POST['TrayID'][$i])));
 			$RowLevel['U_PC_UTxt5']=trim(addslashes(strip_tags($_POST['UserText5'][$i])));
-			$RowLevel['U_PC_SQUom']=trim(addslashes(strip_tags($_POST['SampleQtyUOM'][$i])));
+			$RowLevel['U_WtDate']=(!empty($_POST['WithdrawalDate'][$i])) ? date('Y-m-d', strtotime($_POST['WithdrawalDate'][$i])) : null;
 
 			$mainArray['SCS_STAB1Collection'][]=$RowLevel;
 		}
-	// <!-- ------------------------ Row Level Data Preparing End Here ----------------------------------------------------------- --> 
+	// <!-- ------------------------ Row Level Data Preparing End Here ----------------------------------------------------------- -->
 
-	// echo '<pre>';
-	// print_r(json_encode($mainArray));
-	// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -5565,7 +5558,6 @@ if(isset($_POST['StabilityPlanBtn']))
 				$data=array();
 
 				if($responce->DocNum!=""){
-
 					$data['status']='True';
 					$data['DocEntry']=$responce->DocEntry;
 					$data['message']="Stability Plan Successfully Added.";
@@ -5612,8 +5604,7 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_sample_intimationStability_
 	exit(0);
 }
 
-if(isset($_POST['OP_SampleIntimationBtn']))
-{
+if(isset($_POST['OP_SampleIntimationBtn'])){
 	$tdata=array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['Series']=trim(addslashes(strip_tags($_POST['SIS_P_DocNoName'])));
@@ -5667,8 +5658,8 @@ if(isset($_POST['OP_SampleIntimationBtn']))
 			$tdata['U_PC_ExpDt']='';
 		}
 
-		if(!empty($_POST['SIS_P_RetestDate'])){
-			$tdata['U_PC_TRDte']=date('Y-m-d', strtotime($_POST['SIS_P_RetestDate']));
+		if(!empty($_POST['SIS_P_TrDate'])){
+			$tdata['U_PC_TRDte']=date('Y-m-d', strtotime($_POST['SIS_P_TrDate']));
 		}else{
 			$tdata['U_PC_TRDte']='';
 		}
@@ -5679,7 +5670,6 @@ if(isset($_POST['OP_SampleIntimationBtn']))
 			$tdata['U_PC_StDt']='';
 		}
 	// ---------------------------------Date Var Prepare End Here   ------------------------------------
-
 
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
