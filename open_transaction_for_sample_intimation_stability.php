@@ -348,6 +348,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
+                // console.log('JSONObject=>', JSONObject);
 
                 // 1st Line-------------------------------------------------------------------------------------
                     $(`#SIS_P_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
@@ -432,6 +433,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // 9th Line-------------------------------------------------------------------------------------
                     $(`#SIS_P_ContainerNos`).val(JSONObject[0]['ContainerNos']);
                     $(`#SIS_P_Container`).val(JSONObject[0]['Container']);
+                    $(`#SIS_P_MakeBy`).val(JSONObject[0]['MakeBy']);
 
                 // Hidden field mapped Start Here --------------------------------------------------------------
                     $(`#SIS_P_BPLId`).val(JSONObject[0]['BPLId']);
