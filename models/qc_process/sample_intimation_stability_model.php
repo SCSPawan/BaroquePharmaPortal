@@ -18,20 +18,20 @@
 
                     <form role="form" class="form-horizontal" id="OT_SampleIntimationForm" method="post">
                         <div class="row">
-                            <input type="text" id="SIS_P_StatusChekBoxValue" name="SIS_P_StatusChekBoxValue">
-                            <input type="text" id="SIS_P_BPLId" name="SIS_P_BPLId">
-                            <input type="text" id="SIS_P_LocCode" name="SIS_P_LocCode">
-                            <input type="text" id="SIS_P_WhsTotal" name="SIS_P_WhsTotal">
-                            <input type="text" id="SIS_P_BaseType" name="SIS_P_BaseType">
-                            <input type="text" id="SIS_P_BaseEntry" name="SIS_P_BaseEntry">
-                            <input type="text" id="SIS_P_BaseNum" name="SIS_P_BaseNum">
-                            <input type="text" id="SIS_P_DocDate" name="SIS_P_DocDate">
-                            <input type="text" id="SIS_P_Quantity" name="SIS_P_Quantity">
-                            <input type="text" id="SIS_P_AdditionalYear" name="SIS_P_AdditionalYear">
-                            <input type="text" id="SIS_P_EndDate" name="SIS_P_EndDate">
-                            <input type="text" id="SIS_P_PeriodType" name="SIS_P_PeriodType">
-                            <input type="text" id="SIS_P_PeriodInMonths" name="SIS_P_PeriodInMonths">
-                            <input type="text" id="SIS_P_PlannedQty" name="SIS_P_PlannedQty">
+                            <input type="hidden" id="SIS_P_StatusChekBoxValue" name="SIS_P_StatusChekBoxValue">
+                            <input type="hidden" id="SIS_P_BPLId" name="SIS_P_BPLId">
+                            <input type="hidden" id="SIS_P_LocCode" name="SIS_P_LocCode">
+                            <input type="hidden" id="SIS_P_WhsTotal" name="SIS_P_WhsTotal">
+                            <input type="hidden" id="SIS_P_BaseType" name="SIS_P_BaseType">
+                            <input type="hidden" id="SIS_P_BaseEntry" name="SIS_P_BaseEntry">
+                            <input type="hidden" id="SIS_P_BaseNum" name="SIS_P_BaseNum">
+                            <input type="hidden" id="SIS_P_DocDate" name="SIS_P_DocDate">
+                            <input type="hidden" id="SIS_P_Quantity" name="SIS_P_Quantity">
+                            <input type="hidden" id="SIS_P_AdditionalYear" name="SIS_P_AdditionalYear">
+                            <input type="hidden" id="SIS_P_EndDate" name="SIS_P_EndDate">
+                            <input type="hidden" id="SIS_P_PeriodType" name="SIS_P_PeriodType">
+                            <input type="hidden" id="SIS_P_PeriodInMonths" name="SIS_P_PeriodInMonths">
+                            <input type="hidden" id="SIS_P_PlannedQty" name="SIS_P_PlannedQty">
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
@@ -48,15 +48,15 @@
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                    <div class="col-lg-4" id="SIS_P_" name="SIS_P_">
+                                    <div class="col-lg-5">
                                         <select class="form-select" id="SIS_P_DocNoName" name="SIS_P_DocNoName" onchange="selectedSeries()"></select>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <input class="form-control desabled" type="text" id="SIS_P_DocNo" name="SIS_P_DocNo" readonly>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <!-- <div class="col-lg-2">
                                         <input class="form-control desabled" type="text" id="SIS_P_" name="SIS_P_" readonly style="border: 1px solid red;">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -342,24 +342,33 @@
                                     </div>
                                 </div>
                             </div>  
-                                        
-                            <div class="col-xl-6 col-md-6">
+
+                            <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                   <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control" rows="2" id="SIS_P_ContainerNos" name="SIS_P_ContainerNos"></textarea>
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" id="SIS_P_Container" name="SIS_P_Container">
                                     </div>
                                 </div>
                             </div> 
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                   <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container</label>
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="text" id="SIS_P_Container" name="SIS_P_Container">
+                                        <input class="form-control" type="text" id="SIS_P_MakeBy" name="SIS_P_MakeBy" readonly>
                                     </div>
                                 </div>
                             </div> 
+                                        
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group row mb-2">
+                                   <label class="col-lg-2 col-form-label mt-6" for="val-skill">Container Nos</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control" rows="3" id="SIS_P_ContainerNos" name="SIS_P_ContainerNos"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -403,19 +412,6 @@
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
-                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                <div class="col-lg-6">
-                                    <select class="form-select" id="SIS_IT_SeriesName" name="SIS_IT_SeriesName" onchange="selectedSeries()"></select>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <input class="form-control desabled" type="text" id="SIS_IT_SeriesNo" name="SIS_IT_SeriesNo" readonly="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
                                 <div class="col-lg-8">
                                     <input class="form-control desabled" type="text" id="SIS_IT_SupplierName" name="SIS_IT_SupplierName" readonly>
@@ -428,6 +424,19 @@
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
                                  <div class="col-lg-8">
                                     <input class="form-control desabled" type="text" id="SIS_IT_BranchName" name="SIS_IT_BranchName" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                <div class="col-lg-6">
+                                    <select class="form-select" id="SIS_IT_SeriesName" name="SIS_IT_SeriesName" onchange="selectedSeries()"></select>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <input class="form-control desabled" type="text" id="SIS_IT_SeriesNo" name="SIS_IT_SeriesNo" readonly="">
                                 </div>
                             </div>
                         </div>
@@ -445,7 +454,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="SIS_IT_PostingDate" name="SIS_IT_PostingDate">
+                                    <input class="form-control" type="date" id="SIS_IT_PostingDate" name="SIS_IT_PostingDate" value="<?php echo date('Y-m-d');?>" onchange="getSeriesDropdown()">
                                 </div>
                             </div>
                         </div>
@@ -454,7 +463,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="SIS_IT_DocumentDate" name="SIS_IT_DocumentDate">
+                                    <input class="form-control" type="date" id="SIS_IT_DocumentDate" name="SIS_IT_DocumentDate" value="<?php echo date('Y-m-d');?>">
                                 </div>
                             </div>
                         </div>
@@ -550,3 +559,20 @@
     </div>
 </div>
 <!-- --------------After inventory transfer-------------- -->
+
+<!-- --------Sample Intimation - Stability RPT View Modal Start ------------------- -->
+<div class="modal fade Sample_Inti_Stability_RPT" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="RPT_title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="View_RPT_Close()"></button>
+         </div>
+         
+         <div class="modal-body">
+            <iframe id="RPT_Link" src="" style="width: 100%;height: 88vh;"></iframe>
+         </div><!--body end-->
+      </div>
+   </div>
+</div>
+<!-- --------Sample Intimation - Stability RPT View Modal Start ------------------- -->

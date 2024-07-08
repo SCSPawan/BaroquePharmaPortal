@@ -3,8 +3,7 @@
  </style>
 
 <!-- Open Transaction for sample collection stability popup Start model --------------------------------------- -->
-<div class="modal fade sample-collectoin-stability" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-aria-hidden="true">
+<div class="modal fade sample-collectoin-stability" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -248,7 +247,7 @@ aria-hidden="true">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control " type="date" id="OTSCP_DocDate" name="OTSCP_DocDate" value="<?php echo date("Y-m-d");?>">
+                                        <input class="form-control " type="date" id="OTSCP_DocDate" name="OTSCP_DocDate" value="<?php echo date("Y-m-d");?>" onchange="getSeriesDropdown()">
                                     </div>
                                 </div>
                             </div>
@@ -300,8 +299,8 @@ aria-hidden="true">
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
-                                    <label class="col-lg-6 col-form-label mt-6" for="val-skill">Stability Condition</label>
-                                    <div class="col-lg-6">
+                                    <label class="col-lg-5 col-form-label mt-6" for="val-skill">Stability Condition</label>
+                                    <div class="col-lg-7">
                                         <input class="form-control desabled" type="text" id="OTSCP_StabilityCondition" name="OTSCP_StabilityCondition" readonly>
                                     </div>
                                 </div>
@@ -321,6 +320,15 @@ aria-hidden="true">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Type</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="OTSCP_AnalysisType" name="OTSCP_AnalysisType" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-group row mb-2">
+                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">MakeBy</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control desabled" type="text" id="OTSCP_MakeBy" name="OTSCP_MakeBy" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -581,138 +589,128 @@ aria-hidden="true">
     <!-- --------------inventory transfer-------------- -->
 
 
-                     <!-- --------Goods Issue------------ -->
+<!-- --------Goods Issue------------ -->
+<div class="modal fade goods_issue" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Goods Issue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-        <div class="modal fade goods_issue" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-           <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myLargeModalLabel">Goods Issue</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body">
+                <!-- form start -->
+                <form method="post" action="#" id="stabilityForm">
+                    <div class="row">
+                        <input type="hidden" id="stability_BPLId" name="stability_BPLId">
+                        <input type="hidden" id="stability_DocEntry" name="stability_DocEntry">
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="stability_Branch" name="stability_Branch" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="stability_BaseDocType" name="stability_BaseDocType" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="stability_BaseDocNum" name="stability_BaseDocNum" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                <div class="col-lg-4">
+                                    <select class="form-select" type="text" id="stability_SeriesName" name="stability_SeriesName" onchange="selectedSeriesForGoodsIssue()"></select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control desabled" type="text" id="stability_docNo" name="stability_docNo" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="stability_PostingDate" name="stability_PostingDate" value="<?php echo date('Y-m-d');?>" onchange="getSeriesDropdownForGoodsIssue()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="stability_DocumentDate" name="stability_DocumentDate" value="<?php echo date('Y-m-d');?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--row end-->
+
+                    <div class="table-responsive" id="list">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <thead class="fixedHeader1">
+                                <tr>
+                                    <th>Sr. No </th>  
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Quality</th>
+                                    <th>From Whs</th>
+                                    <th>To Whs</th>
+                                    <th>Location</th>
+                                    <th>UOM</th>
+                                </tr>
+                            </thead>
+                            <tbody id="InventoryTransferItemAppend"></tbody> 
+                        </table>
                     </div>
+                    <!-- table end -->
+                    <br>
 
-                          <div class="modal-body">
-                           <!-- form start -->
-                                    <form method="post" action="#" id="stabilityForm">
-                                     <div class="row">
-                                       <!-- =============== -->
-                                        <input class="form-control desabled" type="text" id="stability_BPLId" name="stability_BPLId">
-                                        <input class="form-control desabled" type="text" id="stability_DocEntry" name="stability_DocEntry">
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="stability_Branch" name="stability_Branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="stability_BaseDocType" name="stability_BaseDocType" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="stability_BaseDocNum" name="stability_BaseDocNum" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="stability_Series" name="stability_Series" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="stability_PostingDate" name="stability_PostingDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="stability_DocumentDate" name="stability_DocumentDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                       
-                                    </div><!--row end-->
-
-                                    <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <!-- <th>select</th> -->
-                                                                <th>Sr. No </th>  
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Quality</th>
-                                                                <!-- <th>Warehouse</th> -->
-                                                                <th>From Whs</th>
-                                                                <th>To Whs</th>
-                                                                <th>Location</th>
-                                                                <th>UOM</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="InventoryTransferItemAppend"></tbody> 
-                                                   </table>
-                                               </div>
-                                               
-                                <!-- table end -->
-
-                                <br>
-
-                                 <!-- table start -->
-                                 <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-                                 <div class="table-responsive mt-2" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Select</th>
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Container No</th>
-                                                                <th>Batch</th>
-                                                                <th>Batch Qty</th>
-                                                                <th>Select Qty</th>
-                                                                <th>Mfg Date</th> 
-                                                                <th>Expiry Date</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="ContainerSelectionItemAppend">
-                                                        
-                                                     </tbody> 
-                                                   </table>
-                                               </div>
-                                               <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_sample_issue()">Add</button>
-                                               <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-primary" data-bs-toggle="button" autocomplete="off">Cancel</button>
-                                
-          </form>
-      </div><!--body end-->
+                    <!-- table start -->
+                    <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+                    <div class="table-responsive mt-2" id="list">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <thead class="fixedHeader1">
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Container No</th>
+                                    <th>Batch</th>
+                                    <th>Batch Qty</th>
+                                    <th>Select Qty</th>
+                                    <th>Mfg Date</th> 
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ContainerSelectionItemAppend"></tbody> 
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_sample_issue()">Add</button>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
+                </form>
+            </div><!--body end-->
+        </div>
     </div>
-  </div>
 </div>
-
-
-    <!-- --------------Goods Issue-------------- -->
+<!-- --------------Goods Issue-------------- -->
 
 
         <script type="text/javascript">

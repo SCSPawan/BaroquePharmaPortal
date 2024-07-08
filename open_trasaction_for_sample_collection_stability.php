@@ -3,12 +3,11 @@ require_once './classes/function.php';
 $obj= new web();
 
 if(empty($_SESSION['Baroque_EmployeeID'])) {
-  header("Location:login.php");
-  exit(0);
+    header("Location:login.php");
+    exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($OPENTRANSSAMPCOLSTABILITY_API);
     $count=count($getAllData);
 
@@ -17,15 +16,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -162,37 +161,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         if(!empty($getAllData[$i]->SrNo)){   //  this condition save to extra blank loop
 
                             // --------------- Convert String code Start Here ---------------------------
-                                if(empty($getAllData[$i]->DocDate)){
-                                    $DocDate='';
-                                }else{
-                                    $DocDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
-                                }
+                                $DocDate=(!empty($getAllData[$i]->DocDate)) ? date("d-m-Y", strtotime($getAllData[$i]->DocDate)) : null;
 
-                                if(empty($getAllData[$i]->MfgDate)){
-                                    $MfgDate='';
-                                }else{
-                                    $MfgDate=date("d-m-Y", strtotime($getAllData[$i]->MfgDate));
-                                }
+                                $MfgDate=(!empty($getAllData[$i]->MfgDate)) ? date("d-m-Y", strtotime($getAllData[$i]->MfgDate)) : null;
 
-                                if(empty($getAllData[$i]->ExpiryDate)){
-                                    $ExpiryDate='';
-                                }else{
-                                    $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
-                                }
+                                $ExpiryDate=(!empty($getAllData[$i]->ExpiryDate)) ? date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate)) : null;
 
-                                if(empty($getAllData[$i]->StabilityLoadingDate)){
-                                    $StabilityLoadingDate='';
-                                }else{
-                                    $StabilityLoadingDate=date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate));
-                                }
+                                $StabilityLoadingDate=(!empty($getAllData[$i]->StabilityLoadingDate)) ? date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate)) : null;
 
-                                if(empty($getAllData[$i]->EndDate)){
-                                    $EndDate='';
-                                }else{
-                                    $EndDate=date("d-m-Y", strtotime($getAllData[$i]->EndDate));
-                                }
-
-                                
+                                $EndDate=(!empty($getAllData[$i]->EndDate)) ? date("d-m-Y", strtotime($getAllData[$i]->EndDate)) : null;
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -200,7 +177,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled" style="text-align: center;">'.($i+1).'.</td>
 
                                     <td style="width: 100px;vertical-align: middle; text-align: center;">
-                                        <a href="" class="" data-bs-toggle="modal" data-bs-target=".sample-collectoin-stability" onclick="OTS_SampleCollection_popup(\''.$getAllData[$i]->StabilityPlanDocEntry.'\',\''.$getAllData[$i]->ItemCode.'\',\''.$getAllData[$i]->BatchNo.'\')">
+                                        <a href="" class="" data-bs-toggle="modal" data-bs-target=".sample-collectoin-stability" onclick="OTS_SampleCollection_popup(\''.$getAllData[$i]->ReceiptEntry.'\',\''.$getAllData[$i]->ItemCode.'\',\''.$getAllData[$i]->BatchNo.'\')">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -253,46 +230,38 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     exit(0);
 }
 ?>
-
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/sample_collection_stability_model.php' ?>
 
-<style type="text/css">
-    body[data-layout=horizontal] .page-content {
-        padding: 20px 0 0 0;
-        padding: 40px 0 60px 0;
-    }
-</style>
+    <style type="text/css">
+        body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
+    </style>
 
-<!-- ---------- loader start here---------------------- -->
-    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+            </div>
         </div>
-    </div>
-<!-- ---------- loader end here---------------------- -->
+    <!-- ---------- loader end here---------------------- -->
 
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
                 <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h4 class="mb-0">Open Transaction for Sample Collection - Stability</h4>
-
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Open Transaction for Sample Collection - Stability</li>
-                                </ol>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0">Open Transaction for Sample Collection - Stability</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Open Transaction for Sample Collection - Stability</li>
+                                    </ol>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
                 <!-- end page title -->
 
                 <div class="row">
@@ -302,11 +271,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 <h4 class="card-title mb-0">Open Transaction for Sample Collection - Stability</h4> 
                             </div>
                             <div class="card-body">
-
-                                <div class="table-responsive" id="list-append">
-                                    <!-- -----Append table list----- -->
-                                </div>
-
+                                <!-- -----Append table list----- -->
+                                <div class="table-responsive" id="list-append"></div>
                             </div>
                         </div>
                     </div>
@@ -314,82 +280,68 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             </div>
         </div>
         <br>
-        <!-- End Page-content -->
+    <!-- End Page-content -->
   
 <?php include 'include/footer.php' ?>
 
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var dataString ='action=list';
-        
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
             data: dataString,  
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
-                // console.log(result);
+            success: function(result){
                 $('#list-append').html(result);
             },
             complete:function(data){
-                // Hide image container
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
-    function change_page(page_id)
-    { 
+    function change_page(page_id){ 
         var dataString ='page_id='+page_id+'&action=list';
-
         $.ajax({
             type: "POST",
-             url: window.location.href,  
+            url: window.location.href,  
             data: dataString,
             cache: false,
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 $('#list-append').html(result);
             },
             complete:function(data){
-                // Hide image container
                 $(".loader123").hide();
             }
-        });
+        })
     }
 
-    function OTS_SampleCollection_popup(DocEntry,ItemCode,BatchNo)
-    {
+    function OTS_SampleCollection_popup(DocEntry,ItemCode,BatchNo){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'DocEntry':DocEntry,'ItemCode':ItemCode,'BatchNo':BatchNo,'action':"OTS_Sample_Collection_popup"},
-
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {
+            success: function(result){
                 var JSONObject = JSON.parse(result);
-                
-            // 1st line---------------------------------------------------------------
+
+                // 1st line---------------------------------------------------------------
                     $(`#OTSCP_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
                     $(`#OTSCP_ReceiptEntry`).val(JSONObject[0]['ReceiptEntry']);
                     $(`#OTSCP_WONo`).val(JSONObject[0]['WONo']);
                     $(`#OTSCP_WODocEntry`).val(JSONObject[0]['WODocEntry']);
 
-            // 2nd line---------------------------------------------------------------
+                // 2nd line---------------------------------------------------------------
                     $(`#OTSCP_IntimatedBy`).val(JSONObject[0]['IntimatedBy']);
                     $(`#OTSCP_Unit`).val(JSONObject[0]['Unit']);
 
@@ -401,13 +353,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         }
                     // <!-- ----------- Intimat Date End Here ------------------------- -->
 
-            // 3rd line---------------------------------------------------------------
+                // 3rd line---------------------------------------------------------------
                     $(`#OTSCP_ARNo`).val(JSONObject[0]['ArNo']);
                     $(`#OTSCP_BatchNo`).val(JSONObject[0]['BatchNo']);
                     $(`#OTSCP_BatchQty`).val(JSONObject[0]['BatchQty']);
                     $(`#OTSCP_StabilityTransferNoFromWo`).val(JSONObject[0]['StabilityTransferNoFromWo']);
 
-            // 4th line---------------------------------------------------------------
+                // 4th line---------------------------------------------------------------
                     $(`#OTSCP_StabilityTransferEntryFromWo`).val(JSONObject[0]['StabilityTransferEntryFromWo']);
                     $(`#OTSCP_StabilityPlanDocNum`).val(JSONObject[0]['StabilityPlanDocNum']);
                     $(`#OTSCP_StabilityPlanDocEntry`).val(JSONObject[0]['StabilityPlanDocEntry']);
@@ -415,19 +367,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     // <!-- ----------- Stability Loading Date Start Here ----------------------- -->
                         var stabilityLoadingDateOG = JSONObject[0]['StabilityLoadingDate'];
                         if(stabilityLoadingDateOG!=''){
-                            stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
-                            $(`#OTSCP_StabilityLoadingDate`).val(stabilityLoadingDate);
+                        stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
+                        $(`#OTSCP_StabilityLoadingDate`).val(stabilityLoadingDate);
                         }
                     // <!-- ----------- Stability Loading Date End Here ------------------------- -->
 
-            // 5th line---------------------------------------------------------------
+                // 5th line---------------------------------------------------------------
                     $(`#OTSCP_StabilityPlanQuantity`).val(JSONObject[0]['StabilityPlanQuantity']);
                     $(`#OTSCP_StabilityIntimationNo`).val(JSONObject[0]['StabilityIntimationNo']);
                     $(`#OTSCP_TotalNoofContainer`).val(JSONObject[0]['TotalNoofContainer']);
                     $(`#OTSCP_WhsCode`).val(JSONObject[0]['WhsCode']);
 
-            // 6th line---------------------------------------------------------------
-                   
+                // 6th line---------------------------------------------------------------
+
                     // <!-- ----------- MFG Date Start Here ----------------------- -->
                         var mfgDateOG = JSONObject[0]['MfgDate'];
                         if(mfgDateOG!=''){
@@ -446,18 +398,19 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                     $(`#OTSCP_Branch`).val(JSONObject[0]['Branch']);
 
-            // 7th line---------------------------------------------------------------
+                // 7th line---------------------------------------------------------------
                     $(`#OTSCP_Location`).val(JSONObject[0]['Location']);
                     $(`#OTSCP_ItemCode`).val(JSONObject[0]['ItemCode']);
                     $(`#OTSCP_ItemName`).val(JSONObject[0]['ItemName']);
                     $(`#OTSCP_StabilityType`).val(JSONObject[0]['StabilityType']);
 
-            // 8th line---------------------------------------------------------------
+                // 8th line---------------------------------------------------------------
                     $(`#OTSCP_StabilityCondition`).val(JSONObject[0]['StabilityCondition']);
                     $(`#OTSCP_StabilityTimePeriod`).val(JSONObject[0]['StabilityTimePeriod']);
                     $(`#OTSCP_AnalysisType`).val(JSONObject[0]['AnalysisType']);
+                    $(`#OTSCP_MakeBy`).val(JSONObject[0]['MakeBy']);
 
-            // Hidden Field mapping Here ---------------------------------------------------------------
+                // Hidden Field mapping Here ---------------------------------------------------------------
                     $(`#OTSCP_BPLId`).val(JSONObject[0]['BPLId']);
                     $(`#OTSCP_LocCode`).val(JSONObject[0]['LocCode']);
                     $(`#OTSCP_UnderTestTransferNo`).val(JSONObject[0]['UnderTestTransferNo']);
@@ -480,101 +433,89 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },complete:function(data){
                 IngrediantTypeDropdown() // Ingrediant Type API to Get Dropdown
             }
-        }); 
+        })
     }
 
-    function IngrediantTypeDropdown()
-    {
+    function IngrediantTypeDropdown(){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'action':"IngrediantTypeDropdown_ajax"},
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 $('#OTSCP_IngredientsType').html(result);
-            }
-            ,
-            complete:function(data){
-                getSeriesDropdown() // DocName By using API to get dropdown 
-            }
-        }); 
-    }
-
-    function getSeriesDropdown()
-    {
-        var dataString ='ObjectCode=SCS_SCOLSTAB&action=getSeriesDropdown_ajax';
-
-        $.ajax({
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                var SeriesDropdown = JSON.parse(result);
-                $('#OTSCP_DocNoName').html(SeriesDropdown);
-                
-            },
-            complete:function(data){
-                selectedSeries(); // call Selected Series Single data function
-            }
-        }); 
-    }
-
-    function selectedSeries(){
-
-        var Series=document.getElementById('OTSCP_DocNoName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_SCOLSTAB&action=getSeriesSingleData_ajax';
-
-        $.ajax({
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-                var NextNumber=JSONObject[0]['NextNumber'];
-            
-                $('#OTSCP_DocNo').val(NextNumber);
             },
             complete:function(data){
                 TR_ByDropdown() //TR & (Sample Collect By) By API to GetDropdown
             }
-        }); 
+        })
     }
 
-    function TR_ByDropdown()
-    {
+    function TR_ByDropdown(){
         $.ajax({ 
             type: "POST",
             url: 'ajax/common-ajax.php',
             data:{'action':"TR_ByDropdown_ajax"},
-
             beforeSend: function(){
             },
-            success: function(result)
-            {
+            success: function(result){
                 var SampleTypeDrop = JSON.parse(result);
                 $('#OTSCP_SampleCollectBy').html(SampleTypeDrop);
             },
             complete:function(data){
+                getSeriesDropdown() // DocName By using API to get dropdown 
+            }
+        })
+    }
+
+    function getSeriesDropdown(){
+        var TrDate = $('#OTSCP_DocDate').val();
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_SCOLSTAB&action=getSeriesDropdown_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var SeriesDropdown = JSON.parse(result);
+                $('#OTSCP_DocNoName').html(SeriesDropdown);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+                selectedSeries(); // call Selected Series Single data function
+            }
+        })
+    }
+
+    function selectedSeries(){
+        var Series=document.getElementById('OTSCP_DocNoName').value;
+        var TrDate = $('#OTSCP_DocDate').val();
+        var dataString ='Series='+Series+'&TrDate='+TrDate+'&ObjectCode=SCS_SCOLSTAB&action=getSeriesSingleData_ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                var NextNumber=JSONObject[0]['NextNumber'];
+
+                $('#OTSCP_DocNo').val(NextNumber);
+            },
+            complete:function(data){
                 $(".loader123").hide();
             }
-        }); 
+        })
     }
 
     function OTSCSP_Submit(){
-
         var formData = new FormData($('#OTSCSP_Form')[0]);  // Form Id
         formData.append("OTSCSP_Btn",'OTSCSP_Btn');  // Button Id
         var error = true;
@@ -586,12 +527,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             processData: false,
             contentType: false,
             beforeSend: function(){
-                // Show image container
                 $(".loader123").show();
             },
-            success: function(result)
-            {
-                console.log(result);
+            success: function(result){    
                 var JSONObject = JSON.parse(result);
 
                 var status = JSONObject['status'];
@@ -599,11 +537,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var DocEntry = JSONObject['DocEntry'];
                 if(status=='True'){
                     swal({
-                      title: `${DocEntry}`,
-                      text: `${message}`,
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: false,
+                        title: `${DocEntry}`,
+                        text: `${message}`,
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
@@ -615,11 +553,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 }else{
                     swal("Oops!", `${message}`, "error");
                 }
-            }
-            ,complete:function(data){
-                // Hide image container
+            },
+            complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 </script>

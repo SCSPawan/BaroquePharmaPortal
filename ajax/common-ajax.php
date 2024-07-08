@@ -3746,8 +3746,7 @@ if(isset($_POST['SIRTIT_SubBtn'])){
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='SIRTIT_View_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='SIRTIT_View_ajax'){
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 
 	//<!-- ------------- function & function responce code Start Here ---- -->
@@ -3763,121 +3762,117 @@ if(isset($_POST['action']) && $_POST['action'] =='SIRTIT_View_ajax')
 			$ContainerData=$ItemAllData[0]->BatchNumbers; // Container All Data Variable define
 
 			$option.=' <div class="row">
-
 				<input class="form-control desabled" type="hidden" id="SIRTIT_View_Series" name="SIRTIT_View_Series" value="'.$responce->Series.'" readonly>
 
-               	<div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.$responce->CardCode.'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.$responce->CardCode.'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                     <div class="col-lg-6">
-                        <input class="form-control desabled" type="text" id="SIRTIT_View_Series_Name" name="SIRTIT_View_Series_Name"  readonly>
-                     </div>
-                     <div class="col-lg-2">
-                        <input class="form-control desabled" type="text" value="'.$responce->DocNum.'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.$responce->CardName.'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.$responce->CardName.'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.$responce->BPLName.'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.$responce->BPLName.'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+						<div class="col-lg-6">
+							<input class="form-control desabled" type="text" id="SIRTIT_View_Series_Name" name="SIRTIT_View_Series_Name"  readonly>
+						</div>
+						<div class="col-lg-2">
+							<input class="form-control desabled" type="text" value="'.$responce->DocNum.'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.$responce->U_BFType.'"readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.$responce->U_BFType.'"readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.date("d-m-Y", strtotime($responce->DocDate)).'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" id="PostingDate_ViewMode" name="PostingDate_ViewMode" value="'.date("d-m-Y", strtotime($responce->DocDate)).'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.date("d-m-Y", strtotime($responce->DueDate)).'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.date("d-m-Y", strtotime($responce->DueDate)).'" readonly>
+						</div>
+					</div>
+				</div>
 
-               <div class="col-xl-3 col-md-6">
-                  <div class="form-group row mb-2">
-                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                     <div class="col-lg-8">
-                        <input class="form-control desabled" type="text" value="'.$responce->DocEntry.'" readonly>
-                     </div>
-                  </div>
-               </div>
+				<div class="col-xl-3 col-md-6">
+					<div class="form-group row mb-2">
+						<label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+						<div class="col-lg-8">
+							<input class="form-control desabled" type="text" value="'.$responce->DocEntry.'" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            </div>
+			<div class="table-responsive" id="list">
+				<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+					<thead class="fixedHeader1">
+						<tr>
+							<th>Sr. No </th>  
+							<th>Item Code</th>
+							<th>Item Name</th>
+							<th>Quality</th>
+							<th>From Whs</th>
+							<th>To Whs</th>
+							<th>Location</th>
+							<th>UOM</th>
+						</tr>
+					</thead>
+					<tbody>';
+						for ($i=0; $i <count($ItemAllData) ; $i++) { 
+							$option.='<tr>
+								<td class="desabled">1</td>
+								<td class="desabled">'.$ItemAllData[$i]->ItemCode.'</td>
+								<td class="desabled">'.$ItemAllData[$i]->ItemDescription.'</td>
+								<td class="desabled">'.number_format((float)$ItemAllData[$i]->Quantity, 6, '.', '').'</td>
+								<td class="desabled">'.$responce->FromWarehouse.'</td>
+								<td class="desabled">'.$responce->ToWarehouse.'</td>
+								<td class="desabled" id="SIRTIT_View_Locatio"></td>
+								<td class="desabled">'.$ItemAllData[$i]->MeasureUnit.'</td>
+							</tr>';
+						}
+					$option.='</tbody> 
+				</table>
+			</div>
 
-            <div class="table-responsive" id="list">
-               <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                  <thead class="fixedHeader1">
-                     <tr>
-                        <th>Sr. No </th>  
-                        <th>Item Code</th>
-                        <th>Item Name</th>
-                        <th>Quality</th>
-                        <th>From Whs</th>
-                        <th>To Whs</th>
-                        <th>Location</th>
-                        <th>UOM</th>
-                     </tr>
-                  </thead>
-                  <tbody>';
-
-				for ($i=0; $i <count($ItemAllData) ; $i++) { 
-					$option.='<tr>
-						<td class="desabled">1</td>
-						<td class="desabled">'.$ItemAllData[$i]->ItemCode.'</td>
-						<td class="desabled">'.$ItemAllData[$i]->ItemDescription.'</td>
-						<td class="desabled">'.number_format((float)$ItemAllData[$i]->Quantity, 6, '.', '').'</td>
-						<td class="desabled">'.$responce->FromWarehouse.'</td>
-						<td class="desabled">'.$responce->ToWarehouse.'</td>
-						<td class="desabled" id="SIRTIT_View_Locatio"></td>
-						<td class="desabled">'.$ItemAllData[$i]->MeasureUnit.'</td>
-					</tr>';
-				}
-
-            $option.='</tbody> 
-               </table>
-            </div>
-
-            <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-            <div class="table-responsive mt-2" id="list">
+			<h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+			<div class="table-responsive mt-2" id="list">
 				<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
 					<thead class="fixedHeader1">
 						<tr>
@@ -3891,43 +3886,36 @@ if(isset($_POST['action']) && $_POST['action'] =='SIRTIT_View_ajax')
 						</tr>
 					</thead>
 					<tbody>';
-					$sum=0;
-					for ($j=0; $j <count($ContainerData) ; $j++) { 
-						//  Date condition define start here -------------------------------------------
-							if(!empty($ContainerData[$j]->ManufacturingDate)){
-								$ManufacturingDate=date("d-m-Y", strtotime($ContainerData[$j]->ManufacturingDate));
-							}else{
-								$ManufacturingDate='';
-							}
+						$sum=0;
+						for ($j=0; $j <count($ContainerData) ; $j++) { 
+							//  Date condition define start here -------------------------------------------
+								$ManufacturingDate = (!empty($ContainerData[$j]->ManufacturingDate)) ? date("d-m-Y", strtotime($ContainerData[$j]->ManufacturingDate)) : null;
 
-							if(!empty($ContainerData[$j]->ExpiryDate)){
-								$ExpiryDate=date("d-m-Y", strtotime($ContainerData[$j]->ExpiryDate));
-							}else{
-								$ExpiryDate='';
-							}
-						//  Date condition define end here ---------------------------------------------
+								$ExpiryDate = (!empty($ContainerData[$j]->ExpiryDate)) ? date("d-m-Y", strtotime($ContainerData[$j]->ExpiryDate)) : null;
+							//  Date condition define end here ---------------------------------------------
+
+							$option.='<tr>
+								<td class="desabled">'.$ContainerData[$j]->ItemCode.'</td>
+								<td class="desabled">'.$ItemAllData[0]->ItemDescription.'</td>
+								<td class="desabled">'.$ContainerData[$j]->BatchNumber.'</td>
+								<td class="desabled">'.number_format((float)$ContainerData[$j]->Quantity, 6, '.', '').'</td>
+								<td class="desabled">'.number_format((float)$ContainerData[$j]->Quantity, 6, '.', '').'</td>
+								<td class="desabled">'.$ManufacturingDate.'</td>
+								<td class="desabled">'.$ExpiryDate.'</td>
+							</tr>';
+
+							$sum+=$ContainerData[$j]->Quantity;
+						}
 						$option.='<tr>
-							<td class="desabled">'.$ContainerData[$j]->ItemCode.'</td>
-							<td class="desabled">'.$ItemAllData[0]->ItemDescription.'</td>
-							<td class="desabled">'.$ContainerData[$j]->BatchNumber.'</td>
-							<td class="desabled">'.number_format((float)$ContainerData[$j]->Quantity, 6, '.', '').'</td>
-							<td class="desabled">'.number_format((float)$ContainerData[$j]->Quantity, 6, '.', '').'</td>
-							<td class="desabled">'.$ManufacturingDate.'</td>
-							<td class="desabled">'.$ExpiryDate.'</td>
-						</tr>';
-
-						$sum+=$ContainerData[$j]->Quantity;
-					}
-					$option.='<tr>
 							<td colspan="4"></td>
 							<td class="desabled">
-								<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" value="'.number_format((float)$sum, 6, '.', '').'" readonly="">
+							<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" value="'.number_format((float)$sum, 6, '.', '').'" readonly="">
 							</td>
 							<td colspan="2"></td>
 						</tr>
 					</tbody> 
-               	</table>
-            </div>
+				</table>
+			</div>
 
             <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>';
 		}
@@ -5591,11 +5579,9 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_SC_popup')
 	exit(0);
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='OT_sample_intimationStability_popup')
-{
+if(isset($_POST['action']) && $_POST['action'] =='OT_sample_intimationStability_popup'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$OPENTRANSSAMPINTSTABILITY_API.'&DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'];
-
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
@@ -5644,6 +5630,7 @@ if(isset($_POST['OP_SampleIntimationBtn'])){
 	$tdata['U_PC_StDNo']=trim(addslashes(strip_tags($_POST['SIS_P_StabilityPlanDocNum'])));
 	$tdata['U_PC_StDEnt']=trim(addslashes(strip_tags($_POST['SIS_P_StabilityPlanDocEntry'])));
 	$tdata['U_PC_StQty']=trim(addslashes(strip_tags($_POST['SIS_P_StabilityPlanQuantity'])));
+	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['SIS_P_MakeBy'])));
 
 	// ---------------------------------Date Var Prepare Start Here ------------------------------------
 		if(!empty($_POST['SIS_P_MfgDate'])){
@@ -5739,8 +5726,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransferSIS_ajax'
 
 			for ($i=0; $i <count($response) ; $i++) { 
 
-				if(!empty($response[$i]->ExpiryDate)){
-					$ExpiryDate=date("d-m-Y", strtotime($response[$i]->ExpiryDate));
+				if(!empty($response[$i]->ExpDate)){
+					$ExpiryDate=date("d-m-Y", strtotime($response[$i]->ExpDate));
 				}else{
 					$ExpiryDate='';
 				}
@@ -5817,7 +5804,7 @@ if(isset($_POST['SubSIS_IT_Btn']))
 	$tdata['TaxDate']=date("Y-m-d", strtotime($_POST['SIS_IT_DocumentDate']));
 	$tdata['DocObjectCode']=trim(addslashes(strip_tags('67')));
 	$tdata['BPLID']=trim(addslashes(strip_tags($_POST['SIS_IT_BPLId'])));
-	$tdata['U_PC_SIIProc']=trim(addslashes(strip_tags($_POST['SIS_IT_DocEntry'])));
+	$tdata['U_PC_SIntiNo']=trim(addslashes(strip_tags($_POST['SIS_IT_DocEntry'])));
 	$tdata['U_BFType']=trim(addslashes(strip_tags($_POST['SIS_IT_BaseDocType'])));
 
 	$mainArray=$tdata;
@@ -5848,6 +5835,10 @@ if(isset($_POST['SubSIS_IT_Btn']))
 		$mainArray['StockTransferLines'][]=$item;
 	// --------------------- Item and batch row data preparing end here ---------------------------------- -->
 
+	// echo '<pre>';
+	// print_r(json_encode($mainArray));
+	// die();
+
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -5871,7 +5862,7 @@ if(isset($_POST['SubSIS_IT_Btn']))
 						$UT_data['U_PC_UTTrans']=trim(addslashes(strip_tags($responce->DocEntry)));
 					// <!-- ------- row data preparing end here ----------------------- -->
 
-					$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SISTAB_API.'('.$UT_data['DocEntry'].')';
+					$Final_API2=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SISTAB_API.'('.$_POST['SIS_IT_DocEntry'].')';
 					$underTestNumber=$obj->SampleIntimationUnderTestUpdateFromInventoryTransfer($UT_data,$Final_API2);
 					$underTestNumber_decode=json_decode($underTestNumber);
 
@@ -5901,9 +5892,8 @@ if(isset($_POST['SubSIS_IT_Btn']))
 
 if(isset($_POST['action']) && $_POST['action'] =='OTS_Sample_Collection_popup')
 {
-	$API=$OPENTRANSSAMPCOLSTABILITY_API.'&DocEntry='.$_POST['DocEntry'].'&ItemCode='.$_POST['ItemCode'].'&BatchNo='.$_POST['BatchNo'];
-
 	// <!-- ------- Replace blank space to %20 start here -------- -->
+		$API=$OPENTRANSSAMPCOLSTABILITY_API.'&DocEntry='.$_POST['DocEntry'].'&ItemCode='.$_POST['ItemCode'].'&BatchNo='.$_POST['BatchNo'];
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
@@ -5912,13 +5902,11 @@ if(isset($_POST['action']) && $_POST['action'] =='OTS_Sample_Collection_popup')
 	exit(0);
 }
 
-if(isset($_POST['OTSCSP_Btn']))
-{
+if(isset($_POST['OTSCSP_Btn'])){
 	$tdata=array(); // This array send to AP Standalone Invoice process 
 
 	$tdata['Remark']=null;
 	$tdata['U_PC_BLin']=null;
-	$tdata['U_PC_SQty']=null;
 	$tdata['U_PC_TrNo']=null;
 	$tdata['U_PC_DRev']=null;
 	$tdata['U_PC_SIssue']=null;
@@ -5934,7 +5922,6 @@ if(isset($_POST['OTSCSP_Btn']))
 	$tdata['U_PC_StDt']=null;
 
 	$tdata['Object']='SCS_SCOLSTAB';
-
 	$tdata['Series']=trim(addslashes(strip_tags($_POST['OTSCP_DocNoName'])));
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['OTSCP_BPLId'])));
 	$tdata['U_PC_LocCode']=trim(addslashes(strip_tags($_POST['OTSCP_LocCode'])));
@@ -5965,43 +5952,22 @@ if(isset($_POST['OTSCSP_Btn']))
 	$tdata['U_PC_StDNo']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityPlanDocNum'])));
 	$tdata['U_PC_StDEnt']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityPlanDocEntry'])));
 	$tdata['U_PC_StQty']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityPlanQuantity'])));
-	
-	if(!empty($_POST['OTSCP_DocDate'])){
-		$tdata['U_PC_DDt']=trim(addslashes(strip_tags($_POST['OTSCP_DocDate'])));
-	}else{
-		$tdata['U_PC_DDt']=null;
-	}
-
-	if(!empty($_POST['OTSCP_IntimatedDate'])){
-		$tdata['U_PC_InDt']=date("Y-m-d", strtotime($_POST['OTSCP_IntimatedDate']));
-	}else{
-		$tdata['U_PC_InDt']=null;
-	}
-
-	if(!empty($_POST['OTSCP_MfgDate'])){
-		$tdata['U_PC_MnfDt']=trim(addslashes(strip_tags($_POST['OTSCP_MfgDate'])));
-	}else{
-		$tdata['U_PC_MnfDt']=null;
-	}
-
-	if(!empty($_POST['OTSCP_ExpiryDate'])){
-		$tdata['U_PC_ExpDt']=trim(addslashes(strip_tags($_POST['OTSCP_ExpiryDate'])));
-	}else{
-		$tdata['U_PC_ExpDt']=null;
-	}
+	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['OTSCP_MakeBy'])));
+	$tdata['U_PC_DDt']=(!empty($_POST['OTSCP_DocDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_DocDate']))) : null;
+	$tdata['U_PC_InDt']=(!empty($_POST['OTSCP_IntimatedDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_IntimatedDate'])) : null;
+	$tdata['U_PC_MnfDt']=(!empty($_POST['OTSCP_MfgDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_MfgDate']))) : null;
+	$tdata['U_PC_ExpDt']=(!empty($_POST['OTSCP_ExpiryDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_ExpiryDate']))) : null;
 
 	// <!-- ---------------------- Open transaction for sample collection stability popup validation start Here ------------------ -->
 		if(empty($_POST['OTSCP_SampleCollectBy'])){
-			$data['status']='False';
-			$data['DocEntry']='';
+			$data['status']='False';$data['DocEntry']='';
 			$data['message']="Sample Collect By Mandatory.";
 			echo json_encode($data);
 			exit(0);
 		}
 
 		if(empty($_POST['OTSCP_DocDate'])){
-			$data['status']='False';
-			$data['DocEntry']='';
+			$data['status']='False';$data['DocEntry']='';
 			$data['message']="Document Date Mandatory.";
 			echo json_encode($data);
 			exit(0);
@@ -6013,7 +5979,7 @@ if(isset($_POST['OTSCSP_Btn']))
 
 		if(!empty($res)){
 			$Final_API=$SAP_URL . ":" . $SAP_Port . "/b1s/v1/".$SCS_SCOLSTAB_API;
-			
+
 			$responce_encode=$obj->SaveSampleIntimation($tdata,$Final_API); // sample intimation save here
 			$responce=json_decode($responce_encode);
 
@@ -6021,7 +5987,6 @@ if(isset($_POST['OTSCSP_Btn']))
 				$data=array();
 
 				if($responce->DocNum!=""){
-
 					$data['status']='True';
 					$data['DocEntry']=$responce->DocEntry;
 					$data['message']="Open Transaction For Sample Collection Stability Successfully Added.";
@@ -6045,8 +6010,8 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_stability_aj
 {	
 
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
-	$rowCount=trim(addslashes(strip_tags($_POST['rowCount'])));
-	$rowCount_N=trim(addslashes(strip_tags($_POST['rowCount_N'])));
+	// $rowCount=trim(addslashes(strip_tags($_POST['rowCount'])));
+	// $rowCount_N=trim(addslashes(strip_tags($_POST['rowCount_N'])));
 
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$STABSAMPCOLAFTERADD_API.'?DocEntry='.$DocEntry;
@@ -6060,232 +6025,232 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_stability_aj
 		$FinalResponce['SampleCollDetails']=$response;
 	// <!-- ------ Array declaration End Here  --------------------------------- -->
 
-	$ExtraIssue=$response[0]->StabSampColExtraDetails; // Etra issue response seperate here 
-	$ExternalIssue=$response[0]->StabSampColExternalDetails; //External issue reponce seperate here
+	// $ExtraIssue=$response[0]->StabSampColExtraDetails; // Etra issue response seperate here 
+	// $ExternalIssue=$response[0]->StabSampColExternalDetails; //External issue reponce seperate here
 	
 	// =============================================================================================================
 		// <!-- ----------- Extra Issue Start here --------------------------------- -->
-			if(!empty($ExtraIssue)){
-				for ($i=0; $i <count($ExtraIssue) ; $i++) { 
-					// $SrNo=$i+1;
-					$SrNo=$rowCount_N+1+$i;
+			// if(!empty($ExtraIssue)){
+			// 	for ($i=0; $i <count($ExtraIssue) ; $i++) { 
+			// 		// $SrNo=$i+1;
+			// 		$SrNo=$rowCount_N+1+$i;
 
-					if(!empty($ExtraIssue[$i]->IssueDate)){
-						$IssueDate=date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
-					}else{
-						$IssueDate='';
-					}
+			// 		if(!empty($ExtraIssue[$i]->IssueDate)){
+			// 			$IssueDate=date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
+			// 		}else{
+			// 			$IssueDate='';
+			// 		}
 
-					$FinalResponce['ExtraIssue'].='<tr>
-					    <td>
-					    	<input type="radio" id="ExtraIslist'.$SrNo.'" name="ExtraIslistRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue('.$SrNo.')">
-					    </td>
+			// 		$FinalResponce['ExtraIssue'].='<tr>
+			// 		    <td>
+			// 		    	<input type="radio" id="ExtraIslist'.$SrNo.'" name="ExtraIslistRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue('.$SrNo.')">
+			// 		    </td>
 
-					    <td class="desabled">
-					    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" readonly>
+			// 		    <td class="desabled">
+			// 		    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" readonly>
 
-					    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control desabled" readonly>
-				    	</td>
+			// 		    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control desabled" readonly>
+			// 	    	</td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control desabled" readonly></td>
+			// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control desabled" readonly></td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
+			// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Warehouse.'" class="form-control desabled" readonly></td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control desabled" readonly></td>
+			// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control desabled" readonly></td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control desabled" readonly></td>
+			// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control desabled" readonly></td>
 
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control desabled" readonly></td>
-					 </tr>';
-				}
-				// when table data come then default add one manual row start ---------------------------------------------------------
-				$SrNo=(count($ExtraIssue)+1);
-				$FinalResponce['ExtraIssue'].='<tr>
-				    <td class="desabled"></td>
+			// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control desabled" readonly></td>
+			// 		 </tr>';
+			// 	}
+			// 	// when table data come then default add one manual row start ---------------------------------------------------------
+			// 	$SrNo=(count($ExtraIssue)+1);
+			// 	$FinalResponce['ExtraIssue'].='<tr>
+			// 	    <td class="desabled"></td>
 
-				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
+			// 	    <td>
+			// 		    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
 
-					    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
-				    </td>
+			// 		    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
+			// 	    </td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-						</select>
-			    	</td>
+			// 	    <td>
+			// 	    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+			// 			</select>
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
-			    	</td>
-				 </tr>';
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
+			//     	</td>
+			// 	 </tr>';
 
 
-			}else{
-				$SrNo=$rowCount_N+1;
-				$FinalResponce['ExtraIssue'].='<tr>
-				    <td class="desabled"></td>
+			// }else{
+			// 	$SrNo=$rowCount_N+1;
+			// 	$FinalResponce['ExtraIssue'].='<tr>
+			// 	    <td class="desabled"></td>
 
-				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
+			// 	    <td>
+			// 		    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" readonly>
 
-					    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
-				    </td>
+			// 		    <input class="border_hide" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->SampleQuantity.'" class="form-control">
+			// 	    </td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-						</select>
-			    	</td>
+			// 	    <td>
+			// 	    	<select class="form-control SC_FEI_WarehouseWithData" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+			// 			</select>
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
-			    	</td>
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
+			//     	</td>
 
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
-			    	</td>
-				 </tr>';
-			}
+			// 	    <td>
+			// 	    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
+			//     	</td>
+			// 	 </tr>';
+			// }
 			
 		// <!-- ----------- Extra Issue End here --------------------------------- -->
 	// =============================================================================================================
 
 	// <!-- ----------- External Issue Start Here ---------------------------- -->
-		if(!empty($ExternalIssue)){
-			for ($j=0; $j <count($ExternalIssue) ; $j++) { 
+		// if(!empty($ExternalIssue)){
+		// 	for ($j=0; $j <count($ExternalIssue) ; $j++) { 
 
-				$SrNo=$rowCount+1+$j;
+		// 		$SrNo=$rowCount+1+$j;
 
-				if(!empty($ExternalIssue[$j]->SampleDate)){
-					$SampleDate=date("d-m-Y", strtotime($ExternalIssue[$j]->SampleDate));
-				}else{
-					$SampleDate='';
-				}
+		// 		if(!empty($ExternalIssue[$j]->SampleDate)){
+		// 			$SampleDate=date("d-m-Y", strtotime($ExternalIssue[$j]->SampleDate));
+		// 		}else{
+		// 			$SampleDate='';
+		// 		}
 
-				$FinalResponce['ExternalIssue'].='<tr>
+		// 		$FinalResponce['ExternalIssue'].='<tr>
 				    
-					<td style="text-align: center;">
-						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
+		// 			<td style="text-align: center;">
+		// 				<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
 
-					    <input type="radio" id="list'.$SrNo.'" name="listRado[]" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
-					</td>
+		// 			    <input type="radio" id="list'.$SrNo.'" name="listRado[]" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
+		// 			</td>
 				 	
-				 	<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
+		// 		 	<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Warehouse.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Warehouse.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
 				    
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
-				</tr>';
-			}
+		// 		    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
+		// 		</tr>';
+		// 	}
 
-			// when table data come then default add one manual row start ---------------------------------------------------------
-			$SrNo=(count($ExternalIssue)+1);
+		// 	// when table data come then default add one manual row start ---------------------------------------------------------
+		// 	$SrNo=(count($ExternalIssue)+1);
 
-			$FinalResponce['ExternalIssue'].='<tr>
-			    <td></td>
+		// 	$FinalResponce['ExternalIssue'].='<tr>
+		// 	    <td></td>
 			 	
-			 	<td>
-			 		<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
+		// 	 	<td>
+		// 	 		<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
 
-					<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-					</select>
-				</td>
+		// 			<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+		// 			</select>
+		// 		</td>
 			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
 			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseWithData" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
+		// 	    <td>
+		// 			<select class="form-control ExternalIssueWareHouseWithData" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
+		// 		</td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
-			</tr>';
-			// when table data come then default add one manual row end -----------------------------------------------------------
-		}else{
-			// if user not added External issue recored then show default blank row
-			$SrNo=$rowCount+1;
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
+		// 	</tr>';
+		// 	// when table data come then default add one manual row end -----------------------------------------------------------
+		// }else{
+		// 	// if user not added External issue recored then show default blank row
+		// 	$SrNo=$rowCount+1;
 
-			$FinalResponce['ExternalIssue'].='<tr>
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$SrNo.'" class="form-control desabled" readonly>
-			    </td>
+		// 	$FinalResponce['ExternalIssue'].='<tr>
+		// 	    <td>
+		// 	    	<input class="border_hide" type="text" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$SrNo.'" class="form-control desabled" readonly>
+		// 	    </td>
 			 	
-			 	<td>
-					<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-					</select>
-				</td>
+		// 	 	<td>
+		// 			<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
+		// 			</select>
+		// 		</td>
 			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled"></td>
 			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
 			    
-			    <td>
-					<select class="form-control ExternalIssueWareHouseDefault" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
-				</td>
+		// 	    <td>
+		// 			<select class="form-control ExternalIssueWareHouseDefault" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_ExternalI_Warehouse[]" style="width: 200px;"></select>
+		// 		</td>
 			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
 			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+		// 	    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
-			</tr>';
-		}
+		// 	    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
+		// 	</tr>';
+		// }
 	// <!-- ----------- External Issue End Here   ---------------------------- -->
 	echo json_encode($FinalResponce);
 	exit(0);
