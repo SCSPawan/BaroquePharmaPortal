@@ -3022,8 +3022,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 	$qcStatus = $response[0]->INPROCESSQCPOSTDOCQCSTATUS; // Etra issue response seperate here 
 	$qcAttach = $response[0]->INPROCESSQCPOSTDOCATTACH; //External issue reponce seperate here
 
-	//    echo "<pre>";
-	// print_r($general_data);
+	// echo "<pre>";
+	// print_r($FinalAPI);
 	// echo "</pre>";
 	// exit;
 
@@ -5703,27 +5703,6 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['QC_CK_D_MakeBy'])));
 	$tdata['U_PC_GRQty'] = 0.0;
 
-
-
-
-
-
-	// print_r($tdata);
-	// die();
-	// $tdata['U_PC_RfBy'] = null;
-	// $tdata['U_PC_RNo'] = null;
-	// $tdata['U_PC_REnt'] = null;
-	// $tdata['U_PC_GDEntry'] = null;
-	// $tdata['U_PC_RBy'] = null;
-	// $tdata['U_PC_LClmUom'] = null;
-	// $tdata['U_PC_GRNNo'] = null;
-	// $tdata['U_PC_GRNEnt'] = null;
-	// $tdata['U_PC_SCode'] = null;
-	// $tdata['U_PC_SName'] = null;
-	// $tdata['U_PC_NoCont']=trim(addslashes(strip_tags($_POST['noOfCont1'])));
-	// $tdata['U_PckSize']=trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
-
-
 	$ganaralData = array();
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($i)));
@@ -5792,21 +5771,20 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
 		// <!-- ------ File upload code start here ----------------------------- -->
-		$uploadDir = '../include/uploads/';
+			$uploadDir = '../include/uploads/';
 
-		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+			$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
-		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+			$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
 
-		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+			$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 
 		$tdata['SCS_QCINPROC2Collection'][] = $qcStatus; // row data append on this array
 	}
-
 
 	$qcAttech = array();
 	for ($k = 0; $k < count($_POST['targetPath']); $k++) {
@@ -5820,7 +5798,6 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 			$qcAttech['U_PC_FText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
 
 			$tdata['SCS_QCINPROC3Collection'][] = $qcAttech; // row data append on this array
-
 		} else {
 			// $tdata['SCS_QCINPROC3Collection'][] = array();
 		}
@@ -5828,89 +5805,75 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 
 	$mainArray = $tdata; // all child array append in main array define here
 
-	// echo '<pre>';
-	// print_r($mainArray);
-	// die();
+	// <!-- ------- Validation start here ------------------------------------------------------------- -->
+		if ($_POST['QC_CK_D_SampleType'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Sample Type is required.';
+			echo json_encode($data);
+			exit;
+		}
 
-	if ($_POST['QC_CK_D_SampleType'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Sample Type is required.';
-		echo json_encode($data);
-		exit;
-	}
+		if ($_POST['QC_CK_D_PostingDate'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Posting Date is required.';
+			echo json_encode($data);
+			exit;
+		}
 
-
-	if ($_POST['QC_CK_D_PostingDate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Posting Date is required.';
-		echo json_encode($data);
-		exit;
-	}
-
-	if ($_POST['QC_CK_D_AnalysisDate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Analysis Date is required.';
-		echo json_encode($data);
-		exit;
-	}
-
-	if ($_POST['QC_CK_D_ValidUpTo'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'ValidUpTo Date is required.';
-		echo json_encode($data);
-		exit;
-	}
+		if ($_POST['QC_CK_D_AnalysisDate'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Analysis Date is required.';
+			echo json_encode($data);
+			exit;
+		}
+	// <!-- ------- Validation end here ------------------------------------------------------------- -->
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
-	$res = $obj->SAP_Login();
-	if (!empty($res)) {
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCINPROC;
+		$res = $obj->SAP_Login();
+		if (!empty($res)) {
+			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCINPROC;
 
-		$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
-		$responce = json_decode($responce_encode);
+			$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
+			$responce = json_decode($responce_encode);
 
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		if (array_key_exists('error', (array)$responce)) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = $responce->error->message->value;
-			echo json_encode($data);
-		} else {
-			// GRN Process Start
-
-			$InventoryGenEntries = array();
-			$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
-			$InventoryGenEntries['GRDocEntry'] = trim($_POST['QC_CK_D_ReceiptDocEntry']);
-			$InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
-			$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
-
-			$Final_API = $GRQCPOSTINPROCESS_APi;
-			$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
-			$responce1 = json_decode($responce_encode1);
-
-			if (empty($responce1)) {
-				$data['status'] = 'True';
-				$data['DocEntry'] = $responce->DocEntry;
-				$data['message'] = "QC Post Document Added Successfully.";
-				echo json_encode($data);
-			} else {
-				if (array_key_exists('error', (array)$responce1)) {
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+				if (array_key_exists('error', (array)$responce)) {
 					$data['status'] = 'False';
 					$data['DocEntry'] = '';
-					$data['message'] = $responce1->error->message->value;
+					$data['message'] = $responce->error->message->value;
 					echo json_encode($data);
-				}
-			}
-		}
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
+				} else {
+					// GRN Process Start
 
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
+					$InventoryGenEntries = array();
+					$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+					$InventoryGenEntries['GRDocEntry'] = trim($_POST['QC_CK_D_ReceiptDocEntry']);
+					$InventoryGenEntries['ItemCode'] = trim($responce->U_PC_ICode);
+					$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+
+					$Final_API = $GRQCPOSTINPROCESS_APi;
+					$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+					$responce1 = json_decode($responce_encode1);
+
+					if (empty($responce1)) {
+						$data['status'] = 'True';
+						$data['DocEntry'] = $responce->DocEntry;
+						$data['message'] = "QC Post Document Added Successfully.";
+						echo json_encode($data);
+					} else {
+						if (array_key_exists('error', (array)$responce1)) {
+							$data['status'] = 'False';
+							$data['DocEntry'] = '';
+							$data['message'] = $responce1->error->message->value;
+							echo json_encode($data);
+						}
+					}
+				}
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
+		}
+
+		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
 
@@ -6504,13 +6467,13 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 		exit;
 	}
 
-	if ($_POST['qc_Check_ValidUpTo'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'ValidUpTo Date is required.';
-		echo json_encode($data);
-		exit;
-	}
+	// if ($_POST['qc_Check_ValidUpTo'] == "") {
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'ValidUpTo Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 
 	// QC_CK_D_AnalysisDate
 

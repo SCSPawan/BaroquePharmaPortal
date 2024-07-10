@@ -278,6 +278,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject = JSONObjectAll['SampleCollDetails'];
+                // console.log('OT_PoPup_SampleCollection_in_process=>', JSONObject);
                 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']);
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']);
@@ -308,8 +309,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#QC_CK_D_BatchQty`).val(JSONObject[0].BatchQty);
                 $(`#QC_CK_D_LineNum`).val(JSONObject[0].LineNum);
                 $(`#QC_CK_D_LocCode`).val(JSONObject[0].LocCode);
-                $(`#QC_CK_D_MfgDate`).val(JSONObject[0].MfgDate);
-                $(`#QC_CK_D_ExpiryDate`).val(JSONObject[0].ExpiryDate);
+                $(`#QC_CK_D_MfgDate`).val(DateFormatingYMD(JSONObject[0].MfgDate));
+                $(`#QC_CK_D_ExpiryDate`).val(DateFormatingYMD(JSONObject[0].ExpiryDate));
                 $(`#QC_CK_D_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
                 $(`#QC_CK_D_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
                 $(`#QC_CK_D_SampleQty`).val(JSONObject[0].SampleQty);
@@ -337,6 +338,16 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 Compiled_ByDropdown();
             }
         }) 
+    }
+
+    function DateFormatingYMD(DateOG){
+        // alert(DateOG);
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            // let Date = `${day}-${month}-${year}`;
+            let Date = `${year}-${month}-${day}`;
+            return Date;
+        }
     }
 
     function getstageDropdown() {
