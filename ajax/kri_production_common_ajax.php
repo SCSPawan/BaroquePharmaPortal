@@ -5877,17 +5877,6 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
 
-
-
-
-
-
-
-
-
-
-
-
 if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -9537,6 +9526,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_PoPup_QCPO_Stability_ajax
 
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+	// print_r($FinalAPI);
+	// die();
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 

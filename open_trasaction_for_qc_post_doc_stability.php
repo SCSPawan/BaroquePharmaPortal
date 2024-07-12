@@ -21,15 +21,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -319,11 +319,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <div class="card-header justify-content-between d-flex align-items-center">
                                         <h4 class="card-title mb-0">Open Transaction for QC Post Document - Stability</h4>  
                                     </div><!-- end card header -->
-                                        <div class="card-body">
-                                            <div class="table-responsive" id="list-append">
-                                                <!-- // page record appned here -->
-                                            </div> 
-                                        </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive" id="list-append">
+                                            <!-- // page record appned here -->
+                                        </div> 
+                                    </div>
                                     <!-- end card body -->
                                 </div>
                                 <!-- end card -->
@@ -342,6 +342,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
+// <!-- ----------------- lattest updated code start (11th July 2024) --------------------------------- -->
     $(document).ready(function()
     {
         var dataString ='action=list';
@@ -402,182 +403,200 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
                 console.log(JSONObject);
-
+                
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
 
                 $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-// console.log(JSONObject);
+                // console.log(JSONObject);
 
-// Line 1 start
-    $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo); //<!-- misssing -------------------------------------------- -->
-    $(`#ReceiptEntry`).val(JSONObject[0].RouteStageRecoReceiptEntry); //<!-- misssing -------------------------------------------- -->
-    $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo); //<!-- misssing -------------------------------------------- -->
-    $(`#WoEntry`).val(JSONObject[0].RouteStageRecoWODocEntry); //<!-- missBaseEntryng -------------------------------------------- -->
+                // Line 1 start
+                    $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
+                    $(`#ReceiptEntry`).val(JSONObject[0].RouteStageRecoReceiptEntry);
+                    $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo);
+                    $(`#WoEntry`).val(JSONObject[0].RouteStageRecoWODocEntry);
 
-    // alert(JSONObject[0].RouteStageRecoWODocEntry);
+                // alert(JSONObject[0].RouteStageRecoWODocEntry);
 
-    // RouteStageRecoReceiptEntry
+                // RouteStageRecoReceiptEntry
+                    $(`#ItemCode`).val(JSONObject[0].ItemCode);
+                    $(`#ItemName`).val(JSONObject[0].ItemName);
 
-        $(`#ItemCode`).val(JSONObject[0].ItemCode);
-        $(`#ItemName`).val(JSONObject[0].ItemName);
+                // Line 2 start
+                    $(`#GenericName`).val(JSONObject[0].GenericName);
 
-// Line 2 start
-    $(`#GenericName`).val(); //<!-- misssing -------------------------------------------- -->
+                    $(`#LabelCliam`).val(JSONObject[0].LabelClaim);
+                    $(`#LabelCliamUOM`).val(JSONObject[0].LabelClaimUOM);
+                    $(`#MfgBy`).val(JSONObject[0].MfgBy);
 
-        $(`#LabelCliam`).val(JSONObject[0].LabelClaim);
-        $(`#LabelCliamUOM`).val(JSONObject[0].LabelClaimUOM);
-        $(`#MfgBy`).val(JSONObject[0].MfgBy);
+                // Line 3 start
+                        $(`#ARNo`).val(JSONObject[0].ARNo);
+                        $(`#SpecificationNo`).val(JSONObject[0].SpecNo);
 
-// Line 3 start
-        $(`#ARNo`).val(JSONObject[0].ARNo);
-        $(`#SpecificationNo`).val(JSONObject[0].SpecNo);
+                // Line 4 start
+                    $(`#SampleType`).val(JSONObject[0].SampleType);
+                        $(`#MaterialType`).val(JSONObject[0].MaterialType);
+                        $(`#BatchNo`).val(JSONObject[0].BatchNo);
 
-// Line 4 start
-    $(`#SampleType`).val(JSONObject[0].SampleType);
-        $(`#MaterialType`).val(JSONObject[0].MaterialType);
-        $(`#BatchNo`).val(JSONObject[0].BatchNo);
-
-// Line 5 start
-    $(`#BatchSize`).val(JSONObject[0].BatchQty); //<!-- misssing -------------------------------------------- -->
-    $(`#SampleIntimationStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
-    $(`#SampleCollStability`).val(JSONObject[0].SampleCollectionNo);
+                // Line 5 start
+                    $(`#BatchSize`).val(JSONObject[0].BatchQty); //<!-- misssing -------------------------------------------- -->
+                    $(`#SampleIntimationStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                    $(`#SampleCollStability`).val(JSONObject[0].SampleCollectionNo);
 
 
-        // <!-- ----------- Mfg Date Start Here ----------------------- -->
-            var mfgDateOG = JSONObject[0]['MfgDate'];
-            if(mfgDateOG!=''){
-                mfgDate = mfgDateOG.split(' ')[0];
-                $(`#MfgDate`).val(mfgDate);
-            }
-        // <!-- ----------- Mfg Date End Here ------------------------- -->
+                // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                    var mfgDateOG = JSONObject[0]['MfgDate'];
+                    if(mfgDateOG!=''){
+                        mfgDate = mfgDateOG.split(' ')[0];
+                        $(`#MfgDate`).val(mfgDate);
+                    }
+                // <!-- ----------- Mfg Date End Here ------------------------- -->
 
-        // <!-- ----------- Mfg Date Start Here ----------------------- -->
-            var expiryDateOG = JSONObject[0].ExpiryDate;
-            if(expiryDateOG!=''){
-                ExpiryDate = expiryDateOG.split(' ')[0];
-                $(`#ExpiryDate`).val(ExpiryDate);
-            }
-        // <!-- ----------- Mfg Date End Here ------------------------- -->
+                // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                    var expiryDateOG = JSONObject[0].ExpiryDate;
+                    if(expiryDateOG!=''){
+                        ExpiryDate = expiryDateOG.split(' ')[0];
+                        $(`#ExpiryDate`).val(ExpiryDate);
+                    }
+                // <!-- ----------- Mfg Date End Here ------------------------- -->
 
-// Line 6 start
-    $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
-    $(`#SampleTransferNoFromWO`).val(JSONObject[0].BaseNum); //<!-- misssing -------------------------------------------- -->
-    $(`#SampleCollEntryFromWO`).val(JSONObject[0].BaseEntry); //<!-- misssing -------------------------------------------- -->
-        
-        $(`#WhsCode`).val(JSONObject[0].WhsCode);
+                // Line 6 start
+                    $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                    $(`#SampleTransferNoFromWO`).val(JSONObject[0].BaseNum); //<!-- misssing -------------------------------------------- -->
+                    $(`#SampleCollEntryFromWO`).val(JSONObject[0].BaseEntry); //<!-- misssing -------------------------------------------- -->
+                
+                $(`#WhsCode`).val(JSONObject[0].WhsCode);
 
-// Line 7 start
-        $(`#StabilityPlanDocNum`).val(JSONObject[0].StabilityPlanDocNum);
-        $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-        $(`#StabilityPlanQuantity`).val(JSONObject[0].StabilityPlanQuantity);
+                // Line 7 start
+                    $(`#StabilityPlanDocNum`).val(JSONObject[0].StabilityPlanDocNum);
+                    $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
+                    $(`#StabilityPlanQuantity`).val(JSONObject[0].StabilityPlanQuantity);
 
-        // <!-- ----------- Mfg Date Start Here ----------------------- -->
-            var stabilityLoadingDateOG = JSONObject[0].StabilityLoadingDate;
-            if(stabilityLoadingDateOG!=''){
-                stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
-                $(`#StabilityLoadingDate`).val(stabilityLoadingDate);
-            }
-        // <!-- ----------- Mfg Date End Here ------------------------- -->
+                // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                    var stabilityLoadingDateOG = JSONObject[0].StabilityLoadingDate;
+                    if(stabilityLoadingDateOG!=''){
+                        stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
+                        $(`#StabilityLoadingDate`).val(stabilityLoadingDate);
+                    }
+                // <!-- ----------- Mfg Date End Here ------------------------- -->
 
-// Line 8 start
-        $(`#NoOfContainer`).val(JSONObject[0].NoofContainer);
+                // Line 8 start
+                    $(`#NoOfContainer`).val(JSONObject[0].NoofContainer);
 
-// Line 9 start
-        $(`#Branch`).val(JSONObject[0].Branch);
-        $(`#Location`).val(JSONObject[0].Location);
-        $(`#PackSize`).val(JSONObject[0].PackSize);
-    
-// Line 10 start
+                // Line 9 start
+                    $(`#Branch`).val(JSONObject[0].Branch);
+                    $(`#Location`).val(JSONObject[0].Location);
+                    $(`#PackSize`).val(JSONObject[0].PackSize);
 
-        $(`#StabilityType`).val(JSONObject[0].StabilityType);
-        $(`#AnalysisType`).val(JSONObject[0].AnalysisType);
-        $(`#StabilityCondition`).val(JSONObject[0].StabilityCondition);
-        $(`#StabilityTimePeriod`).val(JSONObject[0].StabilityTimePeriod);
-    
-        $(`#StabilityQC_CK_D_Factor`).val(JSONObject[0].Factor);
-        $(`#StabilityQC_CK_D_NoOfContainer`).val(JSONObject[0].NoofContainer);
-        $(`#StabilityQC_CK_D_Remarks`).val('');
-        $(`#Stability_BPLId`).val(JSONObject[0].BPLId);
-        $(`#Stability_ItemCode`).val(JSONObject[0].ItemCode);
-        $(`#Stability_FromWhs`).val(JSONObject[0].WhsCode);
-        
+                    addDaysToDate(JSONObject[0].QCDays);  // add QC Days In Postion Date 
 
-        
-           
-           QC_StatusByAnalystDropdown(JSONObjectAll.count);
-           getResultOutputDropdown(JSONObjectAll.count);
-           getQcStatusDropodwn(1);
-           getDoneByDroopdown(1);
-           assayapp();
-// ===========================================================================================================
 
-// "SrNo": "1",
-// "WhsTotal": "",
-// "BaseType": "",
-// "BaseEntry": "1167",
-// "BaseNum": "762",
-// "DocDate": "115",
-// "Quantity": "100.000000",
-// "BatchQty": "100.000000",
-// "SampleIntimationNo": "22",
-// "SampleCollectionNo": "17",
-// "RouteStageRecoWONo": "541",
-// "RouteStageRecoWODocEntry": "821",
-// "PlannedQuantity": null,
-// "RouteStageRecoReceiptNo": "115",
-// "RouteStageRecoReceiptEntry": "330",
-// "RouteStageRecoReceiptQty": "",
-// "RouteStageRecoUOM": "SACHET",
-// "PeriodType": "",
-// "AdditionalYear": "",
-// "EndDate": "",
-// "PeriodinMonths": "",
-// "Status": "Open",
-// "Canceled": null,
-// "DocNum": "",
-// "Series": "",
-// "BPLId": "",
-// "LocCode": ""
 
-// ------------------------------------------------------Done--------------------------------------------------------------------
-// "ItemCode": "FG00020",
-// "ItemName": "COLON FIBER SACHET ( ORANGE FLAVOUR)",
+// console.log("Current Date:", currentDate);
+// console.log("New Date:", newDate);
 
-// "LabelClaim": "0.000000",
-// "LabelClaimUOM": "",
-// "MfgBy": "",
 
-// "ARNo": "",
-// "SpecNo": "",
 
-// "SampleType": "Stability",
-// "MaterialType": "FG",
-// "BatchNo": "DEF24092022",
 
-// "MfgDate": "24-09-2022 00:00:00",
-// "ExpiryDate": "24-07-2025 00:00:00",
 
-// "WhsCode": "STBL-DEF",
 
-// "StabilityPlanDocNum": "10",
-// "StabilityPlanDocEntry": "53",
-// "StabilityLoadingDate": "26-08-2022 00:00:00",
-// "StabilityPlanQuantity": "20.000000",
 
-// "NoofContainer": "10",
 
-// "PackSize": "1 X 1 SAC",
-// "Branch": "HO",
-// "Location": "GENERAL",
 
-// "StabilityType": "Accelerated Condition",
-// "StabilityCondition": "40 0 C +- 2 0 C\/ 75+-5%RH",
-// "StabilityTimePeriod": "Up to 6 Months",
-// "AnalysisType": "Physical & Chemical",
 
-// ===========================================================================================================================
+                // Line 10 start
+                    $(`#StabilityType`).val(JSONObject[0].StabilityType);
+                    $(`#AnalysisType`).val(JSONObject[0].AnalysisType);
+                    $(`#StabilityCondition`).val(JSONObject[0].StabilityCondition);
+                    $(`#StabilityTimePeriod`).val(JSONObject[0].StabilityTimePeriod);
+                    $(`#StabilityMakeBy`).val(JSONObject[0].MakeBy);
+                    
+                    $(`#StabilityQC_CK_D_Factor`).val(JSONObject[0].Factor);
+                    $(`#StabilityQC_CK_D_NoOfContainer`).val(JSONObject[0].NoofContainer);
+                    $(`#StabilityQC_CK_D_Remarks`).val('');
+                    $(`#Stability_BPLId`).val(JSONObject[0].BPLId);
+                    $(`#Stability_ItemCode`).val(JSONObject[0].ItemCode);
+                    $(`#Stability_FromWhs`).val(JSONObject[0].WhsCode);
+                    $(`#Stability_QCDays`).val(JSONObject[0].QCDays);
+                    
+                    
+                
+
+                
+                
+                QC_StatusByAnalystDropdown(JSONObjectAll.count);
+                getResultOutputDropdown(JSONObjectAll.count);
+                getQcStatusDropodwn(1);
+                getDoneByDroopdown(1);
+                assayapp();
+                // ===========================================================================================================
+
+                // "SrNo": "1",
+                // "WhsTotal": "",
+                // "BaseType": "",
+                // "BaseEntry": "1167",
+                // "BaseNum": "762",
+                // "DocDate": "115",
+                // "Quantity": "100.000000",
+                // "BatchQty": "100.000000",
+                // "SampleIntimationNo": "22",
+                // "SampleCollectionNo": "17",
+                // "RouteStageRecoWONo": "541",
+                // "RouteStageRecoWODocEntry": "821",
+                // "PlannedQuantity": null,
+                // "RouteStageRecoReceiptNo": "115",
+                // "RouteStageRecoReceiptEntry": "330",
+                // "RouteStageRecoReceiptQty": "",
+                // "RouteStageRecoUOM": "SACHET",
+                // "PeriodType": "",
+                // "AdditionalYear": "",
+                // "EndDate": "",
+                // "PeriodinMonths": "",
+                // "Status": "Open",
+                // "Canceled": null,
+                // "DocNum": "",
+                // "Series": "",
+                // "BPLId": "",
+                // "LocCode": ""
+
+                // ------------------------------------------------------Done--------------------------------------------------------------------
+                // "ItemCode": "FG00020",
+                // "ItemName": "COLON FIBER SACHET ( ORANGE FLAVOUR)",
+
+                // "LabelClaim": "0.000000",
+                // "LabelClaimUOM": "",
+                // "MfgBy": "",
+
+                // "ARNo": "",
+                // "SpecNo": "",
+
+                // "SampleType": "Stability",
+                // "MaterialType": "FG",
+                // "BatchNo": "DEF24092022",
+
+                // "MfgDate": "24-09-2022 00:00:00",
+                // "ExpiryDate": "24-07-2025 00:00:00",
+
+                // "WhsCode": "STBL-DEF",
+
+                // "StabilityPlanDocNum": "10",
+                // "StabilityPlanDocEntry": "53",
+                // "StabilityLoadingDate": "26-08-2022 00:00:00",
+                // "StabilityPlanQuantity": "20.000000",
+
+                // "NoofContainer": "10",
+
+                // "PackSize": "1 X 1 SAC",
+                // "Branch": "HO",
+                // "Location": "GENERAL",
+
+                // "StabilityType": "Accelerated Condition",
+                // "StabilityCondition": "40 0 C +- 2 0 C\/ 75+-5%RH",
+                // "StabilityTimePeriod": "Up to 6 Months",
+                // "AnalysisType": "Physical & Chemical",
+
+                // ===========================================================================================================================
 
 
 
@@ -646,6 +665,50 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
+     // Function to add days to a date
+ function addDaysToDate(days) {
+
+    let dateString = $('#PostingDate').val();;
+
+
+    // Parse the input date string to a Date object
+    let date = new Date(dateString);
+
+    // Add the specified number of days
+    date.setDate(date.getDate() + days);
+
+    // Format the new date as YYYY-MM-DD
+    let year = date.getFullYear();
+    let month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero if needed
+    let day = ('0' + date.getDate()).slice(-2); // Add leading zero if needed
+
+    let newDate =`${year}-${month}-${day}`;
+    $(`#ValidUpTo`).val(newDate);
+
+    //   return `${year}-${month}-${day}`;
+}
+// <!-- ----------------- lattest updated code end (11th July 2024) ----------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
 
 
 
@@ -660,11 +723,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         var BPLId=document.getElementById('Stability_BPLId').value;
         // var afters=
 
-// http://192.168.1.30:8082/API/SAP/OPENTRANSQCDOCSTABILITY?DocEntry=9&ItemCode=FG00001&BatchNo=C0121269&SampleColNo=5&UserName=bar@gmail.com
+        // http://192.168.1.30:8082/API/SAP/OPENTRANSQCDOCSTABILITY?DocEntry=9&ItemCode=FG00001&BatchNo=C0121269&SampleColNo=5&UserName=bar@gmail.com
 
-var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Stability_In_ajax';
+        var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Stability_In_ajax';
 
-// onclick="OT_PoPup_QCPO_Stability('118','FG00001','C0121197','12')"
+        // onclick="OT_PoPup_QCPO_Stability('118','FG00001','C0121197','12')"
 
         // alert(dataString);
         // +'&SupplierCode='+SupplierCode+'&SupplierName='+SupplierName+'&BranchName='+BranchName+'
@@ -720,7 +783,7 @@ var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Sta
        // ItemCode=SFG00001&WareHouse=RETN-WHS&BatchNo=C0121157
 
         var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_stability_ajax';
-// alert(dataString);
+        // alert(dataString);
        
 
         $.ajax({
@@ -763,7 +826,7 @@ var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Sta
        });
     }
 
-     function getDoneByDroopdown(n){
+    function getDoneByDroopdown(n){
         var dataString ='action=qc_get_SAMINTTRBY_ajax';
         $.ajax({  
             type: "POST",  
@@ -785,7 +848,7 @@ var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Sta
     } 
 
 
-     function CalculatePotency()
+    function CalculatePotency()
     {
         // <!-- -----------  LoD / Water Value Preparing Start Here ------------------------------- -->
             var lod_waterOG=document.getElementById('QC_CK_D_LODWater').value;
@@ -815,7 +878,7 @@ var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Sta
         $('#QC_CK_D_Potency').val(parseFloat(Potency).toFixed(6)); // Set Potency calculated val
     }  
 
- function assayapp(){
+    function assayapp(){
 
         var dataString ='action=qc_assay_Calculation_Based_stability_ajax';
         $.ajax({  
@@ -825,35 +888,36 @@ var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferQC_Checke_Sta
             success: function(result){ 
                 $('#QC_CK_D_Assay').html(result);
             }
-       });
+        });
     }
+
 function Compiled_ByDropdown(){
+    var dataString ='action=Compiled_By_dropdown_ajax';
+    $.ajax({  
+        type: "POST",  
+        url: 'ajax/kri_production_common_ajax.php',  
+        data: dataString, 
+        beforeSend: function(){
+            $(".loader123").show();
+        }, 
+        success: function(result){ 
+            $('#StabilityQC_CK_D_CompiledBy').html(result);
+            $('#StabilityQC_CK_D_CheckedBy').html(result);
+            $('#StabilityQC_CK_D_AnalysisBy').html(result);
+        },
+        complete:function(data){
+            // QC_TestTypeDropdown();
+                getSeriesDropdown();
+            $(".loader123").hide();
+        }
+    });
+}
 
-        var dataString ='action=Compiled_By_dropdown_ajax';
-        $.ajax({  
-            type: "POST",  
-            url: 'ajax/kri_production_common_ajax.php',  
-            data: dataString, 
-            beforeSend: function(){
-                $(".loader123").show();
-            }, 
-            success: function(result){ 
-                $('#StabilityQC_CK_D_CompiledBy').html(result);
-                $('#StabilityQC_CK_D_CheckedBy').html(result);
-                $('#StabilityQC_CK_D_AnalysisBy').html(result);
-            },
-            complete:function(data){
-                // QC_TestTypeDropdown();
-                  getSeriesDropdown();
-                $(".loader123").hide();
-            }
-       });
-    }
 
+    function getSeriesDropdown(){
+        var TrDate= $('#PostingDate').val();
 
-     function getSeriesDropdown(){
-
-        var dataString ='ObjectCode=SCS_QCSTAB&action=getSeriesDropdown_ajax';
+        var dataString ='TrDate='+TrDate+'&ObjectCode=SCS_QCSTAB&action=getSeriesDropdown_ajax';
 
         $.ajax({
             type: "POST",
@@ -877,9 +941,10 @@ function Compiled_ByDropdown(){
     }
 
     function selectedSeries(){
+        var TrDate= $('#PostingDate').val();
         // http://10.80.4.55:8081/API/SAP/INWARDQCSERIES?ObjectCode=SCS_QCSTAB
         var Series=document.getElementById('StabilityQC_CK_D_DocName').value;
-        var dataString ='Series='+Series+'&ObjectCode=SCS_QCSTAB&action=getSeriesSingleData_ajax';
+        var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=SCS_QCSTAB&action=getSeriesSingleData_ajax';
 
         $.ajax({
             type: "POST",
@@ -939,7 +1004,7 @@ function Compiled_ByDropdown(){
         }
     }
 
-  function setSelectedIndex(s, valsearch)
+    function setSelectedIndex(s, valsearch)
     {
 
         console.log('s=>', s);
@@ -958,7 +1023,7 @@ function Compiled_ByDropdown(){
     }
 
 
-     function ManualSelectedTResultOut(un_id){
+    function ManualSelectedTResultOut(un_id){
         var ResultOut=document.getElementById('ResultOut'+un_id).value;
 
         if(ResultOut=='-'){
@@ -978,7 +1043,7 @@ function Compiled_ByDropdown(){
         }
     }
 
-       function SelectedQCStatus(un_id){
+    function SelectedQCStatus(un_id){
 
         var QC_StatusByAnalyst=document.getElementById('QC_StatusByAnalyst'+un_id).value;
         
@@ -1022,7 +1087,7 @@ function Compiled_ByDropdown(){
     }
   
 
-  function QC_StatusByAnalystDropdown(trcount){
+    function QC_StatusByAnalystDropdown(trcount){
 
         var dataString ='TableId=@SCS_QCSTAB1&Alias=QCSts&action=dropdownMaster_ajax';
 
@@ -1048,7 +1113,7 @@ function Compiled_ByDropdown(){
     }
 
    
-   function ContainerSelection(LineNum){
+    function ContainerSelection(LineNum){
 
         var DocEntry=document.getElementById('U_UTTrans').value;
         var ItemCode=document.getElementById('it_af_ItemCode').value;
@@ -1120,7 +1185,7 @@ function Compiled_ByDropdown(){
     }
 
 
- function EnterQtyValidation_retails(un_id) {
+    function EnterQtyValidation_retails(un_id) {
         var BatchQty=document.getElementById('itp_BatchQty_retails'+un_id).value;
         var SelectedQty=document.getElementById('SelectedQty_retails'+un_id).value;
 
@@ -1261,7 +1326,7 @@ function Compiled_ByDropdown(){
 
 
 
-         function update_qc_post_document_stability(){
+        function update_qc_post_document_stability(){
 
             var formData = new FormData($('#qcPostDocumentStabilityForm_update')[0]);  // Form Id
             formData.append("updateQcPostDocumentStabilitytBtn",'updateQcPostDocumentStabilityBtn');  // Button Id
@@ -1530,3 +1595,4 @@ function Compiled_ByDropdown(){
     //     });
     // }
 </script>
+<!-- 1532 -->

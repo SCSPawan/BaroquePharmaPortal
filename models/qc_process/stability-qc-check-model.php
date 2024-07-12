@@ -7,28 +7,29 @@
   <!--start qc check model-->
 
 
-    <div class="modal fade stability-qc-check" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Stability</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <form role="form" class="form-horizontal" id="qcPostDocumentStabilityForm_update" method="post">
-                        <div class="page-content">
-                            <div class="container-fluid">
-                              <div class="card">
-                                <div class="card-body">
-                                    <!-- update_qc_post_document_stability -->
-                                    <div class="row">
+<div class="modal fade stability-qc-check" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Stability</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" id="qcPostDocumentStabilityForm_update" method="post">
+                    <div class="page-content">
+                        <div class="container-fluid">
+                            <div class="card">
+                            <div class="card-body">
+                                <!-- update_qc_post_document_stability -->
+                                <div class="row">
                                     
                                   
                                         <!-- qcPostDocumentStabilityForm_update -->
-                                    <input class="form-control desabled" type="hidden" id="StabilityPlanDocEntry" name="StabilityPlanDocEntry">
-                                    <input class="form-control desabled" type="hidden" id="Stability_BPLId" name="Stability_BPLId">
-                                    <input class="form-control desabled" type="hidden" id="Stability_ItemCode" name="Stability_ItemCode">
-                                    <input class="form-control desabled" type="hidden" id="Stability_FromWhs" name="Stability_FromWhs">
+<input class="form-control desabled" type="hidden" id="StabilityPlanDocEntry" name="StabilityPlanDocEntry">
+<input class="form-control desabled" type="hidden" id="Stability_BPLId" name="Stability_BPLId">
+<input class="form-control desabled" type="hidden" id="Stability_ItemCode" name="Stability_ItemCode">
+<input class="form-control desabled" type="hidden" id="Stability_FromWhs" name="Stability_FromWhs">
+<input class="form-control desabled" type="hidden" id="Stability_QCDays" name="Stability_QCDays">
 
 
                                     <!-- <input class="form-control desabled" type="hidden" id="Stability_RouteStageRecoReceiptEntry" name="Stability_RouteStageRecoReceiptEntry"> -->
@@ -82,7 +83,7 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Generic Name</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled no" type="text" id="GenericName" name="GenericName" readonly>
+                                                    <input class="form-control desabled" type="text" id="GenericName" name="GenericName" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -115,23 +116,23 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="ReleaseDate" name="ReleaseDate">
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Release Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="ReleaseDate" name="ReleaseDate" value="<?php echo date('Y-m-d');?>">
+        </div>
+    </div>
+</div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="RetestDate" name="RetestDate">
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Retest Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="RetestDate" name="RetestDate" value="<?php echo date('Y-m-d');?>">
+        </div>
+    </div>
+</div>
 
                                          <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -218,8 +219,8 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Intimation Stability</label>
-                                                <div class="col-lg-6">
+                                               <label class="col-lg-7 col-form-label mt-6" for="val-skill">Sample Intimation Stability</label>
+                                                <div class="col-lg-5">
                                                     <input class="form-control desabled" type="text" id="SampleIntimationStability" name="SampleIntimationStability" readonly>
                                                 </div>
                                             </div>
@@ -227,8 +228,8 @@
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
-                                               <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Collection Stability</label>
-                                                <div class="col-lg-6">
+                                               <label class="col-lg-7 col-form-label mt-6" for="val-skill">Sample Collection Stability</label>
+                                                <div class="col-lg-5">
                                                     <input class="form-control desabled" type="text" id="SampleCollStability" name="SampleCollStability" readonly>
                                                 </div>
                                             </div>
@@ -302,7 +303,7 @@
 <div class="form-group row mb-2">
 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
  <div class="col-lg-4">
-    <select class="form-control desabled" type="text" id="StabilityQC_CK_D_DocName" name="StabilityQC_CK_D_DocName"></select> 
+    <select class="form-select" type="text" id="StabilityQC_CK_D_DocName" name="StabilityQC_CK_D_DocName"></select> 
 </div>
 
 <div class="col-lg-4">
@@ -323,19 +324,19 @@
                                             <div class="form-group row mb-2">
                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="PostingDate" name="PostingDate">
+                                                    <input class="form-control" type="date" id="PostingDate" name="PostingDate" value="<?php echo date('Y-m-d');?>">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="AnalysisDate" name="AnalysisDate">
-                                                </div>
-                                            </div>
-                                        </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis Date</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="date" id="AnalysisDate" name="AnalysisDate" value="<?php echo date('Y-m-d');?>">
+        </div>
+    </div>
+</div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -422,12 +423,21 @@
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-8   col-form-label mt-6" for="val-skill">Release Material without QC</label>
                                                 <div class="col-lg-4">
-                                                    <select class="form-select no">
+                                                    <select class="form-select">
                                                         <option>No</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>                                  
+                                        </div>
+                                        
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-6 col-form-label mt-6" for="val-skill">MakeBy</label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control desabled" type="text" id="StabilityMakeBy" name="StabilityMakeBy" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 
