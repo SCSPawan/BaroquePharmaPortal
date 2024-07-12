@@ -1050,6 +1050,62 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         });
     });
 
+    function change_page(page_id)
+    { 
+        var fromDate = document.getElementById('FromDate').value;
+        var toDate = document.getElementById('ToDate').value;
+        var DocEntry = document.getElementById('DocEntry').value;
+
+        var dataString = 'page_id=' + page_id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&DocEntry=' + DocEntry + '&action=list';
+
+        // var dataString ='page_id='+page_id+'&action=list';
+
+        $.ajax({
+            type: "POST",
+             url: window.location.href,  
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                // Show image container
+                $(".loader123").show();
+            },
+            success: function(result)
+            {
+                $('#list-append').html(result);
+            },
+            complete:function(data){
+                // Hide image container
+                $(".loader123").hide();
+            }
+        });
+    }
+
+    
+    function SearchData() {
+        var fromDate = document.getElementById('FromDate').value;
+        var toDate = document.getElementById('ToDate').value;
+        var DocEntry = document.getElementById('DocEntry').value;
+
+        var dataString = 'fromDate=' + fromDate + '&toDate=' + toDate + '&DocEntry=' + DocEntry + '&action=list';
+
+        $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: dataString,
+            beforeSend: function() {
+                // Show image container
+                $(".loader123").show();
+            },
+            success: function(result) {
+                $("#footerProcess").hide();
+                $('#list-append').html(result);
+            },
+            complete: function(data) {
+                // Hide image container
+                $(".loader123").hide();
+            }
+        });
+    }
 
 
 
@@ -1214,31 +1270,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
     }
 
-    function SearchData() {
-        var fromDate = document.getElementById('FromDate').value;
-        var toDate = document.getElementById('ToDate').value;
-        var DocEntry = document.getElementById('DocEntry').value;
-
-        var dataString = 'fromDate=' + fromDate + '&toDate=' + toDate + '&DocEntry=' + DocEntry + '&action=list';
-
-        $.ajax({
-            type: "POST",
-            url: window.location.href,
-            data: dataString,
-            beforeSend: function() {
-                // Show image container
-                $(".loader123").show();
-            },
-            success: function(result) {
-                $("#footerProcess").hide();
-                $('#list-append').html(result);
-            },
-            complete: function(data) {
-                // Hide image container
-                $(".loader123").hide();
-            }
-        });
-    }
 
     // function qcAsseyCalculation(){
     //      var dataString ='action=qc_assay_Calculation_Based_On_ajax';
@@ -2262,3 +2293,4 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         document.getElementById("PrintQuarantine_Link").src = '';
     }
 </script>
+<!-- 2265 (12 July 2023) -->

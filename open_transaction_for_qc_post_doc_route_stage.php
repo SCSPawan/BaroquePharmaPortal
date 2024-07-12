@@ -716,7 +716,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         });         
     }
 
-
     function GetBottomApprovedBy(){
         $.ajax({ 
             type: "POST",
@@ -869,25 +868,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             $('#qCStsQty_' + un_id).val($('#routStage_BatchSize').val());
         }
     }
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function AutocalculateQC_Qty(){
         // <!-- calculate Quantity for QC status tab start ------------------------------ -->
