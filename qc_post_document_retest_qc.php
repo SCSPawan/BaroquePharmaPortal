@@ -1081,7 +1081,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     }
 
     
-    function SearchData() {
+    function SearchData() { 
         var fromDate = document.getElementById('FromDate').value;
         var toDate = document.getElementById('ToDate').value;
         var DocEntry = document.getElementById('DocEntry').value;
@@ -1127,7 +1127,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                 var JSONObject = JSONObjectAll['SampleCollDetails']; // sample collection details var
                 // Unit
-                console.log('dd=>',JSONObject);
+                // console.log('dd=>',JSONObject);
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); // External Issue Table Tr tag append here
@@ -1603,37 +1603,37 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             contentType: false,
             beforeSend: function() {
                 // Show image container
-                $(".loader123").show();
+                // $(".loader123").show();
             },
             success: function(result) {
-                // console.log(result);
-                var JSONObject = JSON.parse(result);
+                console.log(result);
+                // var JSONObject = JSON.parse(result);
 
-                var status = JSONObject['status'];
-                var message = JSONObject['message'];
-                var DocEntry = JSONObject['DocEntry'];
-                if (status == 'True') {
-                    swal({
-                            title: `${message}`,
-                            text: `${DocEntry}`,
-                            icon: "success",
-                            buttons: true,
-                            dangerMode: false,
-                        })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                location.replace(window.location.href); //ok btn
-                            } else {
-                                location.replace(window.location.href); // cancel btn
-                            }
-                        });
-                } else {
-                    swal("Oops!", `${message}`, "error");
-                }
+                // var status = JSONObject['status'];
+                // var message = JSONObject['message'];
+                // var DocEntry = JSONObject['DocEntry'];
+                // if (status == 'True') {
+                //     swal({
+                //             title: `${message}`,
+                //             text: `${DocEntry}`,
+                //             icon: "success",
+                //             buttons: true,
+                //             dangerMode: false,
+                //         })
+                //         .then((willDelete) => {
+                //             if (willDelete) {
+                //                 location.replace(window.location.href); //ok btn
+                //             } else {
+                //                 location.replace(window.location.href); // cancel btn
+                //             }
+                //         });
+                // } else {
+                //     swal("Oops!", `${message}`, "error");
+                // }
             },
             complete: function(data) {
                 // Hide image container
-                $(".loader123").hide();
+                // $(".loader123").hide();
             }
         });
     }
