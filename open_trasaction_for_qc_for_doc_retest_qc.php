@@ -212,6 +212,13 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
 </style>
 
+        <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+                <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                    <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+                </div>
+            </div>
+        <!-- ---------- loader end here---------------------- -->
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">

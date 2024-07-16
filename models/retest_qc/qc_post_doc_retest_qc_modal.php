@@ -256,10 +256,10 @@
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc. No</label>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-5">
                                                     <select class="form-select" id="DocNo" name="DocNo" onchange="selectedSeries()"></select>
                                                 </div>
-                                                <div class="col-lg-2">
+                                                <div class="col-lg-3">
                                                     <input class="form-control desabled" type="text" id="DocNo1" name="DocNo1" readonly>
                                                 </div>
                                             </div>
@@ -762,7 +762,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="it_documentDate" name="it_documentDate" value="<?php echo $currentDate; ?>">
+                                    <input class="form-control" type="date" id="it_documentDate" name="it_documentDate" value="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -795,14 +795,14 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td><input class="border_hide" type="text" id="tb_itme_code" name="tb_itme_code" class="form-control" readonly></td>
-                                    <td><input class="border_hide" type="text" id="tb_item_name" name="tb_item_name" class="form-control" readonly></td>
-                                    <td><input class="border_hide" type="text" id="tb_quality" name="tb_quality" class="form-control" readonly></td>
-                                    <td><input class="border_hide" type="text" id="from_whs" name="from_whs" class="form-control" readonly></td>
-                                    <td><input class="border_hide" type="text" id="to_whs" name="to_whs" class="form-control" readonly></td>
-                                    <td class="desabled"><input class="border_hide" type="text" id="tb_location" name="tb_location" class="form-control" readonly></td>
-                                    <td class="desabled"><input class="border_hide" type="text" id="tb_UOM" name="tb_UOM" class="form-control" readonly=""></td>
+                                    <td class="desabled">1</td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="tb_itme_code" name="tb_itme_code" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="tb_item_name" name="tb_item_name" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="tb_quality" name="tb_quality" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="from_whs" name="from_whs" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="to_whs" name="to_whs" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="tb_location" name="tb_location" class="form-control" readonly></td>
+                                    <td class="desabled"><input class="border_hide desabled" type="text" id="tb_UOM" name="tb_UOM" class="form-control" readonly=""></td>
                                 </tr>
                             </tbody>
                         </table>

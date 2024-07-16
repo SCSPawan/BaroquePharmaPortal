@@ -749,6 +749,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">LOD/Water %</label>
                                                                     <div class="col-lg-8">
                                                                         <input class="form-control" type="text" id="LoD_Water_xyz" name="LoD_Water_xyz" onfocusout="CalculatePotency();" value="0.000000">
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
