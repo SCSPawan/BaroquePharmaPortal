@@ -25,14 +25,19 @@
                                     
                                   
                                         <!-- qcPostDocumentStabilityForm_update -->
-<input class="form-control desabled" type="hidden" id="StabilityPlanDocEntry" name="StabilityPlanDocEntry">
-<input class="form-control desabled" type="hidden" id="Stability_BPLId" name="Stability_BPLId">
-<input class="form-control desabled" type="hidden" id="Stability_ItemCode" name="Stability_ItemCode">
-<input class="form-control desabled" type="hidden" id="Stability_FromWhs" name="Stability_FromWhs">
-<input class="form-control desabled" type="hidden" id="Stability_QCDays" name="Stability_QCDays">
-
-
-                                    <!-- <input class="form-control desabled" type="hidden" id="Stability_RouteStageRecoReceiptEntry" name="Stability_RouteStageRecoReceiptEntry"> -->
+                                    <input class="form-control desabled" type="hidden" id="StabilityPlanDocEntry" name="StabilityPlanDocEntry">
+                                    <input class="form-control desabled" type="hidden" id="Stability_BPLId" name="Stability_BPLId">
+                                    <input class="form-control desabled" type="hidden" id="Stability_ItemCode" name="Stability_ItemCode">
+                                    <input class="form-control desabled" type="hidden" id="Stability_FromWhs" name="Stability_FromWhs">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCDays" name="Stability_QCDays">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCbaseno" name="Stability_QCbaseno">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCbaseEntry" name="Stability_QCbaseEntry">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCPlanno" name="Stability_QCPlanno">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCPlanEntry" name="Stability_QCPlanEntry">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QCLDate" name="Stability_QCLDate">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QC_UOM" name="Stability_QC_UOM">
+                                    <!-- <input class="form-control desabled" type="hidden" id="Stability_QCPlanEntry" name="Stability_QCPlanEntry"> -->
+                                    <input class="form-control desabled" type="hidden" id="Stability_RouteStageRecoReceiptEntry" name="Stability_RouteStageRecoReceiptEntry">
 
 
 
@@ -480,94 +485,53 @@
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                         <thead class="fixedHeader1">
                                                             <tr>
-
-                                                                <th>Sr. No</th>
-                                                                <th>Parameter Code</th>
-                                                                <th>Parameter Name </th>  
-                                                                <th>Standard</th>
-                                                                <th>Release</th>
-                                                                <th>Parameter Data Type</th> 
-                                                                <th>Descriptive Details</th> 
-                                                                <th>Logical</th>
-                                                                <th>Lower Min</th> 
-                                                                <th>Lower Max</th> 
-                                                                <th>Upper Min</th> 
-                                                                <th>Upper Max</th> 
-                                                                <th>Mean</th>
-                                                                <th>Lower Min - Result</th>
-                                                                <th>Lower Max - Result</th>
-                                                                <th>Upper Min - Result</th> 
-                                                                <th>Upper Max - Result</th>
-                                                                <th>Mean</th>
-                                                                <th>Result Output</th>
-                                                                <th>Remarks</th>
-                                                                <th>QC Status by Analyst</th>
-                                                                <th>Test Method</th>
-                                                                <th>Material Type</th>
-                                                                <th>User Text-1</th>
-                                                                <th>User Text-2</th>
-                                                                <th>User Text-3</th>
-                                                                <th>User Text-4</th>
-                                                                <th>User Text-5</th>
-                                                                <th>QC Status Result</th>
-                                                                <th>UOM</th> 
-                                                                <th>Retest</th> 
-                                                                <th>Stability</th> 
-                                                                <th>External Sample</th>
-                                                                <th>Applicable For As</th>
-                                                                <th>Applicable For LOD</th> 
-                                                                <th>Analysis By</th>
-                                                                <th>Analyst Remark</th>
-                                                                <th>Instrument Code</th> 
-                                                                <th>Instrument Name</th>
-                                                                <th>Star Date</th>
-                                                                <th>Start Time</th>
-                                                                <th>End Date</th>
-                                                                <th>End Time</th> 
-                                                                <!-- <th>Sr. No</th>
-                                                                <th>Parameter Code</th>
-                                                                <th>Parameter Name </th>  
-                                                                <th>Specification</th>
-                                                                <th>Result Output</th>
-                                                                <th>Comparision Result</th> 
-                                                                <th>Result Output By QC Des.</th> 
-                                                                <th>Parameter Data Type</th>
-                                                                <th>Logical</th>
-                                                                <th>Lower Min</th>
-                                                                <th>Upper Max</th> 
-                                                                <th>Mean</th>
-                                                                <th>QC Status by Analyst</th>
-                                                                <th>Test Method</th>
-                                                                <th>Material Type</th>
-                                                                <th>Pharmacopoeial Standard</th>
-                                                                <th>UOM</th>
-                                                                <th>Retest</th>
-                                                                <th>External Sample</th>
-                                                                <th>Analysis By</th>
-                                                                <th>Analyst Remark</th>
-                                                                <th>Lower Max</th>
-                                                                <th>Release</th>
-                                                                <th>Descriptive Details</th>
-                                                                <th>Upper Min</th>
-                                                                <th>Lower Min - Result</th>
-                                                                <th>Upper Min - Result</th> 
-                                                                <th>Upper Max - Result</th>
-                                                                <th>Mean Result</th>
-                                                                <th>User Text-1</th>
-                                                                <th>User Text-2</th>
-                                                                <th>User Text-3</th>
-                                                                <th>User Text-4</th>
-                                                                <th>User Text-5</th>
-                                                                <th>QC Setup Result</th>
-                                                                <th>Stability</th>
-                                                                <th>Applicable For Assay</th>
-                                                                <th>Applicable For LOD</th> 
-                                                                <th>Instrument Code</th> 
-                                                                <th>Instrument Name</th>
-                                                                <th>Star Date</th>
-                                                                <th>Start Time</th>
-                                                                <th>End Date</th>
-                                                                <th>End Time</th>  -->
+                                                            <th>Sr.No</th>
+                                                                    <th>Parameter Code</th>
+                                                                    <th>Parameter Name</th>
+                                                                    <th>Specification</th>
+                                                                    <th>Result OutPut</th>
+                                                                    <th>Comparison Result</th>
+                                                                    <th>Result Output By QC Dept.</th>
+                                                                    <th>Parameter Data Type</th>
+                                                                    <th>Logical</th>
+                                                                    <th>Lower Min</th>
+                                                                    <th>Upper Max</th>
+                                                                    <th>Mean</th>
+                                                                    <th>QC Status by Analyst</th>
+                                                                    <th>Test Method</th>
+                                                                    <th>Material Type</th>
+                                                                    <th>Pharmacopoeial Standard</th>
+                                                                    <th>UOM</th>
+                                                                    <th>Retest</th>
+                                                                    <th>External Sample</th>
+                                                                    <th>Analysis By</th>
+                                                                    <th>Analyst Remarks</th>
+                                                                    <th>Lower Max</th>
+                                                                    <th>Release</th>
+                                                                    <th>Descriptive Details</th>
+                                                                    <th>Upper Min</th>
+                                                                    <th>Lower Min - Result</th>
+                                                                    <th>Upper Min - Result</th>
+                                                                    <th>Upper Max - Result</th>
+                                                                    <th>Mean - Result</th>
+                                                                    <th>User Text-1</th>
+                                                                    <th>User Text-2</th>
+                                                                    <th>User Text-3</th>
+                                                                    <th>User Text-4</th>
+                                                                    <th>User Text-5</th>
+                                                                    <th>QC Setup Remark</th>
+                                                                    <th>Stability</th>
+                                                                    <th>Applicable for Assay</th>
+                                                                    <th>Applicable for LOD</th>
+                                                                    <th>Instrument Code</th>
+                                                                    <th>Instrument Name</th>
+                                                                    <th>Start Date</th>
+                                                                    <th>Start Time</th>
+                                                                    <th>End Date</th>
+                                                                    <th>End Time</th>
+                                                              
+                                                            
+                                                               
                                                             </tr>
                                                         </thead>
                                                      <tbody id="qc-post-general-data-list-append"></tbody> 
@@ -584,11 +548,19 @@
                                                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
                                                           <thead class="fixedHeader1">
                                                                 <tr>
-                                                                    <th>Sr. No</th>
-                                                                    <th>Status</th>
+                                                                <th>Sr. No</th>
+                                                                    <th style="width:150px;display: block;">Status</th>
                                                                     <th>Quantity</th>
+                                                                    <th>Release Date</th>
+                                                                    <th>Release Time</th>
                                                                     <th>IT No</th>
-                                                                    <th>Done By</th>  
+                                                                    <th style="width:150px;display: block;">Done By</th>
+                                                                    <th>Attachment 1</th>
+                                                                    <th>Attachment 2</th>
+                                                                    <th>Attachment 3</th>
+                                                                    <th>Deviation Date</th>
+                                                                    <th>Deviation No</th>
+                                                                    <th>Deviation Reason</th>
                                                                     <th>Remarks</th>
                                                                 </tr>
                                                             </thead>

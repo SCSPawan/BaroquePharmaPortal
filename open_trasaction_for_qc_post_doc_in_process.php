@@ -480,6 +480,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         })
     }
 
+
     function QC_StatusByAnalystDropdown(trcount){
         var dataString ='TableId=@SCS_QCPD1&Alias=QCStatus&action=dropdownMaster_ajax';
         $.ajax({
@@ -495,6 +496,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             }
         })
     }
+
+
+
+
 
     function GetRowLevelAnalysisByDropdown(trcount){
         $.ajax({ 
@@ -544,6 +549,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             }
         })
     }
+
+    
 
     function getDoneByDroopdown(n){
         var dataString ='action=qc_get_SAMINTTRBY_ajax';

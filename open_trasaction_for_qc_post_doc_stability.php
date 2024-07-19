@@ -279,6 +279,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     <style type="text/css">
         body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
     </style>
+
+    <!-- ---------instrument modal------------- -->
+ <div class="modal fade instrument_modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-md">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="myLargeModalLabel">Instrument List</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+
+             <div class="modal-body">
+                 <div class="table-responsive table_item_padding" id="append_instrument_table"></div>
+             </div>
+         </div>
+     </div>
+ </div>
+ <!-- ---------instrument modal end------------- -->
 <!-- ---------- loader start here---------------------- -->
     <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
         <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
@@ -402,14 +419,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
-                console.log(JSONObject);
                 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
 
                 $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-                // console.log(JSONObject);
+                console.log(JSONObject);
 
                 // Line 1 start
                     $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
@@ -488,8 +504,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#Branch`).val(JSONObject[0].Branch);
                     $(`#Location`).val(JSONObject[0].Location);
                     $(`#PackSize`).val(JSONObject[0].PackSize);
-
-                    addDaysToDate(JSONObject[0].QCDays);  // add QC Days In Postion Date 
+                    $(`#Stability_QCbaseno`).val(JSONObject[0].BaseNum);
+                    $(`#Stability_QCbaseEntry`).val(JSONObject[0].BaseEntry);
+                    $(`#Stability_QCPlanno`).val(JSONObject[0].StabilityPlanDocNum);
+                    $(`#Stability_QCPlanEntry`).val(JSONObject[0].StabilityPlanDocEntry);
+                    $(`#Stability_QCLDate`).val(JSONObject[0].StabilityLoadingDate);
+                    $(`#Stability_QC_UOM`).val(JSONObject[0].RouteStageRecoUOM);
+                   
+                    // addDaysToDate(JSONObject[0].QCDays);  // add QC Days In Postion Date 
 
 
 
@@ -530,6 +552,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 getQcStatusDropodwn(1);
                 getDoneByDroopdown(1);
                 assayapp();
+                getResultOutputDropdownWithSelectedOption(JSONObjectAll.count);
+                
+                GetRowLevelAnalysisByDropdown(JSONObjectAll.count);
+                
+                QC_StatusByAnalystDropdownWithSelectedOption(JSONObjectAll.count);
                 // ===========================================================================================================
 
                 // "SrNo": "1",
@@ -971,38 +998,7 @@ function Compiled_ByDropdown(){
 
 
 
-    function CalculateResultOut(un_id){
-
-        var lowMin=document.getElementById('LowMin'+un_id).value;
-        var uppMax=document.getElementById('UppMax'+un_id).value;
-        var UOM=document.getElementById('GDUOM'+un_id).value;
-
-        var lowMinResOG=document.getElementById('lower_min_result'+un_id).value; // this value enter by user
-
-        var lowMinRes=parseFloat(lowMinResOG).toFixed(6); // this value enter by user
-
-        if(lowMinRes!=''){
-            $('#lower_min_result'+un_id).val(lowMinRes);
-
-            $('#remarks'+un_id).val(lowMinResOG+' '+UOM);
-
-            if(parseFloat(lowMinRes)>=parseFloat(lowMin) && parseFloat(lowMinRes)<=parseFloat(uppMax)){
-
-                $('.dropdownResutl'+un_id).val('PASS');    
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #c7f3c7');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-            
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"PASS");
-            }else{
-
-                $('.dropdownResutl'+un_id).val('FAIL');
-                $('#ResultOutTd'+un_id).attr('style', 'background-color: #f8a4a4');
-                $('.dropdownResutl'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-
-                setSelectedIndex(document.getElementsByClassName("dropdownResutl"+un_id),"FAIL");
-            }
-        }
-    }
+    
 
     function setSelectedIndex(s, valsearch)
     {
@@ -1043,27 +1039,7 @@ function Compiled_ByDropdown(){
         }
     }
 
-    function SelectedQCStatus(un_id){
-
-        var QC_StatusByAnalyst=document.getElementById('QC_StatusByAnalyst'+un_id).value;
-        
-        if(QC_StatusByAnalyst=='Complies'){
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #c7f3c7');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
-        
-        }else if(QC_StatusByAnalyst=='Non Complies'){
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #f8a4a4');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
-        
-        }else {
-
-            $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #ffffff');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
-        
-        }
-    }
+   
 
     function getResultOutputDropdown(trcount){
 
@@ -1594,5 +1570,352 @@ function Compiled_ByDropdown(){
     //         }
     //     });
     // }
+
+
+
+
+// ------------------------------Apoorv chnges -----------------------------------
+
+
+
+
+ function getResultOutputDropdownWithSelectedOption(trcount) {
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: {'action': "getResultOutputDropdownWithSelectedOption_Ajax"},
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(opt) {
+                    var JSONObject = JSON.parse(opt);
+
+                    //console.log('JSONObject', JSONObject);
+
+                    let count = JSONObject.length;
+
+                    for (let i = 0; i < trcount; i++) {
+                        const dropdown = document.getElementById('ResultOutputByQCDept' + i);
+
+                        let selectedValue = $('#ResultOutputByQCDept_Old' + i).val();
+
+                        let options = '';
+                        for (let j = 0; j < count; j++) {
+                            let selected = (selectedValue == JSONObject[j].Code) ? 'selected' : '';
+                            options += `<option value="${JSONObject[j].Code}" ${selected}>${JSONObject[j].Name}</option>`;
+                        }
+
+                        dropdown.innerHTML = options;
+                        OnChangeResultOutputByQCDept(i);
+                    }
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+
+        function OnChangeResultOutputByQCDept(un_id) {
+            var ResultOutputByQCDept = $('#ResultOutputByQCDept' + un_id).val();
+
+            if (ResultOutputByQCDept == 'FAIL') {
+                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+            } else if (ResultOutputByQCDept == 'PASS') {
+                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+            } else {
+                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+            }
+        }
+
+
+
+
+
+
+
+        function SelectedQCStatus(un_id) {
+            
+            var QC_StatusByAnalyst = document.getElementById('QC_StatusByAnalyst' + un_id).value;
+
+            if (QC_StatusByAnalyst == 'Complies') {
+                $('#QC_StatusByAnalystTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                $('#qC_status_by_analyst' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+            } else if (QC_StatusByAnalyst == 'Non Complies') {
+                $('#QC_StatusByAnalystTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                $('#qC_status_by_analyst' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+            } else {
+                $('#QC_StatusByAnalystTd' + un_id).attr('style', 'background-color: #ffffff');
+                $('#qC_status_by_analyst' + un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
+            }
+        }
+
+
+
+        function QC_StatusByAnalystDropdownWithSelectedOption(trcount) {
+
+          
+
+            var dataString = 'TableId=@SCS_QCPD1&Alias=QCStatus&action=QC_StatusByAnalystDropdownWithSelectedOption_Ajax';
+
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: dataString,
+                cache: false,
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(opt) {
+                    var JSONObject = JSON.parse(opt);
+
+                    // console.log('JSONObject', JSONObject);
+
+                    let count = JSONObject.length;
+
+                    for (let i = 0; i < trcount; i++) {
+                        // console.log('Loop=>', i);
+
+                        const dropdown = document.getElementById('QC_StatusByAnalyst' + i);
+                        QC_StatusByAnalyst0
+                        //  console.log('dropdown', dropdown);
+
+                        // let selectedValue = $('#qC_status_by_analyst_Old' + i).val();
+
+                        let options = '';
+                        for (let j = 0; j < count; j++) {
+
+                            // let selected = (selectedValue == JSONObject[j].FldValue) ? 'selected' : '';
+                            options += `<option value="${JSONObject[j].FldValue}">${JSONObject[j].Description}</option>`;
+                        }
+
+                        dropdown.innerHTML = options;
+                         SelectedQCStatus(i);
+                    }
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+
+
+
+
+
+
+        function GetRowLevelAnalysisByDropdown(trcount) {
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: {'action': "GetRowLevelAnalysisByDropdown_Ajax"},
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(result) {
+                    var dropdown = JSON.parse(result);
+
+                    for (let i = 0; i < trcount; i++) {
+                        $('#AnalysisBy' + i).html(dropdown); // dropdown set using Id
+                    }
+
+                    $('#routStage_CheckedBy').html(dropdown); // Bottom dropdown set using Id
+                    $('#routStage_AnalysisBy').html(dropdown); // Bottom dropdown set using Id
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+
+
+        function OpenInstrmentModal(un_id) {
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: {
+                    'un_id': un_id,
+                    'action': "OpenInstrmentModal_Ajax"
+                },
+                beforeSend: function() {
+                    $(".loader123").show();
+                },
+                success: function(result) {
+                    var Table = JSON.parse(result);
+                    $('#append_instrument_table').html(Table);
+                },
+                complete: function(data) {
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+        let favorite = [];
+        let total_uid = 0;
+        function GetSelectedInstumentdata(un_id) {
+            const ids_new_radio = [];
+
+            $("input[name='InstrumentId[]']:checked").each(function() {
+                const uid = parseInt($(this).val()); // Parse the value to integer
+                favorite.push(uid);
+                total_uid += uid;
+                ids_new_radio.push(uid);
+            });
+
+            const InstrumentCode = $('#Html_InstrumentCode' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+            const InstrumentName = $('#Html_InstrumentName' + ids_new_radio[0]).text(); // Assuming you want the first element's text
+
+            $('#InstrumentCode' + un_id).val(InstrumentCode);
+            $('#InstrumentName' + un_id).val(InstrumentName);
+        }
+
+        function CalculateResultOut(un_id) {
+            var lowMin = document.getElementById('LowMin' + un_id).value;
+            var uppMax = document.getElementById('UppMax' + un_id).value;
+            var UOM = document.getElementById('UOM' + un_id).value;
+
+            var ComparisonResultOG = document.getElementById('ComparisonResult' + un_id).value; // this value enter by user
+
+            if (ComparisonResultOG != '') {
+                $('#ResultOut' + un_id).val(ComparisonResultOG + ' ' + UOM);
+
+                if (parseFloat(uppMax) === 0) {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin)) {
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                } else {
+                    if (parseFloat(ComparisonResultOG) >= parseFloat(lowMin) && parseFloat(ComparisonResultOG) <= parseFloat(uppMax)) {
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #c7f3c7');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "PASS");
+                    } else {
+                        $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #f8a4a4');
+                        $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+
+                        setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "FAIL");
+                    }
+                }
+            } else {
+                $('#ResultOut' + un_id).val('');
+                $('#ResultOutputByQCDeptTd' + un_id).attr('style', 'background-color: #FFFFFF');
+                $('#ResultOutputByQCDept' + un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+
+                setSelectedIndex(document.getElementById("ResultOutputByQCDept" + un_id), "-");
+            }
+        }
+
+
+       
+        function AutocalculateQC_Qty() {
+            // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+                var rows = document.querySelectorAll('#qc-status-list-append tr');
+
+                // Get the count of tr elements
+                var rowCount = rows.length;
+
+                // Initialize sum
+                var sum = 0;
+
+                // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+                rows.forEach(function(row) {
+                    var input = row.querySelector('input[name="qCStsQty[]"]');
+                    if (input) {
+                        sum += parseFloat(input.value) || 0;
+                    }
+                });
+
+                var BatchQty = $('#BatchSize').val();
+                var QCS_Qty = parseFloat(parseFloat(BatchQty) - parseFloat(sum)).toFixed(3);
+                return QCS_Qty;
+            // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+        }
+
+        function addMore(num) {
+            // Formate manula enter Quantity
+            var QC_Quantity = $('#qCStsQty_' + num).val();
+            $('#qCStsQty_' + num).val(parseFloat(QC_Quantity).toFixed(3));
+
+            // var tr_count = $('#tr-count').val();
+            var tr_count = $('#qc-status-list-append tr').length;
+            var QCS_Qty = AutocalculateQC_Qty();
+
+            // Proceed with AJAX request only if QCS_Qty is not equal to 0.00
+            if (parseFloat(QCS_Qty) !== 0.00) {
+                // var tr_count = $('#tr-count').val();
+                $.ajax({
+                    type: "POST",
+                    url: 'ajax/kri_common-ajax.php',
+                    data: ({index: tr_count,action: 'add_qc_status_input_more'}),
+                    success: function(result) {
+                        $('#add-more_' + tr_count).after(result);
+                        tr_count++;
+                        $('#tr-count').val(tr_count);
+                        $('#qCStsQty_' + tr_count).val(QCS_Qty);
+
+                        getQcStatusDropodwn(tr_count);
+                        getDoneByDroopdown(tr_count);
+                    }
+                })
+            }
+        }
+
+        function SelectionOfQC_Status(un_id) {
+            // var tr_count = parseInt($('#tr-count').val());
+            var tr_count = $('#qc-status-list-append tr').length;
+            
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0');
+            var day = now.getDate().toString().padStart(2, '0');
+            var formattedDate = `${day}-${month}-${year}`;
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var formattedTime = `${hours}:${minutes}`;
+
+            $('#qCReleaseDate_' + un_id).val(formattedDate);
+            $('#qCReleaseTime_' + un_id).val(formattedTime);
+
+            if (tr_count !== 1) {
+                var rows = $('#qc-status-list-append tr');
+                var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+                var valid = true;
+                var message = "";
+
+                rows.each(function(index) {
+                    if (index < rows.length - 1) {
+                        var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                        if (qcStatusDropdown === Selected_QC_Status) {
+                            valid = false;
+                            message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
+                        }
+                    }
+                });
+
+                if (valid) {
+                    if (!$('#qCStsQty_' + un_id).val()) {
+                        $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
+                    }
+                } else {
+                    $('#qCStsQty_' + un_id).val('');
+                    $('#qc_Status_' + un_id).val('');
+                    swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
+                }
+            } else {
+                $('#qCStsQty_' + un_id).val($('#BatchSize').val());
+            }
+        }
 </script>
-<!-- 1532 -->
