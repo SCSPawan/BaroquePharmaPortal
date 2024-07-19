@@ -419,13 +419,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 var JSONObjectAll = JSON.parse(result);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
+                // console.log('Res=>', JSONObject);
+              
                 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
 
                 $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-                console.log(JSONObject);
+                // console.log(JSONObject);
 
                 // Line 1 start
                     $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
@@ -457,8 +459,17 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 // Line 5 start
                     $(`#BatchSize`).val(JSONObject[0].BatchQty); //<!-- misssing -------------------------------------------- -->
+                    // console.log('Sample Intimation Stability=>', JSONObject[0].SampleIntimation);
                     $(`#SampleIntimationStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                    // console.log('Sample Collection Stability=>', JSONObject[0].SampleCollectionNo);
                     $(`#SampleCollStability`).val(JSONObject[0].SampleCollectionNo);
+
+
+                // SampleIntimationNo
+                // SampleCollectionNo
+
+                // SampleCollStability
+                // SampleIntimationStability
 
 
                 // <!-- ----------- Mfg Date Start Here ----------------------- -->
@@ -478,7 +489,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // <!-- ----------- Mfg Date End Here ------------------------- -->
 
                 // Line 6 start
-                    $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                    // $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
                     $(`#SampleTransferNoFromWO`).val(JSONObject[0].BaseNum); //<!-- misssing -------------------------------------------- -->
                     $(`#SampleCollEntryFromWO`).val(JSONObject[0].BaseEntry); //<!-- misssing -------------------------------------------- -->
                 
@@ -992,6 +1003,7 @@ function Compiled_ByDropdown(){
                 $('#StabilityQC_CK_D_DocNo').val(Series);
             },
             complete:function(data){
+                $(".loader123").hide();
             }
         }); 
     }
