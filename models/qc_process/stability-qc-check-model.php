@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Stability111111111111</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Stability</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -304,26 +304,26 @@
                                         </div>
 
 
-<div class="col-xl-3 col-md-6">
-<div class="form-group row mb-2">
-<label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
- <div class="col-lg-4">
-    <select class="form-select" type="text" id="StabilityQC_CK_D_DocName" name="StabilityQC_CK_D_DocName"></select> 
-</div>
+                                            <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                            <div class="col-lg-4">
+                                                <select class="form-select" type="text" id="StabilityQC_CK_D_DocName" name="StabilityQC_CK_D_DocName"  onchange="selectedSeries()"></select> 
+                                            </div>
 
-<div class="col-lg-4">
-    <input class="form-control desabled" type="text" id="StabilityQC_CK_D_DocNo" name="StabilityQC_CK_D_DocNo" readonly>
-</div>
+                                            <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="StabilityQC_CK_D_DocNo" name="StabilityQC_CK_D_DocNo" readonly>
+                                            </div>
 
-<!-- <div class="col-lg-2">
- <input class="form-control desabled no" type="text" id="" name="" readonly>
-</div>
+                                            <!-- <div class="col-lg-2">
+                                            <input class="form-control desabled no" type="text" id="" name="" readonly>
+                                            </div>
 
-<div class="col-lg-2">
- <input class="form-control desabled no" type="text" id="" name="" readonly>
-</div> -->
-</div>
-</div>
+                                            <div class="col-lg-2">
+                                            <input class="form-control desabled no" type="text" id="" name="" readonly>
+                                            </div> -->
+                                            </div>
+                                            </div>
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">

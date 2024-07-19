@@ -5643,6 +5643,9 @@ if (isset($_POST['SampleCollectionInProcess_Btn'])) {
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
+
+
+
 if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -5877,6 +5880,7 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		exit(0);
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
+
 
 if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
@@ -10196,18 +10200,20 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 	$tdata['U_PC_StQty'] = trim(addslashes(strip_tags($_POST['StabilityPlanQuantity'])));
 	$tdata['U_PC_Unit'] = trim(addslashes(strip_tags($_POST['Stability_QC_UOM'])));
 
-	// print_r($tdata);
-
-	// die();
-
 	$ganaralData = array();
-	$BL = 0;
+	// $BL = 0;
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = ($i + 1);
 		$ganaralData['Object'] = 'SCS_QCSTAB';
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
-		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
-		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
+
+		// $ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
+		// $ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
+
+		$ganaralData['U_PC_PName'] = trim($_POST['PName'][$i], '"');
+		$ganaralData['U_PC_Std'] = trim($_POST['Standard'][$i], '"');
+		
+
 		$ganaralData['U_PC_Rel'] = trim(addslashes(strip_tags($_POST['Release'][$i])));
 		$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
 		$ganaralData['U_PC_DDtl'] = trim(addslashes(strip_tags($_POST['DescriptiveDetails'][$i])));
@@ -10249,17 +10255,11 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['EndDate'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['EndTime'][$i])));	
 		$tdata['SCS_QCSTAB1Collection'][] = $ganaralData; // row data append on this array
-		$BL++; 
+		// $BL++; 
 	}
 
-
-
-	// print_r($general_data);
-
-	// die();
-
 	$qcStatus = array();
-	$qcS = 0; //skip array avoid and count continue
+	// $qcS = 0; //skip array avoid and count continue
 	for ($j = 0; $j < count($_POST['qc_Status']); $j++) {
 		$qcStatus['LineId'] = trim(addslashes(strip_tags($j)));
 		$qcStatus['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
@@ -10289,7 +10289,7 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 		$tdata['SCS_QCSTAB2Collection'][] = $qcStatus; // row data append on this array
-		$qcS++;
+		// $qcS++;
 	}
 
 	// $qcAttech = array();
@@ -10304,6 +10304,7 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
     //  	$tdata['SCS_QCSTAB3Collection'][] = $qcAttech; // row data append on this array
 	// 	$qcatt++;
 	// }
+
 	$mainArray = $tdata;
 
 		// echo "<pre>";
@@ -10316,19 +10317,24 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 	if (!empty($res)) {
 		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB;
 		$responce_encode = $objKri->qcPostDocumentRetestQc($mainArray, $Final_API);
+
 		$responce = json_decode($responce_encode);
+
 		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		if (array_key_exists('error', (array)$responce)) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = $responce->error->message->value;
-			echo json_encode($data);
-		} else {
-			$data['status'] = 'True';
-			$data['DocEntry'] = $responce->DocEntry;
-			$data['message'] = 'QC Post Document stability updated Successfully';
-			echo json_encode($data);
-		}
+
+			if (array_key_exists('error', (array)$responce)) {
+				$data['status'] = 'False';
+				$data['DocEntry'] = '';
+				$data['message'] = $responce->error->message->value;
+				echo json_encode($data);
+
+			} else {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $responce->DocEntry;
+				$data['message'] = "QC Post Document Added Successfully.";
+				echo json_encode($data);
+			}
+
 		//  <!-- ------- service layer function responce manage End Here -------------- -->	
 	}
 	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
