@@ -2044,9 +2044,9 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 
 					<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
 
-					<td><input class="border_hide" type="text"  id="qCReleaseDate_1" name="qCReleaseDate[]" class="form-control" readonly></td>
+					<td><input class="border_hide" type="date"  id="qCReleaseDate_1" name="qCReleaseDate[]" class="form-control"></td>
 
-					<td><input class="border_hide" type="text"  id="qCReleaseTime_1" name="qCReleaseTime[]" class="form-control" readonly></td>
+					<td><input class="border_hide" type="time"  id="qCReleaseTime_1" name="qCReleaseTime[]" class="form-control"></td>
 
 					<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
 
@@ -2378,9 +2378,10 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 		$ganaralData=array();
 		for ($i=0; $i <count($_POST['pCode']) ; $i++) {
 			$ganaralData['U_PCode']=trim(addslashes(strip_tags($_POST['pCode'][$i])));
-			$ganaralData['U_PName']=trim(addslashes(strip_tags($_POST['PName'][$i])));
+			// $ganaralData['U_PName']=trim(addslashes(strip_tags($_POST['PName'][$i])));
 			// $ganaralData['U_Standard']=trim(addslashes(strip_tags($_POST['Standard'][$i])));
 
+			$ganaralData['U_PName']=trim($_POST['PName'][$i], '"');
 			$ganaralData['U_Standard']=trim($_POST['Standard'][$i], '"');
 			
 			$ganaralData['U_Remarks']=trim(addslashes(strip_tags($_POST['ResultOut'][$i])));

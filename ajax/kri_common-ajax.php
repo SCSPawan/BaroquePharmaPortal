@@ -306,9 +306,9 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_input_more'){
 
 		<td><input class="border_hide" type="text"  id="qCStsQty_'.$index.'" name="qCStsQty[]" class="form-control" onfocusout="addMore('.$index.');"></td>
 
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$index.'" name="qCReleaseDate[]" class="form-control" readonly></td>
+		<td><input class="border_hide" type="date"  id="qCReleaseDate_'.$index.'" name="qCReleaseDate[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$index.'" name="qCReleaseTime[]" class="form-control" readonly></td>
+		<td><input class="border_hide" type="time"  id="qCReleaseTime_'.$index.'" name="qCReleaseTime[]" class="form-control"></td>
 
 		<td><input class="border_hide" type="text"  id="qCitNo_'.$index.'" name="qCitNo[]" class="form-control"></td>
 

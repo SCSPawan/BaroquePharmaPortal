@@ -1143,7 +1143,9 @@ function SelectionOfQC_Status(un_id) {
     var year = now.getFullYear();
     var month = (now.getMonth() + 1).toString().padStart(2, '0');
     var day = now.getDate().toString().padStart(2, '0');
-    var formattedDate = `${day}-${month}-${year}`;
+    // var formattedDate = `${day}-${month}-${year}`;
+    var formattedDate = `${year}-${month}-${day}`;
+
     var hours = now.getHours().toString().padStart(2, '0');
     var minutes = now.getMinutes().toString().padStart(2, '0');
     var formattedTime = `${hours}:${minutes}`;
