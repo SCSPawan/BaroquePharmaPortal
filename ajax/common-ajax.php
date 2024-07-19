@@ -1806,8 +1806,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 
 		
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-		// print_r($API);
-		// die();
+	// print_r($API);
+	// die();
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 	echo json_encode($response);
 	exit(0);
@@ -1823,7 +1823,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 				$API=$INWARDQCPOSTROWDETAILS_API.'?ItemCode='.$ItemCode;
 				
 				$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-				
+				// print_r($FinalAPI);
+				// die();
 			// <!--------------- Preparing API End Here ------------------------------------------ -->
 			$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
@@ -1838,8 +1839,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_PD_popup')
 						$option['tr'].='<tr>
 						    <td class="desabled">'.($i+1).'</td>
 
-						    <td>
-						    	<input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$response[$i]->PCode.'" class="form-control">
+						    <td class="desabled">
+						    	<input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$response[$i]->PCode.'" class="form-control textbox_bg">
 						    </td>
 
 						    <td class="desabled">
@@ -2161,6 +2162,9 @@ if(isset($_POST['action']) && $_POST['action'] =='getResultOutputDropdownWithSel
 
 		
 
+		// print_r($Final_API);
+		// die();
+
 		$responce_encode=$obj->getFunctionServiceLayer($Final_API);
 		$responce=json_decode($responce_encode);
 
@@ -2366,22 +2370,19 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['MakeBy'])));
 	$tdata['U_TypMaterial']=trim(addslashes(strip_tags($_POST['TypeofMaterial'])));
 	$tdata['U_RMQC']=trim(addslashes(strip_tags($_POST['RelMaterialWithoutQC'])));
-
 	$tdata['U_RQty'] = trim(addslashes(strip_tags($_POST['RetainQty'])));
 	$tdata['U_RelDt']=(!empty($_POST['ReleaseDate']))? date("Y-m-d", strtotime($_POST['ReleaseDate'])) : null;
 	$tdata['U_RetstDt']=(!empty($_POST['RetestDate']))? date("Y-m-d", strtotime($_POST['RetestDate'])) : null;
-	// echo '<pre>';
-	// // print_r($_FILES['qCAttache1_1']);
-	// print_r($tdata);
-	// // print_r(json_encode($mainArray));
-	// die();
 
 	if(!empty($_POST['pCode'])){
 		$ganaralData=array();
 		for ($i=0; $i <count($_POST['pCode']) ; $i++) {
 			$ganaralData['U_PCode']=trim(addslashes(strip_tags($_POST['pCode'][$i])));
 			$ganaralData['U_PName']=trim(addslashes(strip_tags($_POST['PName'][$i])));
-			$ganaralData['U_Standard']=trim(addslashes(strip_tags($_POST['Standard'][$i])));
+			// $ganaralData['U_Standard']=trim(addslashes(strip_tags($_POST['Standard'][$i])));
+
+			$ganaralData['U_Standard']=trim($_POST['Standard'][$i], '"');
+			
 			$ganaralData['U_Remarks']=trim(addslashes(strip_tags($_POST['ResultOut'][$i])));
 			$ganaralData['U_LowMin1']=trim(addslashes(strip_tags($_POST['ComparisonResult'][$i])));
 			$ganaralData['U_ROutput']=trim(addslashes(strip_tags($_POST['ResultOutputByQCDept'][$i])));
@@ -2430,7 +2431,7 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 	if(!empty($_POST['qc_Status'])){
 		$qcStatus=array();
 		for ($j=0; $j <count($_POST['qc_Status']) ; $j++) { 
-			if(!empty($_POST['qCStsQty'][$j])){
+			if(!empty($_POST['qc_Status'][$j])){
 				$qcStatus['U_Status']=trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
 				$qcStatus['U_Quantity']=trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
 				// $qcStatus['U_ITNo']=trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
@@ -2470,12 +2471,6 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 		}
 	}
 
-
-
-
-
-
-
 	if(!empty($_POST['targetPath'])){
 		$qcAttech=array();
 		for ($k=0; $k <count($_POST['targetPath']) ; $k++) {
@@ -2495,16 +2490,7 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 	// echo '<pre>';
 	// print_r(json_encode($mainArray));
 	// die();
-	
-	// echo '<pre>';
-	// // print_r($_FILES['qCAttache1_1']);
-	// print_r($_POST['Assaypotencyreq']);
-	// echo '   --   ';
-	// print_r($_POST['AssayPotency']);
-	// echo '   --   ';
-	// print_r($_POST['factor']);
-	// // print_r(json_encode($mainArray));
-	// die();
+
 
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here

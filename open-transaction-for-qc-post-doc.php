@@ -560,6 +560,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {
+                // console.log('getGeneratDataTable=>', result);
                 var JSONObject = JSON.parse(result);
              
                 $('#generateDataTable-list').html(JSONObject['tr']);
