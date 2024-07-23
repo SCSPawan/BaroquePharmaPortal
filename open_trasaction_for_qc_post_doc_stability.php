@@ -415,6 +415,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {
+               
                 
                 var JSONObjectAll = JSON.parse(result);
 
@@ -427,16 +428,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
 
                 $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-                // console.log(JSONObject);
-
+                $(`#Stability_QC_LabelClaimUOM`).val(JSONObject[0].LabelClaimUOM);
                 // Line 1 start
                     $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
                     $(`#ReceiptEntry`).val(JSONObject[0].RouteStageRecoReceiptEntry);
-                    $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo);
+                    $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo);Stability_QC_LOC
                     $(`#WoEntry`).val(JSONObject[0].RouteStageRecoWODocEntry);
-
+                  $(`#Stability_QC_LOC`).val(JSONObject[0].LocCode);
                 // alert(JSONObject[0].RouteStageRecoWODocEntry);
-
                 // RouteStageRecoReceiptEntry
                     $(`#ItemCode`).val(JSONObject[0].ItemCode);
                     $(`#ItemName`).val(JSONObject[0].ItemName);
@@ -497,13 +496,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                 // Line 7 start
                     $(`#StabilityPlanDocNum`).val(JSONObject[0].StabilityPlanDocNum);
-                    $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
+                   
                     $(`#StabilityPlanQuantity`).val(JSONObject[0].StabilityPlanQuantity);
 
                 // <!-- ----------- Mfg Date Start Here ----------------------- -->
                     var stabilityLoadingDateOG = JSONObject[0].StabilityLoadingDate;
                     if(stabilityLoadingDateOG!=''){
-                        stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
+                    stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
                         $(`#StabilityLoadingDate`).val(stabilityLoadingDate);
                     }
                 // <!-- ----------- Mfg Date End Here ------------------------- -->
@@ -518,7 +517,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#Stability_QCbaseno`).val(JSONObject[0].BaseNum);
                     $(`#Stability_QCbaseEntry`).val(JSONObject[0].BaseEntry);
                     $(`#Stability_QCPlanno`).val(JSONObject[0].StabilityPlanDocNum);
-                    $(`#Stability_QCPlanEntry`).val(JSONObject[0].StabilityPlanDocEntry);
+                 
                     $(`#Stability_QCLDate`).val(JSONObject[0].StabilityLoadingDate);
                     $(`#Stability_QC_UOM`).val(JSONObject[0].RouteStageRecoUOM);
                    
@@ -619,7 +618,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // "WhsCode": "STBL-DEF",
 
                 // "StabilityPlanDocNum": "10",
-                // "StabilityPlanDocEntry": "53",
+             
                 // "StabilityLoadingDate": "26-08-2022 00:00:00",
                 // "StabilityPlanQuantity": "20.000000",
 

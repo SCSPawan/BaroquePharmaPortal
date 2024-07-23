@@ -3389,8 +3389,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 		
 	</tr>';
 
-
-
 	}
 
 
@@ -5791,7 +5789,7 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($i)));
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
-		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
+		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['PharmacopeiasStandard'][$i])));
 		$ganaralData['U_PC_Rel'] = trim(addslashes(strip_tags($_POST['Release'][$i])));
 		$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
 		$ganaralData['U_PC_DDtl'] = trim(addslashes(strip_tags($_POST['DescriptiveDetails'][$i])));
@@ -10215,7 +10213,7 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['StabilityQC_CK_D_DocName'])));
 	$tdata['Object'] = 'SCS_QCSTAB';
 	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['Stability_BPLId'])));
-	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['U_PC_LocCode'])));
+	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['Stability_QC_LOC'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['Location'])));
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['ReceiptEntry'])));
@@ -10246,7 +10244,7 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 	$tdata['U_PC_ADate'] = trim(addslashes(strip_tags($_POST['AnalysisDate'])));
 	$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['NoOfContainer'])));
 	// $tdata['U_PC_Stage'] = trim(addslashes(strip_tags($_POST['qcD_Stage'])));
-	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['qcD_Branch'])));
+	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['Branch'])));
 	$tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['ValidUpTo'])));
 	$tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['ARNo'])));
 	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['qcD_GateENo'])));
@@ -10275,11 +10273,11 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 	$tdata['U_PC_BEnt'] = trim(addslashes(strip_tags($_POST['SampleCollEntryFromWO'])));
 	$tdata['U_PC_BNum'] = trim(addslashes(strip_tags($_POST['SampleTransferNoFromWO'])));
 	$tdata['U_PC_StDNo'] = trim(addslashes(strip_tags($_POST['StabilityPlanDocNum'])));
-	$tdata['U_PC_StDEnt'] = trim(addslashes(strip_tags($_POST['Stability_QCPlanEntry'])));
+	$tdata['U_PC_StDEnt'] = trim(addslashes(strip_tags($_POST['StabilityPlanDocEntry'])));
 	$tdata['U_PC_StDt'] = trim(addslashes(strip_tags($_POST['StabilityLoadingDate'])));
 	$tdata['U_PC_StQty'] = trim(addslashes(strip_tags($_POST['StabilityPlanQuantity'])));
 	$tdata['U_PC_Unit'] = trim(addslashes(strip_tags($_POST['Stability_QC_UOM'])));
-
+	$tdata['U_PC_LClmUom'] = trim(addslashes(strip_tags($_POST['Stability_QC_UOM'])));
 	$ganaralData = array();
 	// $BL = 0;
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
@@ -10449,8 +10447,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
+	// print_r($FinalAPI);
+	// echo "</pre>";	
 
 	// exit;
 
@@ -10467,104 +10465,133 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 	// echo "</pre>";
 	// exit;
 
+
+	
 	if (!empty($general_data)) {
 		for ($i = 0; $i < count($general_data); $i++) {
 			$SrNo = $i;
 			$index = $i + 1;
 
 			$FinalResponce['general_data'] .= '<tr>
-					<td class="desabled">' . $index . '</td>
+			<td class="desabled">' . $index . '</td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="Specifiction' . $SrNo . '" name="Specifiction[]" value="' . $general_data[$i]->Specifiction . '" readonly></td>
+			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
+			
+			<td><input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="' . $general_data[$i]->CResult . '" class="form-control" style="width:200px;"></td>';
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="Release' . $SrNo . '" name="Release[]" value="' . $general_data[$i]->Release . '" readonly></td>
+			if ($general_data[$i]->PDType == 'Range') {
+				$FinalResponce['general_data'] .= '<td>
+				<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->CResult . '" class="form-control" style="width:100px;" onfocusout="CalculateResultOut(' . $SrNo . ')">
+			</td>';
+			} else {
+				$FinalResponce['general_data'] .= '<td class="desabled">
+				<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->CResult . '" class="form-control textbox_bg" style="width:100px;">
+			</td>';
+			}
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="PDType' . $SrNo . '" name="PDType[]" value="' . $general_data[$i]->PDType . '" readonly></td>
+		
+			$FinalResponce['general_data'] .= '
+			<td id="ResultOutputByQCDeptTd' . $SrNo . '">
+				<input type="hidden" id="ResultOutputByQCDept_Old' . $SrNo . '" name="ResultOutputByQCDept_Old[]" value="' . $general_data[$i]->ROutputQCDept . '">
 
-					<td><input  type="text" class="form-control" id="descriptive_details' . $SrNo . '" name="descriptive_details[]" value="' . $general_data[$i]->DesDetils . '"></td>
+				<select id="ResultOutputByQCDept' . $SrNo . '" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept(' . $SrNo . ')"></select>
+			</td>
 
-					<td><input  type="text" class="form-control" id="logical' . $SrNo . '" name="logical[]" value="' . $general_data[$i]->Logical . '" style="width: 100px;"></td>
+			<td class="desabled">
+				<input type="text" id="PDType' . $SrNo . '" name="PDType[]" value="' . $general_data[$i]->PDType . '" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+			</td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMin' . $SrNo . '" name="LowMin[]" value="' . $general_data[$i]->LowMin . '" readonly style="width: 100px;"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="logical' . $SrNo . '" name="logical[]" value="' . $general_data[$i]->Logical . '" readonly></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="LowMax' . $SrNo . '" name="LowMax[]" value="' . $general_data[$i]->LowMax . '" readonly style="width: 100px;"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMin' . $SrNo . '" name="LowMin[]" value="' . $general_data[$i]->LowMin . '" readonly></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMin' . $SrNo . '" name="UppMin[]" value="' . $general_data[$i]->UppMin . '" readonly style="width: 100px;"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMax' . $SrNo . '" name="UppMax[]" value="' . $general_data[$i]->UppMax . '" readonly></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="UppMax' . $SrNo . '" name="UppMax[]" value="' . $general_data[$i]->UppMax . '" readonly style="width: 100px;"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Min' . $SrNo . '" name="Min[]" value="' . $general_data[$i]->Min . '" readonly></td>
+			
+			<td id="QC_StatusByAnalystTd' . $SrNo . '">
+				<input type="hidden" id="qC_status_by_analyst_Old' . $SrNo . '" name="qC_status_by_analyst_Old[]" value="' . $general_data[$i]->GDQCStatus . '">
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="Min' . $SrNo . '" name="Min[]" value="' . $general_data[$i]->Min . '" readonly style="width: 100px;"></td>
+				<select id="qC_status_by_analyst' . $SrNo . '" name="qC_status_by_analyst[]" class="form-select qc_statusbyab' . $SrNo . '" onchange="SelectedQCStatus(' . $SrNo . ')">
+				</select>
+			</td>
 
-					<td><input  type="text" id="lower_min_result' . $SrNo . '" name="lower_min_result[]" onfocusout="CalculateResultOut(' . $SrNo . ')" class="form-control" value="' . $general_data[$i]->LowMin1 . '"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="TMethod' . $SrNo . '" name="TMethod[]" value="' . $general_data[$i]->TMethod . '" readonly></td>
+			
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="MType' . $SrNo . '" name="MType[]" value="' . $general_data[$i]->MType . '" readonly></td>
+			<td class="desabled">
+				<input type="text" id="PharmacopeiasStandard' . $i . '" name="PharmacopeiasStandard[]" value="' . $general_data[$i]->PharmacopeiasStandard . '"" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+			</td>
 
-					<td><input  type="text" id="lower_max_result' . $SrNo . '" name="lower_max_result[]" class="form-control" value="' . $general_data[$i]->LowMax1 . '"></td>
+			<td class="desabled"><input type="text" id="UOM' . $SrNo . '" name="UOM[]" class="form-control textbox_bg" value="' . $general_data[$i]->GDUOM . '" readonly></td>
 
-					<td><input  type="text" id="upper_min_result' . $SrNo . '" name="upper_min_result[]" class="form-control" value="' . $general_data[$i]->UppMin1 . '"></td>
+			<td class="desabled"><input type="text" id="Retest' . $SrNo . '" name="Retest[]" class="form-control textbox_bg" value="' . $general_data[$i]->Retest . '" readonly></td>
+			
+			<td class="desabled"><input type="text" id="ExSample' . $SrNo . '" name="ExSample[]" class="form-control textbox_bg" value="' . $general_data[$i]->ExSample . '" readonly></td>
 
-					<td><input  type="text" id="upper_max_result' . $SrNo . '" name="upper_max_result[]" class="form-control" value="' . $general_data[$i]->UppMax1 . '"></td>
+			<td>
+				<input type="hidden" id="AnalysisBy_Old' . $SrNo . '" name="AnalysisBy_Old[]" value="' . $general_data[$i]->AnyBy . '">
 
-					<td ><input type="text" id="mean' . $SrNo . '" name="mean[]" class="form-control" value="' . $general_data[$i]->Min1 . '" style="width: 100px;"></td>
+				<select id="AnalysisBy' . $SrNo . '" name="AnalysisBy[]" class="form-select" style="width: 140px;"></select>
+			</td>
 
-					<td id="ResultOutTd' . $SrNo . '">
-						<select id="result_output' . $SrNo . '" name="result_output[]" class="form-select dropdownResutl' . $SrNo . '" onchange="ManualSelectedTResultOut(' . $SrNo . ')"><option value="' . $general_data[$i]->ROutput . '">' . $general_data[$i]->ROutput . '</option></select>
-					</td>
+			<td><input  type="text" id="analyst_remark' . $SrNo . '" name="analyst_remark[]" class="form-control" value="' . $general_data[$i]->AnalyRemarks . '"></td>
+		
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="LowMax' . $SrNo . '" name="LowMax[]" value="' . $general_data[$i]->LowMax . '" readonly></td>
 
-					<td ><input type="text" id="remarks' . $SrNo . '" name="remarks[]" class="form-control" value="' . $general_data[$i]->Remarks . '"></td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Release' . $SrNo . '" name="Release[]" value="' . $general_data[$i]->Release . '" readonly></td>
+			
+			<td><input  type="text" class="form-control" id="descriptive_details' . $SrNo . '" name="descriptive_details[]" value="' . $general_data[$i]->DesDetils . '"></td>
 
-					<td id="QC_StatusByAnalystTd' . $SrNo . '">
-						<select id="qC_status_by_analyst' . $SrNo . '" name="qC_status_by_analyst[]" class="form-select qc_statusbyab' . $SrNo . '" onchange="SelectedQCStatus(' . $SrNo . ')">
-						</select>
-					</td>
+			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="UppMin' . $SrNo . '" name="UppMin[]" value="' . $general_data[$i]->UppMin . '" readonly></td>
+			
+			<td><input  type="number" id="lower_min_result' . $SrNo . '" name="lower_min_result[]" class="form-control" value="' . $general_data[$i]->LowMax1 . '"></td>
+			
+			<td><input  type="number" id="UppMinRes' . $SrNo . '" name="UppMinRes[]" class="form-control"  value="' . $general_data[$i]->UppMin1 . '"  ></td>
+			
+			<td><input  type="number" id="upper_max_result' . $SrNo . '" name="upper_max_result[]" class="form-control" value="' . $general_data[$i]->UppMaxResult . '"></td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="TMethod' . $SrNo . '" name="TMethod[]" value="' . $general_data[$i]->TMethod . '" readonly></td>
+			<td>
+				<input type="number" id="MeanRes' . $SrNo . '" name="MeanRes[]" class="form-control" value="' . $general_data[$i]->MeanResult . '">
+			</td>
 
-					<td class="desabled"><input  type="text" class="form-control input_disable" id="MType' . $SrNo . '" name="MType[]" value="' . $general_data[$i]->MType . '" readonly></td>
+			<td><input type="text" id="user_text1_' . $SrNo . '" name="user_text1_[]" class="form-control" value="' . $general_data[$i]->UText1 . '"></td>
 
-					<td><input type="text" id="user_text1_' . $SrNo . '" name="user_text1_[]" class="form-control" value="' . $general_data[$i]->UText1 . '"></td>
+			<td><input type="text" id="user_text2_' . $SrNo . '" name="user_text2_[]" class="form-control" value="' . $general_data[$i]->UText2 . '"></td>
 
-					<td><input type="text" id="user_text2_' . $SrNo . '" name="user_text2_[]" class="form-control" value="' . $general_data[$i]->UText2 . '"></td>
+			<td><input type="text" id="user_text3_' . $SrNo . '" name="user_text3_[]" class="form-control" value="' . $general_data[$i]->UText3 . '"></td>
 
-					<td><input type="text" id="user_text3_' . $SrNo . '" name="user_text3_[]" class="form-control" value="' . $general_data[$i]->UText3 . '"></td>
+			<td><input type="text" id="user_text4_' . $SrNo . '" name="user_text4_[]" class="form-control" value="' . $general_data[$i]->UText4 . '"></td>
 
-					<td><input type="text" id="user_text4_' . $SrNo . '" name="user_text4_[]" class="form-control" value="' . $general_data[$i]->UText4 . '"></td>
+			<td ><input type="text" id="user_text5_' . $SrNo . '" name="user_text5_[]" class="form-control" value="' . $general_data[$i]->UText5 . '"></td>
+			
+			<td class="desabled">
+				<input type="text" id="QC_StatusResult' . $SrNo . '" name="QC_StatusResult[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
+			</td>
 
-					<td ><input type="text" id="user_text5_' . $SrNo . '" name="user_text5_[]" class="form-control" value="' . $general_data[$i]->UText5 . '"></td>
+			<td class="desabled"><input type="text" id="GDStab' . $SrNo . '" name="GDStab[]" class="form-control textbox_bg" value="' . $general_data[$i]->GDStab . '" readonly></td>
+			
+			<td class="desabled"><input type="text" id="Appassay' . $SrNo . '" name="Appassay[]" class="form-control textbox_bg" value="' . $general_data[$i]->Appassay . '" readonly></td>
 
-					<td class="desabled"><input type="text" id="GDQCStatus' . $SrNo . '" name="GDQCStatus[]" class="form-control input_disable" value="' . $general_data[$i]->GDQCStatus . '" readonly></td>
+			<td class="desabled"><input type="text" id="AppLOD' . $SrNo . '" name="AppLOD[]" class="form-control textbox_bg" value="' . $general_data[$i]->AppLOD . '" readonly></td>
+		
+			<td><input type="text" id="InstrumentCode' . $SrNo . '" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" value="' . $general_data[$i]->Inscode . '" onclick="OpenInstrmentModal(' . $SrNo . ')"></td>
 
-					<td class="desabled"><input type="text" id="GDUOM' . $SrNo . '" name="GDUOM[]" class="form-control input_disable" value="' . $general_data[$i]->GDUOM . '" readonly></td>
+			<td class="desabled"><input type="text" id="InstrumentName' . $SrNo . '" name="InstrumentName[]" class="form-control textbox_bg" value="' . $general_data[$i]->InsName . '" readonly style="border: 1px solid #efefef !important;"></td>
 
-					<td class="desabled"><input type="text" id="Retest' . $SrNo . '" name="Retest[]" class="form-control input_disable" value="' . $general_data[$i]->Retest . '" readonly></td>
+			<td><input  type="date" id="start_date' . $SrNo . '" name="start_date[]" class="form-control" value="' . (!empty($general_data[$i]->SDate) ? date("Y-m-d", strtotime($general_data[$i]->SDate)) : '') . '"></td>
 
-					<td class="desabled"><input type="text" id="GDStab' . $SrNo . '" name="GDStab[]" class="form-control input_disable" value="' . $general_data[$i]->GDStab . '" readonly></td>
+			<td><input  type="time" id="start_time' . $SrNo . '" name="start_time[]" class="form-control" value="' . (!empty($general_data[$i]->STime) ? date("H:i", strtotime($general_data[$i]->STime)) : '') . '"></td>
 
-					<td class="desabled"><input type="text" id="ExSample' . $SrNo . '" name="ExSample[]" class="form-control input_disable" value="' . $general_data[$i]->ExSample . '" readonly></td>
+			<td ><input type="date" id="end_date' . $SrNo . '" name="end_date[]" class="form-control" value="' . (!empty($general_data[$i]->EDate) ? date("Y-m-d", strtotime($general_data[$i]->EDate)) : '') . '"></td>
 
-					<td class="desabled"><input type="text" id="Appassay' . $SrNo . '" name="Appassay[]" class="form-control input_disable" value="' . $general_data[$i]->Appassay . '" readonly></td>
 
-					<td class="desabled"><input type="text" id="AppLOD' . $SrNo . '" name="AppLOD[]" class="form-control input_disable" value="' . $general_data[$i]->AppLOD . '" readonly></td>
-
-					<td><input  type="text" id="qc_analysis_by' . $SrNo . '" name="qc_analysis_by[]" class="form-control" value="' . $general_data[$i]->AnlBy . '"></td>
-
-					<td><input  type="text" id="analyst_remark' . $SrNo . '" name="analyst_remark[]" class="form-control" value="' . $general_data[$i]->ARRemark . '"></td>
-
-					<td ><input type="text" id="instrument_code' . $SrNo . '" name="instrument_code[]" class="form-control" value="' . $general_data[$i]->Inscode . '"></td>
-
-					<td class="desabled"><input type="text" id="InsName' . $SrNo . '" name="InsName[]" class="form-control input_disable" value="' . $general_data[$i]->InsName . '" readonly></td>
-
-					<td><input  type="text" id="star_date' . $SrNo . '" name="star_date[]" class="form-control" value="' . $general_data[$i]->SDate . '"></td>
-
-					<td><input  type="text" id="start_time' . $SrNo . '" name="start_time[]" class="form-control" value="' . $general_data[$i]->STime . '"></td>
-
-					<td ><input type="text" id="end_date' . $SrNo . '" name="end_date[]" class="form-control" value="' . $general_data[$i]->EDate . '"></td>
-
-					<td ><input type="text" id="end_time' . $SrNo . '" name="end_time[]" class="form-control" value="' . $general_data[$i]->ETime . '"></td>
-
-				</tr>';
+			<td ><input type="time" id="end_time' . $SrNo . '" name="end_time[]" class="form-control" value="' . (!empty($general_data[$i]->ETime) ? date("H:i", strtotime($general_data[$i]->ETime)) : '') . '"></td>
+		</tr>';
 		}
 	} else {
 		$FinalResponce['general_data'] .= '<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
@@ -10573,40 +10600,131 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 	$FinalResponce['count'] = count($general_data);
 
 
+	// <!-- ----------- External Issue Start Here ---------------------------- -->
 	if (!empty($qcStatus)) {
 		for ($j = 0; $j < count($qcStatus); $j++) {
-			$SrNo = $j + 1;
+			if (!empty($qcStatus[$j]->QCStsStatus)) {
+				$SrNo = $j + 1;
 
-			$FinalResponce['qcStatus'] .= '<tr>
-                    
-                    <td class="desabled">' . $SrNo . '</td>
+				$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $SrNo . '">';
+				if (!empty($qcStatus[$j]->ItNo)) {
+					$FinalResponce['qcStatus'] .= '<td class="desabled">' . $SrNo . '</td>';
+				} else {
+					$FinalResponce['qcStatus'] .= '<td style="text-align: center;">
+					<input type="radio" id="list' . $SrNo . '" name="listRado[]" value="' . $SrNo . '" class="form-check-input" style="width: 17px;height: 17px;">
+				</td>';
+				}
+				$FinalResponce['qcStatus'] .= '
 
-                    <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qc_Status' . $SrNo . '" name="qc_Status[]" value="' . $qcStatus[$j]->QCStsStatus . '" readonly></td>
+				<td class="desabled">
+					<input type="hidden" id="QCS_LineId' . $SrNo . '" name="QCS_LineId[]" value="' . $qcStatus[$j]->LineId . '">
 
-                    <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty' . $SrNo . '" name="qCStsQty[]"  value="' . $qcStatus[$j]->QCStsQty . '" readonly></td>
+					<input class="form-control border_hide desabled" type="text" id="qc_Status' . $SrNo . '" name="qc_Status[]" value="' . $qcStatus[$j]->QCStsStatus . '" readonly>
+				</td>
 
-                    <td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo' . $SrNo . '" name="qCitNo[]"  value="' . $qcStatus[$j]->ItNo . '" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty' . $SrNo . '" name="qCStsQty[]"  value="' . $qcStatus[$j]->QCStsQty . '" readonly></td>
 
-                    <td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy' . $SrNo . '" name="doneBy[]"  value="' . $qcStatus[$j]->DBy . '" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseDate_' . $SrNo . '" name="qCReleaseDate[]" value="' . ((!empty($qcStatus[$j]->QCStsRelDate)) ? date("d-m-Y", strtotime($qcStatus[$j]->QCStsRelDate)) : "") . '" class="form-control" readonly></td>
 
-                    <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1' . $SrNo . '" name="qCStsRemark1[]"  value="' . $qcStatus[$j]->QCStsRemark1 . '" readonly></td>
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCReleaseTime_' . $SrNo . '" name="qCReleaseTime[]" value="' . ((!empty($qcStatus[$j]->QCStsRelTime)) ? date("H:i", strtotime($qcStatus[$j]->QCStsRelTime)) : "") . '" class="form-control" readonly></td>
 
-				</tr>';
+				<td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo' . $SrNo . '" name="qCitNo[]"  value="' . $qcStatus[$j]->ItNo . '" readonly></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy' . $SrNo . '" name="doneBy[]"  value="' . $qcStatus[$j]->DBy . '" readonly></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache1_' . $SrNo . '" name="qCAttache1[]" value="' . $qcStatus[$j]->QCStsAttach1 . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache2_' . $SrNo . '" name="qCAttache2[]" value="' . $qcStatus[$j]->QCStsAttach2 . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCAttache3_' . $SrNo . '" name="qCAttache3[]" value="' . $qcStatus[$j]->QCStsAttach3 . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationDate_' . $SrNo . '" name="qCDeviationDate[]" value="' . ((!empty($qcStatus[$j]->DevDate)) ? date("d-m-Y", strtotime($qcStatus[$j]->DevDate)) : "") . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationNo_' . $SrNo . '" name="qCDeviationNo[]" value="' . $qcStatus[$j]->DevNo . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text"  id="qCDeviationResion_' . $SrNo . '" name="qCDeviationResion[]" value="' . $qcStatus[$j]->DevRsn . '" class="form-control"></td>
+
+				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1' . $SrNo . '" name="qCStsRemark1[]"  value="' . $qcStatus[$j]->QCStsRemark1 . '" readonly></td>
+
+			</tr>';
+			}
 		}
+		$QCS_un_id = (count($qcStatus) + 1);
+		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+		<td>' . $QCS_un_id . '</td>
+		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
 	} else {
 		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+		$QCS_un_id = (count($qcStatus) + 1);
+		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+		<td>' . $QCS_un_id . '</td>
+		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
+
+
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
+
+		<td>
+		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+		</td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+
+
+		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+		
+	</tr>';
+
 	}
 
-	$FinalResponce['qcStatus'] .= '<tr">
-			<td>' . (count($qcStatus) + 1) . '</td>
-			<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"></select></td>
-			<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" value=""></td>
-			<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
-			<td>
-			<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-			</td>
-			<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-		</tr>';
+
+
+
 
 
 	if (!empty($qcAttach)) {
@@ -10614,17 +10732,26 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 			$SrNo = $j + 1;
 			// <tr>
 			$FinalResponce['qcAttach'] .= '<tr>
-					<td class="desabled">' . $SrNo . '</td>
-					<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath' . $SrNo . '" name="targetPath[]" class="form-control" value="' . $qcAttach[$j]->TargetPath . '" readonly>
-					</td>
-					<td class="desabled"><input class="border_hide desabled" type="text" id="fileName' . $SrNo . '" name="fileName[]"  class="form-control" value="' . $qcAttach[$j]->FileName . '" readonly></td>
-					<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate' . $SrNo . '" name="attachDate[]"  class="form-control" value="' . $qcAttach[$j]->AttachDate . '" readonly></td>
-					<td><input class="border_hide" type="text" id="freeText' . $SrNo . '" name="freeText[]"  class="form-control" value="' . $qcAttach[$j]->FreeText . '"></td>
-				</tr>';
+			<td class="desabled">' . $SrNo . '</td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath' . $SrNo . '" name="targetPath[]" class="form-control" value="' . $qcAttach[$j]->TargetPath . '" readonly>
+			</td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="fileName' . $SrNo . '" name="fileName[]"  class="form-control" value="' . $qcAttach[$j]->FileName . '" readonly></td>
+			<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate' . $SrNo . '" name="attachDate[]"  class="form-control" value="' . $qcAttach[$j]->AttachDate . '" readonly></td>
+			<td><input class="border_hide" type="text" id="freeText' . $SrNo . '" name="freeText[]"  class="form-control" value="' . $qcAttach[$j]->FreeText . '"></td>
+		</tr>';
 		}
 	} else {
-		$FinalResponce['qcAttach'] .= '<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
+		$FinalResponce['qcAttach'] .= '<tr>
+				<td class="desabled">1</td>
+				<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath1" name="targetPath[]" class="form-control" value="" readonly></td>
+				<td class="desabled"><input class="border_hide desabled" type="text" id="fileName1" name="fileName[]"  class="form-control" value="" readonly></td>
+				<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate1" name="attachDate[]"  class="form-control" value="" readonly></td>
+				<td><input class="border_hide" type="text" id="freeText1" name="freeText[]"  class="form-control" value=""></td>
+			</tr>';
+		// $FinalResponce['qcAttach'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 	}
+
+
 
 	// echo "<pre>";
 	// print_r($FinalResponce);
@@ -10637,254 +10764,193 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 
 
 
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
 
-	//   exit;
-	// echo json_encode($response);
-	// exit(0);
+
+
+
+
+
 }
 
 
 
 
+
+
+
 if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
+
 	$tdata = array(); // This array send to AP Standalone Invoice process 
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	// exit;
 	$tdata['Series'] = trim(addslashes(strip_tags($_POST['stability_Series'])));
 	$tdata['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
 	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['stability_BPLId'])));
 	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['stability_LocCode'])));
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['stability_Loc'])));
-
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['stability_Branch'])));
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['stability_RefNo'])));
-	$tdata['U_PC_REnt'] = null;
+	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['stability_ReceiptEntry'])));
 	$tdata['U_PC_WoNo'] = trim(addslashes(strip_tags($_POST['stability_WONo'])));
 	$tdata['U_PC_WoEnt'] = trim(addslashes(strip_tags($_POST['stability_WOEntry'])));
-
 	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['stability_ItemCode'])));
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['stability_ItemName'])));
-
 	$tdata['U_PC_GName'] = trim(addslashes(strip_tags($_POST['stability_GenericName'])));
 	$tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['stability_LabelClaim'])));
 	$tdata['U_PC_LClmUom'] = trim(addslashes(strip_tags($_POST['stability_LabelClaimUOM'])));
-
 	$tdata['U_PC_RecQty'] = null;
-
 	$tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['stability_MfgBy'])));
 	$tdata['U_PC_RfBy'] = null;
-	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['stability_SamType'])));
+	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['stability_StabilityType'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['stability_BatchNo'])));
-
 	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['stability_BatchQty'])));
-
 	$tdata['U_PC_MfgDt'] = trim(addslashes(strip_tags($_POST['stability_MfgDate'])));
-
 	$tdata['U_PC_ExpDt'] = trim(addslashes(strip_tags($_POST['stability_ExpiryDate'])));
-
 	$tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['stability_SampleIntimationNoStability'])));
 	$tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['stability_SampleCollectionNoStability'])));
-
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['stability_SampleCollectionNoStability'])));
-
 	$tdata['U_PC_RQty'] = null;
 	$tdata['U_PC_PckSize'] = trim(addslashes(strip_tags($_POST['stability_PackSize'])));
 	$tdata['U_PC_SamType'] = trim(addslashes(strip_tags($_POST['stability_SamType'])));
 	$tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['stability_MatType'])));
-
 	$tdata['U_PC_PDate'] = trim(addslashes(strip_tags($_POST['stability_PostingDate'])));
-
 	$tdata['U_PC_ADate'] = trim(addslashes(strip_tags($_POST['stability_ADate'])));
-
 	$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['stability_NoCont'])));
-
 	$tdata['U_PC_Stage'] = null;
 	$tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['stability_ValidUpto'])));
-
 	$tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['stability_ARNo'])));
-
 	$tdata['U_PC_GENo'] = null;
 	$tdata['U_PC_GDEntry'] = null;
-
 	$tdata['U_PC_APot'] = trim(addslashes(strip_tags($_POST['stability_APot'])));
-
 	$tdata['U_PC_LODWater'] = trim(addslashes(strip_tags($_POST['stability_LODWater'])));
-
 	$tdata['U_PC_Potency'] = trim(addslashes(strip_tags($_POST['stability_Potency'])));
-
 	$tdata['U_PC_CompBy'] = trim(addslashes(strip_tags($_POST['stability_CompBy'])));
 	$tdata['U_PC_NoCont1'] = trim(addslashes(strip_tags($_POST['stability_NoCont1'])));
 	$tdata['U_PC_NoCont2'] = trim(addslashes(strip_tags($_POST['stability_NoCont2'])));
-
 	$tdata['U_PC_ChkBy'] = trim(addslashes(strip_tags($_POST['stability_CheckBy'])));
-
 	$tdata['U_PC_AnlBy'] = trim(addslashes(strip_tags($_POST['stability_AnylBy'])));
-
 	$tdata['U_PC_Remarks'] = trim(addslashes(strip_tags($_POST['stability_Remarks'])));
-
 	$tdata['U_PC_AsyCal'] = trim(addslashes(strip_tags($_POST['stability_AsyCal'])));
-
 	$tdata['U_PC_Factor'] = trim(addslashes(strip_tags($_POST['stability_Factor'])));
-
 	$tdata['U_PC_SpcNo'] = trim(addslashes(strip_tags($_POST['stability_SpecNo'])));
-
 	$tdata['U_PC_GRQty'] = null;
 	$tdata['U_PC_RelDt'] = trim(addslashes(strip_tags($_POST['stability_RelDate'])));
 	$tdata['U_PC_RetstDt'] = trim(addslashes(strip_tags($_POST['stability_ReTestDate'])));
 	$tdata['U_PC_StType'] = null;
-	// ===
-	$tdata['U_PC_StCon'] = trim(addslashes(strip_tags($_POST['StabilityCondition'])));
-	$tdata['U_PC_StTPer'] = trim(addslashes(strip_tags($_POST['StabilityTimePeriod'])));
-	$tdata['U_PC_AnType'] = null;
-	$tdata['U_PC_WhsCode'] = trim(addslashes(strip_tags($_POST['ToWhse'])));
-	$tdata['U_PC_BEnt'] = null;
-	$tdata['U_PC_BNum'] = null;
-	$tdata['U_PC_StDNo'] = null;
-	$tdata['U_PC_StDEnt'] = null;
-	$tdata['U_PC_Dt'] = null;
-	$tdata['U_PC_StQty'] = null;
-	$tdata['U_PC_Unit'] = null;
+	$tdata['U_PC_StCon'] = trim(addslashes(strip_tags($_POST['stability_StabilityCondition'])));
+	$tdata['U_PC_StTPer'] = trim(addslashes(strip_tags($_POST['stability_StabilityTimePeriod'])));
+	$tdata['U_PC_AnType'] = trim(addslashes(strip_tags($_POST['stability_AnalysisType'])));
+	$tdata['U_PC_WhsCode'] = trim(addslashes(strip_tags($_POST['stability_WhsCode'])));
+	$tdata['U_PC_BEnt'] = trim(addslashes(strip_tags($_POST['stability_StabilityTransferNofromWO'])));
+	$tdata['U_PC_BNum'] = trim(addslashes(strip_tags($_POST['stability_StabilityTransferEntryfromWO'])));
+	$tdata['U_PC_StDNo'] = trim(addslashes(strip_tags($_POST['stability_StabilityPlanDocNum'])));
+	$tdata['U_PC_StDEnt'] = trim(addslashes(strip_tags($_POST['StabilityPlanDocEntry'])));
+	$tdata['U_PC_StDt'] = trim(addslashes(strip_tags($_POST['stability_StabilityLoadingDate'])));
+	//$tdata['U_PC_StQty'] = trim(addslashes(strip_tags($_POST['stability_StabilityPlanQty'])));
+	$tdata['U_PC_Unit'] = 'BOX';
 
 
-	// 	$tdata['U_PC_BLin']=trim(addslashes(strip_tags($_POST['qc_Check_LineNum'])));
-	// $tdata['U_PC_GRNNo']=null;
-	// $tdata['U_PC_GRNEnt']=null;
-	// $tdata['U_PC_SCode']=null;
-	// $tdata['U_PC_SName']=null;
-	// $tdata['U_PC_MBy']=trim(addslashes(strip_tags($_POST['qc_Check_Mfg_By'])));
-	// $tdata['U_PC_RBy']=null;
-	// $tdata['U_QCTType']=trim(addslashes(strip_tags($_POST['qc_Check_QCTesttype'])));
-	//    $tdata['U_PC_RMQC']=trim(addslashes(strip_tags($_POST['qc_Check_RMWQC'])));
-	//    $tdata['U_PC_QCTType']=trim(addslashes(strip_tags($_POST['qc_Check_QCTesttype'])));
-
-	// --
-	// $tdata['U_PckSize']=trim(addslashes(strip_tags($_POST['qcD_PckSize'])));
 	$ganaralData = array();
 	$BL = 0; //skip array avoid and count continue
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($_POST['stability_LineNum'])));
 		$ganaralData['Object'] = trim(addslashes(strip_tags('SCS_QCSTAB')));
-
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
 		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
 		$ganaralData['U_PC_Rel'] = trim(addslashes(strip_tags($_POST['Release'][$i])));
-
-
 		$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
 		$ganaralData['U_PC_DDtl'] = trim(addslashes(strip_tags($_POST['descriptive_details'][$i])));
 		$ganaralData['U_PC_Logi'] = trim(addslashes(strip_tags($_POST['logical'][$i])));
-
 		$ganaralData['U_PC_LwMin'] = trim(addslashes(strip_tags($_POST['LowMin'][$i])));
-
 		$ganaralData['U_PC_LwMax'] = trim(addslashes(strip_tags($_POST['LowMax'][$i])));
-
 		$ganaralData['U_PC_UpMin'] = trim(addslashes(strip_tags($_POST['UppMin'][$i])));
-
 		$ganaralData['U_PC_UpMax'] = trim(addslashes(strip_tags($_POST['UppMax'][$i])));
-
 		$ganaralData['U_PC_Min'] = trim(addslashes(strip_tags($_POST['Min'][$i])));
-
 		$ganaralData['U_PC_LMin1'] = trim(addslashes(strip_tags($_POST['lower_min_result'][$i])));
-
 		$ganaralData['U_PC_LMax1'] = trim(addslashes(strip_tags($_POST['lower_max_result'][$i])));
-
 		$ganaralData['U_PC_UMin1'] = trim(addslashes(strip_tags($_POST['upper_min_result'][$i])));
-
 		$ganaralData['U_PC_UMax1'] = trim(addslashes(strip_tags($_POST['upper_max_result'][$i])));
-
 		$ganaralData['U_PC_Min1'] = trim(addslashes(strip_tags($_POST['mean'][$i])));
-		$ganaralData['U_PC_Rotpt'] = trim(addslashes(strip_tags($_POST['result_output'][$i])));
-
+		$ganaralData['U_PC_Rotpt'] = trim(addslashes(strip_tags($_POST['ResultOut'][$i])));
 		$ganaralData['U_PC_Rmrks'] = trim(addslashes(strip_tags($_POST['remarks'][$i])));
 		$ganaralData['U_PC_QCSts'] = trim(addslashes(strip_tags($_POST['GDQCStatus'][$i])));
-
 		$ganaralData['U_PC_TMeth'] = trim(addslashes(strip_tags($_POST['TMethod'][$i])));
-
 		$ganaralData['U_PC_MType'] = trim(addslashes(strip_tags($_POST['MType'][$i])));
 		$ganaralData['U_PC_PhStd'] = null;
-
 		$ganaralData['U_PC_UTxt1'] = trim(addslashes(strip_tags($_POST['user_text1_'][$i])));
 		$ganaralData['U_PC_UTxt2'] = trim(addslashes(strip_tags($_POST['user_text2_'][$i])));
 		$ganaralData['U_PC_UTxt3'] = trim(addslashes(strip_tags($_POST['user_text3_'][$i])));
 		$ganaralData['U_PC_UTxt4'] = trim(addslashes(strip_tags($_POST['user_text4_'][$i])));
 		$ganaralData['U_PC_UTxt5'] = trim(addslashes(strip_tags($_POST['user_text5_'][$i])));
-
 		$ganaralData['U_PC_QCRmk'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$i])));
-
 		$ganaralData['U_PC_UOM'] = trim(addslashes(strip_tags($_POST['GDUOM'][$i])));
-
 		$ganaralData['U_PC_Rtst'] = trim(addslashes(strip_tags($_POST['Retest'][$i])));
-
 		$ganaralData['U_PC_Stab'] = trim(addslashes(strip_tags($_POST['GDStab'][$i])));
-
 		$ganaralData['U_PC_ExtrS'] = trim(addslashes(strip_tags($_POST['ExSample'][$i])));
-
 		$ganaralData['U_PC_ApAsy'] = trim(addslashes(strip_tags($_POST['Appassay'][$i])));
-
 		$ganaralData['U_PC_ApLOD'] = trim(addslashes(strip_tags($_POST['AppLOD'][$i])));
-
-		$ganaralData['U_PC_AnyBy'] = trim(addslashes(strip_tags($_POST['qc_analysis_by'][$i])));
-
+		$ganaralData['U_PC_AnyBy'] = trim(addslashes(strip_tags($_POST['AnalysisBy'][$i])));
 		$ganaralData['U_PC_ARmrk'] = trim(addslashes(strip_tags($_POST['analyst_remark'][$i])));
-
-		$ganaralData['U_PC_InCod'] = trim(addslashes(strip_tags($_POST['instrument_code'][$i])));
-
-		$ganaralData['U_PC_InNam'] = trim(addslashes(strip_tags($_POST['InsName'][$i])));
-
-		$ganaralData['U_PC_SDt'] = trim(addslashes(strip_tags($_POST['star_date'][$i])));
-
+		$ganaralData['U_PC_InCod'] = trim(addslashes(strip_tags($_POST['InstrumentCode'][$i])));
+		$ganaralData['U_PC_InNam'] = trim(addslashes(strip_tags($_POST['InstrumentName'][$i])));
+		$ganaralData['U_PC_SDt'] = trim(addslashes(strip_tags($_POST['start_date'][$i])));
 		$ganaralData['U_PC_STime'] = trim(addslashes(strip_tags($_POST['start_time'][$i])));
-
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['end_date'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['end_time'][$i])));
-
 		$tdata['SCS_QCSTAB1Collection'][] = $ganaralData; // row data append on this array
 		$BL++; // increment variable define here	
 	}
+
+
+
+
+
+
+
+
+
 
 	$qcStatus = array();
 	$qcS = 0; //skip array avoid and count continue
 	for ($j = 0; $j < count($_POST['qc_Status']); $j++) {
 		$qcStatus['LineId'] = trim(addslashes(strip_tags($_POST['stability_LineNum'][$j])));
 		$qcStatus['Object'] = trim(addslashes(strip_tags('SCS_QCSTAB')));
-
 		$qcStatus['U_PC_Stus'] = trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
 		$qcStatus['U_PC_Qty'] = trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
+		
 		$qcStatus['U_PC_RelDt'] = '';
 		$qcStatus['U_PC_RelTm'] = '';
 		$qcStatus['U_PC_ITNo'] = trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
 		$qcStatus['U_PC_DBy'] = trim(addslashes(strip_tags($_POST['doneBy'][$j])));
 		$qcStatus['U_PC_Rmrk1'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
+		$qcStatus['U_PC_Atch1'] = (!empty($_FILES['qCAttache1']['name'][$j])) ? $_FILES['qCAttache1']['name'][$j] : null;
+		$qcStatus['U_PC_Atch2'] = (!empty($_FILES['qCAttache2']['name'][$j])) ? $_FILES['qCAttache2']['name'][$j] : null;
+		$qcStatus['U_PC_Atch3'] = (!empty($_FILES['qCAttache3']['name'][$j])) ? $_FILES['qCAttache3']['name'][$j] : null;
+		$qcStatus['U_PC_DvDt'] = (!empty($_POST['qCDeviationDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCDeviationDate'][$j])) : null;
+		$qcStatus['U_PC_DvNo'] = trim(addslashes(strip_tags($_POST['qCDeviationNo'][$j])));
+		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
-		$qcStatus['U_PC_Atch1'] = '';
-		$qcStatus['U_PC_Atch2'] = '';
-		$qcStatus['U_PC_Atch3'] = '';
-		$qcStatus['U_PC_DvDt'] = '';
-		$qcStatus['U_PC_DvNo'] = '';
-		$qcStatus['U_PC_DvRsn'] = '';
 
+		
 
 		$tdata['SCS_QCSTAB2Collection'][] = $qcStatus; // row data append on this array
 		$qcS++;
 	}
+
+
+	print_r($qcStatus);
+	die();
+
+
 
 	$qcAttech = array();
 	$qcatt = 0; //skip array avoid and count continue
 	for ($k = 0; $k < count($_POST['targetPath']); $k++) {
 		$qcAttech['LineId'] = trim(addslashes(strip_tags($_POST['stability_LineNum'][$k])));
 		$qcAttech['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
-
 		$qcAttech['U_PC_TrgPt'] = trim(addslashes(strip_tags($_POST['targetPath'][$k])));
 		$qcAttech['U_PC_FName'] = trim(addslashes(strip_tags($_POST['fileName'][$k])));
 		$qcAttech['U_PC_AtcDt'] = trim(addslashes(strip_tags($_POST['attachDate'][$k])));
 		$qcAttech['U_PC_FText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
-
 		$tdata['SCS_QCSTAB3Collection'][] = $qcAttech; // row data append on this array
 		$qcatt++;
 	}
@@ -10895,6 +10961,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 	// print_r($mainArray);
 	// echo "<pre>";
 	// exit;
+
 
 	if ($_POST['stability_SamType'] == "") {
 		$data['status'] = 'False';
@@ -10928,22 +10995,13 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		echo json_encode($data);
 		exit;
 	}
-
-	// QC_CK_D_AnalysisDate
-
-	// id="QC_CK_D_PostingDate"
-
-
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
 	$res = $obj->SAP_Login();
 
 	if (!empty($res)) {
-
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB;
-
+	$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB;
 		$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
 		$responce = json_decode($responce_encode);
-
 		//  <!-- ------- service layer function responce manage Start Here ------------ -->
 		if (array_key_exists('error', (array)$responce)) {
 			$data['status'] = 'False';
@@ -10958,11 +11016,15 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		}
 		//  <!-- ------- service layer function responce manage End Here -------------- -->	
 	}
-
 	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
 	exit(0);
 	// service laye function and SAP loin & logout function define end here 
+
 }
+
+
+
+
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_stability_pupup_ajax') {
