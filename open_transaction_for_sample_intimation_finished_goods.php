@@ -11,6 +11,9 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
 
 if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($FGOPENTRANSSAMINTIMATION);
+    // echo '<pre>';
+    // print_r($getAllData);
+
     $count=count($getAllData);
 
     $adjacents = 1;
@@ -120,8 +123,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     <tr>
                         <th>Sr. No </th>
                         <th>Item View</th>
+                        <th>RFP No</th>
+                        <th>RFPO DocEntry</th>
                         <th>WO No</th>
-                        <th>RFP Entry</th>
+                        <th>WO Entry</th>
                         <th>Material Type</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
@@ -132,6 +137,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Expiry Date</th>
                         <th>Batch Qty</th>
                         <th>Branch Name</th>
+                        <th>Location</th>
+                        <th>MakeBy</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -161,8 +168,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </td>
-                                    <td class="desabled">'.$getAllData[$i]->WONo.'</td>
+
+                                    <td class="desabled">'.$getAllData[$i]->RFPNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RFPODocEntry.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->WONo.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->WOEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->MaterialType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
@@ -173,6 +183,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Location.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
                                 </tr>';
                         }
                     }

@@ -16,7 +16,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $count=count($getAllData);
 
     // echo "<pre>";
-    // print_r($getAllData);
+    // print_r($getAllData[0]);
     // echo "</pre>";
     // exit;
 
@@ -25,15 +25,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -132,8 +132,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Material Type</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
-                        <th>Unit</th>
-                        <th>WO Qty</th> 
+                        <th>Unit</th> 
                         <th>Batch No</th>
                         <th>MFG Date</th>
                         <th>Expiry Date</th>
@@ -174,7 +173,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Unit.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->WOQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchNum.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
@@ -664,3 +662,5 @@ $(function () {
 
 
 </script>
+
+<!-- 666  -->

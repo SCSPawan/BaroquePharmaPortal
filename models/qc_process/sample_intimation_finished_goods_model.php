@@ -131,14 +131,14 @@
                                 </div>
                             </div>  
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">MFG By</label>
                                     <div class="col-lg-8">
                                         <input class="form-control desabled" type="text" id="finished_good_MFGBy" name="finished_good_MFGBy" readonly>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
@@ -237,7 +237,7 @@
                                 </div>
                             </div>  
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan No</label>
                                     <div class="col-lg-8">
@@ -246,7 +246,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Challan Date</label>
                                     <div class="col-lg-8">
@@ -255,7 +255,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry No</label>
                                     <div class="col-lg-8">
@@ -264,7 +264,7 @@
                                 </div>
                             </div> 
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Gate Entry Date</label>
                                     <div class="col-lg-8">
@@ -343,7 +343,7 @@
         
 
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
                                     <div class="col-lg-8">
@@ -364,7 +364,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6" style="display: none;">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
                                     <div class="col-lg-8">
@@ -459,7 +459,8 @@
                                 <tbody id="ContainerSelectionItemAppend"></tbody> 
                             </table>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button>
+                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
+                        <button type="button" id="SubITFG_Btn" name="SubITFG_Btn" class="btn active btn-primary" onclick="SubmitInventoryTransfer();" autocomplete="off">Add</button>
                         <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                     </form>
                 <!-- form end -->
