@@ -37,6 +37,7 @@
                                     <input class="form-control desabled" type="hidden" id="Stability_QCLDate" name="Stability_QCLDate">
                                     <input class="form-control desabled" type="hidden" id="Stability_QC_UOM" name="Stability_QC_UOM">
                                     <input class="form-control desabled" type="hidden" id="Stability_QC_LOC" name="Stability_QC_LOC">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QC_LabelClaimUOM" name="Stability_QC_LOC_LabelClaimUOM">
                                     <!-- <input class="form-control desabled" type="hidden" id="Stability_QCPlanEntry" name="Stability_QCPlanEntry"> -->
                                     <input class="form-control desabled" type="hidden" id="Stability_RouteStageRecoReceiptEntry" name="Stability_RouteStageRecoReceiptEntry">
 
