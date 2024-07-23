@@ -25,7 +25,7 @@
                                     
                                   
                                         <!-- qcPostDocumentStabilityForm_update -->
-                                    <input class="form-control desabled" type="hidden" id="StabilityPlanDocEntry" name="StabilityPlanDocEntry">
+
                                     <input class="form-control desabled" type="hidden" id="Stability_BPLId" name="Stability_BPLId">
                                     <input class="form-control desabled" type="hidden" id="Stability_ItemCode" name="Stability_ItemCode">
                                     <input class="form-control desabled" type="hidden" id="Stability_FromWhs" name="Stability_FromWhs">
@@ -36,6 +36,7 @@
                                     <input class="form-control desabled" type="hidden" id="Stability_QCPlanEntry" name="Stability_QCPlanEntry">
                                     <input class="form-control desabled" type="hidden" id="Stability_QCLDate" name="Stability_QCLDate">
                                     <input class="form-control desabled" type="hidden" id="Stability_QC_UOM" name="Stability_QC_UOM">
+                                    <input class="form-control desabled" type="hidden" id="Stability_QC_LOC" name="Stability_QC_LOC">
                                     <!-- <input class="form-control desabled" type="hidden" id="Stability_QCPlanEntry" name="Stability_QCPlanEntry"> -->
                                     <input class="form-control desabled" type="hidden" id="Stability_RouteStageRecoReceiptEntry" name="Stability_RouteStageRecoReceiptEntry">
 

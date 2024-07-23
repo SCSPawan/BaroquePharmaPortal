@@ -1014,6 +1014,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 //console.log('selectedRecord=>', JSONObjectAll['qcStatus']);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
+                
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 // $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
