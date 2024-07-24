@@ -119,16 +119,20 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Item View</th>
                         <th>WO No</th>
                         <th>RFP Entry</th>
+                        <th>Sample Intimation No</th>
+                        <th>Sample Collection No</th>
                         <th>Material Type</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Unit</th>
-                        <th>WO Qty</th> 
                         <th>Batch No</th>
                         <th>MFG Date</th>
                         <th>Expiry Date</th>
+                        <th>Doc Date</th>
                         <th>Batch Qty</th>
                         <th>Branch Name</th>
+                        <th>Location</th>
+                        <th>MakeBy</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -149,6 +153,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 }else{
                                     $ExpiryDate=date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate));
                                 }
+
+                                if(empty($getAllData[$i]->DocDate)){
+                                    $DocDate='';
+                                }else{
+                                    $DocDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
+                                }
+
+                                
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -163,16 +175,20 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                                     <td class="desabled">'.$getAllData[$i]->WONo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RFPDocEntry.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->SampleIntimationNo.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->SampleCollectionNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->MaterialType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Unit.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->WOQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
+                                    <td class="desabled">'.$DocDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->Location.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>
                                 </tr>';
                         }
                     }
@@ -281,6 +297,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         })
     }
 
+    function DateFormatingYMD(DateOG){
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            let Date = `${year}-${month}-${day}`;
+            return Date;
+        }
+    }
+
     function OT_PoPup_SampleCollection(DocEntry,BatchNo,ItemCode,LineNum){
         $.ajax({ 
             type: "POST",
@@ -291,14 +315,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 var JSONObjectAll = JSON.parse(result);
-                var JSONObject=JSONObjectAll['AllData'];
+                var JSONObject = JSONObjectAll['AllData'];
                 
-                // console.log('Get All Data=>', JSONObject);
+                console.log('Get All Data=>', JSONObject);
 
                 $(`#Qc_Post_FG_GD_list_append`).html(JSONObjectAll['general_data']); // General Data Append here
                 $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); //QC Status Data Append here
                 $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']); //Attachment Table Data Append here
-
+                
                 $(`#OTFQCCFG_RFPNo`).val(JSONObject[0]['RFPNo']);
                 $(`#OTFQCCFG_RFPDocEntry`).val(JSONObject[0]['RFPDocEntry']);
                 $(`#OTFQCCFG_WONo`).val(JSONObject[0]['WONo']);
@@ -321,6 +345,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                 $(`#OTFQCCFG_Location`).val(JSONObject[0]['Location']);
                 $(`#OTFQCCFG_MakeBy`).val(JSONObject[0]['MakeBy']);
+                
+                $(`#OTFQCCFG_MfgDate`).val(DateFormatingYMD(JSONObject[0]['MfgDate']));
+                $(`#OTFQCCFG_ExpiryDate`).val(DateFormatingYMD(JSONObject[0]['ExpiryDate']));
 
                 // <!-- --------------- footer section data mapping start here ----------------- -->
                     $(`#OTFQCCFG_Factor`).val(JSONObject[0]['Factor']);
@@ -332,13 +359,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 // <!-- --------------- Hidden data mapping Start here ------------------------- -->
                     $(`#OTFQCCFG_BPLId`).val(JSONObject[0]['BPLId']);
                     $(`#OTFQCCFG_BpRefNo`).val(JSONObject[0]['BpRefNo']);
-                    $(`#OTFQCCFG_ExpiryDate`).val(JSONObject[0]['ExpiryDate']);
                     $(`#OTFQCCFG_GEDate`).val(JSONObject[0]['GEDate']);
                     $(`#OTFQCCFG_GateENo`).val(JSONObject[0]['GateENo']);
                     $(`#OTFQCCFG_LabelClaimUOM`).val(JSONObject[0]['LabelClaimUOM']);
                     $(`#OTFQCCFG_LineNum`).val(JSONObject[0]['LineNum']);
                     $(`#OTFQCCFG_LocCode`).val(JSONObject[0]['LocCode']);
-                    $(`#OTFQCCFG_MfgDate`).val(JSONObject[0]['MfgDate']);
                     $(`#OTFQCCFG_Qty`).val(JSONObject[0]['Qty']);
                     $(`#OTFQCCFG_RetestDate`).val(JSONObject[0]['RetestDate']);
                     $(`#OTFQCCFG_SampleCollectionNo`).val(JSONObject[0]['SampleCollectionNo']);

@@ -6246,7 +6246,6 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_stability_aj
 if(isset($_POST['action']) && $_POST['action'] =='OT_QC_check_FG_ajax'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$FGQCPOSTDOC_API.'&DocEntry='.$_POST['DocEntry'].'&BatchNo='.$_POST['BatchNo'].'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum'];
-
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
@@ -6682,12 +6681,12 @@ if(isset($_POST['OTFQCCFG_Btn'])){
 			exit;
 		}
 
-		if ($_POST['OTFQCCFG_ValidUpTo'] == "") {
-			$data['status'] = 'False';$data['DocEntry'] = '';
-			$data['message'] = 'ValidUpTo Date is required.';
-			echo json_encode($data);
-			exit;
-		}
+		// if ($_POST['OTFQCCFG_ValidUpTo'] == "") {
+		// 	$data['status'] = 'False';$data['DocEntry'] = '';
+		// 	$data['message'] = 'ValidUpTo Date is required.';
+		// 	echo json_encode($data);
+		// 	exit;
+		// }
 	// <!-- --------- Validation End Here ------------------------------------------- -->
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
@@ -6701,7 +6700,7 @@ if(isset($_POST['OTFQCCFG_Btn'])){
 			//  <!-- ------- service layer function responce manage Start Here ------------ -->
 				if (array_key_exists('error', (array)$responce)) {
 					$data['status'] = 'False';
-					$data['DocEntry'] = '1111111111111';
+					$data['DocEntry'] = '';
 					$data['message'] = $responce->error->message->value;
 					echo json_encode($data);
 				} else {
@@ -6725,7 +6724,7 @@ if(isset($_POST['OTFQCCFG_Btn'])){
 					} else {
 						if (array_key_exists('error', (array)$responce1)) {
 							$data['status'] = 'False';
-							$data['DocEntry'] = '22222222222222';
+							$data['DocEntry'] = '';
 							$data['message'] = $responce1->error->message->value;
 							echo json_encode($data);
 						}

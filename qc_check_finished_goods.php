@@ -335,11 +335,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <input type="hidden" id="QC_P_DOC_FG_DocNum" name="QC_P_DOC_FG_DocNum">
                                     <!-- <input type="hidden" id="QC_P_DOC_FG_LocCode" name="QC_P_DOC_FG_LocCode"> -->
                                     <input type="hidden" id="QC_P_DOC_FG_WOEntry" name="QC_P_DOC_FG_WOEntry">
-                                    <input type="hidden" id="QC_P_DOC_FG_MfgDate" name="QC_P_DOC_FG_MfgDate">
-                                    <input type="hidden" id="QC_P_DOC_FG_ExpiryDate" name="QC_P_DOC_FG_ExpiryDate">
-                                    <input type="hidden" id="QC_P_DOC_FG_SampleIntimationNo" name="QC_P_DOC_FG_SampleIntimationNo">
-                                    <input type="hidden" id="QC_P_DOC_FG_SampleCollectionNo" name="QC_P_DOC_FG_SampleCollectionNo">
-                                    <input type="hidden" id="QC_P_DOC_FG_SampleQty" name="QC_P_DOC_FG_SampleQty">
                                     <input type="hidden" id="QC_P_DOC_FG_RetainQty" name="QC_P_DOC_FG_RetainQty">
                                     <input type="hidden" id="QC_P_DOC_FG_GateENo" name="QC_P_DOC_FG_GateENo">
                                     <input type="hidden" id="QC_P_DOC_FG_SpecfNo" name="QC_P_DOC_FG_SpecfNo"> 
@@ -473,17 +468,53 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> -->
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
-                                                <div class="col-lg-5">
-                                                    <select class="form-select" id="QC_P_DOC_FG_RelMaterialWithoutQC" name="QC_P_DOC_FG_RelMaterialWithoutQC">
-                                                        <option value="Yes">Yes</option>
-                                                        <option value="No" Selected>No</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" readonly type="text" id="QC_P_DOC_FG_MfgDate" name="QC_P_DOC_FG_MfgDate">
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" readonly type="text" id="QC_P_DOC_FG_ExpiryDate" name="QC_P_DOC_FG_ExpiryDate">
+        </div>
+    </div>
+</div>
+
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Intimation No</label>
+        <div class="col-lg-6">
+            <input class="form-control desabled" readonly type="text" id="QC_P_DOC_FG_SampleIntimationNo" name="QC_P_DOC_FG_SampleIntimationNo">
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Collection No</label>
+        <div class="col-lg-6">
+            <input class="form-control desabled" readonly type="text" id="QC_P_DOC_FG_SampleCollectionNo" name="QC_P_DOC_FG_SampleCollectionNo">
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
+        <div class="col-lg-8">
+            <input class="form-control desabled" readonly type="text" id="QC_P_DOC_FG_SampleQty" name="QC_P_DOC_FG_SampleQty">
+        </div>
+    </div>
+</div>
+
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
@@ -613,6 +644,18 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Valid Up To</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control" type="date" id="QC_P_DOC_FG_ValidUpTo" name="QC_P_DOC_FG_ValidUpTo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-7 col-form-label mt-6" for="val-skill">Release Material Without QC</label>
+                                                <div class="col-lg-5">
+                                                    <select class="form-select" id="QC_P_DOC_FG_RelMaterialWithoutQC" name="QC_P_DOC_FG_RelMaterialWithoutQC">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No" Selected>No</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -997,6 +1040,23 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
        });
     });
 
+    function DateFormatingDMY(DateOG){
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            let Date = `${day}-${month}-${year}`;
+            return Date;
+        }
+    }
+
+    function DateFormatingYMD(DateOG){
+        if(DateOG!=''){
+            let [day, month, year] = DateOG.split(" ")[0].split("-");
+            let Date = `${year}-${month}-${day}`;
+            return Date;
+        }
+    }
+    
+
     function selectedRecord(DocEntry){
 
         var dataString ='DocEntry='+DocEntry+'&action=QC_Post_document_QC_Check_Finished_Goods_ajax';
@@ -1011,9 +1071,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {  
                 $("#footerProcess").show();
                 var JSONObjectAll = JSON.parse(result);
-                //console.log('selectedRecord=>', JSONObjectAll['qcStatus']);
+                console.log('selectedRecord=>', JSONObjectAll['qcStatus']);
 
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
+                // console.log('selectedRecord=>', JSONObject);
                 
                 $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
                 // $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
@@ -1042,7 +1103,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 // $(`#QC_P_DOC_FG_AnalysisDate`).val(JSONObject[0].ADate);
                 $(`#QC_P_DOC_FG_QCTesttype`).val(JSONObject[0].QCTType);
                 $(`#QC_P_DOC_FG_Stage`).val(JSONObject[0].Stage);
-                $(`#QC_P_DOC_FG_ValidUpTo`).val(JSONObject[0].ValidUpto);
+                    $(`#QC_P_DOC_FG_ValidUpTo`).val(DateFormatingYMD(JSONObject[0].ValidUpto));
                 $(`#QC_P_DOC_FG_NoOfContainer`).val(JSONObject[0].NoCont);
                 $(`#QC_P_DOC_FG_Factor`).val(JSONObject[0].Factor);
                 $(`#QC_P_DOC_FG_FromContainer`).val(JSONObject[0].NoCont1);
@@ -1055,8 +1116,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#QC_P_DOC_FG_LocCode`).val(JSONObject[0].LocCode);
                 $(`#QC_P_DOC_FG_Loc`).val(JSONObject[0].Loc);
                 $(`#QC_P_DOC_FG_WOEntry`).val(JSONObject[0].WOEntry);
-                $(`#QC_P_DOC_FG_MfgDate`).val(JSONObject[0].MfgDate);
-                $(`#QC_P_DOC_FG_ExpiryDate`).val(JSONObject[0].ExpiryDate);
+
+                $(`#QC_P_DOC_FG_MfgDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
+                $(`#QC_P_DOC_FG_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
+
                 $(`#QC_P_DOC_FG_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
                 $(`#QC_P_DOC_FG_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
                 $(`#QC_P_DOC_FG_SampleQty`).val(JSONObject[0].SampleQty);
@@ -1106,7 +1169,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             },
             success: function(result)
             {
-                console.log(result);
+                // console.log(result);
                 for (let i = 0; i < trcount; i++) {
                     $('.dropdownResutl'+i).html(result); // dropdown set using class                            
                 }
@@ -1272,7 +1335,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     
 
-      function getSeriesDropdown() {
+        function getSeriesDropdown() {
             var TrDate = $('#QC_P_DOC_FG_PostingDate').val();
             var dataString = 'TrDate=' + TrDate + '&ObjectCode=SCS_QCPDFG&action=getSeriesDropdown_ajax';
 
@@ -1308,7 +1371,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 
-    function selectedSeries() {
+        function selectedSeries() {
             var TrDate = $('#QC_P_DOC_FG_PostingDate').val();
             var Series = document.getElementById('QC_P_DOC_FG_DocName').value;
             var dataString = 'TrDate=' + TrDate + '&Series=' + Series + '&ObjectCode=SCS_QCPDFG&action=getSeriesSingleData_ajax';
@@ -1388,7 +1451,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         $('#QC_P_DOC_FG_Potency').val(parseFloat(Potency).toFixed(6)); // Set Potency calculated val
     }   
 
-    function CalculateResultOut(un_id) {
+        function CalculateResultOut(un_id) {
             var lowMin = document.getElementById('LowMin' + un_id).value;
             var uppMax = document.getElementById('UppMax' + un_id).value;
             var UOM = document.getElementById('UOM' + un_id).value;
@@ -1668,7 +1731,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 
-    function addMore(num) {
+        function addMore(num) {
             // Formate manula enter Quantity
             var QC_Quantity = $('#qCStsQty_' + num).val();
             $('#qCStsQty_' + num).val(parseFloat(QC_Quantity).toFixed(3));
@@ -1875,33 +1938,33 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     }
 
     function getSeriesDropdownForIT() {
-            var TrDate = $('#IT_QC_PostingDate').val();
-            var dataString = 'TrDate=' + TrDate + '&ObjectCode=67&action=getSeriesDropdown_ajax';
+        var TrDate = $('#IT_QC_PostingDate').val();
+        var dataString = 'TrDate=' + TrDate + '&ObjectCode=67&action=getSeriesDropdown_ajax';
 
-            $.ajax({
-                type: "POST",
-                url: 'ajax/common-ajax.php',
-                data: dataString,
-                cache: false,
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,
+            cache: false,
 
-                beforeSend: function() {
-                    // Show image container
-                    $(".loader123").show();
-                },
-                success: function(result) {
-                    var SeriesDropdown = JSON.parse(result);
+            beforeSend: function() {
+                // Show image container
+                $(".loader123").show();
+            },
+            success: function(result) {
+                var SeriesDropdown = JSON.parse(result);
 
-                console.log('SeriesDropdown',SeriesDropdown);
-                    $('#IT_QC_Series').html(SeriesDropdown);
+            // console.log('SeriesDropdown',SeriesDropdown);
+                $('#IT_QC_Series').html(SeriesDropdown);
 
-                    selectedSeriesForIT(); // call Selected Series Single data fun
-                },
-                complete: function(data) {
-                    // Hide image container
-                    $(".loader123").hide();
-                }
-            });
-        }
+                selectedSeriesForIT(); // call Selected Series Single data fun
+            },
+            complete: function(data) {
+                // Hide image container
+                $(".loader123").hide();
+            }
+        });
+    }
 
         function selectedSeriesForIT() {
             var TrDate = $('#IT_QC_PostingDate').val();
@@ -2030,28 +2093,28 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     
     
     function AutocalculateQC_Qty() {
-            // <!-- calculate Quantity for QC status tab start ------------------------------ -->
-            var rows = document.querySelectorAll('#qc-status-list-append tr');
+        // <!-- calculate Quantity for QC status tab start ------------------------------ -->
+        var rows = document.querySelectorAll('#qc-status-list-append tr');
 
-            // Get the count of tr elements
-            var rowCount = rows.length;
+        // Get the count of tr elements
+        var rowCount = rows.length;
 
-            // Initialize sum
-            var sum = 0;
+        // Initialize sum
+        var sum = 0;
 
-            // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
-            rows.forEach(function(row) {
-                var input = row.querySelector('input[name="qCStsQty[]"]');
-                if (input) {
-                    sum += parseFloat(input.value) || 0;
-                }
-            });
+        // Loop through each row and sum the values of the inputs named 'qCStsQty[]'
+        rows.forEach(function(row) {
+            var input = row.querySelector('input[name="qCStsQty[]"]');
+            if (input) {
+                sum += parseFloat(input.value) || 0;
+            }
+        });
 
-            var BatchQty = $('#QC_P_DOC_FG_BatchSize').val();
-            var QCS_Qty = parseFloat(parseFloat(BatchQty) - parseFloat(sum)).toFixed(3);
-            return QCS_Qty;
-            // <!-- calculate Quantity for QC status tab end -------------------------------- -->
-        }
+        var BatchQty = $('#QC_P_DOC_FG_BatchSize').val();
+        var QCS_Qty = parseFloat(parseFloat(BatchQty) - parseFloat(sum)).toFixed(3);
+        return QCS_Qty;
+        // <!-- calculate Quantity for QC status tab end -------------------------------- -->
+    }
 
 
 
@@ -2060,56 +2123,56 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
     function SelectionOfQC_Status(un_id) {
-            var tr_count = parseInt($('#tr-count').val());
-            //console.log('tr_count',tr_count);
-            var now = new Date();
-            var year = now.getFullYear();
-            var month = (now.getMonth() + 1).toString().padStart(2, '0');
-            var day = now.getDate().toString().padStart(2, '0');
-            var formattedDate = `${day}-${month}-${year}`;
-            var hours = now.getHours().toString().padStart(2, '0');
-            var minutes = now.getMinutes().toString().padStart(2, '0');
-            var formattedTime = `${hours}:${minutes}`;
+        var tr_count = parseInt($('#tr-count').val());
+        //console.log('tr_count',tr_count);
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var formattedDate = `${day}-${month}-${year}`;
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var formattedTime = `${hours}:${minutes}`;
 
-            $('#qCReleaseDate_' + un_id).val(formattedDate);
-            $('#qCReleaseTime_' + un_id).val(formattedTime);
+        $('#qCReleaseDate_' + un_id).val(formattedDate);
+        $('#qCReleaseTime_' + un_id).val(formattedTime);
 
-            if (tr_count !== 1) {
-                var rows = $('#qc-status-list-append tr');
-                var Selected_QC_Status = $('#qc_Status_' + un_id).val();
-                var valid = true;
-                var message = "";
+        if (tr_count !== 1) {
+            var rows = $('#qc-status-list-append tr');
+            var Selected_QC_Status = $('#qc_Status_' + un_id).val();
+            var valid = true;
+            var message = "";
 
-                rows.each(function(index) {
-                    if (index < rows.length - 1) {
-                        var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
-                        if (qcStatusDropdown === Selected_QC_Status) {
-                            valid = false;
-                            message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
-                        }
+            rows.each(function(index) {
+                if (index < rows.length - 1) {
+                    var qcStatusDropdown = $('#qc_Status_' + (index + 1)).val();
+                    if (qcStatusDropdown === Selected_QC_Status) {
+                        valid = false;
+                        message += `Row ${index + 1} has '${Selected_QC_Status}' selected.\n`;
                     }
-                });
+                }
+            });
 
-                if (valid) {
-                    if (!$('#qCStsQty_' + un_id).val()) {
-                        $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
-                    }
-                } else {
-                    $('#qCStsQty_' + un_id).val('');
-                    $('#qc_Status_' + un_id).val('');
-                    swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
+            if (valid) {
+                if (!$('#qCStsQty_' + un_id).val()) {
+                    $('#qCStsQty_' + un_id).val(AutocalculateQC_Qty());
                 }
             } else {
-                $('#qCStsQty_' + un_id).val($('#qc_Check_Batch_Size').val());
+                $('#qCStsQty_' + un_id).val('');
+                $('#qc_Status_' + un_id).val('');
+                swal("Oops!", "Repeated QC Status failed:\n" + message, "error");
             }
+        } else {
+            $('#qCStsQty_' + un_id).val($('#qc_Check_Batch_Size').val());
         }
+    }
 
 
 
 
 
   
-    function OpenInstrmentModal(un_id) {
+        function OpenInstrmentModal(un_id) {
 
 
             $.ajax({
@@ -2152,3 +2215,4 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }
 
   </script>
+  <!-- 2155 -->
