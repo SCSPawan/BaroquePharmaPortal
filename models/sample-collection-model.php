@@ -510,6 +510,7 @@
                         <thead class="fixedHeader1">
                            <tr>
                               <th>Select</th>
+                              <!-- <th><input class="form-check-input" type="checkbox" style="width: 17px;height: 17px;"></th> -->
                               <th>Item Code</th>
                               <th>Item Name</th>
                               <th>Container No</th>

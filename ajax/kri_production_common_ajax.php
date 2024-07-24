@@ -3725,20 +3725,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
 
 	$API = $FGSAMPCOLLADD . '?DocEntry=' . $DocEntry;
-
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-	// print_r($FinalAPI);die();
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit;
+
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
 	if (!empty($response)) {
+		// ' . $response[0]->RISSToWhs . '
 		$option = '<tr>
 				<td class="desabled">
-					<input type="text" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
-					<input type="text" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
+					<input type="hidden" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
+					<input type="hidden" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
 					1
 				</td>
 				
@@ -3751,13 +3747,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 				
 				</td>
 				<td class="desabled">
-					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $response[0]->BatchQty . '" >
+					<input class="border_hide textbox_bg" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $response[0]->SampleQty . '" readonly>
 				</td>
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
 				</td>
 				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="" readonly>
 				</td>
 				<td class="desabled">
 				   <input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
@@ -3832,7 +3828,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferRetails
 // --
 
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple_issue_finied_good_ajax') {
-
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['WareHouse'])));
 	$GRPODEnt = trim(addslashes(strip_tags($_POST['DocEntry'])));
@@ -3840,31 +3835,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 
 	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
 
-	//http: //10.80.4.55:8081/API/SAP/FGSAMCOLLCONTSEL?ItemCode=&WareHouse=&BatchNo=
-
-	// ItemCode=P00003&WareHouse=RETN-WHS&DocEntry=297&BatchNo=BQ13
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $FGSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
-
-	// exit(0k);
-
-	// $API='http://10.80.4.55:8081/API/SAP/INPROCESSSAMINTICONTSEL?ItemCode=SFG00001&WareHouse=QCUT-GEN&DocEntry=359&BatchNo=asd';
-	// 
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-
-	// print_r($FinalAPI);
-	// die();
+		$API = $FGSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
-	// echo "<pre>";
-	// print_r($response);
-	// echo "<pre>";
-	// exit;
+
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
 	if (!empty($response)) {
-
 		for ($i = 0; $i < count($response); $i++) {
-
 			if (!empty($response[$i]->MfgDate)) {
 				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
 			} else {
@@ -3878,11 +3857,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 			}
 
 
-			$option .= '
-			<tr>
-                
+			$option .= '<tr>
                 <td style="text-align: center;">
-					<input type="text" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
+					<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
 					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
 				</td>
 
@@ -3897,21 +3874,17 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
 				</td>
+
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
 				</td>
 
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" readonly>
-
-
 				</td>
-
 				
 				<td style="text-align: center;">
 				   <input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" onfocusout="EnterQtyValidation(' . $i . ')">
-
-				  
 				</td>
 				
 				<td class="desabled">
@@ -5883,143 +5856,91 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
-	// echo "<pre>";
-	// print_r($_POST);
-	// echo "</pre>";
-	// exit;
-	$tdata['Series'] = trim(addslashes(strip_tags($_POST['SC_finished_good_DocNo'])));
 	$tdata['Object'] = 'SCS_SCOLFG';
-
+	$tdata['Series'] = trim(addslashes(strip_tags($_POST['SC_finished_good_DocNo'])));
 	$tdata['U_PC_BLin'] = trim(addslashes(strip_tags($_POST['SC_finished_good_LineNo'])));
-
 	$tdata['U_PC_BPLId'] = trim(addslashes(strip_tags($_POST['SC_finished_good_BPLId'])));
-
 	$tdata['U_PC_LocCode'] = trim(addslashes(strip_tags($_POST['SC_finished_good_LocCode'])));
-
 	$tdata['U_PC_InType'] = trim(addslashes(strip_tags($_POST['SC_IngredientsType'])));
-
 	$tdata['U_PC_WoNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_WONo'])));
-
 	$tdata['U_PC_WoEnt'] = trim(addslashes(strip_tags($_POST['SC_finished_good_WOEntry'])));
-
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RFPNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RFPODocEntry'])));
-
 	$tdata['U_PC_Loc'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Location'])));
-
 	$tdata['U_PC_Branch'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Branch'])));
-
 	$tdata['U_PC_InBy'] = trim(addslashes(strip_tags($_POST['SC_finished_good_IntimatedBy'])));
-	// $tdata['U_PC_InDt']=trim(addslashes(strip_tags($_POST['OTSCP_GRPONo'])));
 	$tdata['U_PC_InDt'] = trim(addslashes(strip_tags(date('Y-m-d', strtotime($_POST['SC_finished_good_IntimatedDate'])))));
-
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['SC_finished_good_SampleQty'])));
-
 	$tdata['U_PC_SUnit'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Unit'])));
-
 	$tdata['U_PC_SClBy'] = trim(addslashes(strip_tags($_POST['SC_finished_good_SampleCollectBy'])));
-
 	$tdata['U_PC_ARNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_ARNo'])));
-
 	$tdata['U_PC_DDt'] = trim(addslashes(strip_tags(date('Y-m-d', strtotime($_POST['SC_finished_good_DocDate'])))));
-
 	$tdata['U_PC_TrNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_TRNo'])));
-
 	$tdata['U_PC_ICode'] = trim(addslashes(strip_tags($_POST['SC_finished_good_ItemCode'])));
-
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['SC_finished_good_ItemName'])));
-
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_BatchNo'])));
-
 	$tdata['U_PC_BtchQty'] = trim(addslashes(strip_tags($_POST['SC_finished_good_BatchQty'])));
-
 	$tdata['U_PC_NCont'] = trim(addslashes(strip_tags($_POST['SC_finished_good_NoOfContainer'])));
-
 	$tdata['U_PC_UTNo'] = trim(addslashes(strip_tags($_POST['SC_finished_good_UnderTransferNo'])));
-
 	$tdata['U_PC_DRev'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Dateofreversal'])));
-
-
+	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['SC_finished_good_MakeBy'])));
+	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RetainQty'])));
+	$tdata['U_PC_RQtyUom'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RetainQtyUOM'])));
+	$tdata['U_PC_CntNo1'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont1'])));
+	$tdata['U_PC_CntNo2'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont2'])));
+	$tdata['U_PC_CntNo3'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont3'])));
+	$tdata['U_PC_QtyLab'] = trim(addslashes(strip_tags($_POST['SC_finished_good_QtyforLabel'])));
+	$tdata['U_PC_Trans'] = null;
 	$tdata['U_PC_SIssue'] = null;
 	$tdata['U_PC_RSIssue'] = null;
 	$tdata['U_PC_RIssue'] = null;
 
-	$tdata['U_PC_RQty'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RetainQty'])));
-
-
-	$tdata['U_PC_RQtyUom'] = trim(addslashes(strip_tags($_POST['SC_finished_good_RetainQtyUOM'])));
-
-	$tdata['U_PC_CntNo1'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont1'])));
-	$tdata['U_PC_CntNo2'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont2'])));
-	$tdata['U_PC_CntNo3'] = trim(addslashes(strip_tags($_POST['SC_finished_good_Cont3'])));
-
-	$tdata['U_PC_QtyLab'] = trim(addslashes(strip_tags($_POST['SC_finished_good_QtyforLabel'])));
-
-	$tdata['U_PC_Trans'] = null;
-
-
-
-
-
-
-
-
 	// <!-- ---------------------- sample Intimation popup validation start Here ------------------ -->
-	if (empty($_POST['SC_finished_good_SampleCollectBy'])) {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "Sample Collect By Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
-
-	if (empty($_POST['SC_finished_good_DocDate'])) {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = "Document Date Mandatory.";
-		echo json_encode($data);
-		exit(0);
-	}
-	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
-	//     echo "<pre>";
-	// print_r($tdata);
-	// echo "</pre>";
-	// exit;
-	//<!-- ------------- function & function responce code Start Here ---- -->
-	$res = $obj->SAP_Login();  // SAP Service Layer Login Here
-
-	if (!empty($res)) {
-		$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API;
-
-		// print_r($Final_API);	
-
-		// die();
-
-		$responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
-		$responce = json_decode($responce_encode);
-
-		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		$data = array();
-
-		if ($responce->DocNum != "") {
-
-			$data['status'] = 'True';
-			$data['DocEntry'] = $responce->DocEntry;
-			$data['message'] = "Open Transaction For Sample Collection finished good Successfully Added.";
+		if (empty($_POST['SC_finished_good_SampleCollectBy'])) {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = "Sample Collect By Mandatory.";
 			echo json_encode($data);
-		} else {
-			if (array_key_exists('error', (array)$responce)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = '';
-				$data['message'] = $responce->error->message->value;
-				echo json_encode($data);
-			}
+			exit(0);
 		}
-		//  <!-- ------- service layer function responce manage End Here -------------- -->	
-	}
 
-	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
-	exit(0);
+		if (empty($_POST['SC_finished_good_DocDate'])) {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = "Document Date Mandatory.";
+			echo json_encode($data);
+			exit(0);
+		}
+	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
+
+	//<!-- ------------- function & function responce code Start Here ---- -->
+		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
+
+		if (!empty($res)) {
+			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCOLFG_API;
+
+			$responce_encode = $obj->SaveSampleIntimation($tdata, $Final_API); // sample intimation save here
+			$responce = json_decode($responce_encode);
+
+			//  <!-- ------- service layer function responce manage Start Here ------------ -->
+				$data = array();
+
+				if ($responce->DocNum != "") {
+					$data['status'] = 'True';
+					$data['DocEntry'] = $responce->DocEntry;
+					$data['message'] = "Open Transaction For Sample Collection finished good Successfully Added.";
+					echo json_encode($data);
+				} else {
+					if (array_key_exists('error', (array)$responce)) {
+						$data['status'] = 'False';
+						$data['DocEntry'] = '';
+						$data['message'] = $responce->error->message->value;
+						echo json_encode($data);
+					}
+				}
+			//  <!-- ------- service layer function responce manage End Here -------------- -->	
+		}
+
+		$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
+		exit(0);
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 

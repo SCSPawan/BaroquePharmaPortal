@@ -82,9 +82,8 @@ class Web {
 		return $response;
     }
 
-    public function get_OTFSI_Data($OPNTRANSAMPINTMTN_API)
-    {
-    	$stripped = rtrim($OPNTRANSAMPINTMTN_API, "&"); // URL last & symbole remove
+	public function get_OTFSI_Data($OPNTRANSAMPINTMTN_API){
+		$stripped = rtrim($OPNTRANSAMPINTMTN_API, "&"); // URL last & symbole remove
 		$Final_url = str_replace(' ', '%20', $stripped); // All blank space replace to %20
 		// print_r($Final_url);die();
 		$ch = curl_init();  
@@ -94,9 +93,9 @@ class Web {
 		$output=curl_exec($ch);
 		$reponce=json_decode($output);
 		curl_close($ch);
-    
+
 		return $reponce;
-    }
+	}
 
     public function get_OTFSI_SingleData($FinalAPI)
     {
@@ -464,7 +463,6 @@ class Web {
 
 		$API=$SAMPLEINTMUNDERTEST_API.'?'.$FromDate.$ToDate.$DocEntry;
 		
-
 		$removeDoller = rtrim($API, "&"); // URL last & symbole remove
 		$stripped = rtrim($removeDoller, "?"); // URL last ? symbole remove
 		$Final_url = str_replace(' ', '%20', $stripped); // All blank space replace to %20

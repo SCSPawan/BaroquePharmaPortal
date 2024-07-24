@@ -10,7 +10,7 @@ aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Finished Goods</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">QC Post Document  (QC Check) - Finished Goods11</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -23,19 +23,14 @@ aria-hidden="true">
                                         <div class="col-xl-12 col-md-6">
                                             <input type="hidden" id="OTFQCCFG_BPLId" name="OTFQCCFG_BPLId">
                                             <input type="hidden" id="OTFQCCFG_BpRefNo" name="OTFQCCFG_BpRefNo">
-                                            <input type="hidden" id="OTFQCCFG_ExpiryDate" name="OTFQCCFG_ExpiryDate">
                                             <input type="hidden" id="OTFQCCFG_FrgnName" name="OTFQCCFG_FrgnName">
                                             <input type="hidden" id="OTFQCCFG_GEDate" name="OTFQCCFG_GEDate">
                                             <input type="hidden" id="OTFQCCFG_GateENo" name="OTFQCCFG_GateENo">
                                             <input type="hidden" id="OTFQCCFG_LabelClaimUOM" name="OTFQCCFG_LabelClaimUOM">
                                             <input type="hidden" id="OTFQCCFG_LineNum" name="OTFQCCFG_LineNum">
                                             <input type="hidden" id="OTFQCCFG_LocCode" name="OTFQCCFG_LocCode">
-                                            <input type="hidden" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
                                             <input type="hidden" id="OTFQCCFG_Qty" name="OTFQCCFG_Qty">
                                             <input type="hidden" id="OTFQCCFG_RetestDate" name="OTFQCCFG_RetestDate">
-                                            <input type="hidden" id="OTFQCCFG_SampleCollectionNo" name="OTFQCCFG_SampleCollectionNo">
-                                            <input type="hidden" id="OTFQCCFG_SampleIntimationNo" name="OTFQCCFG_SampleIntimationNo">
-                                            <input type="hidden" id="OTFQCCFG_SampleQty" name="OTFQCCFG_SampleQty">
                                             <input type="hidden" id="OTFQCCFG_SpecfNo" name="OTFQCCFG_SpecfNo">
                                             <input type="hidden" id="OTFQCCFG_SrNo" name="OTFQCCFG_SrNo">
                                             <input type="hidden" id="OTFQCCFG_SupplierCode" name="OTFQCCFG_SupplierCode">
@@ -160,9 +155,54 @@ aria-hidden="true">
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_MfgDate" name="OTFQCCFG_MfgDate">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="OTFQCCFG_ExpiryDate" name="OTFQCCFG_ExpiryDate">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Type</label>
                                                 <div class="col-lg-8">
                                                     <select class="form-select" id="OTFQCCFG_SampleType" name="OTFQCCFG_SampleType"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Intimation No</label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_SampleIntimationNo" name="OTFQCCFG_SampleIntimationNo" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-6 col-form-label mt-6" for="val-skill">Sample Collection No</label>
+                                                <div class="col-lg-6">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_SampleCollectionNo" name="OTFQCCFG_SampleCollectionNo" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control desabled" type="text" id="OTFQCCFG_SampleQty" name="OTFQCCFG_SampleQty" readonly="">
                                                 </div>
                                             </div>
                                         </div>
