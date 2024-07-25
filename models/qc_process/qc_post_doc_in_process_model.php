@@ -658,131 +658,104 @@
 
  <!--end qc check model-->
 
- <!-- --------inventory transfer------------ -->
+<!-- --------inventory transfer------------ -->
+<div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
- <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-     <div class="modal-dialog modal-fullscreen">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <!-- form start -->
-                 <form method="post" action="#" id="inventrotyTransferQC_ckecked">
-                     <div class="row">
+            <div class="modal-body">
+                <form method="post" action="#" id="inventrotyTransferQC_ckecked">
+                    <div class="row">
+                        <input type="hidden" id="qc_check_branchID" name="qc_check_branchID">
+                        <input type="hidden" id="qc_check_DocEntry" name="qc_check_DocEntry">
+                        <input type="hidden" id="qc_check_LineID" name="qc_check_LineID" >
+                        <input type="hidden" id="qc_check_SeriesId" name="qc_check_SeriesId">
 
-                         <input class="form-control desabled" type="hidden" id="qc_check_branchID" name="qc_check_branchID" readonly>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="qc_check_supplier_code" name="qc_check_supplier_code" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <input class="form-control desabled" type="hidden" id="qc_check_DocEntry" name="qc_check_DocEntry" readonly>
-                         <input class="form-control " type="text" id="qc_check_LineID" name="qc_check_LineID" >
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                <div class="col-lg-6">
+                                    <select class="form-select" type="text" id="qcD_Series" name="qcD_Series" onchange="selectedSeriesForIT();"></select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <input class="form-control desabled" readonly type="text" id="qc_check_seriesDocNum" name="qc_check_seriesDocNum">
+                                </div>
+                            </div>
+                        </div>
 
-                         <input type="text" id="qc_check_SeriesId" name="qc_check_SeriesId" readonly>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="qc_check_supplier_name" name="qc_check_supplier_name" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="qc_check_supplier_code" name="qc_check_supplier_code" readonly>
-                                 </div>
-                             </div>
-                         </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="qc_check_branch" name="qc_check_branch" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <!-- <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="qc_check_series" name="qc_check_series" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="qc_check_base_docType" name="qc_check_base_docType" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                 <div class="col-lg-6">
-                                     <select class="form-control" type="text" id="qcD_Series" name="qcD_Series" onchange="selectedSeriesForIT();"></select>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="qc_check_posting_date" name="qc_check_posting_date" value="<?php echo date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+                        </div>
 
-                                     <!-- <select class="form-select desabled" disabled>
-                                                        <option>Primary</option>
-                                                    </select> -->
-                                 </div>
-                                 <div class="col-lg-2">
-                                     <input class="form-control desabled" readonly type="text" id="qc_check_seriesDocNum" name="qc_check_seriesDocNum">
-                                 </div>
-                             </div>
-                         </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="qc_check_document_date" name="qc_check_document_date" value="<?php echo date("Y-m-d"); ?>">
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="qc_check_baseDocNum" name="qc_check_baseDocNum" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="qc_check_supplier_name" name="qc_check_supplier_name" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="qc_check_branch" name="qc_check_branch" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="qc_check_base_docType" name="qc_check_base_docType" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control" type="date" id="qc_check_posting_date" name="qc_check_posting_date" value="<?php echo date("Y-m-d"); ?>">
-                                 </div>
-                             </div>
-                         </div>
-
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control" type="date" id="qc_check_document_date" name="qc_check_document_date" value="<?php echo date("Y-m-d"); ?>">
-                                 </div>
-                             </div>
-                         </div>
-
-
-                         <div class="col-xl-3 col-md-6">
-                             <div class="form-group row mb-2">
-                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                                 <div class="col-lg-8">
-                                     <input class="form-control desabled" type="text" id="qc_check_baseDocNum" name="qc_check_baseDocNum" readonly>
-                                 </div>
-                             </div>
-                         </div>
-
-                     </div><!--row end-->
-
-                     <!-- form end -->
-
-
-                     <!-- table start -->
-
+                    <!-- table start -->
                         <div class="table-responsive" id="list">
                             <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                 <thead class="fixedHeader1">
+                                <thead class="fixedHeader1">
                                     <tr>
-                                        <!--   <th>select</th> -->
                                         <th>Sr. No </th>
                                         <th>Item Code</th>
                                         <th>Item Name</th>
@@ -795,62 +768,56 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <!--   <td style="text-align: center;">
-                                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault" style="width: 17px;height: 17px;">
-                                        </td> -->
-                                        <td>1</td>
-                                        <td><input class="border_hide" type="text" id="qc_check_itemCode" name="qc_check_itemCode" class="form-control"></td>
+                                        <td class="desabled">1</td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_itemCode" name="qc_check_itemCode" readonly></td>
 
-                                        <td><input class="border_hide" type="text" id="qc_check_ItemName" name="qc_check_ItemName" class="form-control"></td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_ItemName" name="qc_check_ItemName" readonly></td>
 
-                                        <td><input class="border_hide" type="text" id="qc_check_Quality" name="qc_check_Quality" class="form-control"></td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_Quality" name="qc_check_Quality" readonly></td>
 
-                                        <td><input class="border_hide" type="text" id="qc_check_FromWhs" name="qc_check_FromWhs" class="form-control"></td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_FromWhs" name="qc_check_FromWhs" readonly></td>
 
-                                        <td><input class="border_hide" type="text" id="qc_check_ToWhs" name="qc_check_ToWhs" class="form-control"></td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_ToWhs" name="qc_check_ToWhs" readonly></td>
 
-                                        <td class="desabled">
-                                            <input class="border_hide" type="text" id="qc_check_Location" name="qc_check_Location" class="form-control">
-                                        </td>
-                                        <td class="desabled">
-                                            <input class="border_hide" type="text" id="qc_check_UOM" name="qc_check_UOM" class="form-control">
-                                        </td>
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_Location" name="qc_check_Location" readonly></td>
+
+                                        <td class="desabled"><input class="form-control border_hide textbox_bg" type="text" id="qc_check_UOM" name="qc_check_UOM" readonly></td>
                                     </tr>
                                 </tbody>
-                         </table>
-                     </div>
-                     <!-- table end -->
-                     <!-- table start -->
-                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-                     <div class="table-responsive mt-2" id="list">
-                         <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                             <thead class="fixedHeader1">
-                                 <tr>
-                                     <th>Select</th>
-                                     <th>Item Code</th>
-                                     <th>Item Name</th>
-                                     <th>Container No</th>
-                                     <th>Batch</th>
-                                     <th>Batch Qty</th>
-                                     <th>Select Qty</th>
-                                     <th>Mfg Date</th>
-                                     <th>Expiry Date</th>
-                                 </tr>
-                             </thead>
-                             <tbody id="ContainerSelectionItemAppend"></tbody>
-                         </table>
-                     </div>
-                     <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransferQC_ckeck();">Add</button>
-                     <button type="button" class="btn active btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                 </form>
-             </div><!--body end-->
-         </div>
-     </div>
- </div>
+                            </table>
+                        </div>
+                    <!-- table end -->
 
-
-
- <!-- --------------inventory transfer-------------- -->
+                    <!-- table start -->
+                        <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+                        <div class="table-responsive mt-2" id="list">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                <thead class="fixedHeader1">
+                                    <tr>
+                                        <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Container No</th>
+                                        <th>Batch</th>
+                                        <th>Batch Qty</th>
+                                        <th>Select Qty</th>
+                                        <th>Mfg Date</th>
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ContainerSelectionItemAppend"></tbody>
+                            </table>
+                        </div>
+                    <!-- table end -->
+                    
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransferQC_ckeck();">Add</button>
+                    <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- --------------inventory transfer-------------- -->
 
 
  <!-- --------RPT Pint View modal start ------------------- -->

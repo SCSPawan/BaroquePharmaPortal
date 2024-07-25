@@ -812,6 +812,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             var DocEntry=document.getElementById('DocEntry').value;
 
             var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
+
             $.ajax({  
                 type: "POST",  
                 url: window.location.href,  
@@ -819,9 +820,31 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 beforeSend: function(){
                     $(".loader123").show();
                 },
-                success: function(result){  
+                success: function(result)
+                {  
                     $("#footerProcess").hide();
                     $('#list-append').html(result);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            });
+        }
+
+        function selectedRecord(DocEntry){
+            var dataString ='DocEntry='+DocEntry+'&action=sample_collection_stability_ajax';
+
+            $.ajax({  
+                type: "POST",  
+                url: 'ajax/common-ajax.php',  
+                data: dataString,  
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result)
+                {   
+                    $("#footerProcess").show();
+                    var JSONObjectAll = JSON.parse(result);
                     var JSONObject=JSONObjectAll['SampleCollDetails'];
 
                     // <!-- ---------- bottom section field mapping start here ------------------------------ -->

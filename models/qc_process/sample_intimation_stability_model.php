@@ -515,7 +515,7 @@
                         <table id="ContainerSelectionTable_IT" class="table sample-table-responsive table-bordered" style="">
                             <thead class="fixedHeader1">
                                 <tr>
-                                    <th>Select</th>
+                                    <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
                                     <th>Item Code</th>
                                     <th>Item Name</th>
                                     <th>Container No</th>

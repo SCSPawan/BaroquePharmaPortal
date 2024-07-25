@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer900</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -136,7 +136,8 @@
                         <table id="ContainerSelectionTable_transfer" class="table sample-table-responsive table-bordered" style="">
                             <thead class="fixedHeader1">
                                 <tr>
-                                    <th>Select</th>
+                                    <!-- <th>Select</th> -->
+                                    <th><input class="form-check-input itp_checkboxallQCPTM" type="checkbox" onclick="AllCheckCheckbox_QCPTM()" style="width: 17px;height: 17px;"></th>
                                     <th>Item Code</th>
                                     <th>Item Name</th>
                                     <th>Container No</th>

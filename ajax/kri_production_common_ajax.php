@@ -921,7 +921,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_ajax')
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_process_in_ajax') {
-
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['FromWhs'])));
 	$GRPODEnt = trim(addslashes(strip_tags($_POST['DocEntry'])));
@@ -930,100 +929,98 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_proces
 	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
 
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $INPROCESSSAMINTICONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API = $INPROCESSSAMINTICONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here -------------------------------------------- -->
-	// print_r($API);
-	// die();
+
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
+
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
+		$option .= ' <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+			<thead class="fixedHeader1">
+				<tr>';
+					if ($afterSet == "") {
+						$option .= '<th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>';
+					}
 
-	$option .= ' <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style=""> <thead class="fixedHeader1">
-                    <tr>';
-	if ($afterSet == "") {
-		$option .= '<th>Select</th>';
-	}
+					$option .= '<th>Item Code</th>
+						<th>Item Name</th>
+						<th>Container No</th>
+						<th>Batch</th>
+						<th>Batch Qty</th>';
+						if ($afterSet == "") {
+							$option .= '<th>Select Qty</th>';
+						}
+					$option .= '<th>Mfg Date</th> 
+					<th>Expiry Date</th>
+				</tr>
+			</thead>';
+			$option .= '<tbody id="ContainerSelectionItemAppendForAllSelectionFun">';
 
-	$option .= '<th>Item Code</th>
-		                        <th>Item Name</th>
-		                        <th>Container No</th>
-		                        <th>Batch</th>
-		                        <th>Batch Qty</th>';
-	if ($afterSet == "") {
-		$option .= '<th>Select Qty</th>';
-	}
-	$option .= '<th>Mfg Date</th> 
-							<th>Expiry Date</th>
-                    </tr>
-                </thead>';
-	$option .= '<tbody>';
+				if (!empty($response)) {
+					for ($i = 0; $i < count($response); $i++) {
+						$MfgDate = (!empty($response[$i]->MfgDate)) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : null;
+						$ExpiryDate = (!empty($response[$i]->ExpiryDate)) ? date("d-m-Y", strtotime($response[$i]->ExpiryDate)) : null;
 
-	if (!empty($response)) {
-		for ($i = 0; $i < count($response); $i++) {
+						$option .= '<tr>';
+							if ($afterSet == "") {
+								$option .= '<td style="text-align: center;">
+									<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
+									<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
+								</td>';
+							}
 
-			$MfgDate = (!empty($response[$i]->MfgDate)) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : null;
-			$ExpiryDate = (!empty($response[$i]->ExpiryDate)) ? date("d-m-Y", strtotime($response[$i]->ExpiryDate)) : null;
-			$option .= '
-			<tr>';
+							$option .= '<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+							</td>
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+							</td>
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+							</td>
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->Batch . '" readonly>
+							</td>
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
+							</td>';
 
-			if ($afterSet == "") {
-				$option .= '<td style="text-align: center;">
-					<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
-					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
-				</td>';
-			}
+							if ($afterSet == "") {
+								$option .= '<td>
+									<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation(' . $i . ')">
+								</td>';
+							}
 
-			$option .= '<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->Batch . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
-				</td>';
+							$option .= '<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
+							</td>
 
-			if ($afterSet == "") {
-				$option .= '<td>
-					<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation(' . $i . ')">
-				</td>';
-			}
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+							</td>
+						</tr>';
+					}
 
-			$option .= '<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
-				</td>
+					$option .= '<tr>';
+						if ($afterSet == "") {
+							$option .= '<td colspan="6"></td>
+							<td class="desabled">
+								<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly>
+							</td>
+							<td colspan="2"></td>';
+						} else {
+							$option .= '<td colspan="5"></td>';
+						}
+					$option .= '</tr>';
+				} else {
+					$option .= '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+				}
 
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
-				</td>
-			</tr>';
-		}
-
-		$option .= '<tr>';
-
-		if ($afterSet == "") {
-			$option .= '<td colspan="6"></td>';
-
-			$option .= '<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly></td>
-				<td colspan="2"></td>';
-		} else {
-			$option .= '<td colspan="5"></td>';
-		}
-
-		$option .= '</tr>';
-	} else {
-		$option .= '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-	}
-
-	$option .= '</tbody></table>';
+			$option .= '</tbody>
+		</table>';
 	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
+
 	echo json_encode($option);
 	exit(0);
 }
@@ -1256,80 +1253,58 @@ if (isset($_POST['action']) && $_POST['action'] == 'IngrediantTypeDropdown_Sampl
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-
-
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamplessue_In_ajax') {
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
-
 	$API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
-
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 
-	print_r($FinalAPI);
-
-	die();
-
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
-
 	$BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
 
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
-	if (!empty($response)) {
-		$option = '<tr>
+		if (!empty($response)) {
+			$option = '<tr>
 				<td class="desabled">
 					<input type="hidden" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
 					<input type="hidden" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
-
 					1
 				</td>
-				
+
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
 				</td>
 
 				<td class="desabled">
-				 <input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
-				
+					<input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
 				</td>
+
 				<td>
 					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
 				</td>
+
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
 				</td>
+
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
 				</td>
+
 				<td class="desabled">
-				   <input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
 				</td>
+
 				<td class="desabled">
-				   <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
 				</td>
 			</tr>';
-	} else {
-		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-	}
+		} else {
+			$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+		}
 	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
 	echo json_encode($option);
 	exit(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferExtraIssue_In_ajax') {
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
@@ -1830,10 +1805,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Retail
 	exit(0);
 }
 
-
-
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_external_process_in_ajax') {
-
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['WareHouse'])));
 	$GRPODEnt = trim(addslashes(strip_tags($_POST['DocEntry'])));
@@ -1841,94 +1813,70 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_extern
 
 	$afterSet = trim(addslashes(strip_tags($_POST['afterSet'])));
 
-	// ItemCode=P00003&WareHouse=RETN-WHS&DocEntry=297&BatchNo=BQ13
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $INPROCESSSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
-
-	// $API='http://10.80.4.55:8081/API/SAP/INPROCESSSAMINTICONTSEL?ItemCode=SFG00001&WareHouse=QCUT-GEN&DocEntry=359&BatchNo=asd';
-	// 
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API = $INPROCESSSAMCOLLCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
-	// echo "<pre>";
-	// print_r($response);
-	// echo "<pre>";
-	// exit;
+
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
-	if (!empty($response)) {
+		if (!empty($response)) {
+			for ($i = 0; $i < count($response); $i++) {
+				$MfgDate = (!empty($response[$i]->MfgDate) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : '' );
+				$ExpiryDate = (!empty($response[$i]->ExpDate) ? date("d-m-Y", strtotime($response[$i]->ExpDate)) : '' );
 
-		for ($i = 0; $i < count($response); $i++) {
+				$option .= '<tr>
+					<td style="text-align: center;">
+						<input type="hidden" id="usercheckList_external' . $i . '" name="usercheckList_external[]" value="0">
+						<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS_external' . $i . '" name="itp_CS_external[]" style="width: 17px;height: 17px;" onclick="getSelectedContener_extenal(' . $i . ')">
+					</td>
 
-			if (!empty($response[$i]->MfgDate)) {
-				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
-			} else {
-				$MfgDate = '';
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemCode_external' . $i . '" name="itp_ItemCode_external[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemName_external' . $i . '" name="itp_ItemName_external[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo_external' . $i . '" name="itp_ContainerNo_external[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_Batche_external' . $i . '" name="itp_Batch_external[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_BatchQty_external' . $i . '" name="itp_BatchQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" readonly>
+					</td>
+
+					<td style="text-align: center;">
+						<input class="border_hide" type="text" id="SelectedQty_external' . $i . '" name="SelectedQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" onfocusout="EnterQtyValidation_external(' . $i . ')">
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_MfgDate_external' . $i . '" name="itp_MfgDate_external[]" class="form-control" value="' . $MfgDate . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate_external' . $i . '" name="itp_ExpiryDate_external[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+					</td>
+				</tr>';
 			}
 
-			if (!empty($response[$i]->ExpDate)) {
-				$ExpiryDate = date("d-m-Y", strtotime($response[$i]->ExpDate));
-			} else {
-				$ExpiryDate = '';
-			}
-
-
-			$option .= '
-			<tr>
-                
-                <td style="text-align: center;">
-					<input type="hidden" id="usercheckList_external' . $i . '" name="usercheckList_external[]" value="0">
-					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS_external' . $i . '" name="itp_CS_external[]" style="width: 17px;height: 17px;" onclick="getSelectedContener_extenal(' . $i . ')">
-				</td>
-
-                <td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode_external' . $i . '" name="itp_ItemCode_external[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
-				</td>
-
+			$option .= '<tr>
+				<td colspan="6"></td>
 				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemName_external' . $i . '" name="itp_ItemName_external[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum_external" name="cs_selectedQtySum_external" class="form-control" value="0.000000" readonly>
 				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo_external' . $i . '" name="itp_ContainerNo_external[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_Batche_external' . $i . '" name="itp_Batch_external[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty_external' . $i . '" name="itp_BatchQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" readonly>
-
-
-				</td>
-
-				
-				<td style="text-align: center;">
-				   <input class="border_hide" type="text" id="SelectedQty_external' . $i . '" name="SelectedQty_external[]" class="form-control" value="' . number_format((float)$response[$i]->BatchQty, 6, '.', '') . '" onfocusout="EnterQtyValidation_external(' . $i . ')">
-
-				  
-				</td>
-				
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate_external' . $i . '" name="itp_MfgDate_external[]" class="form-control" value="' . $MfgDate . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate_external' . $i . '" name="itp_ExpiryDate_external[]" class="form-control" value="' . $ExpiryDate . '" readonly>
-				</td>
+				<td colspan="2"></td>
 			</tr>';
-		}
-
-		$option .= '<tr>
-			<td colspan="6"></td>
-			<td class="desabled">
-				<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum_external" name="cs_selectedQtySum_external" class="form-control" value="0.000000" readonly></td>
-			<td colspan="2"></td>
-		</tr>';
-	} else {
-		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+		} else {
+			$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
 	}
 	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
-	echo json_encode($API);
+	echo json_encode($option);
 	exit(0);
 }
 
@@ -3911,103 +3859,63 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_Simple
 	exit(0);
 }
 
-
-
-
 if (isset($_POST['action']) && $_POST['action'] == 'SCFG_IT_ExternalIssue_ajax') {
-    // $DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
- 
-    // $API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
- 
-    $DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
- 
-    $API = $FGSAMPCOLLADD . '?DocEntry=' . $DocEntry;
-    $FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
- 
- 
-    // print_r($FinalAPI);
- 
-    // die();
- 
- 
-    $response = $obj->get_OTFSI_SingleData($FinalAPI);
- 
-    $BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
- 
-    // <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ -->
-    if (!empty($response)) {
-        $option = '<tr>
-                <td class="desabled">
-                    <input type="text" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
-                    <input type="text" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
- 
-                    1
-                </td>
-               
-                <td class="desabled">
-                    <input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
-                </td>
- 
-                <td class="desabled">
-                 <input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
-               
-                </td>
-                <td>
-                    <input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="" readonly>
-                </td>
-                <td class="desabled">
-                    <input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
-                </td>
-                <td class="desabled">
-                    <input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
-                </td>
-                <td class="desabled">
-                   <input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
-                </td>
-                <td class="desabled">
-                   <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
-                </td>
-            </tr>';
-    } else {
-        $option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-    }
-    // <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- -->
- 
-    $data=array();
-    $data['html'] = $option;
-    $data['res'] = $response;
-    echo json_encode($data);
-    exit(0);
+	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
+	$API = $FGSAMPCOLLADD . '?DocEntry=' . $DocEntry;
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
+
+	$BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
+
+	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ -->
+		if (!empty($response)) {
+			$option = '<tr>
+				<td class="desabled">
+					<input type="hidden" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
+					<input type="hidden" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
+					1
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
+				</td>
+			</tr>';
+		} else {
+			$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+		}
+	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- -->
+
+	$data=array();
+	$data['html'] = $option;
+	$data['res'] = $response;
+	echo json_encode($data);
+	exit(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if (isset($_POST['SubIT_Btn_finied_goods_sample_issue'])) {
 	$mainArray = array(); // This array hold all type of declare array
@@ -5204,8 +5112,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_QC_Check_Fi
 		$FinalResponce['options'] = '<tr>
 				<td class="desabled">
 						
-					<input type="text" id="inventoryTransferFG_i_DocEntry" name="inventoryTransferFG_i_DocEntry" value="' . $response[0]->DocEntry . '">
-					<input type="text" id="inventoryTransferFG_i_BatchNo" name="inventoryTransferFG_i_BatchNo" value="' . $response[0]->BatchNo . '">
+					<input type="hidden" id="inventoryTransferFG_i_DocEntry" name="inventoryTransferFG_i_DocEntry" value="' . $response[0]->DocEntry . '">
+					<input type="hidden" id="inventoryTransferFG_i_BatchNo" name="inventoryTransferFG_i_BatchNo" value="' . $response[0]->BatchNo . '">
 
 					1
 				</td>
@@ -5947,95 +5855,75 @@ if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_ContainerList_ajax') {
-
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['FromWhs'])));
-	// $GRPODEnt=trim(addslashes(strip_tags($_POST['GRPODEnt'])));
 	$BNo = trim(addslashes(strip_tags($_POST['BNo'])));
 
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $INPROCESSQCPOSTDOCUMENTCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
-
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-
-
-
-	// print_r($FinalAPI);
-	// die();
+		$API = $INPROCESSQCPOSTDOCUMENTCONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo;
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
-
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit;
-
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
-	if (!empty($response)) {
+		if (!empty($response)) {
+			for ($i = 0; $i < count($response); $i++) {
+				// ----------- Date formating condition definr start here---------------------------
+					$MfgDate = (!empty($response[$i]->MfgDate) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : '');
+					$ExpiryDate = (!empty($response[$i]->ExpDate) ? date("d-m-Y", strtotime($response[$i]->ExpDate)) : '');
+				// ----------- Date formating condition definr end here-----------------------------
 
-		for ($i = 0; $i < count($response); $i++) {
+				$option .='<tr>
+					<td style="text-align: center;">
+						<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
+						<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
+					</td>
 
-			// ----------- Date formating condition definr start here---------------------------
-			if (!empty($response[$i]->MfgDate)) {
-				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
-			} else {
-				$MfgDate = '';
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
+					</td>
+
+					<td>
+						<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation_GI(' . $i . ')">
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+					</td>
+				</tr>';
 			}
 
-			if (!empty($response[$i]->ExpDate)) {
-				$ExpiryDate = date("d-m-Y", strtotime($response[$i]->ExpDate));
-			} else {
-				$ExpiryDate = '';
-			}
-
-
-			// ----------- Date formating condition definr end here-----------------------------
-			$option .= '
-			<tr>
-				<td style="text-align: center;">
-					<input type="text" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
-					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
-				</td>
+			$option .= '<tr>
+				<td colspan="6"></td>
 				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly>
 				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
-				</td>
-				<td>
-					<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation_GI(' . $i . ')">
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
-				</td>
+				<td colspan="2"></td>
 			</tr>';
+		} else {
+			$option ='<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
 		}
-
-		$option .= '<tr>
-			<td colspan="6"></td>
-			<td class="desabled">
-				<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly></td>
-			<td colspan="2"></td>
-		</tr>';
-	} else {
-		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-	}
 	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
 	echo json_encode($option);
 	exit(0);
