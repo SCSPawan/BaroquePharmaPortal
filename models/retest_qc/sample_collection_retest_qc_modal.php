@@ -379,7 +379,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer123 </h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -388,9 +388,9 @@
                 <!-- <form> -->
                      <form role="form" class="form-horizontal" id="inventory_transfer_form" method="post">
                        <div class="row">
-                        <input type="text" id="SCRTQC_it_NextNumber" name="SCRTQC_it_NextNumber">
-                        <input type="text" id="SCRTQC_it_SCRTQCB_DocEntry" name="SCRTQC_it_SCRTQCB_DocEntry">
-                        <input type="text" id="_SCRTQCB_BPLId" name="_SCRTQCB_BPLId">
+                        <input type="hidden" id="SCRTQC_it_NextNumber" name="SCRTQC_it_NextNumber">
+                        <input type="hidden" id="SCRTQC_it_SCRTQCB_DocEntry" name="SCRTQC_it_SCRTQCB_DocEntry">
+                        <input type="hidden" id="_SCRTQCB_BPLId" name="_SCRTQCB_BPLId">
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -512,7 +512,8 @@
                         <table id="ContainerSelectionTable" class="table sample-table-responsive table-bordered" style="">
                             <thead class="fixedHeader1">
                                 <tr>
-                                    <th>Select</th>
+                                    <!-- <th>Select</th> -->
+                                    <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
                                     <th>Item Code</th>
                                     <th>Item Name</th>
                                     <th>Container No</th>

@@ -1247,27 +1247,61 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
         }
 
-            function ViewPrintUndertestLabel_RPT(){
-                // var DocEntry=$('#U_UTTrans').val();
-                var DocEntry=$('#si_DocEntry').val();
-                if(DocEntry!=''){
-                    var PrintOutURL=`http://192.168.1.30:8082/API/SAP/SAMPLEINTIUNDERTEST?DocEntry=${DocEntry}`;
-                    document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
-                }
-
-                document.getElementById('RPT_title').innerHTML= 'Print Undertest Label';
-            }
-
-            function ViewPrintSampleIntimation_RPT(){
-                var DocEntry=$('#si_DocEntry').val();
-                var PrintOutURL=`http://192.168.1.30:8082/API/SAP/INWARDSAMPLEINTIMATION?DocEntry=${DocEntry}`;
-
-                document.getElementById('RPT_title').innerHTML= 'Print Sample Intimation';
+        function ViewPrintUndertestLabel_RPT(){
+            // var DocEntry=$('#U_UTTrans').val();
+            var DocEntry=$('#si_DocEntry').val();
+            if(DocEntry!=''){
+                var PrintOutURL=`http://192.168.1.30:8082/API/SAP/SAMPLEINTIUNDERTEST?DocEntry=${DocEntry}`;
                 document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
             }
+
+            document.getElementById('RPT_title').innerHTML= 'Print Undertest Label';
+        }
+
+        function ViewPrintSampleIntimation_RPT(){
+            var DocEntry=$('#si_DocEntry').val();
+            var PrintOutURL=`http://192.168.1.30:8082/API/SAP/INWARDSAMPLEINTIMATION?DocEntry=${DocEntry}`;
+
+            document.getElementById('RPT_title').innerHTML= 'Print Sample Intimation';
+            document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
+        }
 
         function ViewPrintQuarantine_RPT_Close(){
             document.getElementById('RPT_title').innerHTML= '';
             document.getElementById("PrintQuarantine_Link").src = '';
+        }
+
+        function AllCheckCheckbox() {
+            var mainCheckbox = document.querySelector('.itp_checkboxall');
+            var checkboxes = document.querySelectorAll('#ContainerSelectionItemAppend .form-check-input');
+            var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+
+            if (mainCheckbox.checked) {
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = true;
+                    hiddenFields[index].value = '1';
+                });
+            } else {
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = false;
+                    hiddenFields[index].value = '0';
+                });
+            }
+            AllcalculateSum();
+        }
+
+        function AllcalculateSum() {
+            var selectedQtyFields = document.querySelectorAll('input[name="SelectedQty[]"]');
+            var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+            var total = 0;
+
+            selectedQtyFields.forEach((field, index) => {
+                if (hiddenFields[index].value === '1') {
+                    var value = parseFloat(field.value) || 0;
+                    total += value;
+                }
+            });
+
+            document.getElementById('cs_selectedQtySum').value = total.toFixed(6);
         }
     </script>

@@ -1989,5 +1989,39 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 }
             })
         }
+
+        function AllCheckCheckbox() {
+            var mainCheckbox = document.querySelector('.itp_checkboxall');
+            var checkboxes = document.querySelectorAll('#ContainerSelectionItemAppend .form-check-input');
+            var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+
+            if (mainCheckbox.checked) {
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = true;
+                    hiddenFields[index].value = '1';
+                });
+            } else {
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.checked = false;
+                    hiddenFields[index].value = '0';
+                });
+            }
+            AllcalculateSum();
+        }
+
+        function AllcalculateSum() {
+            var selectedQtyFields = document.querySelectorAll('input[name="SelectedQty[]"]');
+            var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+            var total = 0;
+
+            selectedQtyFields.forEach((field, index) => {
+                if (hiddenFields[index].value === '1') {
+                    var value = parseFloat(field.value) || 0;
+                    total += value;
+                }
+            });
+
+            document.getElementById('cs_selectedQtySum').value = total.toFixed(6);
+        }
         
     </script>

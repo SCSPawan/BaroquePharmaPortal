@@ -8,10 +8,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
   exit(0);
 }
 
-
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
-
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $tdata=array();
     $tdata['FromDate']=date('Ymd', strtotime($_POST['fromDate']));
     $tdata['ToDate']=date('Ymd', strtotime($_POST['toDate']));
@@ -25,15 +22,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;
@@ -2024,88 +2021,72 @@ function selectedSeries_gd(){
 
 
 function OpenInventoryExternalTransferModel(){
+    var un_id=document.getElementById('RowLevelSelectedExternalIssue').value;  // selected row un_id
 
+    var Branch=document.getElementById('Branch').value;
+    var Series=document.getElementById('si_Series').value;
+    var DocEntry=document.getElementById('it__DocEntry').value;
+    var BPLId=document.getElementById('BPLId').value;
 
-     var un_id=document.getElementById('RowLevelSelectedExternalIssue').value;  // selected row un_id
+    var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferSamplessue_In_ajax';
+    $.ajax({
+        type: "POST",
+        url: 'ajax/kri_production_common_ajax.php',
+        data: dataString,
+        cache: false,
+        beforeSend: function(){
+            $(".loader123").show();
+        },
+        success: function(result){
+            var JSONObject = JSON.parse(result);
+            $('#iT_InventoryTransfer_external_BaseDocType').val('SCS_SCINPROC');
+            $('#iT_InventoryTransfer_external_BaseDocNum').val(DocEntry);
+            $('#iT_InventoryTransfer_external_branch').val(Branch);
+            $('#it_InventoryTransfer_external_BPLId').val(BPLId);
+            $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
+            $('#InventoryTransferItemAppend_external').html(JSONObject);
 
-
-        var Branch=document.getElementById('Branch').value;
-        var Series=document.getElementById('si_Series').value;
-        var DocEntry=document.getElementById('it__DocEntry').value;
-        var BPLId=document.getElementById('BPLId').value;
-        
-        var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferSamplessue_In_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-                $('#iT_InventoryTransfer_external_BaseDocType').val('SCS_SCINPROC');
-                $('#iT_InventoryTransfer_external_BaseDocNum').val(DocEntry);
-                $('#iT_InventoryTransfer_external_branch').val(Branch);
-                $('#it_InventoryTransfer_external_BPLId').val(BPLId);
-                $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
-               
-                $('#InventoryTransferItemAppend_external').html(JSONObject);
-
-                // getSeriesDropdown_retails();
-                ContainerSelection_extenal(); // get Container Selection Table List
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-
-
+            ContainerSelection_extenal(); // get Container Selection Table List
+        },
+        complete:function(data){
+            $(".loader123").hide();
+        }
+    })
 }
 
 
 
 
 function ContainerSelection_extenal(){
+    var selectedRadio = document.querySelector('input[name="listRado"]:checked');
 
-    // alert('hii');
-  
-var selectedRadio = document.querySelector('input[name="listRado"]:checked');
-
-// Check if a radio button is selected
- if (selectedRadio) {
-    // Get the value of the selected radio button
-    var selectedValue = selectedRadio.value;
-    var SC_ExternalQty_Row = $('#SC_FEXI_SampleQuantity' + selectedValue).val()
-    var SC_ExternalLineId_Row = $('#SC_FEXI_Linenum' + selectedValue).val();
-} else {
-    var SC_ExternalQty_Row = 0.000;
-    var SC_ExternalLineId_Row = '';
-}
+    // Check if a radio button is selected
+    if (selectedRadio) {
+        // Get the value of the selected radio button
+        var selectedValue = selectedRadio.value;
+        var SC_ExternalQty_Row = $('#SC_FEXI_SampleQuantity' + selectedValue).val()
+        var SC_ExternalLineId_Row = $('#SC_FEXI_Linenum' + selectedValue).val();
+    } else {
+        var SC_ExternalQty_Row = 0.000;
+        var SC_ExternalLineId_Row = '';
+    }
     var DocEntry=document.getElementById('it__DocEntry').value;
     var BatchNo=document.getElementById('it_BatchNo').value;
     var ItemCode=document.getElementById('itP_ItemCode').value;
     var itP_FromWhs=document.getElementById('itP_FromWhs').value;
 
     var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
-
     $.ajax({
         type: "POST",
         url: 'ajax/kri_production_common_ajax.php',
         data: dataString,
         cache: false,
-
         beforeSend: function(){
             $(".loader123").show();
         },
-        success: function(result)
-        {
+        success: function(result){
             var JSONObject = JSON.parse(result);
-            
-            // $('#ContainerSelectionItemAppend_retails').html(JSONObject); 
+
             $('#ContainerSelectionItemAppend_external').html(JSONObject);
             $('#itP_BQty').val(SC_ExternalQty_Row);
             $('#it_Linenum').val(SC_ExternalLineId_Row);           
@@ -2113,31 +2094,10 @@ var selectedRadio = document.querySelector('input[name="listRado"]:checked');
         complete:function(data){
             $(".loader123").hide();
         }
-    }); 
+    })
 }
 
-    // =----==
-
-
-function getSelectedContener_extenal(un_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    function getSelectedContener_extenal(un_id)
     {
         //Create an Array.
         var selected = new Array();
@@ -2625,5 +2585,38 @@ function SubmitInventoryTransfer_extra(){
         document.getElementById("SC_ExtraIssue_PEI_Btn").disabled= false;
     }
 
+    function AllCheckCheckbox() {
+        var mainCheckbox = document.querySelector('.itp_checkboxall');
+        var checkboxes = document.querySelectorAll('#ContainerSelectionItemAppend_external .form-check-input');
+        var hiddenFields = document.querySelectorAll('input[name="usercheckList_external[]"]');
+        
+        if (mainCheckbox.checked) {
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = true;
+                hiddenFields[index].value = '1';
+            });
+        } else {
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = false;
+                hiddenFields[index].value = '0';
+            });
+        }
+        AllcalculateSum();
+    }
+
+    function AllcalculateSum() {
+        var selectedQtyFields = document.querySelectorAll('input[name="SelectedQty_external[]"]');
+        var hiddenFields = document.querySelectorAll('input[name="usercheckList_external[]"]');
+        var total = 0;
+
+        selectedQtyFields.forEach((field, index) => {
+            if (hiddenFields[index].value === '1') {
+                var value = parseFloat(field.value) || 0;
+                total += value;
+            }
+        });
+
+        document.getElementById('cs_selectedQtySum_external').value = total.toFixed(6);
+    }
 </script>
 <!-- 2610 -->

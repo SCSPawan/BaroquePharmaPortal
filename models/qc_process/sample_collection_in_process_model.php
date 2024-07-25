@@ -481,185 +481,144 @@
         </div>
     </div>
 <!-- </div> -->
+<!--end sample collection model-->
 
-     <!--end sample collection model-->
-
-
-     <!-- --------inventory transfer------------ -->
-
+<!-- --------inventory transfer------------ -->
 <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <!-- form start -->
-                 <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_Retails" method="post">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_Retails" method="post">
                     <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_BPLId" name="it_InventoryTransfer_BPLId">
-                     <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_DocEntry" name="it_InventoryTransfer_DocEntry">
-                                    <div class="row">
+                    <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_DocEntry" name="it_InventoryTransfer_DocEntry">
 
-                                       <!--  <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_goods_issue_supplier_code" name="iT_goods_issue_supplier_code" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                <div class="col-lg-4">
+                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_series"></select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo">
+                                </div>
+                            </div>
+                        </div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-4">
-                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_series"></select>
-                                                 </div>
-                                                 <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo">
-                                                 </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                <div class="col-lg-4">
+                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo">
+                                </div>
+                            </div>
+                        </div>
 
-                                              
-                                            </div>
-                                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_branch" name="iT_InventoryTransfer_branch" readonly>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_BaseDocType" name="iT_InventoryTransfer_BaseDocType" readonly>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="iT_InventoryTransfer_PostingDate" name="iT_InventoryTransfer_PostingDate">
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="iT_InventoryTransfer_DocumentDate" name="iT_InventoryTransfer_DocumentDate">
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_BaseDocNum" name="iT_InventoryTransfer_BaseDocNum" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- table start -->
+                        <div class="table-responsive" id="list">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
+                                <thead class="fixedHeader1">
+                                    <tr>
+                                        <th>Sr. No </th>  
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Quality</th>
+                                        <th>From Whs</th>
+                                        <th>To Whs</th>
+                                        <th>Location</th>
+                                        <th>UOM</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="InventoryTransferItemAppend_retails"></tbody> 
+                            </table>
+                        </div>
+                    <!-- table end -->
 
+                    <!-- table start -->
+                        <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+                        <div class="table-responsive mt-2" id="list">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                <thead class="fixedHeader1">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Container No</th>
+                                        <th>Batch</th>
+                                        <th>Batch Qty</th>
+                                        <th>Select Qty</th>
+                                        <th>Mfg Date</th> 
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ContainerSelectionItemAppend_retails"></tbody> 
+                            </table>
+                        </div>
+                    <!-- table end -->
 
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-4">
-                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
-                                                </div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_Retials_issue()">Add</button>
 
-                                                 <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="inveTra_docNo" name="inveTra_docNo">
-                                                 </div>
-                                            </div>
-                                        </div>
-
-                                       <!--  <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_supplier_name" name="iT_InventoryTransfer_supplier_name" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_branch" name="iT_InventoryTransfer_branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_BaseDocType" name="iT_InventoryTransfer_BaseDocType" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_PostingDate" name="iT_InventoryTransfer_PostingDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_DocumentDate" name="iT_InventoryTransfer_DocumentDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_BaseDocNum" name="iT_InventoryTransfer_BaseDocNum" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div><!--row end-->
-                               
-                <!-- form end -->
-
-
-                                    <!-- table start -->
-
-                                    <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <!-- <th>select</th> -->
-                                                                <th>Sr. No </th>  
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Quality</th>
-                                                                <th>From Whs</th>
-                                                                <th>To Whs</th>
-                                                                <th>Location</th>
-                                                                <th>UOM</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="InventoryTransferItemAppend_retails"></tbody> 
-                                                   </table>
-                                               </div>
-                                <!-- table end -->
-                                 <!-- table start -->
-                                        <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-                                        <div class="table-responsive mt-2" id="list">
-                                                <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Select</th>
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Container No</th>
-                                                                <th>Batch</th>
-                                                                <th>Batch Qty</th>
-                                                                <th>Select Qty</th>
-                                                                <th>Mfg Date</th> 
-                                                                <th>Expiry Date</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="ContainerSelectionItemAppend_retails"></tbody> 
-                                                </table>
-                                            </div>
-                                               <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> -->
-                                               <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_Retials_issue()">Add</button>
-
-
-                                               <button type="button" class="btn active btn-primary" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-
-                            </form>
-                                
-      </div><!--body end-->
+                    <button type="button" class="btn active btn-primary" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </form>
+            </div><!--body end-->
+        </div>
     </div>
-  </div>
 </div>
-
-
-
-    <!-- --------------inventory transfer-------------- -->
-
+<!-- --------------inventory transfer-------------- -->
 
 <!-- --------Goods Issue------------ -->
 <div class="modal fade goods_issue" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -796,172 +755,138 @@
 </div>
 <!-- --------------Goods Issue-------------- -->
 
-
-
-   <!-- --------inventory transfer external------------ -->
-
+<!-- --------inventory transfer external------------ -->
 <div class="modal fade inventory_external_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer External</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <!-- form start -->
-                 <form role="form" class="form-horizontal" id="inventory_transfer_form_external" method="post">
-                   
-                     <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_BPLId" name="it_InventoryTransfer_BPLId">
-                     <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_DocEntry" name="it_InventoryTransfer_DocEntry">
-                         <input type="hidden" id="it_numner_Series" name="it_numner_Series">
-                         <input type="hidden" id="it_Linenum" name="it_Linenum">
-                                    <div class="row">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Inventory Transfer External</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-                                       <!--  <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_goods_issue_supplier_code" name="iT_goods_issue_supplier_code" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" id="inventory_transfer_form_external" method="post">
+                    <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_BPLId" name="it_InventoryTransfer_BPLId">
+                    <input class="form-control desabled" type="hidden" id="it_InventoryTransfer_external_DocEntry" name="it_InventoryTransfer_DocEntry">
+                    <input type="hidden" id="it_numner_Series" name="it_numner_Series">
+                    <input type="hidden" id="it_Linenum" name="it_Linenum">
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                                                 <div class="col-lg-4">
-                                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
-                                                </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                                <div class="col-lg-4">
+                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control desabled" type="text" id="external_docNo" name="external_docNo">
+                                </div>
+                            </div>
+                        </div>
 
-                                                <div class="col-lg-4">
-                                                     <input class="form-control desabled" type="text" id="external_docNo" name="external_docNo">
-                                                 </div>
-                                            </div>
-                                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_branch" name="iT_InventoryTransfer_external_branch" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                                       <!--<div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_supplier_name" name="iT_InventoryTransfer_supplier_name" readonly>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_BaseDocType" name="iT_InventoryTransfer_external_BaseDocType" readonly>
+                                </div>
+                            </div>
+                        </div>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_branch" name="iT_InventoryTransfer_external_branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <?php
+                            $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
+                        ?>
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_BaseDocType" name="iT_InventoryTransfer_external_BaseDocType" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
+                                </div>
+                            </div>
+                        </div>
 
-                                        <?php
-$currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
-?>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="date" id="iT_InventoryTransfer_external_DocumentDate" name="iT_InventoryTransfer_external_DocumentDate" value="<?php echo $currentDate; ?>">
+                                </div>
+                            </div>
+                        </div>
 
-<div class="col-xl-3 col-md-6">
-    <div class="form-group row mb-2">
-        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-        <div class="col-lg-8">
-            <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group row mb-2">
+                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_BaseDocNum" name="iT_InventoryTransfer_external_BaseDocNum" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- table start -->
+                        <div class="table-responsive" id="list">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                <thead class="fixedHeader1">
+                                    <tr>
+                                        <th>Sr. No </th>  
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Quality</th>
+                                        <th>From Whs</th>
+                                        <th>To Whs</th>
+                                        <th>Location</th>
+                                        <th>UOM</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="InventoryTransferItemAppend_external"></tbody> 
+                            </table>
+                        </div>
+                    <!-- table end -->
+
+                    <!-- table start -->
+                        <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
+                        <div class="table-responsive mt-2" id="list">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
+                                <thead class="fixedHeader1">
+                                    <tr>
+                                        <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
+                                        <th>Item Code</th>
+                                        <th>Item Name</th>
+                                        <th>Container No</th>
+                                        <th>Batch</th>
+                                        <th>Batch Qty</th>
+                                        <th>Select Qty</th>
+                                        <th>Mfg Date</th> 
+                                        <th>Expiry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ContainerSelectionItemAppend_external"></tbody> 
+                            </table>
+                        </div>
+                    <!-- table start -->
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_external()">Add</button>
+
+                    <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                </form>
+            </div>
         </div>
     </div>
-
 </div>
+<!-- --------------inventory transfer external-------------- -->
 
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="iT_InventoryTransfer_external_DocumentDate" name="iT_InventoryTransfer_external_DocumentDate" value="<?php echo $currentDate; ?>">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocNum</label>
-                                                 <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="iT_InventoryTransfer_external_BaseDocNum" name="iT_InventoryTransfer_external_BaseDocNum" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div><!--row end-->
-                               
-                <!-- form end -->
-
-
-                                    <!-- table start -->
-
-                                    <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <!-- <th>select</th> -->
-                                                                <th>Sr. No </th>  
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Quality</th>
-                                                                <th>From Whs</th>
-                                                                <th>To Whs</th>
-                                                                <th>Location</th>
-                                                                <th>UOM</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="InventoryTransferItemAppend_external"></tbody> 
-                                                   </table>
-                                               </div>
-                                <!-- table end -->
-                                 <!-- table start -->
-                                        <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
-                                        <div class="table-responsive mt-2" id="list">
-                                                <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
-                                                        <thead class="fixedHeader1">
-                                                            <tr>
-                                                                <th>Select</th>
-                                                                <th>Item Code</th>
-                                                                <th>Item Name</th>
-                                                                <th>Container No</th>
-                                                                <th>Batch</th>
-                                                                <th>Batch Qty</th>
-                                                                <th>Select Qty</th>
-                                                                <th>Mfg Date</th> 
-                                                                <th>Expiry Date</th>
-                                                            </tr>
-                                                        </thead>
-                                                     <tbody id="ContainerSelectionItemAppend_external"></tbody> 
-                                                </table>
-                                            </div>
-                                               <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Add</button> SubmitInventoryTransfer_Retials_issue-->
-                                               <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_external()">Add</button>
-
-                                               <button type="button" class="btn active btn-danger" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                                </form>
-                                
-      </div><!--body end-->
-    </div>
-  </div>
-</div>
-
-
-
-    <!-- --------------inventory transfer external-------------- -->
-
-
-
-    <!-- --------Goods Issue------------ -->
+<!-- --------Goods Issue------------ -->
 <div class="modal fade goods_extra_issue" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
@@ -972,7 +897,6 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
 
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_extra" method="post">
-
                     <input type="text" id="it_BPLId_extra" name="it_BPLId_extra">
                     <input type="text" id="it_DocEntry_extra" name="it_DocEntry_extra">
                     <input type="text" id="it_LineId" name="it_LineId">
@@ -1012,16 +936,15 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                                 <div class="col-lg-4">
                                     <select class="form-control " type="text" id="gd_Series_extra" name="gd_Series_extra" onchange="selectedSeries_gd_extra();"></select>
                                 </div>
-                                 <div class="col-lg-4">
-                                 <input class="form-control " type="text" id="extra_docNo" name="extra_docNo" readonly>
-                             </div>
+                                <div class="col-lg-4">
+                                    <input class="form-control " type="text" id="extra_docNo" name="extra_docNo" readonly>
+                                </div>
                             </div>
                         </div>
-<?php
-                        
-$currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
-?>
 
+                        <?php
+                            $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
+                        ?>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group row mb-2">
@@ -1040,7 +963,6 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="table-responsive" id="list">
@@ -1060,7 +982,6 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                             <tbody id="InventoryTransferItemAppend_extra"> </tbody> 
                         </table>
                     </div>
-
                     <br>
 
                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
@@ -1082,11 +1003,10 @@ $currentDate = date('Y-m-d'); // Get the current date in Y-m-d format
                             <tbody id="ContainerSelectionItemAppend_extra"></tbody> 
                         </table>
                     </div>
-<!-- SubmitInventoryTransfer_sample_issue -->
+
                     <button type="button" class="btn btn-primary" data-bs-toggle="button" onclick="SubmitInventoryTransfer_extra()">Add </button>
 
                     <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
-
                 </form>
             </div>
         </div>

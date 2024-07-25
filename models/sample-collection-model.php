@@ -509,8 +509,8 @@
                      <table id="ContainerSelectionTable" class="table sample-table-responsive table-bordered" style="">
                         <thead class="fixedHeader1">
                            <tr>
-                              <th>Select</th>
-                              <!-- <th><input class="form-check-input" type="checkbox" style="width: 17px;height: 17px;"></th> -->
+                              <!-- <th>Select</th> -->
+                              <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
                               <th>Item Code</th>
                               <th>Item Name</th>
                               <th>Container No</th>
@@ -1116,7 +1116,7 @@
    <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title ChangeModalNameJS" id="myLargeModalLabel">Goods Issue11111111111</h5>
+            <h5 class="modal-title ChangeModalNameJS" id="myLargeModalLabel">Goods Issue</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
 
