@@ -932,7 +932,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_proces
 		$API = $INPROCESSSAMINTICONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&DocEntry=' . $GRPODEnt . '&BatchNo=' . $BNo;
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here -------------------------------------------- -->
-	// print_r($API);
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
