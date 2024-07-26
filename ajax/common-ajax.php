@@ -5349,16 +5349,14 @@ if(isset($_POST['action']) && $_POST['action'] =='getBatchAllData_ajax')
 	exit(0);
 }
 
-if(isset($_POST['action']) && $_POST['action'] =='getStationNoDropdown_ajax')
-{
+if(isset($_POST['action']) && $_POST['action'] =='getStationNoDropdown_ajax'){
 	$Final_API=$STABILITYPLANSSTATION_API;
-
 	$response=$obj->get_OTFSI_SingleData($Final_API);
 
 	$option.='<option value="">Select Station No</option>';
 	for ($i=0; $i <count($response) ; $i++) { 
 		if(!empty($response[$i]->Name)){
-			$option.='<option value="'.$response[$i]->Name.'">'.$response[$i]->Name.'</option>';
+			$option.='<option value="'.$response[$i]->Code.'">'.$response[$i]->Name.'</option>';
 		}
 	}
 	

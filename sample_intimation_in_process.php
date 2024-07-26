@@ -120,7 +120,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             $pagination.= "</div>";       
     }
 
-    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                 <thead class="fixedHeader1">
                     <tr>
                     <th>Sr. No </th>
@@ -276,7 +276,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
                                     <div class="col-xl-3 col-md-6">
                                         <div class="form-group row">
-                                            <div class="col-lg-4" style="">
+                                            <div class="col-lg-4">
                                                 <div class="">
                                                     <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                 </div>
