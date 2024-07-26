@@ -908,41 +908,41 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="text" id="QC_P_DOC_FG_NoOfContainer" name="QC_P_DOC_FG_NoOfContainer">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="text" id="QC_P_DOC_FG_NoOfContainer" name="QC_P_DOC_FG_NoOfContainer">
+        </div>
+    </div>
+</div>
 
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="text" id="QC_P_DOC_FG_FromContainer" name="QC_P_DOC_FG_FromContainer">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">From Container</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="text" id="QC_P_DOC_FG_FromContainer" name="QC_P_DOC_FG_FromContainer">
+        </div>
+    </div>
+</div>
 
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-6 col-form-label mt-6" for="val-skill">Qty Per Container</label>
-                                                                        <div class="col-lg-6">
-                                                                            <input class="form-control" type="text" id="QC_P_DOC_FG_QtyPerContainer" name="QC_P_DOC_FG_QtyPerContainer">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<!-- <div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-6 col-form-label mt-6" for="val-skill">Qty Per Container</label>
+        <div class="col-lg-6">
+            <input class="form-control" type="text" id="QC_P_DOC_FG_QtyPerContainer" name="QC_P_DOC_FG_QtyPerContainer">
+        </div>
+    </div>
+</div> -->
 
-                                                                <div class="col-xl-3 col-md-6">
-                                                                    <div class="form-group row mb-2">
-                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
-                                                                        <div class="col-lg-8">
-                                                                            <input class="form-control" type="text" id="QC_P_DOC_FG_ToContainer" name="QC_P_DOC_FG_ToContainer">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<div class="col-xl-3 col-md-6">
+    <div class="form-group row mb-2">
+        <label class="col-lg-4 col-form-label mt-6" for="val-skill">To Container</label>
+        <div class="col-lg-8">
+            <input class="form-control" type="text" id="QC_P_DOC_FG_ToContainer" name="QC_P_DOC_FG_ToContainer">
+        </div>
+    </div>
+</div>
 
                                                                 <div class="col-xl-3 col-md-6">
                                                                     <div class="form-group row mb-2">
@@ -1055,10 +1055,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             return Date;
         }
     }
-    
 
     function selectedRecord(DocEntry){
-
         var dataString ='DocEntry='+DocEntry+'&action=QC_Post_document_QC_Check_Finished_Goods_ajax';
         $.ajax({  
             type: "POST",  
@@ -1104,11 +1102,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 $(`#QC_P_DOC_FG_QCTesttype`).val(JSONObject[0].QCTType);
                 $(`#QC_P_DOC_FG_Stage`).val(JSONObject[0].Stage);
                     $(`#QC_P_DOC_FG_ValidUpTo`).val(DateFormatingYMD(JSONObject[0].ValidUpto));
-                $(`#QC_P_DOC_FG_NoOfContainer`).val(JSONObject[0].NoCont);
+                $(`#QC_P_DOC_FG_NoOfContainer`).val(JSONObject[0].NoCont2);
                 $(`#QC_P_DOC_FG_Factor`).val(JSONObject[0].Factor);
                 $(`#QC_P_DOC_FG_FromContainer`).val(JSONObject[0].NoCont1);
-                $(`#QC_P_DOC_FG_QtyPerContainer`).val(JSONObject[0].NoCont2);
-                $(`#QC_P_DOC_FG_ToContainer`).val(JSONObject[0].NoCont3);
+                        // $(`#QC_P_DOC_FG_QtyPerContainer`).val(JSONObject[0].NoCont2);  // Today
+                $(`#QC_P_DOC_FG_ToContainer`).val(JSONObject[0].NoCont2);
                 $(`#QC_P_DOC_FG_Remarks`).val('');
                 $(`#QC_P_DOC_FG_ToWhs`).val(JSONObject[0].ToWhse);
                 $(`#QC_P_DOC_FG_FromWhs`).val(JSONObject[0].FrmWhse);

@@ -23,14 +23,14 @@
                   
 
                   <div class="row">
-                     <div class="col-xl-3 col-md-6">
+                     <!-- <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Code</label>
                            <div class="col-lg-8">
                               <input class="form-control desabled" type="text" id="it_SupplierCode" name="it_SupplierCode" readonly>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
 
                      <!-- <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
@@ -41,14 +41,14 @@
                         </div>
                      </div> -->
 
-                     <div class="col-xl-3 col-md-6">
+                     <!-- <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Supplier Name</label>
                            <div class="col-lg-8">
                               <input class="form-control desabled" type="text" id="it_SupplierName" name="it_SupplierName" readonly>
                            </div>
                         </div>
-                     </div>
+                     </div> -->
 
                      <div class="col-xl-3 col-md-6">
                         <div class="form-group row mb-2">
