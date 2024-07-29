@@ -119,7 +119,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             $pagination.= "</div>";       
     }
 
-    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                 <thead class="fixedHeader1">
                     <tr>
                         <th>Sr.No </th>  
@@ -128,10 +128,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Whs Code</th>
-                        <th>Whs Total</th>
-                        <th>Base Type</th>
-                        <th>Base Entry</th>
-                        <th>Base Num</th>
                         <th>Doc Date</th>
                         <th>Quantity</th>
                         <th>Lot Number</th>
@@ -146,19 +142,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Stability Intimation No</th>
                         <th>Route Stage Reco WO No</th>
                         <th>Route Stage Reco WO Entry</th>
-                        <th>Planned Qty</th>
                         <th>Route Stage Reco UOM</th>
                         <th>Route Stage Reco Prod Receipt No</th>
                         <th>Route Stage Reco Prod Receipt Entry</th>
-                        <th>Route Stage Reco Prod Receipt Qty</th>
                         <th>Stability Type</th>
                         <th>Stability Condition</th>
                         <th>Stability Time Period</th>
                         <th>Type of Analysis</th>
-                        <th>Period in months</th>
-                        <th>Period Type</th>
-                        <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -192,11 +182,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     $StabilityLoadingDate=date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate));
                                 }
 
-                                if(empty($getAllData[$i]->EndDate)){
-                                    $EndDate='';
-                                }else{
-                                    $EndDate=date("d-m-Y", strtotime($getAllData[$i]->EndDate));
-                                }
+                                // if(empty($getAllData[$i]->EndDate)){
+                                //     $EndDate='';
+                                // }else{
+                                //     $EndDate=date("d-m-Y", strtotime($getAllData[$i]->EndDate));
+                                // }
 
                             // --------------- Convert String code End Here-- ---------------------------
 
@@ -211,10 +201,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                 <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
                                 <td class="desabled">'.$DocDate.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
@@ -229,19 +215,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 <td class="desabled">'.$getAllData[$i]->SampleIntimationNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WoNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WoEntry.'</td>
-                                <td class="desabled" style="color:red;">***</td>
                                 <td class="desabled">'.$getAllData[$i]->Unit.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ReceiptNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ReceiptEntry.'</td>
-                                <td class="desabled" style="color:red;">***</td>
                                 <td class="desabled">'.$getAllData[$i]->StabilityType.'</td>
                                 <td class="desabled">'.$getAllData[$i]->StabilityCondition.'</td>
                                 <td class="desabled">'.$getAllData[$i]->StabilityTimePeriod.'</td>
                                 <td class="desabled">'.$getAllData[$i]->AnalysisType.'</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
-                                <td class="desabled" style="color:red;">***</td>
                             </tr>';
                         }
                     }
@@ -329,7 +309,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row">
-                                                <div class="col-lg-4" style="">
+                                                <div class="col-lg-4">
                                                     <div class="">
                                                         <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                     </div>

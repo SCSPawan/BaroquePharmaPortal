@@ -5356,7 +5356,7 @@ if(isset($_POST['action']) && $_POST['action'] =='getStationNoDropdown_ajax'){
 	$option.='<option value="">Select Station No</option>';
 	for ($i=0; $i <count($response) ; $i++) { 
 		if(!empty($response[$i]->Name)){
-			$option.='<option value="'.$response[$i]->Code.'">'.$response[$i]->Name.'</option>';
+			$option.='<option value="'.$response[$i]->Code.'" data-id="'.$response[$i]->Name.'">'.$response[$i]->Name.'</option>';
 		}
 	}
 	
@@ -5392,20 +5392,33 @@ if(isset($_POST['action']) && $_POST['action'] =='addStabilityPlanNewRow_ajax'){
 
 	$option.='<tr id="'.$un_id.'">
         <td class="desabled"><input  type="text" id="" name="" class="form-control desabled" value="'.$un_id.'." readonly style="border:1px solid #efefef !important;"></td>
-        <td class=""><select class="form-select focusCSS" id="StationNo'.$un_id.'" name="StationNo[]" onchange="selectSationNo('.$un_id.');" style="width: 140px;border: 1px solid white;"></select></td>
-        <td class=""><input type="text" id="SampleQty'.$un_id.'" name="SampleQty[]" class="form-control" ></td>
-        <td class=""><input type="text" id="SampleQtyUOM'.$un_id.'" name="SampleQtyUOM[]" class="form-control" ></td>
-        <td class=""><input type="text" id="SampleQtyAsPerOrgBatchUOM'.$un_id.'" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control" ></td>
-        <td class=""><select class="form-select focusCSS" id="TypeOfAnalysis'.$un_id.'" name="TypeOfAnalysis[]" style="width: 170px;border: 1px solid white;"></select></td>
-        <td class=""><input type="text" id="RefPageNO'.$un_id.'" name="RefPageNO[]" class="form-control" ></td>
-        <td class=""><input type="text" id="RefProtocolNo'.$un_id.'" name="RefProtocolNo[]" class="form-control" ></td>
-        <td class=""><input type="date" id="StabilityDate'.$un_id.'" name="StabilityDate[]" class="form-control" ></td>
 
-		<td class=""><input type="text" id="LoadingAnalyst'.$un_id.'" name="LoadingAnalyst[]" class="form-control" ></td>
-		<td class=""><input type="date" id="WithdrawalDate1'.$un_id.'" name="WithdrawalDate[]" value="'.date('Y-m-d').'" class="form-control" ></td>
-		<td class=""><input type="text" id="WithdrawalAnalyst'.$un_id.'" name="WithdrawalAnalyst[]" class="form-control" ></td>
+        <td class=""><select class="form-select focusCSS" id="StationNo'.$un_id.'" name="StationNo[]" onchange="PrepareStabilityDate('.$un_id.');" style="width: 140px;border: 1px solid white;"></select></td>
+        
+		<td class=""><input type="text" id="SampleQty'.$un_id.'" name="SampleQty[]" onkeyup="EnterSampleQty('.$un_id.')" class="form-control" ></td>
+        
+		<td class="desabled"><input type="text" id="SampleQtyUOM'.$un_id.'" name="SampleQtyUOM[]" class="form-control desabled" readonly></td>
+        
+		<td class="desabled"><input type="text" id="SampleQtyAsPerOrgBatchUOM'.$un_id.'" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control desabled" readonly></td>
+        
+		<td class=""><select class="form-select focusCSS" id="TypeOfAnalysis'.$un_id.'" name="TypeOfAnalysis[]" style="width: 170px;border: 1px solid white;"></select></td>
+        
+		<td class=""><input type="text" id="RefPageNO'.$un_id.'" name="RefPageNO[]" class="form-control" ></td>
+        
+		<td class=""><input type="text" id="RefProtocolNo'.$un_id.'" name="RefProtocolNo[]" class="form-control" ></td>
+        
+		<td class=""><input type="date" id="StabilityDate'.$un_id.'" name="StabilityDate[]" class="form-control" ></td>
+
+		<td class=""><select class="form-select focusCSS" id="LoadingAnalyst'.$un_id.'" name="LoadingAnalyst[]" style="width: 170px;border: 1px solid white;"></select></td>
+		
+		<td class="desabled"><input type="text" id="WithdrawalDate1'.$un_id.'" name="WithdrawalDate[]" class="form-control desabled" readonly></td>
+		
+		<td class="desabled"><input type="text" id="WithdrawalAnalyst'.$un_id.'" name="WithdrawalAnalyst[]" class="form-control desabled" readonly></td>
+		
 		<td class=""><input type="text" id="ChamberID'.$un_id.'" name="ChamberID[]" class="form-control" ></td>
+		
 		<td class=""><input type="text" id="TrayID'.$un_id.'" name="TrayID[]" class="form-control" ></td>
+		
 		<td class=""><input type="text" id="UserText5'.$un_id.'" name="UserText5[]" class="form-control" ></td>
 
     </tr>';
@@ -5881,7 +5894,7 @@ if(isset($_POST['action']) && $_POST['action'] =='OTS_Sample_Collection_popup')
 		$API=$OPENTRANSSAMPCOLSTABILITY_API.'&DocEntry='.$_POST['DocEntry'].'&ItemCode='.$_POST['ItemCode'].'&BatchNo='.$_POST['BatchNo'];
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-
+	// print_r($API);die();
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 	echo json_encode($response);
 	exit(0);

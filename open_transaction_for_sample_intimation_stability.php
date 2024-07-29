@@ -124,7 +124,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Whs Code</th>
                         <th>Whs Total</th>
                         <th>Base Type</th>
-                        <th>Base Entry</th>
                         <th>Base Num</th>
                         <th>Doc Date</th>
                         <th>Quantity</th>
@@ -139,7 +138,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Stability Plan Quantity</th>
                         <th>Route Stage Reco WO No</th>
                         <th>Route Stage Reco WO Entry</th>
-                        <th>Planned Qty</th>
                         <th>Route Stage Reco UOM</th>
                         <th>Route Stage Reco Prod Receipt No</th>
                         <th>Route Stage Reco Prod Receipt Entry</th>
@@ -151,7 +149,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Period in Months</th>
                         <th>Period Type</th>
                         <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -161,15 +158,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         if(!empty($getAllData[$i]->SrNo)){   //  this condition save to extra blank loop
 
                             // --------------- Convert String code Start Here ---------------------------
-                                $DocDate=(!empty($getAllData[$i]->DocDate)) ? date('Y-m-d', strtotime($getAllData[$i]->DocDate)) : null;
+                                $DocDate=(!empty($getAllData[$i]->DocDate)) ? date('d-m-Y', strtotime($getAllData[$i]->DocDate)) : null;
 
-                                $ExpiryDate=(!empty($getAllData[$i]->ExpiryDate)) ? date('Y-m-d', strtotime($getAllData[$i]->ExpiryDate)) : null;
+                                $ExpiryDate=(!empty($getAllData[$i]->ExpiryDate)) ? date('d-m-Y', strtotime($getAllData[$i]->ExpiryDate)) : null;
 
-                                $MfgDate=(!empty($getAllData[$i]->MfgDate)) ? date('Y-m-d', strtotime($getAllData[$i]->MfgDate)) : null;
+                                $MfgDate=(!empty($getAllData[$i]->MfgDate)) ? date('d-m-Y', strtotime($getAllData[$i]->MfgDate)) : null;
 
-                                $StabilityLoadingDate=(!empty($getAllData[$i]->StabilityLoadingDate)) ? date('Y-m-d', strtotime($getAllData[$i]->StabilityLoadingDate)) : null;
+                                $StabilityLoadingDate=(!empty($getAllData[$i]->StabilityLoadingDate)) ? date('d-m-Y', strtotime($getAllData[$i]->StabilityLoadingDate)) : null;
 
-                                $EndDate=(!empty($getAllData[$i]->EndDate)) ? date('Y-m-d', strtotime($getAllData[$i]->EndDate)) : null;
+                                // $EndDate=(!empty($getAllData[$i]->EndDate)) ? date('d-m-Y', strtotime($getAllData[$i]->EndDate)) : null;
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -188,7 +185,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WhsTotal.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BaseType.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->BaseEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BaseNum.'</td>
                                     <td class="desabled">'.$DocDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Quantity.'</td>
@@ -203,7 +199,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->StabilityPlanQuantity.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WONo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WODocEntry.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->PlannedQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Unit.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ReceiptNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ReceiptEntry.'</td>
@@ -215,7 +210,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->PeriodInMonths.'</td>
                                     <td class="desabled">'.$getAllData[$i]->PeriodType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->AdditionalYear.'</td>
-                                    <td class="desabled">'.$EndDate.'</td>
                                 </tr>';
                         }
                     }

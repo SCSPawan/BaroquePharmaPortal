@@ -2484,9 +2484,8 @@ function ContainerSelection_extraIssue(){
 
 
 
-function SubmitInventoryTransfer_extra(){
-
-     var selectedQtySum=document.getElementById('cs_selectedQtySum_extra').value; // final Qty sum
+    function SubmitInventoryTransfer_extra(){
+        var selectedQtySum=document.getElementById('cs_selectedQtySum_extra').value; // final Qty sum
         var PostingDate=document.getElementById('gd_PostingDate_extra').value;
         var DocDate=document.getElementById('gd_DocumentDate_extra').value;
         var ItemCode=document.getElementById('itP_ItemCode_extra').value;
@@ -2531,11 +2530,11 @@ function SubmitInventoryTransfer_extra(){
                                         var DocEntry = JSONObject['DocEntry'];
                                         if(status=='True'){
                                             swal({
-                                              title: `${DocEntry}`,
-                                              text: `${message}`,
-                                              icon: "success",
-                                              buttons: true,
-                                              dangerMode: false,
+                                                title: `${DocEntry}`,
+                                                text: `${message}`,
+                                                icon: "success",
+                                                buttons: true,
+                                                dangerMode: false,
                                             })
                                             .then((willDelete) => {
                                                 if (willDelete) {
@@ -2568,7 +2567,7 @@ function SubmitInventoryTransfer_extra(){
         }else{
             swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
         }
-}
+    }
 
 
 

@@ -1183,8 +1183,8 @@ if (isset($_POST['SC_SubIT_Btn_post_doc'])) {
 			$UT_data['U_PC_UTTrans'] = trim(addslashes(strip_tags($responce->DocEntry)));
 			// <!-- ------- row data preparing end here ----------------------- -->
 
-			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCINPROCESS_SL . '(' . $UT_data['DocEntry'] . ')';
-			$underTestNumber = $objKri->SampleIntimationUnderTestUpdateFromInventoryTransfer_kri($UT_data, $Final_API2);
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINPROCESS . '(' . $UT_data['DocEntry'] . ')';
+			$underTestNumber = $obj->PATCH_ServiceLayerMasterFunction($UT_data, $Final_API2);
 			$underTestNumber_decode = json_decode($underTestNumber);
 
 			if (empty($underTestNumber_decode)) {
@@ -3428,8 +3428,19 @@ if (isset($_POST['action']) && $_POST['action'] == 'Compiled_By_dropdown_ajax') 
 	echo $html;
 }
 
-
-
+if (isset($_POST['action']) && $_POST['action'] == 'LoadingAnalystDropdown_ajax') {
+	$getDropdown_assay = $objKri->get_SAMINTTRBY($SAMINTTRBY_API);
+	$html = "";
+	foreach ($getDropdown_assay as $value) {
+		if ($value->TRBy != "") {
+			
+			$Emp_FullName = ucfirst($_SESSION['Baroque_FirstName']).' '.ucfirst($_SESSION['Baroque_LastName']);
+			$selected = ($value->TRBy == $Emp_FullName) ? 'selected' : '';
+			$html .= '<option value="' . $value->TRBy . '" '.$selected.'>' . $value->TRBy . '</option>';
+		}
+	}
+	echo $html;
+}
 
 if (isset($_POST['action']) && $_POST['action'] == 'ResultOutputDropdown_ajax') {
 	//<!-- ------------- function & function responce code Start Here ---- -->
@@ -7092,6 +7103,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
     $API = $STABSAMPCOLAFTERADD_API . '?DocEntry=' . $DocEntry;
     $FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
     $response = $obj->get_OTFSI_SingleData($FinalAPI);
+	// echo '<pre>';
+	// print_r($response);
+	// die();
     $FinalResponce['DataDetails'] = $response;
 
     // <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ -->
@@ -7128,7 +7142,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
                 </td>
 
                 <td class="desabled">
-                    <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
+                    <input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->Unit . '" readonly>
                 </td>
             </tr>';
         } else {
