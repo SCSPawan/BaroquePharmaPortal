@@ -6,6 +6,14 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
     header("Location:login.php");
     exit(0);
 }
+
+
+// [Baroque_EmployeeID] => 42
+// [Baroque_LastName] => Patel
+// [Baroque_FirstName] => Riddhi
+// echo '<pre>';
+// print_r($_SESSION);
+// die();
 ?>
 
 <?php include 'include/header.php' ?>
@@ -208,17 +216,17 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
                                                     <tbody>
                                                         <tr id='1'>
                                                             <td class="desabled"><input  type="text" id="" name="" class="form-control desabled" value="1." readonly style="border:1px solid #efefef !important;"></td>
-                                                            <td class=""><select class="form-select focusCSS" id="StationNo1" name="StationNo[]" onchange="selectSationNo();" style="width: 140px;border: 1px solid white;"></select></td>
-                                                            <td class=""><input type="text" id="SampleQty1" name="SampleQty[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="SampleQtyUOM1" name="SampleQtyUOM[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="SampleQtyAsPerOrgBatchUOM1" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control" ></td>
+                                                            <td class=""><select class="form-select focusCSS" id="StationNo1" name="StationNo[]" onchange="PrepareStabilityDate('1');" style="width: 140px;border: 1px solid white;"></select></td>
+                                                            <td class=""><input type="text" id="SampleQty1" name="SampleQty[]" onkeyup="EnterSampleQty('1')" class="form-control"></td>
+                                                            <td class="desabled"><input type="text" id="SampleQtyUOM1" name="SampleQtyUOM[]" class="form-control desabled" readonly></td>
+                                                            <td class="desabled"><input type="text" id="SampleQtyAsPerOrgBatchUOM1" name="SampleQtyAsPerOrgBatchUOM[]" class="form-control desabled" readonly></td>
                                                             <td class=""><select class="form-select focusCSS" id="TypeOfAnalysis1" name="TypeOfAnalysis[]" style="width: 170px;border: 1px solid white;"></select></td>
                                                             <td class=""><input type="text" id="RefPageNO1" name="RefPageNO[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="RefProtocolNo1" name="RefProtocolNo[]" class="form-control" ></td>
                                                             <td class=""><input type="date" id="StabilityDate1" name="StabilityDate[]" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="LoadingAnalyst1" name="LoadingAnalyst[]" class="form-control" ></td>
-                                                            <td class=""><input type="date" id="WithdrawalDate1" name="WithdrawalDate[]" value="<?php echo date('Y-m-d');?>" class="form-control" ></td>
-                                                            <td class=""><input type="text" id="WithdrawalAnalyst1" name="WithdrawalAnalyst[]" class="form-control" ></td>
+                                                            <td><select class="form-select focusCSS" id="LoadingAnalyst1" name="LoadingAnalyst[]" style="width: 170px;border: 1px solid white;"></select></td>
+                                                            <td class="desabled"><input type="text" id="WithdrawalDate1" name="WithdrawalDate[]" class="form-control desabled" readonly></td>
+                                                            <td class="desabled"><input type="text" id="WithdrawalAnalyst1" name="WithdrawalAnalyst[]" class="form-control desabled" readonly></td>
                                                             <td class=""><input type="text" id="ChamberID1" name="ChamberID[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="TrayID1" name="TrayID[]" class="form-control" ></td>
                                                             <td class=""><input type="text" id="UserText51" name="UserText5[]" class="form-control" ></td>
@@ -375,9 +383,31 @@ $(".loader123").hide(); // loader default hide script
                 $('#TypeOfAnalysis'+totalNumbeOfRows).html(result);
             },
             complete:function(data){
-                $(".loader123").hide();
+                LoadingAnalystDropdown();
             }
         })
+    }
+
+    function LoadingAnalystDropdown(){
+        // <!-- -----  get table tr count start here ------------------------ -->
+            var allTableData = document.getElementById("tblItemRecord");
+            var totalNumbeOfRows = (allTableData.rows.length)-1;
+        // <!-- -----  get table tr count end here -------------------------- -->
+        var dataString ='action=LoadingAnalystDropdown_ajax';
+        $.ajax({  
+            type: "POST",  
+            url: 'ajax/kri_production_common_ajax.php',  
+            data: dataString, 
+            beforeSend: function(){
+                $(".loader123").show();
+            }, 
+            success: function(result){ 
+                $('#LoadingAnalyst'+totalNumbeOfRows).html(result);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        });
     }
 
     function GetStabilityConditionAndTimePeriodDropdown(){
@@ -401,6 +431,12 @@ $(".loader123").hide(); // loader default hide script
         })
     }
 
+    function EnterSampleQty(un_id){
+        var sampleQty =$('#SampleQty'+un_id).val();
+
+        $('#SampleQtyAsPerOrgBatchUOM'+un_id).val(sampleQty);
+    }
+    
 // <!-- ------------- On page load call all this function end here ----------------------------------------------------------------- -->
     function SelectedItem(){
         var itemCode=document.getElementById('ItemCode').value;
@@ -481,6 +517,36 @@ $(".loader123").hide(); // loader default hide script
             })
         }
     }
+
+    function PrepareStabilityDate(un_id) {
+        var selectElement = document.getElementById('StationNo'+un_id);
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var dataId = selectedOption.getAttribute('data-id');
+
+        // Retrieve the loading date
+        var loadingDate = new Date(document.getElementById('LoadingDate').value);
+        
+        // Split the data-id to extract the number and unit
+        var [value, unit] = dataId.split(' ');
+
+        // Calculate the new date based on the unit
+        if (unit === 'day' || unit === 'Days') {
+            loadingDate.setDate(loadingDate.getDate() + parseInt(value));
+        } else if (unit === 'Months') {
+            loadingDate.setMonth(loadingDate.getMonth() + parseInt(value));
+        }
+
+        // Format the new date to YYYY-MM-DD
+        var newDate = loadingDate.toISOString().split('T')[0];
+
+        // Set Stability Data
+        $('#StabilityDate'+un_id).val(newDate);
+
+        selectSationNo(); // add Next row in table after selection of station no.
+    }
+
+
+
 
     function selectSationNo(){
         // <!-- -----  get table tr count start here ------------------------ -->

@@ -216,13 +216,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     <?php include 'models/retest_qc/sample_intimation_retest_qc_modal.php' ?>
 
 
-<!-- ---------- loader start here---------------------- -->
-    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+            </div>
         </div>
-    </div>
-<!-- ---------- loader end here---------------------- -->
+    <!-- ---------- loader end here---------------------- -->
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->

@@ -3,8 +3,7 @@
  </style>
 
 <!--sample intimation model-->
-   <div class="modal fade sample-intimation" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true" data-bs-backdrop="static">
+   <div class="modal fade sample-intimation" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-xl">
          <div class="modal-content">
             <div class="modal-header">

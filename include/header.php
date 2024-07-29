@@ -46,10 +46,10 @@
         .custom_scroll{height: 560px;overflow-y: scroll;}
         .custom_scroll::-webkit-scrollbar { background: #fff;}
 
-        .done{color: #1dec1d !important;}
+        /* .done{color: #1dec1d !important;}
         .working{color: darkorange !important;}
         .hold{color: red !important;}
-        .pending{color: #00ffef !important;}
+        .pending{color: #00ffef !important;} */
         /*.check{color: #ec1ddf !important;}*/
     </style>
 
@@ -254,9 +254,9 @@
 
                                                         <a href="sample_collection_stability.php" class="dropdown-item check" data-key="t-chat">Sample Collection - Stability</a>
 
-                                                        <a href="open_trasaction_for_qc_post_doc_stability.php" class="dropdown-item working" data-key="t-chat">Open Transaction for QC Post Document - Stability</a>
+                                                        <a href="open_trasaction_for_qc_post_doc_stability.php" class="dropdown-item" data-key="t-chat">Open Transaction for QC Post Document - Stability</a>
 
-                                                        <a href="qc_post_doc_stability.php" class="dropdown-item hold" data-key="t-chat">QC Post Document (QC Check) - Stability</a>
+                                                        <a href="qc_post_doc_stability.php" class="dropdown-item" data-key="t-chat">QC Post Document (QC Check) - Stability</a>
                                                     </div>
                                                 </div>
 

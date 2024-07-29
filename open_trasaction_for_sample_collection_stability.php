@@ -334,6 +334,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){
                 var JSONObject = JSON.parse(result);
+                console.log('OTS_SampleCollection_popup=>', JSONObject);
 
                 // 1st line---------------------------------------------------------------
                     $(`#OTSCP_ReceiptNo`).val(JSONObject[0]['ReceiptNo']);
