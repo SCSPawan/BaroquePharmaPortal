@@ -14,6 +14,7 @@
                             <input type="hidden" id="SCRTP_GRNLineNo" name="SCRTP_GRNLineNo">
                             <input type="hidden" id="SCRTP_BPLId" name="SCRTP_BPLId">
                             <input type="hidden" id="SCRTP_LocCode" name="SCRTP_LocCode">
+                            <input type="hidden" id="SCRTP_UnderTransferNo" name="SCRTP_UnderTransferNo">
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ingediant Type</label>
@@ -540,7 +541,6 @@
 <!-- --------------inventory transfer-------------- -->
 
 <!----------Goods Issue-------------->
-
 <div class="modal fade goods_issue" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
@@ -558,69 +558,69 @@
                 <input type="hidden" id="SCRTQCB_BPLId_samIss" name="SCRTQCB_BPLId_samIss">
                 <input type="hidden" id="GI_supplierCode" name="GI_supplierCode">
 
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                 <div class="col-lg-8">
-                                    <input class="form-control desabled" type="text" id="GI_branch" name="GI_branch" readonly>
-                                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                <div class="col-lg-8">
+                                <input class="form-control desabled" type="text" id="GI_branch" name="GI_branch" readonly>
                             </div>
                         </div>
-
-                         <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
-                                 <div class="col-lg-8">
-                                    <input class="form-control desabled" type="text" id="GI_baseDocType" name="GI_baseDocType" readonly>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
 
                         <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base Doc Num</label>
-                                 <div class="col-lg-8">
-                                    <input class="form-control desabled" type="text" id="GI_BaseDocNum" name="GI_BaseDocNum" readonly>
-                                </div>
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base DocType</label>
+                                <div class="col-lg-8">
+                                <input class="form-control desabled" type="text" id="GI_baseDocType" name="GI_baseDocType" readonly>
                             </div>
                         </div>
+                    </div>
 
-                         <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
-                               <div class="col-lg-6">
-                                    <select class="form-select" id="GI_DocNoName" name="GI_DocNoName" onchange="selectedSeries()"></select>
-                                </div>
-                                <div class="col-lg-2">
-                                    <input class="form-control desabled" type="text" id="GI_NextNumber" name="GI_NextNumber" readonly>
-                                </div>
-                            </div>
-                         </div>
-
-                         <?php
-                        // Get the current date in YYYY-MM-DD format
-                        $currentDate = date('Y-m-d');
-                        ?>
-
-                         <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
-                                 <div class="col-lg-8">
-                                   <input class="form-control" type="date" id="GI_postingDate" name="GI_postingDate" value="<?php echo $currentDate ?>">
-                                </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Base Doc Num</label>
+                                <div class="col-lg-8">
+                                <input class="form-control desabled" type="text" id="GI_BaseDocNum" name="GI_BaseDocNum" readonly>
                             </div>
                         </div>
+                    </div>
 
                         <div class="col-xl-3 col-md-6">
-                            <div class="form-group row mb-2">
-                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
-                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="GI_DocumentDate" name="GI_DocumentDate" value="<?php echo $currentDate ?>">
-                                </div>
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
+                            <div class="col-lg-6">
+                                <select class="form-select" id="GI_DocNoName" name="GI_DocNoName" onchange="selectedSeries()"></select>
+                            </div>
+                            <div class="col-lg-2">
+                                <input class="form-control desabled" type="text" id="GI_NextNumber" name="GI_NextNumber" readonly>
                             </div>
                         </div>
-                    </div><!--row end-->
+                        </div>
+
+                        <?php
+                    // Get the current date in YYYY-MM-DD format
+                    $currentDate = date('Y-m-d');
+                    ?>
+
+                        <div class="col-xl-3 col-md-6">
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
+                                <div class="col-lg-8">
+                                <input class="form-control" type="date" id="GI_postingDate" name="GI_postingDate" value="<?php echo $currentDate ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="form-group row mb-2">
+                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Document Date</label>
+                                <div class="col-lg-8">
+                                <input class="form-control" type="date" id="GI_DocumentDate" name="GI_DocumentDate" value="<?php echo $currentDate ?>">
+                            </div>
+                        </div>
+                    </div>
+                </div><!--row end-->
                
 
                 <!-- form end -->
@@ -641,28 +641,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="desabled">
                                 <td>1</td>
                                 <td>
-                                    <input class="border_hide" type="text" id="GI_item_code" name="GI_item_code" class="form-control">
+                                    <input class="border_hide desabled" type="text" id="GI_item_code" name="GI_item_code" class="form-control" readonly>
                                 </td>
                                 <td>
-                                    <input class="border_hide" type="text" id="GI_item_name" name="GI_item_name" class="form-control">
+                                    <input class="border_hide desabled" type="text" id="GI_item_name" name="GI_item_name" class="form-control" readonly>
                                 </td>
                                 <td>
-                                    <input class="border_hide" type="text" id="GI_quatility" name="GI_quatility" class="form-control">
+                                    <input class="border_hide desabled" type="text" id="GI_quatility" name="GI_quatility" class="form-control" readonly>
                                 </td>
                                 <td>
-                                    <input class="border_hide" type="text" id="GI_from_whs" name="GI_from_whs" class="form-control">
+                                    <input class="border_hide desabled" type="text" id="GI_from_whs" name="GI_from_whs" class="form-control" readonly>
                                 </td>
                                 <td class="GI_Td_Hide">
-                                    <input class="border_hide" type="text" id="GI_to_whs" name="GI_to_whs" class="form-control">
+                                    <input class="border_hide desabled" type="text" id="GI_to_whs" name="GI_to_whs" class="form-control" readonly>
                                 </td>
-                                <td class="desabled">
-                                    <input class="border_hide" type="text" id="GI_Location" name="GI_Location" class="form-control">
+                                <td>
+                                    <input class="border_hide desabled" type="text" id="GI_Location" name="GI_Location" class="form-control" readonly>
                                 </td>
-                                <td class="desabled">
-                                    <input class="border_hide" type="text" id="GI_uom" name="GI_uom" class="form-control">
+                                <td>
+                                    <input class="border_hide desabled" type="text" id="GI_uom" name="GI_uom" class="form-control" readonly>
                                 </td>
                             </tr>
                         </tbody> 

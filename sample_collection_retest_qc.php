@@ -838,6 +838,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $("#footerProcess").show(); // bottom section show script
                     var JSONObjectAll = JSON.parse(result);
                     var JSONObject = JSONObjectAll['SampleCollDetails'];
+                    
+                    console.log('All Record =>', JSONObject);
 
                     $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
                     $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
@@ -903,7 +905,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         $(`#SCRTQCB_SampleQtyUnit`).val(JSONObject[0]['SampleQtyUnit']);
                         $(`#SCRTQCB_RISSFromWhs`).val(JSONObject[0]['RISSFromWhs']);
                         $(`#SCRTQCB_RISSToWhs`).val(JSONObject[0]['RISSToWhs']);
-                        $(`#SCRTQCB_RetainQtyUom`).val(JSONObject[0]['RetainQtyUom']);
+                        $(`#SCRTQCB_RetainQtyUom`).val(JSONObject[0]['SampleQtyUnit']);
                     // <!-- -------------- hidden field mapped here --------------------------- -->
 
                     tablayoutvalidation();

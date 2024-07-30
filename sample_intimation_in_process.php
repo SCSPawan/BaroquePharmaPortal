@@ -733,7 +733,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     $("#footerProcess").show();
                     var JSONObject = JSON.parse(result); // all responce holde and convert here
 
-                    console.log('JSONObject=>', JSONObject);
+                    // console.log('JSONObject=>', JSONObject);
 
                     $(`#ReceiptNo`).val(JSONObject[0].RFPNo);
                     $(`#ReceiptNo1`).val(JSONObject[0].RFPODocEntry);

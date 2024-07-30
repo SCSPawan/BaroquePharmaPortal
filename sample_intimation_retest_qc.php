@@ -294,7 +294,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
                                         <div class="col-xl-3 col-md-6">
                                             <div class="form-group row">
-                                                <div class="col-lg-4" style="">
+                                                <div class="col-lg-4">
                                                     <div class="">
                                                         <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                     </div>
@@ -557,14 +557,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                             </div>
                                         </div> 
 
-                                        <div class="col-xl-3 col-md-6">
+                                        <!-- <div class="col-xl-3 col-md-6">
                                             <div class="form-group row mb-2">
                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Tr. No</label>
                                                 <div class="col-lg-8">
                                                     <input class="form-control desabled" type="number" id="SIRTAD_TrNo" name="SIRTAD_TrNo" readonly>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>  -->
 
                                         <div class="col-xl-3 col-md-6" style="display: none;">
                                             <div class="form-group row mb-2">
@@ -786,7 +786,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {  
                 $("#footerProcess").show();
                 var JSONObject = JSON.parse(result);
-                // console.log(JSONObject);
+                console.log('selectedRecord=> ', JSONObject);
 
                 // ------------ row one start -------------------------------------------------------
                     $(`#SIRTAD_GRNNo`).val(JSONObject[0]['GRNNo']);
@@ -884,7 +884,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#SIRTAD_ContainerNOS`).val(JSONObject[0]['ContainerNos']);
 
                     $(`#SIRTAD_ChallanNo`).val();
-                    $(`#SIRTAD_TrNo`).val(JSONObject[0]['TRNo']);
+                    // $(`#SIRTAD_TrNo`).val(JSONObject[0]['TRNo']);
                 // ------------ row Four end here -------------------------------------------------------
 
                     $(`#SIRTAD_UTTrans`).val(JSONObject[0]['TransferUnderTest']); // Transfer Under Test Value
@@ -1090,7 +1090,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 selected.push(chks[i].value);
             }
         }
-        // console.log('selected=>', selected);
+        console.log('selected=>', selected);
 
         // <!-- ------------------- Container Selection Final Sum calculate Start Here ------------- -->
             const array = selected;
@@ -1100,7 +1100,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                 sum += parseFloat(array[i]);
 
             }
-            // console.log('sum=>', sum);
+            console.log('sum=>', sum);
             document.getElementById("cs_selectedQtySum").value = parseFloat(sum).toFixed(4); // Container Selection final sum
         // <!-- ------------------- Container Selection Final Sum calculate End Here ---------------- -->
 
@@ -1284,7 +1284,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             }
         });
 
-        document.getElementById('cs_selectedQtySum').value = total.toFixed(6);
+        document.getElementById('cs_selectedQtySum').value = total.toFixed(4);
     }
 </script>
 
