@@ -367,6 +367,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         $(`#SCRTP_GRNLineNo`).val(JSONObject[0]['GRNLineNo']);
                         $(`#SCRTP_BPLId`).val(JSONObject[0]['BPLId']);
                         $(`#SCRTP_LocCode`).val(JSONObject[0]['LocCode']);
+                        $(`#SCRTP_UnderTransferNo`).val(JSONObject[0]['UnderTransferNo']);
                     // Hidden Field 5th Row End-------------------------------------------------------------------
 
                     IngrediantTypeDropdown() // Ingrediant Type API to Get Dropdown

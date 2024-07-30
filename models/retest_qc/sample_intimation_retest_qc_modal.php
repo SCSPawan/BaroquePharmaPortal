@@ -481,7 +481,7 @@
 
                <!-- table start -->
                   <div class="table-responsive" id="list">
-                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                     <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                         <thead class="fixedHeader1">
                            <tr>
                               <th>Sr. No </th>  
@@ -506,7 +506,7 @@
                      <thead class="fixedHeader1">
                         <tr>
                            <!-- <th>Select</th> -->
-                           <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
+                           <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" value="0" style="width: 17px;height: 17px;"></th>
                            <th>Item Code</th>
                            <th>Item Name</th>
                            <th>Container No</th>

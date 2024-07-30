@@ -3322,7 +3322,6 @@ if(isset($_POST['action']) && $_POST['action'] =='Retest_sample_intimation_popup
 }
 
 if(isset($_POST['SampleIntimationRetestQCBtn'])){
-	// SIRT_BatchNo
 	$tdata=array();
 	$data=array(); // this array handel validation responce
 
@@ -3350,7 +3349,6 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 	$tdata['U_PC_Branch']=trim(addslashes(strip_tags($_POST['SIRT_BranchName'])));
 	$tdata['U_PC_Loc']=trim(addslashes(strip_tags($_POST['SIRT_Location'])));
 	$tdata['U_PC_CNos']=trim(addslashes(strip_tags($_POST['SIRT_ContainerNos'])));
-	// $tdata['U_PC_Cont']=trim(addslashes(strip_tags($_POST['SIRT_Container'])));
 	$tdata['U_PC_BNo']=trim(addslashes(strip_tags($_POST['SIRT_BatchNo'])));
 	$tdata['U_PC_BQty']=trim(addslashes(strip_tags($_POST['SIRT_BatchQty'])));
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SIRT_BranchID'])));
@@ -3358,10 +3356,6 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 	$tdata['U_PC_Whs']=trim(addslashes(strip_tags($_POST['SIRT_WhsCode'])));
 	$tdata['U_PC_NCnt1']=trim(addslashes(strip_tags($_POST['SIRT_QtyPerContainer'])));
 	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['SIRT_MakeBy'])));
-	// $tdata['U_PC_ChNo']=null;
-	// $tdata['U_PC_ChDt']=null;
-	// $tdata['U_PC_GENo']=null;
-	// $tdata['U_PC_GEDte']=null;
 	$tdata['U_PC_UTTrans']=null;
 
 	if(!empty($_POST['SIRT_MfgDate'])){
@@ -3403,9 +3397,7 @@ if(isset($_POST['SampleIntimationRetestQCBtn'])){
 			exit(0);
 		}
 	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
-// echo '<pre>';
-// print_r($tdata);
-// die();
+
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -3928,8 +3920,9 @@ if(isset($_POST['action']) && $_POST['action'] =='OPSCRTQC_popup_data')
 
 if(isset($_POST['OTSCRTQC_P_Btn'])){
 	$tdata=array(); // This array send to AP Standalone Invoice process 
-
-	$tada['Series']=trim(addslashes(strip_tags($_POST['SCRTP_DocNo'])));
+	
+	$tdata['Series']=trim(addslashes(strip_tags($_POST['SCRTP_DocNo'])));
+	$tdata['U_PC_SType']='Retest';  // send hardcode value for this col.
 	$tdata['U_PC_BLin']=trim(addslashes(strip_tags($_POST['SCRTP_GRNLineNo'])));
 	$tdata['U_PC_InTyp']=trim(addslashes(strip_tags($_POST['SCRTP_IngrediantType'])));
 	$tdata['U_PC_GRNNo']=trim(addslashes(strip_tags($_POST['SCRTP_GRNNo'])));
@@ -3948,7 +3941,7 @@ if(isset($_POST['OTSCRTQC_P_Btn'])){
 	$tdata['U_PC_IName']=trim(addslashes(strip_tags($_POST['SCRTP_ItemName'])));
 	$tdata['U_PC_BNo']=trim(addslashes(strip_tags($_POST['SCRTP_BatchNo'])));
 	$tdata['U_PC_NoCont']=trim(addslashes(strip_tags($_POST['SCRTP_NoOfCont'])));
-	$tdata['U_PC_UTNo']=null;
+	$tdata['U_PC_UTNo']=trim(addslashes(strip_tags($_POST['SCRTP_UnderTransferNo'])));
 	$tdata['U_PC_SIssue']=null;
 	$tdata['U_PC_RSIssue']=null;
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['SCRTP_BPLId'])));
@@ -4093,276 +4086,206 @@ if(isset($_POST['OTSCRTQC_P_Btn'])){
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-
-
-if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
-
-{	
-
-
+if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax'){
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 	$rowCount=trim(addslashes(strip_tags($_POST['rowCount'])));
 	$rowCount_N=trim(addslashes(strip_tags($_POST['rowCount_N'])));
 
-	//print_r($rowCount);
-	
 	// <!-- ------- Replace blank space to %20 start here -------- -->
 		$API=$RETESTQCSAMPCOLLADD_API.'?DocEntry='.$DocEntry;
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-	
-
 
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
-	// echo "<pre>";
-	// print_r($response);
 	// // <!-- ------ Array declaration Start Here --------------------------------- -->
 		$FinalResponce=array();
 		$FinalResponce['SampleCollDetails']=$response;
 	// // <!-- ------ Array declaration End Here  --------------------------------- -->
-	
+
 	$ExtraIssue=$response[0]->RETESTQCSAMCOLLEXTRA; // Etra issue response seperate here 
-
 	$ExternalIssue=$response[0]->RETESTQCSAMCOLLEXTERNAL; //External issue reponce seperate here
-	// echo '<pre>';
-	// print_r($ExternalIssue);
-	// die();
-	// var_dump($response);
 
-    // =======================================================================================================
-		// <!-- ----------- Extra Issue Start here --------------------------------- -->
-			if(!empty($ExtraIssue)){
-				for ($i=0; $i <count($ExtraIssue) ; $i++) { 
-					
-					$SrNo=$rowCount_N+1;
-
-					if(!empty($ExtraIssue[$i]->IssueDate)){
-						$IssueDate=date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
-					}else{
-						$IssueDate='';
-					}
-
-					$FinalResponce['ExtraIssue'].='<tr>
-					    <td>
-					    	<input type="radio" id="ExtraIslist'.$SrNo.'" name="ExtraIslistRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue('.$SrNo.')">
-					    </td>
-
-					    <td class="desabled">
-					    	<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" >
-
-					    	<input class="border_hide  form-control desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" readonly >
-
-				    	</td>
-
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control desabled" readonly></td>
-
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
-
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control desabled" readonly></td>
-
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control desabled" readonly></td>
-
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control desabled" readonly></td>
-					 </tr>';
-				}
-				// when table data come then default add one manual row start ---------------------------------------------------------
-				$SrNo=(count($ExtraIssue)+1);
-				$FinalResponce['ExtraIssue'].='<tr>
-				    <td class="desabled">
-				    	
-				    </td>
-
-				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
-
-					    <input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
-
-				    </td>
-
-				    <td class="desabled">
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly >
-			    	</td>
-
-				   
-					
-					    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
-
-
-
-				    <td class="desabled">
-					
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
-			    	</td>
-				 </tr>';
-
-					// onchange="ExternalIssueSelectedBP('.$SrNo.')"  ---->  warehouse selection onchange function
-			}else{
+	// <!-- ----------- Extra Issue Start here --------------------------------- -->
+		if(!empty($ExtraIssue)){
+			for ($i=0; $i <count($ExtraIssue) ; $i++) { 
 				$SrNo=$rowCount_N+1;
+
+				if(!empty($ExtraIssue[$i]->IssueDate)){
+					$IssueDate=date("d-m-Y", strtotime($ExtraIssue[$i]->IssueDate));
+				}else{
+					$IssueDate='';
+				}
+
 				$FinalResponce['ExtraIssue'].='<tr>
-				    <td class="desabled">
-				    	'.$SrNo.'
-				    </td>
+					<td><input type="radio" id="ExtraIslist'.$SrNo.'" name="ExtraIslistRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExtraIssue('.$SrNo.')"></td>
 
-				    <td>
-					    <input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
+					<td class="desabled">
+						<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control desabled" >
 
-						<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+						<input class="border_hide  form-control desabled" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" readonly >
+					</td>
 
-				    </td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled">
-				    	<input class="border_hide desabled " type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly>
-			    	</td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
 
-				    
-					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled">
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control">
-			    	</td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control desabled" readonly></td>
 
-				    <td class="desabled">
-				    	<input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control">
-			    	</td>
-
-				    <td>
-				    	<input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control">
-			    	</td>
-				 </tr>';
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control desabled" readonly></td>
+				</tr>';
 			}
-			
-		// <!-- ----------- Extra Issue End here --------------------------------- -->
-	// =======================================================================================================
+			// when table data come then default add one manual row start ---------------------------------------------------------
+			$SrNo=(count($ExtraIssue)+1);
+			$FinalResponce['ExtraIssue'].='<tr>
+				<td class="desabled"></td>
 
+				<td>
+					<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
+
+					<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+				</td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly ></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_FEI_Warehouse[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control"></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control"></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control"></td>
+			</tr>';
+
+			// onchange="ExternalIssueSelectedBP('.$SrNo.')"  ---->  warehouse selection onchange function
+		}else{
+			$SrNo=$rowCount_N+1;
+			$FinalResponce['ExtraIssue'].='<tr>
+				<td class="desabled">'.$SrNo.'</td>
+
+				<td>
+					<input class="border_hide" type="hidden" id="SC_FEI_Linenum'.$SrNo.'" name="SC_FEI_Linenum[]" value="'.$ExtraIssue[$i]->LineNum.'" class="form-control" >
+
+					<input class="border_hide  form-control" type="text" id="SC_FEI_SampleQuantity'.$SrNo.'" name="SC_FEI_SampleQuantity[]" value="'.$ExtraIssue[$i]->sampleQty2.'" onfocusout="GetExtraIuuseWhs('.$SrNo.')" >
+				</td>
+
+				<td class="desabled"><input class="border_hide desabled " type="text" id="SC_FEI_UOM'.$SrNo.'" name="SC_FEI_UOM[]" value="'.$ExtraIssue[$i]->UOM2.'" class="form-control" readonly></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_Warehouse'.$SrNo.'" name="SC_ExternalI_SupplierCode[]" value="'.$ExtraIssue[$i]->Whs2.'" class="form-control desabled" readonly></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_SampleBy'.$SrNo.'" name="SC_FEI_SampleBy[]" value="'.$ExtraIssue[$i]->SampleBy.'" class="form-control"></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEI_IssueDate'.$SrNo.'" name="SC_FEI_IssueDate[]" value="'.$IssueDate.'" class="form-control"></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEI_PostExtraIssue'.$SrNo.'" name="SC_FEI_PostExtraIssue[]" value="'.$ExtraIssue[$i]->PostExtraIssue.'" class="form-control"></td>
+			</tr>';
+		}
+	// <!-- ----------- Extra Issue End here --------------------------------- -->
 
 	// <!-- ----------- External Issue Start Here ---------------------------- -->
-	
-
 		if(!empty($ExternalIssue)){
-
-			
 			for ($j=0; $j <(count($ExternalIssue)-1) ; $j++) { 
-
 				$SrNo=$rowCount+1;
-				// if(count($ExternalIssue)==$SrNo){
-					if(!empty($ExternalIssue[$j]->SampleDate)){
+				if(!empty($ExternalIssue[$j]->SampleDate)){
 					$SampleDate=date("d-m-Y", strtotime($ExternalIssue[$j]->SampleDate));
-					}else{
-						$SampleDate='';
-					}
+				}else{
+					$SampleDate='';
+				}
 
+				$FinalResponce['ExternalIssue'].='<tr>
+					<td style="text-align: center;">
+						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
 
-					$FinalResponce['ExternalIssue'].='<tr>
-						
-						<td style="text-align: center;">
-							<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$ExternalIssue[$j]->Linenum.'" class="form-control desabled" readonly>
+						<input type="radio" id="list'.$SrNo.'" name="listRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
+					</td>
 
-							<input type="radio" id="list'.$SrNo.'" name="listRado" value="'.$SrNo.'" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedExternalIssue('.$SrNo.')">
-						</td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM1.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Whs1.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
-						
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" value="'.$ExternalIssue[$j]->SupplierCode.'" class="form-control desabled" readonly></td>
 
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" value="'.$ExternalIssue[$j]->SupplierName.'" class="form-control desabled" readonly></td>
 
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" value="'.$ExternalIssue[$j]->UOM1.'" class="form-control desabled" readonly></td>
 
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" value="'.$SampleDate.'" class="form-control desabled" readonly></td>
 
-						<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
-					</tr>';
-				//}
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" value="'.$ExternalIssue[$j]->Whs1.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" value="'.$ExternalIssue[$j]->SampleQuantity.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" value="'.$ExternalIssue[$j]->InventoryTransfer.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" value="'.$ExternalIssue[$j]->UserText1.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" value="'.$ExternalIssue[$j]->UserText2.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" value="'.$ExternalIssue[$j]->UserText3.'" class="form-control desabled" readonly></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" value="'.$ExternalIssue[$j]->Attachment.'" class="form-control"></td>
+				</tr>';
 			}
 
 			// when table data come then default add one manual row start ---------------------------------------------------------
-			$SrNo=(count($ExternalIssue));
+				$SrNo=(count($ExternalIssue));
 
-			$FinalResponce['ExternalIssue'].='<tr>
-			    <td></td>
-			 	
-			 	<td>
-			 		<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
+				$FinalResponce['ExternalIssue'].='<tr>
+					<td></td>
 
-					<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-					</select>
-				</td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
-			    
-			    <td class="desabled" ><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+					<td>
+						<input class="border_hide" type="hidden" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="" class="form-control desabled" readonly>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+						<select class="form-control ExternalIssueSelectedBPWithData" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;"></select>
+					</td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+					<td class="desabled" ><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
-			</tr>';
+					<td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
+
+					<td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+
+					<td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+
+					<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
+				</tr>';
 			// when table data come then default add one manual row end -----------------------------------------------------------
 		}else{
 			// if user not added External issue recored then show default blank row
 			$SrNo=$rowCount+1;
 
 			$FinalResponce['ExternalIssue'].='<tr>
-			    <td>
-			    	<input class="border_hide" type="text" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$SrNo.'" class="form-control desabled" readonly>
-			    </td>
-			 	
-			 	<td>
-					<select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;">
-						 
-					</select>
-				</td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
-			    
-				
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
-			    
-			    <td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
-			    
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+				<td><input class="border_hide" type="text" id="SC_FEXI_Linenum'.$SrNo.'" name="SC_FEXI_Linenum[]" value="'.$SrNo.'" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+				<td><select class="form-control ExternalIssueDefault" id="SC_ExternalI_SupplierCode'.$SrNo.'" name="SC_FEXI_SupplierCode[]" onchange="ExternalIssueSelectedBP('.$SrNo.')" style="width: 200px;"></select></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_SupplierName'.$SrNo.'" name="SC_FEXI_SupplierName[]" class="form-control desabled" readonly></td>
 
-			    <td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_UOM'.$SrNo.'" name="SC_FEXI_UOM[]" class="form-control desabled" readonly></td>
 
-			    <td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
+				<td><input class="border_hide" type="date" id="SC_FEXI_SampleDate'.$SrNo.'" name="SC_FEXI_SampleDate[]" class="form-control desabled"></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_ExternalI_Warehouse'.$SrNo.'" name="SC_FEXI_Warehouse[]" class="form-control desabled" readonly></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEXI_SampleQuantity'.$SrNo.'" name="SC_FEXI_SampleQuantity[]" class="form-control desabled"></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_InventoryTransfer'.$SrNo.'" name="SC_FEXI_InventoryTransfer[]" class="form-control desabled" readonly></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEXI_UserText1'.$SrNo.'" name="SC_FEXI_UserText1[]" class="form-control"></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEXI_UserText2'.$SrNo.'" name="SC_FEXI_UserText2[]" class="form-control"></td>
+
+				<td><input class="border_hide" type="text" id="SC_FEXI_UserText3'.$SrNo.'" name="SC_FEXI_UserText3[]" class="form-control"></td>
+
+				<td class="desabled"><input class="border_hide desabled" type="text" id="SC_FEXI_Attachment'.$SrNo.'" name="SC_FEXI_Attachment[]" class="form-control"></td>
 			</tr>';
 		}
 	// <!-- ----------- External Issue End Here   ---------------------------- -->
@@ -4370,30 +4293,6 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_collection_RTQC_ajax')
 	echo json_encode($FinalResponce);
 	exit(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ================================================== ReTest QC Code End Here ======================================
 
 // ========================================= Production QC - Route Stage Code start Here ============================

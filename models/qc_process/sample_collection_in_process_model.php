@@ -256,7 +256,7 @@
                                                         </div>
                                                     </div>
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
                                                                 <div class="col-lg-8">
@@ -276,7 +276,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                                             <div class="form-group row mb-2">
                                                                 <div class="col-md-7">
                                                                     <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" disabled>Reverse Sample Issue</button>
@@ -291,7 +291,7 @@
 
                                                      <div class="row">
 
-                                                        <div class="col-xl-3 col-md-6">
+                                                        <div class="col-xl-3 col-md-6" style="display: none;">
                                                             <div class="form-group row mb-2">
                                                                 <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
                                                                 <div class="col-lg-6">
@@ -303,7 +303,7 @@
                                                             </div>
                                                         </div>
 
-                                                         <div class="col-xl-3 col-md-6">
+                                                         <div class="col-xl-3 col-md-6" style="display: none;">
                                                             <div class="form-group row mb-2">
                                                                 <div class="col-md-4">
                                                                     <button type="button" class="pad_btn btn btn-primary" data-bs-toggle="button" autocomplete="off" disabled style="padding: 7px 5px 7px 5px;">Retain Issue</button>
@@ -350,7 +350,7 @@
 
                                             <div class="tab-pane" id="homes" role="tabpanel">
                                                     <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                             <thead class="fixedHeader1">
                                                                 <tr>
                                                                     <th>Sr. No</th>
@@ -409,7 +409,7 @@
                                             </div>
                                             <div class="tab-pane" id="profilety" role="tabpanel">
                                                 <div class="table-responsive" id="list">
-                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                    <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                           <thead class="fixedHeader1">
                                                                 <tr>
                                                                     <th>Sr. No</th>
@@ -591,7 +591,7 @@
                     <!-- table start -->
                         <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
                         <div class="table-responsive mt-2" id="list">
-                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                 <thead class="fixedHeader1">
                                     <tr>
                                         <th>Select</th>
@@ -705,7 +705,7 @@
                     </div>
 
                     <div class="table-responsive" id="list">
-                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                             <thead class="fixedHeader1">
                                 <tr>
                                     <th>Sr. No </th>  
@@ -726,7 +726,7 @@
 
                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
                     <div class="table-responsive mt-2" id="list">
-                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                             <thead class="fixedHeader1">
                                 <tr>
                                     <th>Select</th>
@@ -836,7 +836,7 @@
 
                     <!-- table start -->
                         <div class="table-responsive" id="list">
-                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                 <thead class="fixedHeader1">
                                     <tr>
                                         <th>Sr. No </th>  
@@ -966,7 +966,7 @@
                     </div>
 
                     <div class="table-responsive" id="list">
-                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                             <thead class="fixedHeader1">
                                 <tr>
                                     <th>Sr. No </th>  
@@ -986,7 +986,7 @@
 
                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
                     <div class="table-responsive mt-2" id="list">
-                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                             <thead class="fixedHeader1">
                                 <tr>
                                     <th>Select</th>

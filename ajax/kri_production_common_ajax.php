@@ -1033,7 +1033,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransfer_proces
 			<thead class="fixedHeader1">
 				<tr>';
 					if ($afterSet == "") {
-						$option .= '<th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>';
+						$option .= '<th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" value="0" style="width: 17px;height: 17px;"></th>';
 					}
 
 					$option .= '<th>Item Code</th>
@@ -2670,39 +2670,24 @@ if (isset($_POST['SampleCollectionProcessInUpdateForm_Btn'])) {
 
 // ===========================================================================================================
 
-if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_popup_in_process')  // API Ser No 40 somthing wrong
-{
-	$API = $INPROCESSQCPOSTDOC . '&DocEntry=' . $_POST['DocEntry'] . '&BatchNo=' . $_POST['BatchNo'] . '&ItemCode=' . $_POST['ItemCode'] . '&LineNum=' . $_POST['LineNum'];
-
-	// .'&ItemCode='.$_POST['ItemCode'].'&LineNum='.$_POST['LineNum']
+if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_popup_in_process'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API = $INPROCESSQCPOSTDOC . '&DocEntry=' . $_POST['DocEntry'] . '&BatchNo=' . $_POST['BatchNo'] . '&ItemCode=' . $_POST['ItemCode'] . '&LineNum=' . $_POST['LineNum'];
+
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
-
-
-	// print_r($FinalAPI);
-
-	// die();
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
-
-	// echo "<pre>";
-	// print_r($API);
-	// echo "</pre>";
-	// exit;
 	// <!-- ------ Array declaration Start Here --------------------------------- -->
-	$FinalResponce = array();
-	// $FinalResponce['SampleCollDetails']=$response;
+		$FinalResponce = array();
 	// <!-- ------ Array declaration End Here  --------------------------------- -->
-	$FinalResponce['SampleCollDetails'] = $response;
-	$general_data = (!empty($response[0]->RETESTQCPOSTROWDETAILS)) ? $response[0]->RETESTQCPOSTROWDETAILS : array();
-	// $qcStatus=$response[0]->QCPOSTDOCQCSTATUS; // Etra issue response seperate here 
-	// $qcAttach=$response[0]->QCPOSTDOCATTACH; //External issue reponce seperate here
-	// echo "<pre>";
-	//    print_r($general_data);
-	//    	echo "</pre>";
-	//    	exit;
+
+		$FinalResponce['SampleCollDetails'] = $response;
+		$general_data = (!empty($response[0]->RETESTQCPOSTROWDETAILS)) ? $response[0]->RETESTQCPOSTROWDETAILS : array();
+		// echo '<pre>';
+		// print_r($general_data);
+		// die();
 	// <!-- ----------- Extra Issue Start here --------------------------------- -->
 
 	if (!empty($general_data)) {
@@ -2717,9 +2702,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_Open_Transaction_For_QC_p
 
 				<td class="desabled"><input  type="text" class="form-control" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-				<td class="desabled" title="' . $general_data[$i]->Standard . '" style="cursor: pointer;">
-					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly style="width:400px;">
+				<td class="desabled" title="' . trim($general_data[$i]->Standard, '"') . '" style="cursor: pointer;">
+					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . trim($general_data[$i]->Standard, '"') . '" readonly style="width:400px;">
 				</td>
+
 
 				<td>
 					<input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="" class="form-control" style="width:200px;">

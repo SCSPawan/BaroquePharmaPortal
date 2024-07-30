@@ -1603,37 +1603,37 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             contentType: false,
             beforeSend: function() {
                 // Show image container
-                // $(".loader123").show();
+                $(".loader123").show();
             },
             success: function(result) {
-                console.log(result);
-                // var JSONObject = JSON.parse(result);
+                // console.log(result);
+                var JSONObject = JSON.parse(result);
 
-                // var status = JSONObject['status'];
-                // var message = JSONObject['message'];
-                // var DocEntry = JSONObject['DocEntry'];
-                // if (status == 'True') {
-                //     swal({
-                //             title: `${message}`,
-                //             text: `${DocEntry}`,
-                //             icon: "success",
-                //             buttons: true,
-                //             dangerMode: false,
-                //         })
-                //         .then((willDelete) => {
-                //             if (willDelete) {
-                //                 location.replace(window.location.href); //ok btn
-                //             } else {
-                //                 location.replace(window.location.href); // cancel btn
-                //             }
-                //         });
-                // } else {
-                //     swal("Oops!", `${message}`, "error");
-                // }
+                var status = JSONObject['status'];
+                var message = JSONObject['message'];
+                var DocEntry = JSONObject['DocEntry'];
+                if (status == 'True') {
+                    swal({
+                            title: `${message}`,
+                            text: `${DocEntry}`,
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                location.replace(window.location.href); //ok btn
+                            } else {
+                                location.replace(window.location.href); // cancel btn
+                            }
+                        });
+                } else {
+                    swal("Oops!", `${message}`, "error");
+                }
             },
             complete: function(data) {
                 // Hide image container
-                // $(".loader123").hide();
+                $(".loader123").hide();
             }
         });
     }
