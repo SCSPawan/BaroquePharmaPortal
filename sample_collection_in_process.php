@@ -119,7 +119,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             $pagination.= "</div>";       
     }
 
-    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+    $option.= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                 <thead class="fixedHeader1">
                     <tr>
                     <th>Sr.No </th> 
@@ -200,578 +200,517 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/sample_collection_in_process_model.php' ?>
 <style type="text/css">
-    body[data-layout=horizontal] .page-content {
-        padding: 20px 0 0 0;
-        padding: 40px 0 60px 0;
-    }
+    body[data-layout=horizontal] .page-content {padding: 20px 0 0 0;padding: 40px 0 60px 0;}
 </style>
-<!-- ---------- loader start here---------------------- -->
-    <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
-        <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
-            <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
-        </div>
-    </div>
-         
-            <div class="main-content">
-
-                <div class="page-content">
-                    <div class="container-fluid">
-
-                        <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0">Sample Collection - In Process</h4>
-
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                            <li class="breadcrumb-item active">Sample Collection - In Process</li>
-                                        </ol>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page title -->
-                      <form role="form" class="form-horizontal" id="SampleCollectionProcessInUpdateForm" method="post">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header justify-content-between d-flex align-items-center">
-                                        <h4 class="card-title mb-0">Sample Collectiona - In Process</h4> 
-                                    </div><!-- end card header -->
-                                    
-                                    <div class="card-body">
-
-                                        <div class="top_filter">
-                                            <div class="row">
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="form-group row mb-2">
-                                                        <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
-                                                        <div class="col-lg-8">
-                                                            <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="form-group row mb-2">
-                                                        <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
-                                                        <div class="col-lg-8">
-                                                            <input class="form-control" type="date" id="ToDate" name="ToDate" value="<?php echo date("Y-m-d") ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="form-group row mb-2">
-                                                        <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Intimation No</label>
-                                                        <div class="col-lg-8">
-                                                            <div class="form-group mb-3">
-                                                                <input type="text" class="form-control" name="DocEntry" id="DocEntry">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-4" style="">
-                                                            <div class="">
-                                                                <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="table-responsive" id="list-append"></div> 
-            
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                        <br>
-                        <div class="row"  id="footerProcess">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        <!-- <input class="form-control desabled" type="text" id="LocCode" name="LocCode"> -->
-                                        <input type="hidden" id="BPLId" name="BPLId">
-                                        <input type="hidden" id="it__DocEntry" name="it__DocEntry">
-                                        <input type="hidden" id="si_Series" name="si_Series">
-                                        <input type="hidden" id="gd_docNo" name="gd_docNo">
-                                        
-                                         <!-- <input type="hidden" id="numner_Series" name="numner_Series"> -->
-
-                                        <input type="hidden" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
-
-                                        <input type="hidden" id="itP_FromWhs" name="itP_FromWhs">
-
-
-                                        
-                                        <!-- <input type="hidden" id="it_BatchNo" name="it_BatchNo"> -->
-                                        
-
-                             
-                                    <div class="row">
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ingediant Type</label>
-                                                <!-- <div class="col-lg-8">
-                                                    <select class="form-select" id="ingediantType" name="ingediantType">
-                                                        <option>Select</option>
-                                                    </select>
-                                                </div> -->
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ingediantType" name="ingediantType" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
-                                                <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="ReceiptNo" name="ReceiptNo" readonly>
-                                                </div>
-                                                 <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="ReceiptNo1" name="ReceiptNo1" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
-                                                <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="woNo" name="woNo" readonly>
-                                                </div>
-                                                 <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="WoEntry" name="WoEntry" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
-                                                <div class="col-lg-4">
-                                                    <!-- <select class="form-control" id="DocNoName" name="DocNoName">
-                                                        <option></option>
-                                                    </select> -->
-
-                                                    <input class="form-control desabled" type="text" id="DocNoName" name="DocNoName" readonly>
-                                                </div>
-                                                 <div class="col-lg-4">
-                                                    <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="Location" name="Location" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated By</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="IntimatedBy" name="IntimatedBy" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="date" id="IntimatedDate" name="IntimatedDate" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty </label>
-                                                <div class="col-lg-6">
-                                                    <input class="form-control desabled" type="text" id="SampleQty" name="SampleQty" readonly>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <input class="form-control desabled" type="text" id="SampleQtyUnit" name="SampleQtyUnit" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-5 col-form-label mt-6" for="val-skill">Sample Collect By</label>
-                                                <div class="col-lg-7">
-                                                    <input class="form-control desabled" type="text" id="SampleCollectBy" name="SampleCollectBy" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ARNo" name="ARNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">DocDate</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control" type="date" id="DocDate" name="DocDate">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="TRNo" name="TRNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="Branch" name="Branch" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ItemCode" name="ItemCode" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                                <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="makeby" name="makeby" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="ItemName" name="ItemName" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="BatchQty" name="BatchQty" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="BatchNo" name="BatchNo" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill">No.Of Container</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="NoofCont" name="NoofCont" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-md-6">
-                                            <div class="form-group row mb-2">
-                                               <label class="col-lg-4 col-form-label mt-6" for="val-skill"> Container UOM</label>
-                                                <div class="col-lg-8">
-                                                    <input class="form-control desabled" type="text" id="UOM" name="UOM" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div><!--row closed-->
-
-                                             <!-- ====== -->
-                                              <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">                                
-                                    <div class="card-body">
-                                        <!-- Nav tabs -->
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-bs-toggle="tab" href="#samp_details" role="tab">
-                                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                                    <span class="d-none d-sm-block">Sample Collection Details</span>    
-                                                </a>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#home" role="tab">
-                                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                                    <span class="d-none d-sm-block">External</span>    
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
-                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                                    <span class="d-none d-sm-block">Extra Issue</span>    
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <!-- Tab panes -->
-
-                                        <div class="tab-content p-3 text-muted">
-                                            <div class="tab-pane active" id="samp_details" role="tabpanel">
-                                                    <!-- form start -->
-                                                    <form>
-                                                         <div class="row">
-
-                                                            <div class="col-xl-3 col-md-6">
-                                                                <div class="form-group row mb-2">
-                                                                    <label class="col-lg-6 col-form-label mt-6" for="val-skill">UnderTest Transfer No</label>
-                                                                    <div class="col-lg-6">
-                                                                        <input type="text" name="UnderTestTransferNo" id="UnderTestTransferNo" class="form-control desabled" readonly>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-3 col-md-6">
-                                                                <div class="form-group row mb-2">
-                                                                     <div class="col-md-5">
-
-                                                                        <button type="button" id="process_in_SCD_SampleIssue_Btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".goods_issue" onclick="OpenInventoryTransferModel_sampleIssue()">Sample Issue</button>
-
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <input type="text" name="SampleIssue" id="SampleIssue" class="form-control  desabled" readonly>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                              <div class="col-xl-3 col-md-6" style="display: none;">
-                                                                <div class="form-group row mb-2">
-                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
-                                                                    <div class="col-lg-8 container_input">
-                                                                        <input type="text" name="DateofReversal" id="DateofReversal" class="form-control">
-                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-3 col-md-6"  style="display: none;">
-                                                                <div class="form-group row mb-2">
-                                                                    <div class="col-md-7">
-
-                                                                        <button type="button" id="Process_In_RevSampleIssue_Btn" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" onclick="processInReverseSampleIssue()">Reverse Sample Issue</button>
-                                                                        
-                                                                    </div>
-                                                                    <div class="col-lg-5 container_input">
-                                                                        <input type="text" name="ReverseSampleIssue" id="ReverseSampleIssue" class="form-control desabled" >
-                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                         </div>
-
-                                                         <div class="row">
-
-                                                            <div class="col-xl-3 col-md-6" style="display: none;">
-                                                                <div class="form-group row mb-2">
-                                                                    <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
-                                                                    <div class="col-lg-3">
-                                                                        <input type="text" name="RetainQty" id="RetainQty" class="form-control desabled" readonly>
-                                                                    </div>
-                                                                    <div class="col-lg-3">
-                                                                        <input type="text" name="RetainQtyUom" id="RetainQtyUom" class="form-control desabled" readonly>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                             <div class="col-xl-3 col-md-6"  style="display: none;">
-                                                                <div class="form-group row mb-2">
-                                                                    <div class="col-md-4">
-
-                                                                         <button type="button" id="process_in_SCD_Retain_Issue_Btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" onclick="OpenInventoryTransferModel_RetailsIssue()">Retain Issue</button>
-                                                                    </div>
-                                                                    <div class="col-lg-8 container_input">
-                                                                        <input type="text" name="RetainIssue" id="RetainIssue" class="form-control desabled" readonly>
-                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-3 col-md-6">
-                                                                <div class="form-group row mb-2">
-                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container No</label>
-                                                                    <div class="col-lg-8 container_input" style="display: inline-flex;">
-                                                                        <input type="text" name="ContainerNo1" id="ContainerNo1" class="form-control " >
-                                                                        <input type="text" name="ContainerNo2" id="ContainerNo2" class="form-control ">
-                                                                        <input type="text" name="ContainerNo3" id="ContainerNo3" class="form-control ">
-                                                                     </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-3 col-md-6">
-                                                                <div class="form-group row mb-2">
-                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">Qty For Label</label>
-                                                                    <div class="col-lg-8">
-                                                                        <input type="text" name="QtyForLabel" id="QtyForLabel" class="form-control ">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                         </div>
-
-                                                         
-                                                    </form>        
-                                                    <!-- form end -->
-                                                    <div class="d-flex flex-wrap gap-2">
-                                                        <!-- Toggle States Button -->
-                                                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample for Analysis Label</button>
-
-                                                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample Label</button>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="tab-pane" id="home" role="tabpanel">
-                                                    <div class="table-responsive" id="list">
-                                                          <input type="hidden" id="RowLevelSelectedExternalIssue" name="RowLevelSelectedExternalIssue">
-                                                        <table id="tblSCRTQC_ExternalIssue" class="table sample-table-responsive table-bordered" style="">
-                                                            <thead class="fixedHeader1">
-                                                                <tr>
-                                                                    <th>Sr. No</th>
-                                                                    <th>Supplier Code</th>
-                                                                    <th>Supplier Name</th>
-                                                                    <th>UOM </th>  
-                                                                    <th>Sample Date</th>
-                                                                    <th>Warehouse</th>
-                                                                    <th>Sample Quantity</th>
-                                                                    <th>Inventory Transfer</th> 
-                                                                    <th>UserText 1</th>
-                                                                    <th>UserText 2</th>
-                                                                    <th>UserText 3</th>
-                                                                    <th>Attachment</th>
-                                                                </tr>
-                                                            </thead>
-                                                          <tbody id="External-issue-list-append"></tbody>
-                                                        </table>
-                                                    </div> 
-                                                    <div class="d-flex flex-wrap gap-2">
-                                                        <button type="button" class="btn btn-primary" id="SC_ExternalIssue_PEI_Btn" data-bs-toggle="modal" data-bs-target=".inventory_external_transfer" onclick="OpenInventoryExternalTransferModel()" disabled="">Transfer</button>
-
-                                                         <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Sleep</button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="tab-pane" id="profile" role="tabpanel">
-                                                    <div class="table-responsive" id="list">
-                                                         <input type="hidden" id="RowLevelSelectedExtraIssue" name="RowLevelSelectedExtraIssue">
-                                                        <table id="tblSCRTQC_ExtraIssue" class="table sample-table-responsive table-bordered" style="">
-                                                            <thead class="fixedHeader1">
-                                                                <tr>
-                                                                    <th>Sr. No</th>
-                                                                    <th>Sample Quantity</th>
-                                                                    <th>UOM</th>
-                                                                    <th>Warehouse</th>
-                                                                    <th>Sample By</th>  
-                                                                    <th>Issue Date</th>
-                                                                    <th>Post Extra Issue</th>
-                                                                </tr>
-                                                            </thead>
-                                                            
-                                                            <tbody id="Extra-issue-list-append"></tbody>
-                                                        </table>
-                                                    </div> 
-                                                    <div class="d-flex flex-wrap gap-2">
-                                                        <!-- Toggle States Button -->
-                                                        <button type="button" class="btn btn-primary" id="SC_ExtraIssue_PEI_Btn" data-bs-toggle="modal" data-bs-target=".goods_extra_issue" onclick="OpenInventoryTransferModel_extraIssue()" disabled="">Post Extra Issue</button>
-<!-- OpenInventoryTransferModel_sampleIssue -->
-                                                         <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" >Issue Slip</button>
-
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="d-flex flex-wrap gap-2">
-
-                                                    <button type="button" class="btn btn-primary active" id="SampleCollectionProcessInUpdateForm_Btn" name="SampleCollectionProcessInUpdateForm_Btn" onclick="SampleCollectionRetestQCUpdateForm()">Update</button>
-                                                </div>
-                                            </div>
-                                       <!-- end card body -->
-                                    </div>
-                                  <!-- end card -->
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                    </div> <!-- container-fluid -->
-                    <!-- ====== -->
-                 </div>
-                <!-- end card body -->
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
-</form>
-<br>   
-</div>
-<!-- End Page-content -->
-<br>
-<?php include 'include/footer.php' ?>
-<style type="text/css">
-    body[data-layout=horizontal] .page-content {
-        padding: 20px 0 0 0;
-        padding: 40px 0 60px 0;
-    }
-</style>
+    <!-- ---------- loader end here---------------------- -->
+         
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
 
+            <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0">Sample Collection - In Process</h4>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Sample Collection - In Process</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- end page title -->
+
+            <form role="form" class="form-horizontal" id="SampleCollectionProcessInUpdateForm" method="post">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header justify-content-between d-flex align-items-center">
+                                <h4 class="card-title mb-0">Sample Collectiona - In Process</h4> 
+                            </div><!-- end card header -->
+                                    
+                            <div class="card-body">
+                                <div class="top_filter">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">From Date</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="FromDate" name="FromDate" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'-3 days'))?>">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">To Date</label>
+                                                <div class="col-lg-8">
+                                                    <input class="form-control" type="date" id="ToDate" name="ToDate" value="<?php echo date("Y-m-d") ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row mb-2">
+                                                <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Intimation No</label>
+                                                <div class="col-lg-8">
+                                                    <div class="form-group mb-3">
+                                                        <input type="text" class="form-control" name="DocEntry" id="DocEntry">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-lg-4">
+                                                    <div class="">
+                                                        <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive" id="list-append"></div> 
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+                <br>
+
+                <div class="row"  id="footerProcess">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <input type="hidden" id="BPLId" name="BPLId">
+                                <input type="hidden" id="it__DocEntry" name="it__DocEntry">
+                                <input type="hidden" id="si_Series" name="si_Series">
+                                <input type="hidden" id="gd_docNo" name="gd_docNo">
+                                <input type="hidden" id="SCRTQCB_SupplierCode" name="SCRTQCB_SupplierCode">
+                                <input type="hidden" id="itP_FromWhs" name="itP_FromWhs">
+
+                                <div class="row">
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Ingediant Type</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="ingediantType" name="ingediantType" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Receipt No</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="ReceiptNo" name="ReceiptNo" readonly>
+                                            </div>
+                                                <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="ReceiptNo1" name="ReceiptNo1" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">WO No</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="woNo" name="woNo" readonly>
+                                            </div>
+                                                <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="WoEntry" name="WoEntry" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Doc No</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="DocNoName" name="DocNoName" readonly>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input class="form-control desabled" type="text" id="DocNo" name="DocNo" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Location</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="Location" name="Location" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated By</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="IntimatedBy" name="IntimatedBy" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="date" id="IntimatedDate" name="IntimatedDate" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Sample Qty </label>
+                                            <div class="col-lg-6">
+                                                <input class="form-control desabled" type="text" id="SampleQty" name="SampleQty" readonly>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input class="form-control desabled" type="text" id="SampleQtyUnit" name="SampleQtyUnit" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-5 col-form-label mt-6" for="val-skill">Sample Collect By</label>
+                                            <div class="col-lg-7">
+                                                <input class="form-control desabled" type="text" id="SampleCollectBy" name="SampleCollectBy" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">A/R No</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="ARNo" name="ARNo" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">DocDate</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control" type="date" id="DocDate" name="DocDate">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">TR No</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="TRNo" name="TRNo" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Branch</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="Branch" name="Branch" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Code</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="ItemCode" name="ItemCode" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Make By</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="makeby" name="makeby" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Item Name</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="ItemName" name="ItemName" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch Qty</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="BatchQty" name="BatchQty" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">Batch No</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="BatchNo" name="BatchNo" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill">No.Of Container</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="NoofCont" name="NoofCont" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label mt-6" for="val-skill"> Container UOM</label>
+                                            <div class="col-lg-8">
+                                                <input class="form-control desabled" type="text" id="UOM" name="UOM" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--row closed-->
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">                                
+                                            <div class="card-body">
+                                                <!-- Nav tabs -->
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-bs-toggle="tab" href="#samp_details" role="tab">
+                                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                            <span class="d-none d-sm-block">Sample Collection Details</span>    
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-bs-toggle="tab" href="#home" role="tab">
+                                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                            <span class="d-none d-sm-block">External</span>    
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
+                                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                            <span class="d-none d-sm-block">Extra Issue</span>    
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Tab panes -->
+
+                                                <div class="tab-content p-3 text-muted">
+                                                    <div class="tab-pane active" id="samp_details" role="tabpanel">
+                                                        <!-- form start -->
+                                                        <form>
+                                                            <div class="row">
+                                                                <div class="col-xl-3 col-md-6">
+                                                                    <div class="form-group row mb-2">
+                                                                        <label class="col-lg-6 col-form-label mt-6" for="val-skill">UnderTest Transfer No</label>
+                                                                        <div class="col-lg-6">
+                                                                            <input type="text" name="UnderTestTransferNo" id="UnderTestTransferNo" class="form-control desabled" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6">
+                                                                    <div class="form-group row mb-2">
+                                                                        <div class="col-md-5">
+
+                                                                            <button type="button" id="process_in_SCD_SampleIssue_Btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".goods_issue" onclick="OpenInventoryTransferModel_sampleIssue()">Sample Issue</button>
+
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <input type="text" name="SampleIssue" id="SampleIssue" class="form-control  desabled" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6" style="display: none;">
+                                                                    <div class="form-group row mb-2">
+                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Date of Reversal</label>
+                                                                        <div class="col-lg-8 container_input">
+                                                                            <input type="text" name="DateofReversal" id="DateofReversal" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6"  style="display: none;">
+                                                                    <div class="form-group row mb-2">
+                                                                        <div class="col-md-7">
+                                                                            <button type="button" id="Process_In_RevSampleIssue_Btn" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" onclick="processInReverseSampleIssue()">Reverse Sample Issue</button>
+                                                                        </div>
+                                                                        <div class="col-lg-5 container_input">
+                                                                            <input type="text" name="ReverseSampleIssue" id="ReverseSampleIssue" class="form-control desabled" >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-xl-3 col-md-6" style="display: none;">
+                                                                    <div class="form-group row mb-2">
+                                                                        <label class="col-lg-6 col-form-label mt-6" for="val-skill">Retain Qty</label>
+                                                                        <div class="col-lg-3">
+                                                                            <input type="text" name="RetainQty" id="RetainQty" class="form-control desabled" readonly>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <input type="text" name="RetainQtyUom" id="RetainQtyUom" class="form-control desabled" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6"  style="display: none;">
+                                                                    <div class="form-group row mb-2">
+                                                                        <div class="col-md-4">
+
+                                                                            <button type="button" id="process_in_SCD_Retain_Issue_Btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" onclick="OpenInventoryTransferModel_RetailsIssue()">Retain Issue</button>
+                                                                        </div>
+                                                                        <div class="col-lg-8 container_input">
+                                                                            <input type="text" name="RetainIssue" id="RetainIssue" class="form-control desabled" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6">
+                                                                    <div class="form-group row mb-2">
+                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Container No</label>
+                                                                        <div class="col-lg-8 container_input" style="display: inline-flex;">
+                                                                            <input type="text" name="ContainerNo1" id="ContainerNo1" class="form-control " >
+                                                                            <input type="text" name="ContainerNo2" id="ContainerNo2" class="form-control ">
+                                                                            <input type="text" name="ContainerNo3" id="ContainerNo3" class="form-control ">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-3 col-md-6">
+                                                                    <div class="form-group row mb-2">
+                                                                        <label class="col-lg-4 col-form-label mt-6" for="val-skill">Qty For Label</label>
+                                                                        <div class="col-lg-8">
+                                                                            <input type="text" name="QtyForLabel" id="QtyForLabel" class="form-control ">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>        
+                                                        <!-- form end -->
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <!-- Toggle States Button -->
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample for Analysis Label</button>
+
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample Label</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="home" role="tabpanel">
+                                                        <div class="table-responsive" id="list">
+                                                            <input type="hidden" id="RowLevelSelectedExternalIssue" name="RowLevelSelectedExternalIssue">
+                                                            <table id="tblSCRTQC_ExternalIssue" class="table sample-table-responsive table-bordered">
+                                                                <thead class="fixedHeader1">
+                                                                    <tr>
+                                                                        <th>Sr. No</th>
+                                                                        <th>Supplier Code</th>
+                                                                        <th>Supplier Name</th>
+                                                                        <th>UOM </th>  
+                                                                        <th>Sample Date</th>
+                                                                        <th>Warehouse</th>
+                                                                        <th>Sample Quantity</th>
+                                                                        <th>Inventory Transfer</th> 
+                                                                        <th>UserText 1</th>
+                                                                        <th>UserText 2</th>
+                                                                        <th>UserText 3</th>
+                                                                        <th>Attachment</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="External-issue-list-append"></tbody>
+                                                            </table>
+                                                        </div> 
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <button type="button" class="btn btn-primary" id="SC_ExternalIssue_PEI_Btn" data-bs-toggle="modal" data-bs-target=".inventory_external_transfer" onclick="OpenInventoryExternalTransferModel()" disabled="">Transfer</button>
+
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Sleep</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane" id="profile" role="tabpanel">
+                                                        <div class="table-responsive" id="list">
+                                                            <input type="hidden" id="RowLevelSelectedExtraIssue" name="RowLevelSelectedExtraIssue">
+                                                            <table id="tblSCRTQC_ExtraIssue" class="table sample-table-responsive table-bordered">
+                                                                <thead class="fixedHeader1">
+                                                                    <tr>
+                                                                        <th>Sr. No</th>
+                                                                        <th>Sample Quantity</th>
+                                                                        <th>UOM</th>
+                                                                        <th>Warehouse</th>
+                                                                        <th>Sample By</th>  
+                                                                        <th>Issue Date</th>
+                                                                        <th>Post Extra Issue</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                
+                                                                <tbody id="Extra-issue-list-append"></tbody>
+                                                            </table>
+                                                        </div> 
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <!-- Toggle States Button -->
+                                                            <button type="button" class="btn btn-primary" id="SC_ExtraIssue_PEI_Btn" data-bs-toggle="modal" data-bs-target=".goods_extra_issue" onclick="OpenInventoryTransferModel_extraIssue()" disabled="">Post Extra Issue</button>
+                                                            <!-- OpenInventoryTransferModel_sampleIssue -->
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off" >Issue Slip</button>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        <button type="button" class="btn btn-primary active" id="SampleCollectionProcessInUpdateForm_Btn" name="SampleCollectionProcessInUpdateForm_Btn" onclick="SampleCollectionRetestQCUpdateForm()">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div><!-- end card -->
+                                    </div><!-- end col -->
+                                </div><!-- end row -->
+
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </form>
+            <br>   
+        </div><!-- End Page-content -->
+        <br>
+<?php include 'include/footer.php' ?>
 
 <script type="text/javascript">
-
     // <!-- -------------- Direct called function diclear Start Here --------------------------------
         $(".loader123").hide(); // loader default hide script
         $("#footerProcess").hide(); // Afer Doc Selection Process default hide script
     // <!-- -------------- Direct called function diclear End Here ----------------------------------
 
     $(document).ready(function(){
-        
         for (var i = 8 - 1; i >= 0; i--) { // 2 count hard core there is called row count on page load
             $("#Property_code"+i).select2();
         }
-       
     });
 
     function PropertyCode(i){
@@ -781,14 +720,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         $('#result').html("id : " + userid + ", name : " + username);
     }
 
-    $(document).ready(function()
-    {
+    $(document).ready(function(){
         var fromDate=document.getElementById('FromDate').value;
         var toDate=document.getElementById('ToDate').value;
         var DocEntry=document.getElementById('DocEntry').value;
 
         var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
-
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -796,47 +733,41 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {   
+            success: function(result){   
                 $('#list-append').html(result);
             },
             complete:function(data){
                 $(".loader123").hide();
             }
-       });
+        })
     });
 
     function selectedRecord(DocEntry){
-
         var totalRowCount = 0;
         var rowCount = 0;
         var table = document.getElementById("External-issue-list-append");
         var rows = table.getElementsByTagName("tr");
         for (var i = 0; i < rows.length; i++) {
-        totalRowCount++;
-         
+            totalRowCount++;
             if (rows[i].getElementsByTagName("td").length > 0) {
                 rowCount++;
             }
         }
         totalRowCount=rows.length;
-        // console.log('rowCount=>', rowCount);
+        
         // ---------------------------------------------------------------------------------------------------------------
-
-        var totalRowCount_N = 0;
-        var rowCount_N = 0;
-        var table_N = document.getElementById("Extra-issue-list-append");
-
-        var rows_N = table_N.getElementsByTagName("tr")
-        for (var i = 0; i < rows_N.length; i++) {
-            totalRowCount_N++;
-            if (rows_N[i].getElementsByTagName("td").length > 0) {
-                rowCount_N++;
+            var totalRowCount_N = 0;
+            var rowCount_N = 0;
+            var table_N = document.getElementById("Extra-issue-list-append");
+            var rows_N = table_N.getElementsByTagName("tr")
+            for (var i = 0; i < rows_N.length; i++) {
+                totalRowCount_N++;
+                if (rows_N[i].getElementsByTagName("td").length > 0) {
+                    rowCount_N++;
+                }
             }
-        }
-      
-        totalRowCount_N=rows_N.length;
-        // console.log('totalRowCount_N=>', totalRowCount_N);
+        
+            totalRowCount_N=rows_N.length;
         // ---------------------------------------------------------------------------------------------------------------
 
         var dataString ='DocEntry='+DocEntry+'&rowCount_N='+rowCount_N+'&rowCount='+rowCount+'&action=sample_collecton_in_process_ajax';
@@ -847,15 +778,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             beforeSend: function(){
                 $(".loader123").show();
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 $("#footerProcess").show();
                 var JSONObjectAll = JSON.parse(result);
 
-                        //console.log(JSONObjectAll['SampleCollDetails']);
-
                 var JSONObject=JSONObjectAll['SampleCollDetails'];
-                
                 $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
                 $(`#External-issue-list-append`).html(JSONObjectAll['ExternalIssue']); // External Issue Table Tr tag append here
 
@@ -889,21 +816,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#ContainerNo2`).val(JSONObject[0].Cont2);
                 $(`#ContainerNo3`).val(JSONObject[0].Cont3);
                 $(`#QtyForLabel`).val(JSONObject[0].QtyforLabel);
-
                 $('#ingediantType').val(JSONObject[0].IngredientType);
                 $('#DocNoName').val(JSONObject[0].Series);
-                $('#DocNo').val(JSONObject[0].DocNum);
-                
+                $('#DocNo').val(JSONObject[0].DocNum);                
                 $(`#it__DocEntry`).val(JSONObject[0].DocEntry);
                 $(`#BPLId`).val(JSONObject[0].BPLId);
-                $(`#si_Series`).val(JSONObject[0].SeriesCode);
-                // $(`#gd_docNo`).val(JSONObject[0].Series);
-
-                
+                $(`#si_Series`).val(JSONObject[0].SeriesCode);                
                 $(`#SCRTQCB_SupplierCode`).val('');
                 $(`#itP_FromWhs`).val(JSONObject[0].RISSFromWhs);
-
-                getSeriesDropdown_gd();
                 
                 // <!-- ------------ IntimationDate Start Here --------------------- -->
                     var IntimationDateOG = JSONObject[0]['IntimationDate'];
@@ -925,104 +845,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 // <!-- ------------ IntimationDate End Here ----------------------- -->
             },
             complete:function(data){
-                // IngrediantTypeDropdown();
                 getSupplierDropdown();
             }
-        });
+        })
     }
 
-
-
-
-
-
-
-
-
-
-
-    // function IngrediantTypeDropdown()
-    // {
-    //     $.ajax({ 
-    //         type: "POST",
-    //         url: 'ajax/kri_production_common_ajax.php',
-    //         data:{'action':"IngrediantTypeDropdown_SampleCollection_ajax"},
-
-    //         beforeSend: function(){
-    //         },
-    //         success: function(result)
-    //         {
-    //             // $('#ingediantType').html(result);
-    //         },
-    //         complete:function(data){
-    //             getSeriesDropdown(); // DocName By using API to get dropdown 
-    //         }
-    //     }); 
-//     // }
-
-//     function getSeriesDropdown()
-//     {
-//         var dataString ='ObjectCode=SCS_SCINPROC&action=getSeriesDropdown_ajax';
-//         $.ajax({
-//             type: "POST",
-//             url: 'ajax/kri_production_common_ajax.php',
-//             data: dataString,
-//             cache: false,
-//             beforeSend: function(){
-//             },
-//             success: function(result){
-//                 var SeriesDropdown = JSON.parse(result);
-//                 $('#DocNoName').html(SeriesDropdown);
-//             },
-//             complete:function(data){
-//                 selectedSeries(); // call Selected Series Single data function
-//             }
-//         }); 
-//     }
-
-//     function selectedSeries(){
-//         var TrDate=$('#gd_PostingDate').val();
-//         var Series=document.getElementById('DocNoName').value;
-//         var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=&action=getSeriesSingleData_ajax';
-//         $.ajax({
-//             type: "POST",
-//             url: 'ajax/kri_production_common_ajax.php',
-//             data: dataString,
-//             cache: false,
-
-//             beforeSend: function(){
-//             },
-//             success: function(result)
-//             {
-//                 var JSONObject = JSON.parse(result);
-// alert("hii")
-//                 console.log('JSONObject=>',JSONObject);
-//                 var NextNumber=JSONObject[0]['NextNumber'];
-//                 var Series=JSONObject[0]['Series'];
-//                 $('#DocNo').val(Series);
-//                 $('#gd_docNo').val(Series);
-//                 $('#inveTra_docNo').val(Series);
-//                 $('#external_docNo').val(Series);
-//                 $('#extra_docNo').val(Series);
-                 
-//                 $('#numner_Series').val(Series);                
-//                 $('#NextNumber').val(NextNumber);
-//             },
-//             complete:function(data){
-//                 getSupplierDropdown();
-//             }
-//         }); 
-//     }
-
-
-
-
-
     function getSupplierDropdown(){
-
         var table = document.getElementById("tblSCRTQC_ExternalIssue");
         var tbodyRowCount = table.tBodies[0].rows.length; 
-
         var dataString ='action=SupplierDropdown_ajax';
 
         $.ajax({  
@@ -1030,14 +860,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             url: 'ajax/kri_production_common_ajax.php',   
             data: dataString,  
             beforeSend: function(){
-                // $(".loader123").show();
             },
-
-
-            success: function(result)
-            {  
+            success: function(result){  
                var JSONObject = JSON.parse(result);
-               //console.log('JSONObject=>',JSONObject);
                 // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
                     let un_id=tbodyRowCount; 
                    $('#SC_ExternalI_SupplierCode'+un_id).html(JSONObject);
@@ -1049,13 +874,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             complete:function(data){
                 getWareHouseDropdown();
             }
-        });
+        })
     }
 
     function getWareHouseDropdown(){
         var table = document.getElementById("tblSCRTQC_ExternalIssue");
         var tbodyRowCount = table.tBodies[0].rows.length; 
-
         var dataString ='action=WareHouseDropdown_ajax';
 
         $.ajax({  
@@ -1064,8 +888,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             data: dataString,  
             beforeSend: function(){
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 var JSONObject = JSON.parse(result);
                 // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
                     let un_id=tbodyRowCount; 
@@ -1078,7 +901,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             complete:function(data){
                 getWareHouseExtraIssueDropdown();
             }
-        });
+        })
     }
 
     function getWareHouseExtraIssueDropdown() {
@@ -1093,8 +916,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             data: dataString,  
             beforeSend: function(){
             },
-            success: function(result)
-            {  
+            success: function(result){  
                 var JSONObject = JSON.parse(result);
                 // <!-- ------- this loop mapped supplier list dropdown start here-------------- -->
                     let un_id=tbodyRowCount; 
@@ -1107,141 +929,89 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             complete:function(data){
                 $(".loader123").hide();
             }
-        });
+        })
     }
 
-    // function ExternalIssueSelectedBP(un_id){
+    function ExternalIssueSelectedBP(un_id){
+        var CardCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
+        var Loc = $('#Location').val();
+        var Branch= $('#Branch').val();
+        var ItemCode = $('#ItemCode').val();
+        var MakeBy = $('#makeby').val();    
 
-    //     var SupplierCode=document.getElementById('SCRTQCB_SupplierCode').value;
-    //     var dataString ='SupplierCode='+SupplierCode+'&action=SupplierSingleData_ajax';
+        var dataString ='CardCode='+CardCode+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetCardNameAndWhs_Ajax';
 
-    //     $.ajax({  
-    //         type: "POST",  
-    //         url: 'ajax/kri_production_common_ajax.php',  
-    //         data: dataString,  
-    //         beforeSend: function(){
-    //         // Show image container
-    //            $(".loader123").show();
-    //         },
-    //         success: function(result)
-    //         {  
-    //             var JSONObject = JSON.parse(result);
-    //             $('#SC_FEXI_SupplierName'+un_id).val(JSONObject);
-    //         },
-    //         complete:function(data){
-    //            // Hide image container
-    //            $(".loader123").hide();
-    //         }
-    //     });
-    // }
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,  
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
 
-
-function ExternalIssueSelectedBP(un_id){
-        
-    var CardCode=document.getElementById('SC_ExternalI_SupplierCode'+un_id).value;
-    var Loc = $('#Location').val();
-    var Branch= $('#Branch').val();
-    var ItemCode = $('#ItemCode').val();
-    var MakeBy = $('#makeby').val();    
-
-    var dataString ='CardCode='+CardCode+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetCardNameAndWhs_Ajax';
-
-    $.ajax({
-        type: "POST",
-        url: 'ajax/common-ajax.php',
-        data: dataString,  
-        beforeSend: function(){
-            $(".loader123").show();
-        },
-        success: function(result){
-            var JSONObject = JSON.parse(result);
-            // console.log(JSONObject);
-
-            if(CardCode!=''){
-                $('#SC_FEXI_SupplierName'+un_id).val(JSONObject['CardName']);
-                $('#SC_ExternalI_Warehouse'+un_id).val(JSONObject['Whse']);
-                $('#SC_FEXI_SampleDate'+un_id).val(JSONObject['SampleDate']);
-                $('#SC_FEXI_UOM'+un_id).val($('#UOM').val());
-            }else{
-                $('#SC_FEXI_SupplierName'+un_id).val('');
-                $('#SC_ExternalI_Warehouse'+un_id).val('');
-                $('#SC_FEXI_SampleDate'+un_id).val('');
-                $('#SC_FEXI_UOM'+un_id).val('');  
+                if(CardCode!=''){
+                    $('#SC_FEXI_SupplierName'+un_id).val(JSONObject['CardName']);
+                    $('#SC_ExternalI_Warehouse'+un_id).val(JSONObject['Whse']);
+                    $('#SC_FEXI_SampleDate'+un_id).val(JSONObject['SampleDate']);
+                    $('#SC_FEXI_UOM'+un_id).val($('#UOM').val());
+                }else{
+                    $('#SC_FEXI_SupplierName'+un_id).val('');
+                    $('#SC_ExternalI_Warehouse'+un_id).val('');
+                    $('#SC_FEXI_SampleDate'+un_id).val('');
+                    $('#SC_FEXI_UOM'+un_id).val('');  
+                }
+            },
+            complete:function(data){
+                $(".loader123").hide();
             }
-        },
-        complete:function(data){
-            $(".loader123").hide();
-        }
-    });
-}
+        })
+    }
 
+    function GetExtraIuuseWhs(un_id){
+        var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
 
+        var Loc = $('#Location').val();
+        var Branch= $('#Branch').val();
+        var ItemCode = $('#ItemCode').val();
+        var MakeBy = $('#makeby').val();  
+        var UOM = $('#UOM').val();
 
-function GetExtraIuuseWhs(un_id){
-    var SampleQuantity = $('#SC_FEI_SampleQuantity'+un_id).val();
-
-    var Loc = $('#Location').val();
-    var Branch= $('#Branch').val();
-    var ItemCode = $('#ItemCode').val();
-    var MakeBy = $('#makeby').val();  
-    var UOM = $('#UOM').val();
-
-    var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
-
-    $.ajax({
-        type: "POST",
-        url: 'ajax/common-ajax.php',
-        data: dataString,  
-        beforeSend: function(){
-            // $(".loader123").show();
-        },
-        success: function(result){
-            // console.log(result);
-            var JSONObject = JSON.parse(result);
-            // console.log(JSONObject);
-            // console.log(JSONObject['SampleBy']);
-
-
-            if(SampleQuantity!=''){
-                $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
-                $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
-                $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
-                $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
-            }else{
-                $('#SC_FEI_UOM'+un_id).val('');
-                $('#SC_FEI_Warehouse'+un_id).val('');
-                $('#SC_FEI_SampleBy'+un_id).val('');
-                $('#SC_FEI_IssueDate'+un_id).val('');
+        var dataString ='UOM='+UOM+'&Loc='+Loc+'&Branch='+Branch+'&ItemCode='+ItemCode+'&MakeBy='+MakeBy+'&action=GetExtraIuuseWhs_Ajax';
+        $.ajax({
+            type: "POST",
+            url: 'ajax/common-ajax.php',
+            data: dataString,  
+            beforeSend: function(){
+            },
+            success: function(result){
+                var JSONObject = JSON.parse(result);
+                
+                if(SampleQuantity!=''){
+                    $('#SC_FEI_UOM'+un_id).val(JSONObject['UOM']);
+                    $('#SC_FEI_Warehouse'+un_id).val(JSONObject['Whse']);
+                    $('#SC_FEI_SampleBy'+un_id).val(JSONObject['SampleBy']);
+                    $('#SC_FEI_IssueDate'+un_id).val(JSONObject['IssueDate']);
+                }else{
+                    $('#SC_FEI_UOM'+un_id).val('');
+                    $('#SC_FEI_Warehouse'+un_id).val('');
+                    $('#SC_FEI_SampleBy'+un_id).val('');
+                    $('#SC_FEI_IssueDate'+un_id).val('');
+                }
+            },
+            complete:function(data){
+                // $(".loader123").hide();
             }
-        },
-        complete:function(data){
-            // $(".loader123").hide();
-        }
-    })
-}
+        })
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function SearchData()
-    {
+    function SearchData(){
         var fromDate=document.getElementById('FromDate').value;
         var toDate=document.getElementById('ToDate').value;
         var DocEntry=document.getElementById('DocEntry').value;
 
         var dataString ='fromDate='+fromDate+'&toDate='+toDate+'&DocEntry='+DocEntry+'&action=list';
-
         $.ajax({  
             type: "POST",  
             url: window.location.href,  
@@ -1259,50 +1029,238 @@ function GetExtraIuuseWhs(un_id){
        });
     }
 
-    function OpenInventoryTransferModel_sampleIssue()
-    {
-        var Branch=document.getElementById('Branch').value;
-        var Series=document.getElementById('si_Series').value;
-        var DocEntry=document.getElementById('it__DocEntry').value;
-        var BPLId=document.getElementById('BPLId').value;
-        var gd_docNo=document.getElementById('gd_docNo').value;
+    // sample collection data (sample issue btn - Good Iusse process) start here ------------------------------------------  
+        function OpenInventoryTransferModel_sampleIssue(){
+            var Branch=document.getElementById('Branch').value;
+            var Series=document.getElementById('si_Series').value;
+            var DocEntry=document.getElementById('it__DocEntry').value;
+            var BPLId=document.getElementById('BPLId').value;
+            var gd_docNo=document.getElementById('gd_docNo').value;
+
+            
+            var dataString ='DocEntry='+DocEntry+'&action=OpenSamplessueGoodsIusse_In_ajax';
+
+            $.ajax({
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data: dataString,
+                cache: false,
+
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result)
+                {
+                    var JSONObject = JSON.parse(result);
+
+                    //console.log('JSONObject=>',JSONObject);
+
+                    $('#gd_BaseDocType').val('SCS_SCINPROC');
+                    $('#gd_BaseDocNum').val(DocEntry);
+                    $('#gd_branch').val(Branch);
+                    $('#gd_Series').val(Series);
+                    $('#gd_docNo').val(gd_docNo);
+                    
+                    $('#it_BPLId').val(BPLId);
+                    $('#it_DocEntry').val(DocEntry);
+                    $('#InventoryTransferItemAppend').html(JSONObject);
+
+                    getSeriesDropdown_gd() // DocName By using API to get dropdown 
+                    ContainerSelection(''); // get Container Selection Table List
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+        function getSeriesDropdown_gd()
+        {  
+            var TrDate=$('#gd_PostingDate').val();
+            var dataString ='TrDate='+TrDate+'&ObjectCode=60&action=getSeriesDropdown_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var SeriesDropdown = JSON.parse(result);
+                
+
+                    //console.log('SeriesDropdown',SeriesDropdown);
+                    
+                    $('#gd_SeriesName').html(SeriesDropdown);
+
+                },
+                complete:function(data){
+                    selectedSeries_gd();
+                }
+            }); 
+        }
+
+        function selectedSeries_gd(){
+            var TrDate=$('#gd_PostingDate').val();
+            var Series=document.getElementById('gd_SeriesName').value;
+            var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data: dataString,
+                cache: false,
+
+                beforeSend: function(){
+                },
+                success: function(result)
+                {
+                    var JSONObject = JSON.parse(result);            
+                    //console.log('JSONObject=>',JSONObject);
+                    var NextNumber=JSONObject[0]['NextNumber'];
+                    var Series=JSONObject[0]['Series'];         
+                    $('#numner_Series').val(Series);                
+                    $('#gd_docNo').val(NextNumber);
+                },
+                complete:function(data){
+                        $(".loader123").hide();
+                }
+            }); 
+        }
+    // sample collection data (sample issue btn - Good Iusse process) end here --------------------------------------------
+    
+    // External Inventory Transfer start here ----------------------------------------------------------------------
+        function OpenInventoryExternalTransferModel(){
+            var un_id=document.getElementById('RowLevelSelectedExternalIssue').value;  // selected row un_id
+
+            var Branch=document.getElementById('Branch').value;
+            var Series=document.getElementById('si_Series').value;
+            var DocEntry=document.getElementById('it__DocEntry').value;
+            var BPLId=document.getElementById('BPLId').value;
+
+            var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferSamplessue_In_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var JSONObject = JSON.parse(result);
+                    $('#iT_InventoryTransfer_external_BaseDocType').val('SCS_SCINPROC');
+                    $('#iT_InventoryTransfer_external_BaseDocNum').val(DocEntry);
+                    $('#iT_InventoryTransfer_external_branch').val(Branch);
+                    $('#it_InventoryTransfer_external_BPLId').val(BPLId);
+                    $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
+                    $('#InventoryTransferItemAppend_external').html(JSONObject);
+                    getSeriesDropdown_ITE();
+                    ContainerSelection_extenal(); // get Container Selection Table List
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })
+        }
+
+        function ContainerSelection_extenal(){
+            var selectedRadio = document.querySelector('input[name="listRado"]:checked');
+
+            // Check if a radio button is selected
+            if (selectedRadio) {
+                // Get the value of the selected radio button
+                var selectedValue = selectedRadio.value;
+                var SC_ExternalQty_Row = $('#SC_FEXI_SampleQuantity' + selectedValue).val()
+                var SC_ExternalLineId_Row = $('#SC_FEXI_Linenum' + selectedValue).val();
+            } else {
+                var SC_ExternalQty_Row = 0.000;
+                var SC_ExternalLineId_Row = '';
+            }
+            var DocEntry=document.getElementById('it__DocEntry').value;
+            var BatchNo=document.getElementById('it_BatchNo').value;
+            var ItemCode=document.getElementById('itP_ItemCode').value;
+            var itP_FromWhs=document.getElementById('itP_FromWhs').value;
+
+            var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var JSONObject = JSON.parse(result);
+
+                    $('#ContainerSelectionItemAppend_external').html(JSONObject);
+                    $('#itP_BQty').val(SC_ExternalQty_Row);
+                    $('#it_Linenum').val(SC_ExternalLineId_Row);           
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })
+        }
 
         
-        var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferSamplessue_In_ajax';
-
-        $.ajax({
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data: dataString,
-            cache: false,
-
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                var JSONObject = JSON.parse(result);
-
-                //console.log('JSONObject=>',JSONObject);
-
-                $('#gd_BaseDocType').val('SCS_SCINPROC');
-                $('#gd_BaseDocNum').val(DocEntry);
-                $('#gd_branch').val(Branch);
-                $('#gd_Series').val(Series);
-                $('#gd_docNo').val(gd_docNo);
+        function getSeriesDropdown_ITE()
+        {  
+            var TrDate=$('#gd_PostingDate_extra').val();
+            var dataString ='TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/common-ajax.php',
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var SeriesDropdown = JSON.parse(result);
                 
-                $('#it_BPLId').val(BPLId);
-                $('#it_DocEntry').val(DocEntry);
-                $('#InventoryTransferItemAppend').html(JSONObject);
 
-                getSeriesDropdown_gd() // DocName By using API to get dropdown 
-                ContainerSelection(''); // get Container Selection Table List
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        }); 
-    }
+                    //console.log('SeriesDropdown',SeriesDropdown);
+                    
+                    $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
+
+                },
+                complete:function(data){
+                    selectedSeries_ITE();
+                }
+            }); 
+        }
+
+        function selectedSeries_ITE(){
+            var TrDate=$('#gd_PostingDate_extra').val();
+            var Series=document.getElementById('iT_InventoryTransfer_external_series').value;
+            var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=67&action=getSeriesSingleData_ajax';
+            $.ajax({
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data: dataString,
+                cache: false,
+
+                beforeSend: function(){
+                },
+                success: function(result)
+                {
+                    var JSONObject = JSON.parse(result);            
+                    //console.log('JSONObject=>',JSONObject);
+                    var NextNumber=JSONObject[0]['NextNumber'];
+                    var Series=JSONObject[0]['Series'];         
+                    $('#it_numner_Series').val(Series);                
+                    $('#external_docNo').val(NextNumber);
+                },
+                complete:function(data){
+                        $(".loader123").hide();
+                }
+            }); 
+        }
+    // External Inventory Transfer end here ------------------------------------------------------------------------
+
+
 
 
 
@@ -1346,32 +1304,7 @@ function GetExtraIuuseWhs(un_id){
         }); 
     }
 
-    function getSeriesDropdown_gd()
-    {  
-        var TrDate=$('#gd_PostingDate_extra').val();
-        var dataString ='TrDate='+TrDate+'&ObjectCode=67&action=getSeriesDropdown_ajax';
-        $.ajax({
-            type: "POST",
-            url: 'ajax/common-ajax.php',
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var SeriesDropdown = JSON.parse(result);
-               
-
-                //console.log('SeriesDropdown',SeriesDropdown);
-                
-                $('#iT_InventoryTransfer_external_series').html(SeriesDropdown);
-
-            },
-            complete:function(data){
-                selectedSeries_gd();
-            }
-        }); 
-    }
+    
 
     
 
@@ -1391,7 +1324,7 @@ function getSeriesDropdown_gd_extra()
         success: function(result){
             var SeriesDropdown = JSON.parse(result);
 
-            console.log('SeriesDropdown',SeriesDropdown);
+            // console.log('SeriesDropdown',SeriesDropdown);
             $('#gd_Series_extra').html(SeriesDropdown);
         },
         complete:function(data){
@@ -1422,7 +1355,7 @@ function getSeriesDropdown_gd_extra()
             {
                 var JSONObject = JSON.parse(result);
 
-                console.log('JSONObject111=>',JSONObject)
+                // console.log('JSONObject111=>',JSONObject)
 
             var NextNumber=JSONObject[0]['NextNumber'];
                 var Series=JSONObject[0]['Series'];         
@@ -1436,33 +1369,7 @@ function getSeriesDropdown_gd_extra()
     }
 
 
-function selectedSeries_gd(){
-   
-    var TrDate=$('#gd_PostingDate_extra').val();
-    var Series=document.getElementById('iT_InventoryTransfer_external_series').value;
-    var dataString ='TrDate='+TrDate+'&Series='+Series+'&ObjectCode=60&action=getSeriesSingleData_ajax';
-    $.ajax({
-        type: "POST",
-        url: 'ajax/kri_production_common_ajax.php',
-        data: dataString,
-        cache: false,
 
-        beforeSend: function(){
-        },
-        success: function(result)
-        {
-            var JSONObject = JSON.parse(result);            
-            //console.log('JSONObject=>',JSONObject);
-         var NextNumber=JSONObject[0]['NextNumber'];
-            var Series=JSONObject[0]['Series'];         
-            $('#it_numner_Series').val(Series);                
-            $('#external_docNo').val(NextNumber);
-        },
-        complete:function(data){
-                $(".loader123").hide();
-        }
-    }); 
-}
 
 
 
@@ -2020,82 +1927,7 @@ function selectedSeries_gd(){
     }
 
 
-function OpenInventoryExternalTransferModel(){
-    var un_id=document.getElementById('RowLevelSelectedExternalIssue').value;  // selected row un_id
 
-    var Branch=document.getElementById('Branch').value;
-    var Series=document.getElementById('si_Series').value;
-    var DocEntry=document.getElementById('it__DocEntry').value;
-    var BPLId=document.getElementById('BPLId').value;
-
-    var dataString ='DocEntry='+DocEntry+'&action=OpenInventoryTransferSamplessue_In_ajax';
-    $.ajax({
-        type: "POST",
-        url: 'ajax/kri_production_common_ajax.php',
-        data: dataString,
-        cache: false,
-        beforeSend: function(){
-            $(".loader123").show();
-        },
-        success: function(result){
-            var JSONObject = JSON.parse(result);
-            $('#iT_InventoryTransfer_external_BaseDocType').val('SCS_SCINPROC');
-            $('#iT_InventoryTransfer_external_BaseDocNum').val(DocEntry);
-            $('#iT_InventoryTransfer_external_branch').val(Branch);
-            $('#it_InventoryTransfer_external_BPLId').val(BPLId);
-            $('#it_InventoryTransfer_external_DocEntry').val(DocEntry);
-            $('#InventoryTransferItemAppend_external').html(JSONObject);
-
-            ContainerSelection_extenal(); // get Container Selection Table List
-        },
-        complete:function(data){
-            $(".loader123").hide();
-        }
-    })
-}
-
-
-
-
-function ContainerSelection_extenal(){
-    var selectedRadio = document.querySelector('input[name="listRado"]:checked');
-
-    // Check if a radio button is selected
-    if (selectedRadio) {
-        // Get the value of the selected radio button
-        var selectedValue = selectedRadio.value;
-        var SC_ExternalQty_Row = $('#SC_FEXI_SampleQuantity' + selectedValue).val()
-        var SC_ExternalLineId_Row = $('#SC_FEXI_Linenum' + selectedValue).val();
-    } else {
-        var SC_ExternalQty_Row = 0.000;
-        var SC_ExternalLineId_Row = '';
-    }
-    var DocEntry=document.getElementById('it__DocEntry').value;
-    var BatchNo=document.getElementById('it_BatchNo').value;
-    var ItemCode=document.getElementById('itP_ItemCode').value;
-    var itP_FromWhs=document.getElementById('itP_FromWhs').value;
-
-    var dataString ='ItemCode='+ItemCode+'&WareHouse='+itP_FromWhs+'&DocEntry='+DocEntry+'&BatchNo='+BatchNo+'&action=OpenInventoryTransfer_external_process_in_ajax';
-    $.ajax({
-        type: "POST",
-        url: 'ajax/kri_production_common_ajax.php',
-        data: dataString,
-        cache: false,
-        beforeSend: function(){
-            $(".loader123").show();
-        },
-        success: function(result){
-            var JSONObject = JSON.parse(result);
-
-            $('#ContainerSelectionItemAppend_external').html(JSONObject);
-            $('#itP_BQty').val(SC_ExternalQty_Row);
-            $('#it_Linenum').val(SC_ExternalLineId_Row);           
-        },
-        complete:function(data){
-            $(".loader123").hide();
-        }
-    })
-}
 
     function getSelectedContener_extenal(un_id)
     {
@@ -2484,16 +2316,17 @@ function ContainerSelection_extraIssue(){
 
 
 
-    function SubmitInventoryTransfer_extra(){
-        var selectedQtySum=document.getElementById('cs_selectedQtySum_extra').value; // final Qty sum
-        var PostingDate=document.getElementById('gd_PostingDate_extra').value;
-        var DocDate=document.getElementById('gd_DocumentDate_extra').value;
-        var ItemCode=document.getElementById('itP_ItemCode_extra').value;
-        var ItemName=document.getElementById('itP_ItemName_extra').value;
-        var item_BQty=parseFloat(document.getElementById('itP_BQty_extra').value).toFixed(6);  // item available Qty
-        var fromWhs=document.getElementById('itP_FromWhs_extra').value;
-        var ToWhs=document.getElementById('itP_ToWhs_extra').value;
-        var Location=document.getElementById('itP_Loction_extra').value;
+function SubmitInventoryTransfer_extra(){
+
+    var selectedQtySum=document.getElementById('cs_selectedQtySum_extra').value; // final Qty sum
+    var PostingDate=document.getElementById('gd_PostingDate_extra').value;
+    var DocDate=document.getElementById('gd_DocumentDate_extra').value;
+    var ItemCode=document.getElementById('itP_ItemCode_extra').value;
+    var ItemName=document.getElementById('itP_ItemName_extra').value;
+    var item_BQty=parseFloat(document.getElementById('itP_BQty_extra').value).toFixed(6);  // item available Qty
+    var fromWhs=document.getElementById('itP_FromWhs_extra').value;
+    var ToWhs=document.getElementById('itP_ToWhs_extra').value;
+    var Location=document.getElementById('itP_Loction_extra').value;
 
         if(selectedQtySum==item_BQty){ // Container selection Qty validation
 
@@ -2530,11 +2363,11 @@ function ContainerSelection_extraIssue(){
                                         var DocEntry = JSONObject['DocEntry'];
                                         if(status=='True'){
                                             swal({
-                                                title: `${DocEntry}`,
-                                                text: `${message}`,
-                                                icon: "success",
-                                                buttons: true,
-                                                dangerMode: false,
+                                              title: `${DocEntry}`,
+                                              text: `${message}`,
+                                              icon: "success",
+                                              buttons: true,
+                                              dangerMode: false,
                                             })
                                             .then((willDelete) => {
                                                 if (willDelete) {
@@ -2567,7 +2400,7 @@ function ContainerSelection_extraIssue(){
         }else{
             swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
         }
-    }
+}
 
 
 
@@ -2618,4 +2451,4 @@ function ContainerSelection_extraIssue(){
         document.getElementById('cs_selectedQtySum_external').value = total.toFixed(6);
     }
 </script>
-<!-- 2610 -->
+<!-- 2610  (2686)-->

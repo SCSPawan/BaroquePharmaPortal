@@ -26,14 +26,13 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
 // die ();
 
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $tdata=array();
     $tdata['FromDate']=date('Ymd', strtotime($_POST['fromDate']));
     $tdata['ToDate']=date('Ymd', strtotime($_POST['toDate']));
     $tdata['DocEntry']=trim(addslashes(strip_tags($_POST['DocEntry'])));
-    $getAllData=$obj->getSimpleIntimation($FGQCPOSTDOCUMENTDETAILS,$tdata);
 
+    $getAllData=$obj->getSimpleIntimation($FGQCPOSTDOCUMENTDETAILS,$tdata);
     $count=count($getAllData);
 
     $adjacents = 1;
@@ -41,15 +40,15 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
     $records_per_page =20;
     $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
 
-// =========================================================================================
-    if($page=='1'){
-        $r_start='0';   // 0
-        $r_end=$records_per_page;    // 20
-    }else{
-        $r_start=($page*$records_per_page)-($records_per_page);   // 20
-        $r_end=($records_per_page*$page);   // 40
-    }
-// =========================================================================================
+    // =========================================================================================
+        if($page=='1'){
+            $r_start='0';   // 0
+            $r_end=$records_per_page;    // 20
+        }else{
+            $r_start=($page*$records_per_page)-($records_per_page);   // 20
+            $r_end=($records_per_page*$page);   // 40
+        }
+    // =========================================================================================
 
     $page = ($page == 0 ? 1 : $page);
     $start = ($page-1) * $records_per_page;

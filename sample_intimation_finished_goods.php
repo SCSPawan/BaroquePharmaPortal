@@ -200,6 +200,14 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 <?php include 'include/header.php' ?>
 <?php include 'models/qc_process/sample_intimation_finished_goods_model.php' ?>
 
+    <!-- ---------- loader start here---------------------- -->
+        <div class="loader-top" style="height: 100%;width: 100%;background: #cccccc73;">
+            <div class="loader123" style="text-align: center;z-index: 10000;position: fixed;top: 0; left: 0;bottom: 0;right: 0;background: #cccccc73;">
+                <img src="loader/loader2.gif" style="width: 5%;padding-top: 288px !important;">
+            </div>
+        </div>
+    <!-- ---------- loader end here---------------------- -->
+        
     <div class="main-content">
 
         <div class="page-content">
@@ -886,6 +894,48 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(".loader123").hide();
             }
         })
+    }
+
+    function EnterQtyValidation(un_id) {
+        // Select the checkbox using its ID
+        var checkbox = document.getElementById('itp_CS'+un_id);
+
+        var BatchQty=document.getElementById('itp_BatchQty'+un_id).value;
+        var SelectedQty=document.getElementById('SelectedQty'+un_id).value;
+
+        if(SelectedQty!=''){
+            if(parseFloat(SelectedQty)<=parseFloat(BatchQty)){
+                $('#SelectedQty'+un_id).val(parseFloat(SelectedQty).toFixed(6));
+                $('#itp_CS'+un_id).val(parseFloat(SelectedQty).toFixed(6)); // same value set on checkbox value
+
+                // <!-- ----- checkbox selection start ---------------- -->
+                    // Check the checkbox
+                    checkbox.checked = true;
+                // <!-- ----- checkbox selection start ---------------- -->
+
+            }else{
+                $('#itp_CS'+un_id).val(BatchQty);
+                $('#SelectedQty'+un_id).val(BatchQty); // if user enter grater than val
+
+                // <!-- ----- checkbox selection start ---------------- -->
+                    // Check the checkbox
+                    checkbox.checked = false;
+                // <!-- ----- checkbox selection start ---------------- -->
+
+                swal("Oops!", "User Not Allow to Enter Selected Qty greater than Batch Qty!", "error");
+            }
+        }else{
+            $('#itp_CS'+un_id).val(BatchQty);
+            $('#SelectedQty'+un_id).val(BatchQty); // if user enter blank val
+
+            // <!-- ----- checkbox selection start ---------------- -->
+                // Check the checkbox
+                checkbox.checked = false;
+            // <!-- ----- checkbox selection start ---------------- -->
+            swal("Oops!", "User Not Allow to Enter Selected Qty is blank!", "error")
+        }
+
+        getSelectedContener(un_id); // if user change selected Qty value after selection 
     }
 
     function getSelectedContener(un_id){

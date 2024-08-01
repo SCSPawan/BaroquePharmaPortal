@@ -207,7 +207,7 @@
                                         <th>Item Name</th>
                                         <th>Quality</th>
                                         <th>Warehouse</th>
-                                        <th>ToWhs</th>
+                                        <th id="GI_ToWhsTh">ToWhs</th>
                                         <th>Location</th>
                                         <th>UOM</th>
                                     </tr>
@@ -248,9 +248,7 @@
     </div>
 </div>
 
-   <!-- ---------------------------------------------------------------------------------------------------
-   ---------------------------------------------------------------------------------------------------
-   --------------------------------------------------------------------------------------------------- -->
+   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 
     <div class="modal fade sample-collection-finished-goods" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" aria-modal="true">
         <div class="modal-dialog modal-xl">
@@ -344,7 +342,7 @@
                                 <div class="form-group row mb-2">
                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
                                     <div class="col-lg-8">
-                                        <input class="form-control" type="date" id="SC_finished_good_IntimatedDate" name="SC_finished_good_IntimatedDate">
+                                        <input class="form-control" type="date" id="SC_finished_good_IntimatedDate" name="SC_finished_good_IntimatedDate" readonly>
                                     </div>
                                 </div>
                             </div>
