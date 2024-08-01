@@ -179,9 +179,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->Unit.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WOQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
+                                    <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BranchName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Location.'</td>
                                     <td class="desabled">'.$getAllData[$i]->MakeBy.'</td>

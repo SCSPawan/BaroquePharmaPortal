@@ -976,7 +976,7 @@ if (isset($_POST['SubITFG_Btn'])) {
 		$data = array();
 		if (array_key_exists('error', (array)$responce)) {
 			$data['status'] = 'False';
-			$data['DocEntry'] = '';
+			$data['DocEntry'] = '1111111';
 			$data['message'] = $responce->error->message->value;
 			echo json_encode($data);
 		} else {
@@ -986,7 +986,7 @@ if (isset($_POST['SubITFG_Btn'])) {
 			$UT_data['U_PC_UTTrans'] = trim(addslashes(strip_tags($responce->DocEntry)));
 			// <!-- ------- row data preparing end here ----------------------- -->
 
-			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SCINPROCESS_SL . '(' . $UT_data['DocEntry'] . ')';
+			$Final_API2 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_SINPROCESS . '(' . $UT_data['DocEntry'] . ')';
 			$underTestNumber = $objKri->SampleIntimationUnderTestUpdateFromInventoryTransfer_kri($UT_data, $Final_API2);
 			$underTestNumber_decode = json_decode($underTestNumber);
 
@@ -998,7 +998,7 @@ if (isset($_POST['SubITFG_Btn'])) {
 			} else {
 				if (array_key_exists('error', (array)$underTestNumber_decode)) {
 					$data['status'] = 'False';
-					$data['DocEntry'] = '';
+					$data['DocEntry'] = '222222';
 					$data['message'] = $underTestNumber_decode->error->message->value;
 					echo json_encode($data);
 				}
@@ -1346,6 +1346,60 @@ if (isset($_POST['action']) && $_POST['action'] == 'IngrediantTypeDropdown_Sampl
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'OpenSamplessueGoodsIusse_In_ajax') {
+	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
+	$API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
+	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
+	// $BatchQty = ($response[0]->BatchQty) - ($response[0]->SampleQty);
+	$BatchQty = $response[0]->SampleQty;
+
+	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
+		if (!empty($response)) {
+			$option = '<tr>
+				<td class="desabled">
+					<input type="hidden" id="_tRFPEntry" name="_tRFPEntry" value="' . $response[0]->RFPEntry . '">
+					<input type="hidden" id="it_BatchNo" name="it_BatchNo" value="' . $response[0]->BatchNo . '">
+					1
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ItemCode" name="itP_ItemCode" class="form-control" value="' . $response[0]->ItemCode . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="' . $response[0]->RISSToWhs . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_Loction" name="itP_Loction" class="form-control" value="' . $response[0]->Loction . '" readonly>
+				</td>
+
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_RetainQtyUom" name="itP_RetainQtyUom" class="form-control" value="' . $response[0]->RetainQtyUom . '" readonly>
+				</td>
+			</tr>';
+		} else {
+			$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
+		}
+	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
+	echo json_encode($option);
+	exit(0);
+}
+
 if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamplessue_In_ajax') {
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
 	$API = $INPROCESSSAMPCOLLADD . '?DocEntry=' . $DocEntry;
@@ -1371,8 +1425,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 					<input class="border_hide textbox_bg" type="text" id="itP_ItemName" name="itP_ItemName" class="form-control" value="' . $response[0]->ItemName . '" readonly>
 				</td>
 
-				<td>
-					<input class="border_hide textbox_bg1" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
+				<td class="desabled">
+					<input class="border_hide textbox_bg" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $BatchQty . '" readonly>
 				</td>
 
 				<td class="desabled">
@@ -3050,25 +3104,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 	$qcAttach = $response[0]->INPROCESSQCPOSTDOCATTACH; //External issue reponce seperate here
 
 	// echo "<pre>";
-	// print_r($FinalAPI);
+	// print_r($qcStatus);
 	// echo "</pre>";
 	// exit;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	if (!empty($general_data)) {
 		for ($i = 0; $i < count($general_data); $i++) {
@@ -3250,42 +3288,77 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_In
 				<td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1' . $SrNo . '" name="qCStsRemark1[]"  value="' . $qcStatus[$j]->QCStsRemark1 . '" readonly></td>
 
 			</tr>';
+			}else{
+				$QCS_un_id =(1);
+				$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+					<td>' . $QCS_un_id . '</td>
+					<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+
+					<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
+
+
+					<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
+
+					<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
+
+					<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
+
+					<td>
+					<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+					</td>
+
+					<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+
+
+					<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+					<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+					
+				</tr>';
 			}
 		}
-		$QCS_un_id = (count($qcStatus) + 1);
-		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
-		<td>' . $QCS_un_id . '</td>
-		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+		// $QCS_un_id = (count($qcStatus) + 1);
+		// $FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
+		// 	<td>' . $QCS_un_id . '</td>
+		// 	<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
-
-
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
-
-		<td>
-		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+		// 	<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
 
 
-		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+		// 	<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+		// 	<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+		// 	<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+		// 	<td>
+		// 	<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+		// 	</td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+		// 	<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
-		
-	</tr>';
+
+		// 	<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+		// 	<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+		// 	<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+		// 	<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+		// 	<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+		// 	<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+			
+		// </tr>';
 	} else {
 		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		$QCS_un_id = (count($qcStatus) + 1);
@@ -3790,7 +3863,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
 				<td class="desabled">
 					<input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->RISSFromWhs . '" readonly>
 				</td>
-				<td class="desabled">
+				<td class="desabled" id="GI_ToWhsTd">
 					<input class="border_hide textbox_bg" type="text" id="itP_ToWhs" name="itP_ToWhs" class="form-control" value="" readonly>
 				</td>
 				<td class="desabled">
@@ -4514,14 +4587,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_intimation_finished_g
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'OpenSampleIntimationFinishedGoodInventoryTransfer_ajax') {
-
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
-
 	$API = $FGSAMPLEINTIMATIONDETAILS . '?DocEntry=' . $DocEntry;
 
-
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
-	// print_r($FinalAPI);die();
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	// echo "<pre>";
@@ -4620,7 +4689,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenSampleIntimationFinished
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'sample_intimation_Finished_Good_ContainerList_ajax') {
-
 	$ItemCode = trim(addslashes(strip_tags($_POST['ItemCode'])));
 	$FromWhs = trim(addslashes(strip_tags($_POST['FromWhs'])));
 	$GRPODEnt = trim(addslashes(strip_tags($_POST['GRPODEnt'])));
@@ -4628,83 +4696,70 @@ if (isset($_POST['action']) && $_POST['action'] == 'sample_intimation_Finished_G
 	$DocEntry = trim(addslashes(strip_tags($_POST['DocEntry'])));
 
 	// <!--------------- Preparing API Start Here ------------------------------------------ -->
-	$API = $FGSAMINTICONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo . '&DocEntry=' . $DocEntry;
-
-	// $API='http://10.80.4.55:8081/API/SAP/FGSAMINTICONTSEL?ItemCode=SFG00001&WareHouse=STBL-GEN&DocEntry=297&BatchNo=C0121167';
-
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API = $FGSAMINTICONTSEL . '?ItemCode=' . $ItemCode . '&WareHouse=' . $FromWhs . '&BatchNo=' . $BNo . '&DocEntry=' . $DocEntry;
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!--------------- Preparing API End Here ------------------------------------------ -->
-	// http://10.80.4.55:8081/API/SAP/FGSAMINTICONTSEL?ItemCode=FG00001&WareHouse=QCUT-GEN&BatchNo=C0121197&DocEntry=14
+
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit(0);
 
 	// <!-- --------- Item HTML Table Body Prepare Start Here ------------------------------ --> 
-	if (!empty($response)) {
+		if (!empty($response)) {
+			for ($i = 0; $i < count($response); $i++) {
+				// ----------- Date formating condition definr start here---------------------------
+					$MfgDate = (!empty($response[$i]->MfgDate)) ? date("d-m-Y", strtotime($response[$i]->MfgDate)) : '';
+					$ExpiryDate = (!empty($response[$i]->ExpDate)) ? date("d-m-Y", strtotime($response[$i]->ExpDate)) : '';
+				// ----------- Date formating condition definr end here-----------------------------
 
-		for ($i = 0; $i < count($response); $i++) {
+				$option .= '<tr>
+					<td style="text-align: center;">
+						<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
+						<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
+					</td>
 
-			// ----------- Date formating condition definr start here---------------------------
-			if (!empty($response[$i]->MfgDate)) {
-				$MfgDate = date("d-m-Y", strtotime($response[$i]->MfgDate));
-			} else {
-				$MfgDate = '';
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->BatchNum . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
+					</td>
+
+					<td>
+						<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation(' . $i . ')">
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
+					</td>
+
+					<td class="desabled">
+						<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
+					</td>
+				</tr>';
 			}
 
-			if (!empty($response[$i]->ExpDate)) {
-				$ExpiryDate = date("d-m-Y", strtotime($response[$i]->ExpDate));
-			} else {
-				$ExpiryDate = '';
-			}
-
-
-			// ----------- Date formating condition definr end here-----------------------------
-			$option .= '
-			<tr>
-				<td style="text-align: center;">
-					<input type="hidden" id="usercheckList' . $i . '" name="usercheckList[]" value="0">
-					<input class="form-check-input" type="checkbox" value="' . $response[$i]->BatchQty . '" id="itp_CS' . $i . '" name="itp_CS[]" style="width: 17px;height: 17px;" onclick="getSelectedContener(' . $i . ')">
-				</td>
+			$option .= '<tr>
+				<td colspan="6"></td>
 				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemCode' . $i . '" name="itp_ItemCode[]" class="form-control" value="' . $response[$i]->ItemCode . '" readonly>
+					<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly>
 				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ItemName' . $i . '" name="itp_ItemName[]" class="form-control" value="' . $response[$i]->ItemName . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo' . $i . '" name="itp_ContainerNo[]" class="form-control" value="' . $response[$i]->ContainerNo . '" readonly>
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_Batche' . $i . '" name="itp_Batch[]" class="form-control" value="' . $response[$i]->Batch . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_BatchQty' . $i . '" name="itp_BatchQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" readonly>
-				</td>
-				<td>
-					<input class="border_hide" type="text" id="SelectedQty' . $i . '" name="SelectedQty[]" class="form-control" value="' . $response[$i]->BatchQty . '" onfocusout="EnterQtyValidation(' . $i . ')">
-				</td>
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_MfgDate' . $i . '" name="itp_MfgDate[]" class="form-control" value="' . $MfgDate . '" readonly>
-				</td>
-
-				<td class="desabled">
-					<input class="border_hide textbox_bg" type="text" id="itp_ExpiryDate' . $i . '" name="itp_ExpiryDate[]" class="form-control" value="' . $ExpiryDate . '" readonly>
-				</td>
+				<td colspan="2"></td>
 			</tr>';
+		} else {
+			$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
 		}
-
-		$option .= '<tr>
-			<td colspan="6"></td>
-			<td class="desabled">
-				<input class="border_hide textbox_bg" type="text" id="cs_selectedQtySum" name="cs_selectedQtySum" class="form-control" value="0.000000" readonly></td>
-			<td colspan="2"></td>
-		</tr>';
-	} else {
-		$option = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
-	}
 	// <!-- --------- Item HTML Table Body Prepare End Here -------------------------------- --> 
 	echo json_encode($option);
 	exit(0);
@@ -4820,8 +4875,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_Fi
 	$qcStatus = (!empty($response[0]->FGQCPOSTDOCQCSTATUS)) ? $response[0]->FGQCPOSTDOCQCSTATUS : array(); // Etra issue response seperate here 
 	$qcAttach = $response[0]->FGQCPOSTDOCATTACH; //External issue reponce seperate here
 
-	// print_r($qcStatus);
-
+	// echo '<pre>';
+	// print_r($response);
 	// die();
 	
 
@@ -4838,7 +4893,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_Fi
 
 			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
+			
+			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . trim($general_data[$i]->Standard, '"') . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
 			
 			<td><input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="' . $general_data[$i]->GDRemarks . '" class="form-control" style="width:200px;"></td>';
 
@@ -5015,41 +5071,42 @@ if (isset($_POST['action']) && $_POST['action'] == 'QC_Post_document_QC_Check_Fi
 				</tr>';
 			}
 		}
-		$QCS_un_id = (count($qcStatus) + 1);
 
+		$sr=(count($qcStatus)==1) ? '0' : (count($qcStatus)-1);
+		$QCS_un_id = ($sr + 1);
 		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
-		<td>' . $QCS_un_id . '</td>
-		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+			<td>' . $QCS_un_id . '</td>
+			<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
-
-
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
-
-		<td>
-		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
 
 
-		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+			<td>
+			<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+			</td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+			<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
-		
-	</tr>';
+
+			<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+			
+		</tr>';
 	} else {
 		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		$QCS_un_id = (count($qcStatus) + 1);
@@ -5193,8 +5250,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_QC_Check_Fi
 
 	$FinalResponce['DataDetails'] = $response;
 
-	//    echo "<pre>";
-	// print_r($response);
+	// echo "<pre>";
+	// print_r($FinalAPI);
 	// echo "<pre>";
 	// exit;
 
@@ -5223,7 +5280,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'qc_post_document_QC_Check_Fi
 					<input class="border_hide textbox_bg" type="text" id="inventoryTransferFG_i_ToWhs" name="inventoryTransferFG_i_ToWhs" class="form-control" value="' . $response[0]->ToWhse . '" readonly>
 				</td>
 				<td class="desabled">' . $response[0]->Loc . '</td>
-				<td class="desabled">' . $response[0]->Unit . '</td>
+				<td class="desabled">' . $response[0]->UOM . '</td>
 			</tr>';
 	} else {
 		$FinalResponce['options'] = '<tr><td colspan="9" style="text-align: center;color:red;">Record Not Found</td></tr>';
@@ -7547,9 +7604,6 @@ if (isset($_POST['SubIT_Btn_transfer_sampleCollection_stability'])) {
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-
-
-
 if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 	$tdata['DocNum'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_DocNum'])));
@@ -7566,10 +7620,8 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 	$tdata['U_PC_IName'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_ItemName'])));
 	$tdata['U_PC_GName'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_GenericName'])));
 	$tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_LabelCliam'])));
-	$tdata['U_PC_LClmUom'] = null;
 	$tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_RecievedQty'])));
 	$tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_MfgBy'])));
-	$tdata['U_PC_RfBy'] = null;
 	$tdata['U_PC_SType'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_SampleType'])));
 	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_BatchNo'])));
 	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_BatchSize'])));
@@ -7584,19 +7636,16 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 	$tdata['U_PC_MType'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_MaterialType'])));
 	$tdata['U_PC_PDate'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_PostingDate'])));
 	$tdata['U_PC_ADate'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_AnalysisDate'])));
-		$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_NoOfContainer'])));
+	$tdata['U_PC_NoCont'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_NoOfContainer'])));
 	$tdata['U_PC_QCTType'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_QCTesttype'])));
 	$tdata['U_PC_Stage'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_Stage'])));
 	$tdata['U_PC_ValUp'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_ValidUpTo'])));
 	$tdata['U_PC_ArNo'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_ARNo'])));
 	$tdata['U_PC_GENo'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_GateENo'])));
-	$tdata['U_PC_GDEntry'] = null;
 	$tdata['U_PC_APot'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_AssayPotency'])));
 	$tdata['U_PC_LODWater'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_LODWater'])));
 	$tdata['U_PC_Potency'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_Potency'])));
 	$tdata['U_PC_CompBy'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_CompiledBy'])));
-			$tdata['U_PC_NoCont1'] = null;
-			$tdata['U_PC_NoCont2'] = null;
 	$tdata['U_PC_ChkBy'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_CheckedBy'])));
 	$tdata['U_PC_AnlBy'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_AnalysisBy'])));
 	$tdata['U_PC_Remarks'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_Remarks'])));
@@ -7609,10 +7658,13 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 	$tdata['U_PC_RMQC'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_RMWQC'])));
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_ReceiptDocEntry'])));
-
+	$tdata['U_PC_NoCont1'] = null;
+	$tdata['U_PC_NoCont2'] = null;
+	$tdata['U_PC_GDEntry'] = null;
+	$tdata['U_PC_RfBy'] = null;
+	$tdata['U_PC_LClmUom'] = null;
 
 	$ganaralData = array();
-	$BL = 0; //skip array avoid and count continue
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = ($i + 1);
 		$ganaralData['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
@@ -7623,7 +7675,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
 		$ganaralData['U_PC_DDtl'] = trim(addslashes(strip_tags($_POST['descriptive_details'][$i])));
 		$ganaralData['U_PC_Logi'] = trim(addslashes(strip_tags($_POST['logical'][$i])));
-        $ganaralData['U_PC_QCSts'] = trim(addslashes(strip_tags($_POST['qC_status_by_analyst'][$i])));
+		$ganaralData['U_PC_QCSts'] = trim(addslashes(strip_tags($_POST['qC_status_by_analyst'][$i])));
 		$ganaralData['U_PC_LwMin'] = trim(addslashes(strip_tags($_POST['LowMin'][$i])));
 		$ganaralData['U_PC_LwMax'] = trim(addslashes(strip_tags($_POST['LowMax'][$i])));
 		$ganaralData['U_PC_UpMin'] = trim(addslashes(strip_tags($_POST['UppMin'][$i])));
@@ -7638,7 +7690,6 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		$ganaralData['U_PC_Rmrks'] = trim(addslashes(strip_tags($_POST['QC_P_DOC_FG_Remarks'][$i])));
 		$ganaralData['U_PC_TMeth'] = trim(addslashes(strip_tags($_POST['TMethod'][$i])));
 		$ganaralData['U_PC_MType'] = trim(addslashes(strip_tags($_POST['MType'][$i])));
-		$ganaralData['U_PC_PhStd'] = null;
 		$ganaralData['U_PC_UTxt1'] = trim(addslashes(strip_tags($_POST['user_text1_'][$i])));
 		$ganaralData['U_PC_UTxt2'] = trim(addslashes(strip_tags($_POST['user_text2_'][$i])));
 		$ganaralData['U_PC_UTxt3'] = trim(addslashes(strip_tags($_POST['user_text3_'][$i])));
@@ -7659,8 +7710,9 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		$ganaralData['U_PC_STime'] = trim(addslashes(strip_tags($_POST['start_time'][$i])));
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['end_date'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['end_time'][$i])));
+		$ganaralData['U_PC_PhStd'] = null;
+
 		$tdata['SCS_QCPDFG1Collection'][] = $ganaralData; // row data append on this array
-		$BL++; // increment variable define here	
 	}
 
 	$qcStatus = array();
@@ -7681,81 +7733,46 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
 
 		// <!-- ------ File upload code start here ----------------------------- -->
-		$uploadDir = '../include/uploads/';
+			$uploadDir = '../include/uploads/';
 
-		$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
+			$uploadFile = $uploadDir . basename($_FILES['qCAttache1']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache1']['tmp_name'][$j], $uploadFile);
 
-		$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
+			$uploadFile2 = $uploadDir . basename($_FILES['qCAttache2']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache2']['tmp_name'][$j], $uploadFile2);
 
-		$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
-		move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
+			$uploadFile3 = $uploadDir . basename($_FILES['qCAttache3']['name'][$j]);
+			move_uploaded_file($_FILES['qCAttache3']['tmp_name'][$j], $uploadFile3);
 		// <!-- ------ File upload code start here ----------------------------- -->
 
 		$tdata['SCS_QCPDFG2Collection'][] = $qcStatus; // row data append on this array
 	}
 
-	// $qcAttech = array();
-	// for ($k = 0; $k < count($_POST['targetPath']); $k++) {
-	// 	if (!empty($_POST['fileName'][$k])) {
-	// 		$qcAttech['LineId'] = trim(addslashes(strip_tags($k)));
-	// 		$qcAttech['Object'] = trim(addslashes(strip_tags('SCS_QCPDFG')));
-
-	// 		$qcAttech['U_PC_TrgPt'] = trim(addslashes(strip_tags($_POST['targetPath'][$k])));
-	// 		$qcAttech['U_PC_FName'] = trim(addslashes(strip_tags($_POST['fileName'][$k])));
-	// 		$qcAttech['U_PC_AtcDt'] = trim(addslashes(strip_tags($_POST['attachDate'][$k])));
-	// 		$qcAttech['U_PC_FText'] = trim(addslashes(strip_tags($_POST['freeText'][$k])));
-
-	// 		$tdata['SCS_QCPDFG3Collection'][] = $qcAttech; // row data append on this array
-
-	// 	} else {
-	// 		$tdata['SCS_QCINPROC3Collection'][] = array();
-	// 	}
-	// }
-
-	$tdata['SCS_QCINPROC3Collection'][] = array();
-
+	$tdata['SCS_QCPDFG3Collection'][] = array();
 	$mainArray = $tdata;
 
-
-
-	// echo "<pre>";
-	// print_r($mainArray);
-	// echo "<pre>";
-	// exit;
-
-	if ($_POST['QC_P_DOC_FG_SampleType'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Sample Type is required.';
-		echo json_encode($data);
-		exit;
-	}
-
-	if ($_POST['QC_P_DOC_FG_PostingDate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Posting Date is required.';
-		echo json_encode($data);
-		exit;
-	}
-
-	if ($_POST['QC_P_DOC_FG_AnalysisDate'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'Analysis Date is required.';
-		echo json_encode($data);
-		exit;
-	}
-
-	if ($_POST['QC_P_DOC_FG_ValidUpTo'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'ValidUpTo Date is required.';
-		echo json_encode($data);
-		exit;
-	}
+	// <!-- ---------------- validation start here --------------------------------------- -->
+		if ($_POST['QC_P_DOC_FG_SampleType'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Sample Type is required.';
+			echo json_encode($data);
+			exit;
+		}
+		
+		if ($_POST['QC_P_DOC_FG_PostingDate'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Posting Date is required.';
+			echo json_encode($data);
+			exit;
+		}
+		
+		if ($_POST['QC_P_DOC_FG_AnalysisDate'] == "") {
+			$data['status'] = 'False';$data['DocEntry'] = '';
+			$data['message'] = 'Analysis Date is required.';
+			echo json_encode($data);
+			exit;
+		}
+	// <!-- ---------------- validation start here --------------------------------------- -->
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
 		$res = $obj->SAP_Login();
@@ -7763,9 +7780,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		if (!empty($res)) {
 			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCPDFG_API. '(' . $_POST['QC_P_DOC_FG_DocEntry'] . ')';
 
-			// $responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
 			$responce_encode = $obj->PATCH_ServiceLayerMasterFunctionWithB1Replace($mainArray, $Final_API);
-			
 			$responce = json_decode($responce_encode);
 
 			//  <!-- ------- service layer function responce manage Start Here ------------ -->
@@ -7787,46 +7802,6 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckFinishesGoodaBtn'])) {
 		exit(0);
 	// service laye function and SAP loin & logout function define end here 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if (isset($_POST['btnInventoryTransfeckQCCheckFinishedGoods'])) {
 	$mainArray = array(); // This array hold all type of declare array

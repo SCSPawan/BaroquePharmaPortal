@@ -5929,7 +5929,11 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_check_FG_ajax'){
 	// <!-- ------- Replace blank space to %20 End here -------- -->
 
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
-	$general_data=$response[0]->FGQCPOSTROWDETAILS;
+	// echo '<pre>';
+	// print_r($API);
+	// die();
+
+	$general_data=(!empty($response[0]->FGQCPOSTROWDETAILS)) ? $response[0]->FGQCPOSTROWDETAILS : array();
 
 	$FinalResponce['AllData']=$response;
 
@@ -5945,8 +5949,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OT_QC_check_FG_ajax'){
 
 				<td class="desabled"><input  type="text" class="form-control" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-				<td class="desabled" title="' . $general_data[$i]->Standard . '" style="cursor: pointer;">
-					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly style="width:400px;">
+				<td class="desabled" title="' . trim($general_data[$i]->Standard, '"') . '" style="cursor: pointer;">
+					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . trim($general_data[$i]->Standard, '"') . '" readonly style="width:400px;">
 				</td>
 
 				<td>

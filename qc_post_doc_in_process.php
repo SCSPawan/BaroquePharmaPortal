@@ -116,8 +116,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <th>Material Type</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
-                        <th>Unit</th>
-                        <th>WO Qty</th> 
                         <th>Batch No</th>
                         <th>Batch Qty</th>
                         <th>MFG Date</th>
@@ -149,26 +147,23 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 }
                 // --------------- Convert String code End Here-- ---------------------------
 
-                $option .= '
-                            <tr>
-                                <td class="desabled">' . $SrNo . '</td>
-                                <td style="text-align: center;">
-                                    <input type="radio" id="list' . $getAllData[$i]->DocEntry . '" name="listRado" value="' . $getAllData[$i]->DocEntry . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedRecord(' . $getAllData[$i]->DocEntry . ')">
-                                </td>
-                                <td class="desabled">' . $getAllData[$i]->DocEntry . '</td>
-                                <td class="desabled">' . $getAllData[$i]->WONo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->RFPEntry . '</td>
-                                <td class="desabled">' . $getAllData[$i]->MatType . '</td>
-                                <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
-                                <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
-                                <td class="desabled">' . $getAllData[$i]->Unit . '</td>
-                                <td class="desabled">' . $getAllData[$i]->WOQty . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
-                                <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
-                                <td class="desabled">' . $MfgDate . '</td>
-                                <td class="desabled">' . $ExpiryDate . '</td>
-                                <td class="desabled">' . $getAllData[$i]->Branch . '</td>
-                            </tr>';
+                $option .= '<tr>
+                        <td class="desabled">' . $SrNo . '</td>
+                        <td style="text-align: center;">
+                            <input type="radio" id="list' . $getAllData[$i]->DocEntry . '" name="listRado" value="' . $getAllData[$i]->DocEntry . '" class="form-check-input" style="width: 17px;height: 17px;" onclick="selectedRecord(' . $getAllData[$i]->DocEntry . ')">
+                        </td>
+                        <td class="desabled">' . $getAllData[$i]->DocEntry . '</td>
+                        <td class="desabled">' . $getAllData[$i]->WONo . '</td>
+                        <td class="desabled">' . $getAllData[$i]->RFPEntry . '</td>
+                        <td class="desabled">' . $getAllData[$i]->MatType . '</td>
+                        <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
+                        <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
+                        <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
+                        <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
+                        <td class="desabled">' . $MfgDate . '</td>
+                        <td class="desabled">' . $ExpiryDate . '</td>
+                        <td class="desabled">' . $getAllData[$i]->Branch . '</td>
+                    </tr>';
             }
         }
     } else {

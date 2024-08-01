@@ -632,9 +632,9 @@
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_issue_sample" method="post">
 
-                    <input type="tex" id="it_BPLId" name="it_BPLId">
-                    <input type="tex" id="it_DocEntry" name="it_DocEntry">
-                    <input type="tex" id="numner_Series" name="numner_Series">
+                    <input type="hidden" id="it_BPLId" name="it_BPLId">
+                    <input type="hidden" id="it_DocEntry" name="it_DocEntry">
+                    <input type="hidden" id="numner_Series" name="numner_Series">
 
                     <div class="row">
 
@@ -669,7 +669,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                 <div class="col-lg-4">
-                                    <select class="form-control " type="text" id="gd_SeriesName" name="gd_SeriesName" onchange="selectedSeries_gd()"></select>
+                                    <select class="form-select " type="text" id="gd_SeriesName" name="gd_SeriesName" onchange="selectedSeries_gd()"></select>
                                 </div>
                                  <div class="col-lg-4">
                                     <input class="form-control desabled" type="text" id="gd_docNo" name="gd_docNo" readonly>
@@ -744,7 +744,7 @@
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="button" >Add</button>
+                    <button type="button" id="SubIT_Btn_S_sample_issue" name="SubIT_Btn_S_sample_issue" onclick="SubmitInventoryTransfer_sample_issue()" class="btn btn-primary" data-bs-toggle="button">Add</button>
 
                     <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn active btn-danger" data-bs-toggle="button" autocomplete="off">Cancel</button>
 
@@ -776,7 +776,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Series</label>
                                 <div class="col-lg-4">
-                                    <select class="form-control desabled" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_gd();"></select>
+                                    <select class="form-select" type="text" id="iT_InventoryTransfer_external_series" name="iT_InventoryTransfer_external_series" onchange="selectedSeries_ITE();"></select>
                                 </div>
                                 <div class="col-lg-4">
                                     <input class="form-control desabled" type="text" id="external_docNo" name="external_docNo">
@@ -810,7 +810,7 @@
                             <div class="form-group row mb-2">
                                 <label class="col-lg-4 col-form-label mt-6" for="val-skill">Posting Date</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>">
+                                    <input class="form-control" type="date" id="gd_PostingDate_extra" name="gd_PostingDate_extra" value="<?php echo $currentDate; ?>" onclick="getSeriesDropdown_ITE()">
                                 </div>
                             </div>
                         </div>
@@ -860,7 +860,7 @@
                             <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                 <thead class="fixedHeader1">
                                     <tr>
-                                        <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
+                                        <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" value="0" style="width: 17px;height: 17px;"></th>
                                         <th>Item Code</th>
                                         <th>Item Name</th>
                                         <th>Container No</th>
@@ -897,10 +897,10 @@
 
             <div class="modal-body">
                 <form role="form" class="form-horizontal" id="inventory_transfer_form_extra" method="post">
-                    <input type="text" id="it_BPLId_extra" name="it_BPLId_extra">
-                    <input type="text" id="it_DocEntry_extra" name="it_DocEntry_extra">
-                    <input type="text" id="it_LineId" name="it_LineId">
-                    <input type="text" id="it_Docno" name="it_Docno">
+                    <input type="hidden" id="it_BPLId_extra" name="it_BPLId_extra">
+                    <input type="hidden" id="it_DocEntry_extra" name="it_DocEntry_extra">
+                    <input type="hidden" id="it_LineId" name="it_LineId">
+                    <input type="hidden" id="it_Docno" name="it_Docno">
 
                     <div class="row">
                         <div class="col-xl-3 col-md-6">

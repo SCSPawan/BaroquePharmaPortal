@@ -15,7 +15,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     $tdata['ToDate'] = date('Ymd', strtotime($_POST['toDate']));
     $tdata['DocEntry'] = trim(addslashes(strip_tags($_POST['DocEntry'])));
     $getAllData = $obj->getSimpleIntimation($FGSAMPCOLLADD, $tdata);
-
     $count = count($getAllData);
 
     $adjacents = 1;
@@ -117,11 +116,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Unit</th>
-                        <th>WO Qty</th> 
                         <th>Batch No</th>
                         <th>Batch Qty</th>
-                        <th>MFG Date</th>
-                        <th>Expiry Date</th>
                         <th>Branch Name</th>
                   </tr>
                 </thead>
@@ -131,24 +127,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         for ($i = $r_start; $i < $r_end; $i++) {
             if (!empty($getAllData[$i]->RFPNo)) {   //  this condition save to extra blank loop
                 $SrNo = $i + 1;
-                // --------------- Convert String code Start Here ---------------------------
-                if (empty($getAllData[$i]->MfgDate)) {
-                    $MfgDate = '';
-                } else {
-                    $MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate);
-                    // All (/) replace to (-)
-                    $MfgDate = date("d-m-Y", strtotime($MfgDate));
-                }
-
-                if (empty($getAllData[$i]->ExpiryDate)) {
-                    $ExpiryDate = '';
-                } else {
-                    $ExpiryDate = str_replace('/', '-', $getAllData[$i]->ExpiryDate);
-                    // All (/) replace to (-)
-                    $ExpiryDate = date("d-m-Y", strtotime($ExpiryDate));
-                }
-                // --------------- Convert String code End Here-- ---------------------------
-
+                
                 $option .= '
                             <tr>
                                 <td class="desabled">' . $SrNo . '</td>
@@ -158,21 +137,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                 <td class="desabled">' . $getAllData[$i]->DocEntry . '</td>
                                 <td class="desabled">' . $getAllData[$i]->WoNo . '</td>
                                 <td class="desabled">' . $getAllData[$i]->RFPEntry . '</td>
-                                <td class="desabled">' . $getAllData[$i]->MatType . '</td>
+                                <td class="desabled">' . $getAllData[$i]->MaterialType . '</td>
                                 <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
                                 <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
-                                <td class="desabled">' . $getAllData[$i]->Unit . '</td>
-                                <td class="desabled">' . $getAllData[$i]->WOQty . '</td>
+                                <td class="desabled">' . $getAllData[$i]->SampleQtyUnit . '</td>
                                 <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
                                 <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
-                                <td class="desabled">' . $MfgDate . '</td>
-                                <td class="desabled">' . $ExpiryDate . '</td>
                                 <td class="desabled">' . $getAllData[$i]->Branch . '</td>
                             </tr>';
             }
         }
     } else {
-        $option .= '<tr><td colspan="16" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
+        $option .= '<tr><td colspan="12" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
     }
     $option .= '</tbody> 
     </table>';
@@ -376,7 +352,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                         <div class="form-group row mb-2">
                                             <label class="col-lg-4 col-form-label mt-6" for="val-skill">Intimated Date</label>
                                             <div class="col-lg-8">
-                                                <input class="form-control" type="date" id="fg_IntimationDate" name="fg_IntimationDate">
+                                                <input class="form-control" type="date" id="fg_IntimationDate" name="fg_IntimationDate" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -1029,6 +1005,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         $('#sample_issue_DocEntry').val(DocEntry);
 
                         $('#InventoryTransferItemAppend').html(JSONObject);
+                        $('#GI_ToWhsTd').hide();
+                        $('#GI_ToWhsTh').hide();
                     },
                     complete: function(data) {
                         ContainerSelection_sample_issue(); // get Container Selection Table List
@@ -1264,7 +1242,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             var Location = document.getElementById('itP_Loction').value;
 
             if (selectedQtySum == item_BQty) { // Container selection Qty validation
-                if (ToWhs != '') { // Item level To Warehouse validation
+                if (fromWhs != '') { // Item level To Warehouse validation
                     if (PostingDate != '') { // Posting Date validation
                         if (DocDate != '') { // Document Date validation
                             // <!-- ---------------- form submit process start here ----------------- -->
@@ -1320,7 +1298,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         swal("Oops!", "Please Select A Posting Date.", "error");
                     }
                 } else {
-                    swal("Oops!", "To Warehouse Mandatory.", "error");
+                    swal("Oops!", "From Warehouse Mandatory.", "error");
                 }
             } else {
                 swal("Oops!", "Container Selected Qty Should Be Equal To Item Qty!", "error");
