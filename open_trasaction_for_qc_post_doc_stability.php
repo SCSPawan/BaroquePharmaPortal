@@ -7,14 +7,9 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
   exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($OPENTRANSQCDOCSTABILITY_API);
     $count=count($getAllData);
-
-    // echo "<pre>";
-    // print_r($getAllData);
-    // echo "</pre>";
 
     $adjacents = 1;
 
@@ -43,7 +38,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
     if($last_page > 1)
     {
-            $pagination .= "<div class='pagination' style='float: right;'>";
+        $pagination .= "<div class='pagination' style='float: right;'>";
 
         if($page > 1)
                 $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($prev).");'>&laquo; Previous&nbsp;&nbsp;</a>";
@@ -126,11 +121,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Whs Code</th>
-                        <th>Whs Total</th>
-                        <th>Base Type</th>
-                        <th>Base Entry</th>
                         <th>Base Num</th>
-                        <th>Doc Date</th>
                         <th>Quantity</th>
                         <th>Lot Number</th>
                         <th>Exp. Date</th>
@@ -145,19 +136,13 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>Stability Collection No</th>
                         <th>Route Stage Reco WO No</th>
                         <th>Route Stage Reco WO Entry</th>
-                        <th>Planned Qty</th>
                         <th>Route Stage Reco UOM</th>
                         <th>Route Stage Reco Prod Receipt No</th>
                         <th>Route Stage Reco Prod Receipt Entry</th>
-                        <th>Route Stage Reco Prod Receipt Qty</th>
                         <th>Stability Type</th>
                         <th>Stability Condition</th>
                         <th>Stability Time Period</th>
                         <th>Type of Analysis</th>
-                        <th>Period in months</th>
-                        <th>Period Type</th>
-                        <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -167,12 +152,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         if(!empty($getAllData[$i]->SrNo)){   //  this condition save to extra blank loop
 
                             // --------------- Convert String code Start Here ---------------------------
-                                if(empty($getAllData[$i]->DocDate)){
-                                    $DocDate='';
-                                }else{
-                                    $DocDate=date("d-m-Y", strtotime($getAllData[$i]->DocDate));
-                                }
-
                                 if(empty($getAllData[$i]->ExpiryDate)){
                                     $ExpiryDate='';
                                 }else{
@@ -190,13 +169,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 }else{
                                     $StabilityLoadingDate=date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate));
                                 }
-
-                                if(empty($getAllData[$i]->EndDate)){
-                                    $EndDate='';
-                                }else{
-                                    $EndDate=date("d-m-Y", strtotime($getAllData[$i]->EndDate));
-                                }
-
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -212,15 +184,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->WhsTotal.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->BaseType.'</td>
-
-                                    <td class="desabled">'.$getAllData[$i]->BaseEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BaseNum.'</td>
-                                    <td class="desabled">'.$DocDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Quantity.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
-
                                     <td class="desabled">'.$ExpiryDate.'</td>
                                     <td class="desabled">'.$MfgDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Branch.'</td>
@@ -231,28 +197,20 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                     <td class="desabled">'.$getAllData[$i]->StabilityPlanQuantity.'</td>
                                     <td class="desabled">'.$getAllData[$i]->SampleIntimationNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->SampleCollectionNo.'</td>
-
                                     <td class="desabled">'.$getAllData[$i]->RouteStageRecoWONo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RouteStageRecoWODocEntry.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->PlannedQuantity.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RouteStageRecoUOM.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RouteStageRecoReceiptNo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->RouteStageRecoReceiptEntry.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->RouteStageRecoReceiptQty.'</td>
                                     <td class="desabled">'.$getAllData[$i]->StabilityType.'</td>
-
                                     <td class="desabled">'.$getAllData[$i]->StabilityCondition.'</td>
                                     <td class="desabled">'.$getAllData[$i]->StabilityTimePeriod.'</td>
                                     <td class="desabled">'.$getAllData[$i]->AnalysisType.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->PeriodinMonths.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->PeriodType.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->AdditionalYear.'</td>
-                                    <td class="desabled">'.$EndDate.'</td>
                                 </tr>';
                         }
                     }
                 }else{
-                     $option.='<tr><td colspan="20" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
+                    $option.='<tr><td colspan="20" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
                 }
         $option.='</tbody> 
     </table>'; 
@@ -525,8 +483,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
 
 
 
-// console.log("Current Date:", currentDate);
-// console.log("New Date:", newDate);
+                    // console.log("Current Date:", currentDate);
+                    // console.log("New Date:", newDate);
 
 
 
@@ -702,8 +660,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
         }); 
     }
 
-     // Function to add days to a date
- function addDaysToDate(days) {
+// Function to add days to a date
+function addDaysToDate(days) {
 
     let dateString = $('#PostingDate').val();;
 
@@ -1930,3 +1888,4 @@ function Compiled_ByDropdown(){
             }
         }
 </script>
+<!-- 1891 -->
