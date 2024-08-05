@@ -7172,7 +7172,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'OpenInventoryTransferSamples
                     <input class="border_hide textbox_bg" type="text" id="itP_BQty" name="itP_BQty" class="form-control" value="' . $response[0]->StabilityPlanQty . '" readonly>
                 </td>
 
-                <td class="desabled">
+                <td class="desabled" id="SI_GI_Td">
                     <input class="border_hide textbox_bg" type="text" id="itP_FromWhs" name="itP_FromWhs" class="form-control" value="' . $response[0]->FromWhse . '" readonly>
                 </td>
 
@@ -9408,17 +9408,16 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_PoPup_QCPO_Stability_ajax
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	$FinalResponce['SampleCollDetails'] = $response;
-
-
-	$general_data = $response[0]->STABQCPOSTROWDETAILS;
+	$general_data = (!empty($response[0]->STABQCPOSTROWDETAILS)) ? $response[0]->STABQCPOSTROWDETAILS : array();
 	// $qcStatus=$response[0]->QCPOSTDOCQCSTATUS; // Etra issue response seperate here 
 	// $qcAttach=$response[0]->QCPOSTDOCATTACH; //External issue reponce seperate here
 	// echo "<pre>";
-	//    print_r($response);
-	//    	echo "</pre>";
-	//    	exit;
+	// print_r($response);
+	// echo "</pre>";
+	// exit;
 	// <!-- ----------- Extra Issue Start here --------------------------------- -->
-if (!empty($general_data)) {
+	
+	if (!empty($general_data)) {
 		for ($i = 0; $i < count($general_data); $i++) {
 			$SrNo = $i;
 			$index = $i + 1;
@@ -9429,9 +9428,9 @@ if (!empty($general_data)) {
 				<td><input  type="text" class="form-control" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '"></td>
 
 				<td class="desabled"><input  type="text" class="form-control" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
-
-				<td class="desabled" title="' . $general_data[$i]->Standard . '" style="cursor: pointer;">
-					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly style="width:400px;">
+			
+				<td class="desabled" title="' . trim($general_data[$i]->Standard, '"') . '" style="cursor: pointer;">
+					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . trim($general_data[$i]->Standard, '"') . '" readonly style="width:400px;">
 				</td>
 
 				<td>
@@ -9607,51 +9606,7 @@ if (!empty($general_data)) {
 
 	$FinalResponce['count'] = count($general_data);
 
-	// <!-- ----------- Extra Issue End here --------------------------------- -->
-	// exit;
-	// <!-- ----------- External Issue Start Here ---------------------------- -->
-	// if(!empty($qcStatus)){
-	// 	for ($j=0; $j <count($qcStatus) ; $j++) { 
-	// 		$SrNo=$j+1;
-
-	// 		$FinalResponce['qcStatus'].='<tr>
-
-	//                   <td class="desabled">'.$SrNo.'</td>
-
-	//                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly></td>
-
-	//                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
-
-	//                   <td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
-
-	//                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
-
-	//                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
-
-	// 		</tr>';
-	// 	}
-	// }else{
-	// 	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
-	// }
-
-	// $FinalResponce['qcStatus'] .= '<tr id="add-more_1">
-	// 		<td></td>
-	// 		<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"  onfocusout="addMore(1);"></select></td>
-	// 		<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
-	// 		<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control"></td>
-	// 		<td>
-	// 		<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-	// 		</td>
-	// 		<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-	// 	</tr>';
-
-
-
-	// if(!empty($qcAttach)){
-	// 	for ($j=0; $j <count($qcAttach) ; $j++) { 
-	// 		$SrNo=$j+1;
-	// <tr>
-
+	
 	$FinalResponce['qcStatus'] .= '<tr id="add-more_1">
 		<td>' . (($qcStatusCount) + 1) . '</td>
 
@@ -9669,23 +9624,20 @@ if (!empty($general_data)) {
 			<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
 		</td>
 
-			<td><input class="border_hide" type="file"  id="qCAttache1_1" name="qCAttache1[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache1_1" name="qCAttache1[]" class="form-control"></td>
 
-			<td><input class="border_hide" type="file"  id="qCAttache2_1" name="qCAttache2[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache2_1" name="qCAttache2[]" class="form-control"></td>
 
-			<td><input class="border_hide" type="file"  id="qCAttache3_1" name="qCAttache3[]" class="form-control"></td>
+		<td><input class="border_hide" type="file"  id="qCAttache3_1" name="qCAttache3[]" class="form-control"></td>
 
-			<td><input class="border_hide" type="date"  id="qCDeviationDate_1" name="qCDeviationDate[]" class="form-control"></td>
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_1" name="qCDeviationDate[]" class="form-control"></td>
 
-			<td><input class="border_hide" type="text"  id="qCDeviationNo_1" name="qCDeviationNo[]" class="form-control"></td>
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_1" name="qCDeviationNo[]" class="form-control"></td>
 
-			<td><input class="border_hide" type="text"  id="qCDeviationResion_1" name="qCDeviationResion[]" class="form-control"></td>
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_1" name="qCDeviationResion[]" class="form-control"></td>
 
 		<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
 	</tr>';
-
-
-
 
 	$FinalResponce['qcAttach'] .= '<tr>
 		<td class="desabled"></td>
@@ -9695,11 +9647,6 @@ if (!empty($general_data)) {
 		<td><input class="border_hide" type="text" id="remark" name="remark[]"  class="form-control" value=""></td>
 	</tr>';
 
-
-	// echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit;
 	echo json_encode($FinalResponce);
 	exit(0);
 }
@@ -10232,32 +10179,22 @@ if (isset($_POST['updateQcPostDocumentStabilitytBtn'])) {
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stability_row') {
-	$API = $STABQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'];
 	// <!-- ------- Replace blank space to %20 start here -------- -->
-	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+		$API = $STABQCPOSTDOCUMENTDETAILS . '?DocEntry=' . $_POST['DocEntry'];
+		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	// echo "<pre>";
 	// print_r($FinalAPI);
-	// echo "</pre>";	
+	// // die();
 
-	// exit;
-
-
+	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 
 	$FinalResponce['SampleCollDetails'] = $response;
 	// <!-- ------ Array declaration End Here  --------------------------------- -->
 	$general_data = $response[0]->STABQCPOSTDOCGENERALDATA;
 	$qcStatus = $response[0]->STABQCPOSTDOCQCSTATUS; // Etra issue response seperate here 
 	$qcAttach = $response[0]->STABQCPOSTDOCATTACH; //External issue reponce seperate here
-
-	//    echo "<pre>";
-	// print_r($response);
-	// echo "</pre>";
-	// exit;
-
-
 	
 	if (!empty($general_data)) {
 		for ($i = 0; $i < count($general_data); $i++) {
@@ -10267,11 +10204,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 			$FinalResponce['general_data'] .= '<tr>
 			<td class="desabled">' . $index . '</td>
 
-			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly></td>
+			<td class="desabled">
+				<input  type="hidden" id="GD_LineId' . $SrNo . '" name="GD_LineId[]" value="' . $general_data[$i]->LineId . '">
+				<input  type="text" class="form-control textbox_bg" id="parameter_code' . $SrNo . '" name="parameter_code[]" value="' . $general_data[$i]->PCode . '" readonly>
+			</td>
 
 			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
+			<td class="desabled" style="cursor: pointer;"><input  type="text" class="form-control textbox_bg" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Specifiction . '" readonly class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
 			
 			<td><input type="text" id="ResultOut' . $SrNo . '" name="ResultOut[]" value="' . $general_data[$i]->CResult . '" class="form-control" style="width:200px;"></td>';
 
@@ -10284,11 +10224,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 				<input type="text" id="ComparisonResult' . $SrNo . '" name="ComparisonResult[]" value="' . $general_data[$i]->CResult . '" class="form-control textbox_bg" style="width:100px;">
 			</td>';
 			}
-
 		
 			$FinalResponce['general_data'] .= '
 			<td id="ResultOutputByQCDeptTd' . $SrNo . '">
-				<input type="hidden" id="ResultOutputByQCDept_Old' . $SrNo . '" name="ResultOutputByQCDept_Old[]" value="' . $general_data[$i]->ROutputQCDept . '">
+				<input type="hidden" id="ResultOutputByQCDept_Old' . $SrNo . '" name="ResultOutputByQCDept_Old[]" value="' . $general_data[$i]->ROutput . '">
 
 				<select id="ResultOutputByQCDept' . $SrNo . '" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept(' . $SrNo . ')"></select>
 			</td>
@@ -10306,7 +10245,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 			<td class="desabled"><input  type="text" class="form-control textbox_bg" id="Min' . $SrNo . '" name="Min[]" value="' . $general_data[$i]->Min . '" readonly></td>
 			
 			<td id="QC_StatusByAnalystTd' . $SrNo . '">
-				<input type="hidden" id="qC_status_by_analyst_Old' . $SrNo . '" name="qC_status_by_analyst_Old[]" value="' . $general_data[$i]->GDQCStatus . '">
+				<input type="hidden" id="qC_status_by_analyst_Old' . $SrNo . '" name="qC_status_by_analyst_Old[]" value="' . $general_data[$i]->QCStatusanaly . '">
 
 				<select id="qC_status_by_analyst' . $SrNo . '" name="qC_status_by_analyst[]" class="form-select qc_statusbyab' . $SrNo . '" onchange="SelectedQCStatus(' . $SrNo . ')">
 				</select>
@@ -10371,7 +10310,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 
 			<td class="desabled"><input type="text" id="AppLOD' . $SrNo . '" name="AppLOD[]" class="form-control textbox_bg" value="' . $general_data[$i]->AppLOD . '" readonly></td>
 		
-			<td><input type="text" id="InstrumentCode' . $SrNo . '" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" value="' . $general_data[$i]->Inscode . '" onclick="OpenInstrmentModal(' . $SrNo . ')"></td>
+			<td><input type="text" id="InstrumentCode' . $SrNo . '" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" value="' . $general_data[$i]->InsCode . '" onclick="OpenInstrmentModal(' . $SrNo . ')"></td>
 
 			<td class="desabled"><input type="text" id="InstrumentName' . $SrNo . '" name="InstrumentName[]" class="form-control textbox_bg" value="' . $general_data[$i]->InsName . '" readonly style="border: 1px solid #efefef !important;"></td>
 
@@ -10441,7 +10380,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 			</tr>';
 			}
 		}
-		$QCS_un_id = (count($qcStatus) + 1);
+		$QCS_un_id = (count($qcStatus));
 		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
 		<td>' . $QCS_un_id . '</td>
 		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
@@ -10479,45 +10418,39 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 		// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
 		$QCS_un_id = (count($qcStatus) + 1);
 		$FinalResponce['qcStatus'] .= '<tr id="add-more_' . $QCS_un_id . '">
-		<td>' . $QCS_un_id . '</td>
-		<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
+			<td>' . $QCS_un_id . '</td>
+			<td><select id="qc_Status_' . $QCS_un_id . '" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(' . $QCS_un_id . ')"></select></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
-
-
-		<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-		<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
-
-		<td>
-		<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
-
-		<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCStsQty_' . $QCS_un_id . '" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore(' . $QCS_un_id . ');"></td>
 
 
-		<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCReleaseDate_' . $QCS_un_id . '" name="qCReleaseDate[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCReleaseTime_' . $QCS_un_id . '" name="qCReleaseTime[]" class="form-control" readonly></td>
 
-		<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+			<td><input class="border_hide" type="text"  id="qCitNo_' . $QCS_un_id . '" name="qCitNo[]" class="form-control" value=""></td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+			<td>
+			<select id="doneBy_' . $QCS_un_id . '" name="doneBy[]" class="form-select done-by-mo1"></select>
+			</td>
 
-		<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+			<td><input class="border_hide" type="file"  id="qCAttache1_' . $QCS_un_id . '" name="qCAttache1[]" class="form-control"></td>
 
-		<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
-		
-	</tr>';
 
+			<td><input class="border_hide" type="file"  id="qCAttache2_' . $QCS_un_id . '" name="qCAttache2[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="file"  id="qCAttache3_' . $QCS_un_id . '" name="qCAttache3[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="date"  id="qCDeviationDate_' . $QCS_un_id . '" name="qCDeviationDate[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationNo_' . $QCS_un_id . '" name="qCDeviationNo[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCDeviationResion_' . $QCS_un_id . '" name="qCDeviationResion[]" class="form-control"></td>
+
+			<td><input class="border_hide" type="text"  id="qCStsRemark1_' . $QCS_un_id . '" name="qCStsRemark1[]" class="form-control"></td>
+			
+		</tr>';
 	}
-
-
-
-
-
 
 	if (!empty($qcAttach)) {
 		for ($j = 0; $j < count($qcAttach); $j++) {
@@ -10563,12 +10496,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 
 
 }
-
-
-
-
-
-
 
 if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 
@@ -10637,13 +10564,14 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 	$tdata['U_PC_StDEnt'] = trim(addslashes(strip_tags($_POST['StabilityPlanDocEntry'])));
 	$tdata['U_PC_StDt'] = trim(addslashes(strip_tags($_POST['stability_StabilityLoadingDate'])));
 	//$tdata['U_PC_StQty'] = trim(addslashes(strip_tags($_POST['stability_StabilityPlanQty'])));
-	$tdata['U_PC_Unit'] = 'BOX';
-
+	// $tdata['U_PC_Unit'] = 'BOX';
+	// U_PC_ExpDt
+	// U_PC_QCSts
 
 	$ganaralData = array();
-	$BL = 0; //skip array avoid and count continue
+	// $BL = 0; //skip array avoid and count continue
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
-		$ganaralData['LineId'] = trim(addslashes(strip_tags($_POST['stability_LineNum'])));
+		$ganaralData['LineId'] = trim(addslashes(strip_tags($_POST['GD_LineId'][$i])));
 		$ganaralData['Object'] = trim(addslashes(strip_tags('SCS_QCSTAB')));
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
@@ -10664,7 +10592,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		$ganaralData['U_PC_Min1'] = trim(addslashes(strip_tags($_POST['mean'][$i])));
 		$ganaralData['U_PC_Rotpt'] = trim(addslashes(strip_tags($_POST['ResultOut'][$i])));
 		$ganaralData['U_PC_Rmrks'] = trim(addslashes(strip_tags($_POST['remarks'][$i])));
-		$ganaralData['U_PC_QCSts'] = trim(addslashes(strip_tags($_POST['GDQCStatus'][$i])));
+		$ganaralData['U_PC_QCSts'] = trim(addslashes(strip_tags($_POST['qC_status_by_analyst'][$i])));
 		$ganaralData['U_PC_TMeth'] = trim(addslashes(strip_tags($_POST['TMethod'][$i])));
 		$ganaralData['U_PC_MType'] = trim(addslashes(strip_tags($_POST['MType'][$i])));
 		$ganaralData['U_PC_PhStd'] = null;
@@ -10689,28 +10617,18 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['end_date'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['end_time'][$i])));
 		$tdata['SCS_QCSTAB1Collection'][] = $ganaralData; // row data append on this array
-		$BL++; // increment variable define here	
+		// $BL++; // increment variable define here	
 	}
 
-
-
-
-
-
-
-
-
-
 	$qcStatus = array();
-	$qcS = 0; //skip array avoid and count continue
+	// $qcS = 0; //skip array avoid and count continue
 	for ($j = 0; $j < count($_POST['qc_Status']); $j++) {
 		$qcStatus['LineId'] = trim(addslashes(strip_tags($_POST['stability_LineNum'][$j])));
 		$qcStatus['Object'] = trim(addslashes(strip_tags('SCS_QCSTAB')));
 		$qcStatus['U_PC_Stus'] = trim(addslashes(strip_tags($_POST['qc_Status'][$j])));
 		$qcStatus['U_PC_Qty'] = trim(addslashes(strip_tags($_POST['qCStsQty'][$j])));
-		
-		$qcStatus['U_PC_RelDt'] = '';
-		$qcStatus['U_PC_RelTm'] = '';
+		$qcStatus['U_PC_RelDt'] = trim(addslashes(strip_tags($_POST['qCReleaseDate'][$j])));
+		$qcStatus['U_PC_RelTm'] = trim(addslashes(strip_tags($_POST['qCReleaseTime'][$j])));
 		$qcStatus['U_PC_ITNo'] = trim(addslashes(strip_tags($_POST['qCitNo'][$j])));
 		$qcStatus['U_PC_DBy'] = trim(addslashes(strip_tags($_POST['doneBy'][$j])));
 		$qcStatus['U_PC_Rmrk1'] = trim(addslashes(strip_tags($_POST['qCStsRemark1'][$j])));
@@ -10720,17 +10638,13 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		$qcStatus['U_PC_DvDt'] = (!empty($_POST['qCDeviationDate'][$j])) ? date("Y-m-d", strtotime($_POST['qCDeviationDate'][$j])) : null;
 		$qcStatus['U_PC_DvNo'] = trim(addslashes(strip_tags($_POST['qCDeviationNo'][$j])));
 		$qcStatus['U_PC_DvRsn'] = trim(addslashes(strip_tags($_POST['qCDeviationResion'][$j])));
-
-
-		
-
 		$tdata['SCS_QCSTAB2Collection'][] = $qcStatus; // row data append on this array
-		$qcS++;
+		// $qcS++;
 	}
 
 
-	print_r($qcStatus);
-	die();
+	// print_r($_POST['qc_Status']);
+	// die();
 
 
 
@@ -10749,6 +10663,7 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 
 	$mainArray = $tdata; // all child array append in main array define here
 
+	
 	// echo "<pre>";
 	// print_r($mainArray);
 	// echo "<pre>";
@@ -10780,37 +10695,65 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtnStability'])) {
 		exit;
 	}
 
-	if ($_POST['stability_ValidUpto'] == "") {
-		$data['status'] = 'False';
-		$data['DocEntry'] = '';
-		$data['message'] = 'ValidUpTo Date is required.';
-		echo json_encode($data);
-		exit;
-	}
+	// if ($_POST['stability_ValidUpto'] == "") {
+	// 	$data['status'] = 'False';
+	// 	$data['DocEntry'] = '';
+	// 	$data['message'] = 'ValidUpTo Date is required.';
+	// 	echo json_encode($data);
+	// 	exit;
+	// }
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
 	$res = $obj->SAP_Login();
 
 	if (!empty($res)) {
-	$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB;
-		$responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
-		$responce = json_decode($responce_encode);
+		// $Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB;
+		// $responce_encode = $objKri->qcPostDocument($mainArray, $Final_API);
+		// $responce = json_decode($responce_encode);
 		//  <!-- ------- service layer function responce manage Start Here ------------ -->
-		if (array_key_exists('error', (array)$responce)) {
-			$data['status'] = 'False';
-			$data['DocEntry'] = '';
-			$data['message'] = $responce->error->message->value;
-			echo json_encode($data);
-		} else {
-			$data['status'] = 'True';
-			$data['DocEntry'] = $responce->DocEntry;
-			$data['message'] = 'QC Post Document stability Added Successfully';
-			echo json_encode($data);
-		}
+
+
+			$Final_API = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_QCSTAB . '(' . $_POST['stability_DocEntry'] . ')';
+			$responce_encode = $obj->PATCH_ServiceLayerMasterFunction($mainArray, $Final_API);
+			$responce = json_decode($responce_encode);
+
+			if (empty($responce)) {
+				$data['status'] = 'True';
+				$data['DocEntry'] = $_POST['stability_DocEntry'];
+				$data['message'] = "QC Post Document stability Added Successfully.";
+				echo json_encode($data);
+			} else {
+				if (array_key_exists('error', (array)$responce)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '';
+					$data['message'] = $responce->error->message->value;
+					echo json_encode($data);
+				}
+			}
+
+			// if (array_key_exists('error', (array)$responce)) {
+			// 	$data['status'] = 'False';
+			// 	$data['DocEntry'] = '';
+			// 	$data['message'] = $responce->error->message->value;
+			// 	echo json_encode($data);
+			// } else {
+			// 	$data['status'] = 'True';
+			// 	$data['DocEntry'] = $responce->DocEntry;
+			// 	$data['message'] = 'QC Post Document stability Added Successfully';
+			// 	echo json_encode($data);
+			// }
 		//  <!-- ------- service layer function responce manage End Here -------------- -->	
 	}
 	$res1 = $obj->SAP_Logout();  // SAP Service Layer Logout Here	
 	exit(0);
 	// service laye function and SAP loin & logout function define end here 
+
+
+
+
+
+
+
+
 
 }
 

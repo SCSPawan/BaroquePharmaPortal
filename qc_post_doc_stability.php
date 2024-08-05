@@ -114,11 +114,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Whs Code</th>
-                        <th>Whs Total</th>
-                        <th>Base Type</th>
-                        <th>Base Entry</th>
-                        <th>Base Num</th>
-                        <th>Doc Date</th>
                         <th>Quantity</th>
                         <th>Lot Number</th>
                         <th>Exp. Date</th>
@@ -133,8 +128,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <th>Stability Collection No</th>
                         <th>Route Stage Reco WO No</th>
                         <th>Route Stage Reco WO Entry</th>
-                        <th>Planned Qty</th>
-                        <th>Route Stage Reco UOM</th>
                         <th>Route Stage Reco Prod Receipt No</th>
                         <th>Route Stage Reco Prod Receipt Entry</th>
                         <th>Route Stage Reco Prod Receipt Qty</th>
@@ -142,10 +135,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <th>Stability Condition</th>
                         <th>Stability Time Period</th>
                         <th>Type of Analysis</th>
-                        <th>Period in months</th>
-                        <th>Period Type</th>
-                        <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -187,11 +176,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     <td class="desabled">' . $getAllData[$i]->ItemCode . '</td>
                     <td class="desabled">' . $getAllData[$i]->ItemName . '</td>
                     <td class="desabled">' . $getAllData[$i]->WhsCode . '</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
                     <td class="desabled">' . $getAllData[$i]->BatchQty . '</td>
                     <td class="desabled">' . $getAllData[$i]->BatchNo . '</td>
                     <td class="desabled">' . $ExpiryDate . '</td>
@@ -206,8 +190,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     <td class="desabled">' . $getAllData[$i]->SampleCollectionNoStability . '</td>
                     <td class="desabled">' . $getAllData[$i]->WoNo . '</td>
                     <td class="desabled">' . $getAllData[$i]->WoEntry . '</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
                     <td class="desabled">' . $getAllData[$i]->ReceiptNo . '</td>
                     <td class="desabled">' . $getAllData[$i]->ReceiptEntry . '</td>
                     <td class="desabled">' . $getAllData[$i]->RecQty . '</td>
@@ -215,10 +197,6 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     <td class="desabled">' . $getAllData[$i]->StabilityCondition . '</td>
                     <td class="desabled">' . $getAllData[$i]->StabilityTimePeriod . '</td>
                     <td class="desabled">' . $getAllData[$i]->AnalysisType . '</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
-                    <td class="desabled" style="color:red;">****</td>
                 </tr>';
             }
         }
@@ -523,7 +501,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Mfg Date</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control desabled" type="Text" id="stability_MfgDate" name="stability_MfgDate" readonly>
+                                                        <input class="form-control desabled" type="text" id="stability_MfgDate" name="stability_MfgDate" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -532,7 +510,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                 <div class="form-group row mb-2">
                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Expiry Date</label>
                                                     <div class="col-lg-8">
-                                                        <input class="form-control desabled" type="Text" id="stability_ExpiryDate" name="stability_ExpiryDate" readonly>
+                                                        <input class="form-control desabled" type="text" id="stability_ExpiryDate" name="stability_ExpiryDate" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1152,14 +1130,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $(`#stability_BatchQty`).val(JSONObject[0]['BatchQty']);
 
                     // <!-- ----------- MFG Date Start Here ----------------------------------- -->
-                        $(`#stability_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
+                        // console.log('MfgDate=>',JSONObject[0].MfgDate);
+                        $(`#stability_MfgDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
                     // <!-- ----------- MFG Date End Here ------------------------------------- -->
 
+                    // console.log('all data=>',JSONObject[0]);
+
                     // <!-- ----------- Exp Date Start Here ----------------------------------- -->
-                        $(`#stability_MfgDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
+                        // console.log('ExpDate=>',JSONObject[0].ExpiryDate);
+                        $(`#stability_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
                     // <!-- ----------- Exp Date End Here ------------------------------------- -->
 
-                //    5th row------------------------------------------------------------------------
+                //  5th row------------------------------------------------------------------------
                     $(`#stability_SampleIntimationNoStability`).val(JSONObject[0]['SampleIntimationNoStability']);
                     $(`#stability_SampleCollectionNoStability`).val(JSONObject[0]['SampleCollectionNoStability']);
                     $(`#stability_WhsCode`).val(JSONObject[0]['WhsCode']);
@@ -1204,6 +1186,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         if(DateOG!=''){
             let [day, month, year] = DateOG.split(" ")[0].split("-");
             let Date = `${day}-${month}-${year}`;
+            // let Date = `${year}-${month}-${day}`;
             return Date;
         }
     }

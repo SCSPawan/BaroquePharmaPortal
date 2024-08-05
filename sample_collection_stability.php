@@ -956,6 +956,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $('#stability_DocEntry').val(JSONObject['DataDetails'][0].DocEntry);
                     $('#InventoryTransferItemAppend').html(JSONObject['option']);
                     $('#ContainerSelectionItemAppend').html(JSONObject['containerSelection']);
+
+                    $('#SI_GI_Th').hide(); // Goods Issue Transaction (Sample Issue) Hide FromWhs
+                    $('#SI_GI_Td').hide(); // Goods Issue Transaction (Sample Issue) Hide FromWhs
                 },
                 complete:function(data){
                     getSeriesDropdownForGoodsIssue() // DocName By using API to get dropdown 
