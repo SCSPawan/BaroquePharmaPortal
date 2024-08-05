@@ -446,11 +446,6 @@
 
 <!-- --------inventory transfer------------ -->
 <div class="modal fade inventory_transfer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <!-- form start -->
-                          <form action="#" id="inventoryTransferStabilityform" method="POST">
-                                    <div class="row">
-                                        <!-- ================= -->
-                                        <div class="col-xl-3 col-md-6">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
