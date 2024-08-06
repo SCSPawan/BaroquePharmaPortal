@@ -134,8 +134,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     <th>WO Qty</th> 
                     <th>Batch No</th>
                     <th>Batch Qty</th>
-                    <th>MFG Date</th>
-                    <th>Expiry Date</th>
                     <th>Branch Name</th>
                 </tr>
                 </thead>
@@ -145,23 +143,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     for ($i=$r_start; $i <$r_end ; $i++) { 
                         if(!empty($getAllData[$i]->RFPNo)){   //  this condition save to extra blank loop
                             $SrNo=$i+1;
-                            // --------------- Convert String code Start Here ---------------------------
-                                if(empty($getAllData[$i]->MfgDate)){
-                                    $MfgDate='';
-                                }else{
-                                    $MfgDate = str_replace('/', '-', $getAllData[$i]->MfgDate); 
-                                    // All (/) replace to (-)
-                                    $MfgDate=date("d-m-Y", strtotime($MfgDate));
-                                }
-
-                                if(empty($getAllData[$i]->ExpDate)){
-                                    $ExpiryDate='';
-                                }else{
-                                    $ExpiryDate = str_replace('/', '-', $getAllData[$i]->ExpDate); 
-                                    // All (/) replace to (-)
-                                    $ExpiryDate=date("d-m-Y", strtotime($ExpiryDate));
-                                }
-                            // --------------- Convert String code End Here-- ---------------------------
 
                         $option.='
                             <tr>
@@ -179,14 +160,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->WOQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
-                                <td class="desabled">'.$MfgDate.'</td>
-                                <td class="desabled">'.$ExpiryDate.'</td>
                                 <td class="desabled">'.$getAllData[$i]->Branch.'</td>
                             </tr>';
                         }
                     }
                 }else{
-                     $option.='<tr><td colspan="16" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
+                    $option.='<tr><td colspan="13" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
                 }
         $option.='</tbody> 
     </table>'; 
@@ -1630,12 +1609,12 @@ function getSeriesDropdown_gd_extra()
         var ItemName=document.getElementById('itP_ItemName').value;
         var item_BQty=parseFloat(document.getElementById('itP_BQty').value).toFixed(6);  // item available Qty
         var fromWhs=document.getElementById('itP_FromWhs').value;
-        var ToWhs=document.getElementById('itP_ToWhs').value;
+        // var ToWhs=document.getElementById('itP_ToWhs').value;
         var Location=document.getElementById('itP_Loction').value;
 
         if(selectedQtySum==item_BQty){ // Container selection Qty validation
 
-            if(ToWhs!=''){ // Item level To Warehouse validation
+            if(fromWhs!=''){ // Item level To Warehouse validation
 
                 if(PostingDate!=''){ // Posting Date validation
 
@@ -1701,7 +1680,7 @@ function getSeriesDropdown_gd_extra()
                     swal("Oops!", "Please Select A Posting Date.", "error");
                 }
             }else{
-                swal("Oops!", "To Warehouse Mandatory.", "error");
+                swal("Oops!", "From Warehouse Mandatory.", "error");
             }
 
         }else{
@@ -2067,9 +2046,9 @@ function OpenInventoryTransferModel_extraIssue()
 }
 
 
-function ContainerSelection_extraIssue(){
-    var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
-// Check if a radio button is selected
+    function ContainerSelection_extraIssue(){
+        var selectedRadio = document.querySelector('input[name="ExtraIslistRado[]"]:checked');
+        // Check if a radio button is selected
 
 
                     if (selectedRadio) {
@@ -2222,7 +2201,7 @@ function ContainerSelection_extraIssue(){
 
 
 
- function SubmitInventoryTransfer_external()
+    function SubmitInventoryTransfer_external()
     {
         var selectedQtySum=document.getElementById('cs_selectedQtySum_external').value; // final Qty sum
         var PostingDate=document.getElementById('gd_PostingDate_extra').value;

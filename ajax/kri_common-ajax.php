@@ -794,8 +794,8 @@ if(isset($_POST['action']) && $_POST['action'] =='qc_general_data_tab')
 				$FinalResponce['general_data'].='<tr>
 					<td class="desabled">'.($i+1).'</td>
 
-					<td>
-						<input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$general_data[$i]->PCode.'" class="form-control">
+					<td class="desabled">
+						<input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$general_data[$i]->PCode.'" class="form-control textbox_bg">
 					</td>
 
 					<td class="desabled">
@@ -1989,7 +1989,7 @@ if(!empty($qcStatus)){
 			</tr>';
 		}
 	}
-	$QCS_un_id=(count($qcStatus));
+	$QCS_un_id=(count($qcStatus)+1);
 	$FinalResponce['qcStatus'] .='<tr id="add-more_'.$QCS_un_id.'">
 		<td>'.$QCS_un_id.'</td>
 		<td><select id="qc_Status_'.$QCS_un_id.'" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status('.$QCS_un_id.')"></select></td>

@@ -148,8 +148,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     <th>Material Type</th>
                     <th>Item Code</th>
                     <th>Item Name</th>
-                    <th>Unit</th>
-                    <th>WO Qty</th> 
                     <th>Batch No</th>
                     <th>Batch Qty</th>
                     <th>MFG Date</th>
@@ -191,8 +189,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->MatType.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
-                                <td class="desabled">'.$getAllData[$i]->Unit.'</td>
-                                <td class="desabled">'.$getAllData[$i]->WOQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                 <td class="desabled">'.$MfgDate.'</td>
@@ -962,27 +958,29 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                                                         
                                                                     <button type="button" class="btn btn-primary" id="addQcPostDocumentSubmitQCCheckBtn" name="addQcPostDocumentSubmitQCCheckBtn" onclick="return add_qc_post_document();">Update</button>
 
-                                                                    <button type="button" class="btn btn-primary active" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="button" autocomplete="off">Cancel</button>
+                                                                    <button type="button" class="btn btn-danger active" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="button" autocomplete="off">Cancel</button>
 
                                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" autocomplete="off" onclick="TransToUnder();">Inventory Transfer</button>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
-                                                                    <div class="btn-group">
-                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Work Sheet Print</button>
-                                                                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
-                                                                            <span class="visually-hidden"></span>
-                                                                        </button>
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Label & COA Print</button>
+    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent"><i class="fa fa-angle-down"></i>
+        <span class="visually-hidden"></span>
+    </button>
 
-                                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                                                            <li><a class="dropdown-item" href="#">Approval Label Print</a></li>
-                                                                            <li><a class="dropdown-item" href="#">Rejected Label Print</a></li>
-                                                                            <li><a class="dropdown-item" href="#">On-Hold Label Print</a></li>
-                                                                            <li><a class="dropdown-item" href="#">Print Certificate</a></li>
-                                                                        </ul>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('FGQCPOSTAPPROVEPRINTLAYOUT','Approval Label Print')">Approval Label Print</a></li>
 
-                                                                    </div>
+        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('FGQCPOSTREJECTPRINTLAYOUT','Rejected Label Print')">Rejected Label Print</a></li>
+
+        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCONHOLDLABEL','On-Hold Label Print')">On-Hold Label Print</a></li>
+
+        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".QC_PostDocPrintLayout" autocomplete="off" onclick="ViewRPT_Print_Open('INWARDQCPRINTCERTIFICATE','Print Certificate')">Print Certificate</a></li>
+    </ul>
+</div>
                                                                 </div>
 
                                                             </div>
@@ -1615,23 +1613,24 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 
 
     function SelectedQCStatus(un_id){
-
-        var QC_StatusByAnalyst=document.getElementById('QC_StatusByAnalyst'+un_id).value;
+        // qC_status_by_analyst
+        var QC_StatusByAnalyst=document.getElementById('qC_status_by_analyst'+un_id).value;
         
         if(QC_StatusByAnalyst=='Complies'){
-
+            // QC_StatusByAnalystTd
+            
             $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #c7f3c7');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
         
         }else if(QC_StatusByAnalyst=='Non Complies'){
 
             $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #f8a4a4');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
         
         }else {
 
             $('#QC_StatusByAnalystTd'+un_id).attr('style', 'background-color: #ffffff');
-            $('#QC_StatusByAnalyst'+un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
+            $('.qc_statusbyab'+un_id).attr('style', 'background-color: #ffffff;border:1px solid #ffffff !important;');
         }
     }
 
@@ -2246,4 +2245,21 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         }
 
   </script>
-  <!-- 2155 -->
+
+<script type="text/javascript">
+    function ViewRPT_Print_Open(API_Name,FormTitle){
+        var DocEntry=$('#QC_P_DOC_FG_DocEntry').val();
+        if(DocEntry!=''){
+            var PrintOutURL=`http://192.168.1.30:8082/API/SAP/${API_Name}?DocEntry=${DocEntry}`;
+            document.getElementById("PrintQuarantine_Link").src = PrintOutURL;
+        }
+
+        document.getElementById('RPT_title').innerHTML= FormTitle;
+    }
+
+    function ViewRPT_Print_Close(){
+        document.getElementById('RPT_title').innerHTML= '';
+        document.getElementById("PrintQuarantine_Link").src = '';
+    }
+</script>
+  <!-- 2249 -->

@@ -713,7 +713,7 @@
                                     <th>Item Name</th>
                                     <th>Quality</th>
                                     <th>Warehouse</th>
-                                    <th>ToWhset</th>
+                                    <!-- <th>ToWhset</th> -->
                                     <th>Location</th>
                                     <th>UOM</th>
                                 </tr>

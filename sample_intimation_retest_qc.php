@@ -786,7 +786,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
             {  
                 $("#footerProcess").show();
                 var JSONObject = JSON.parse(result);
-                console.log('selectedRecord=> ', JSONObject);
+                // console.log('selectedRecord=> ', JSONObject);
 
                 // ------------ row one start -------------------------------------------------------
                     $(`#SIRTAD_GRNNo`).val(JSONObject[0]['GRNNo']);
@@ -794,7 +794,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     $(`#SIRTAD_BpRefNo`).val(JSONObject[0]['BpRefNo']);
                     $(`#SIRTAD_ItemName`).val(JSONObject[0]['ItemName']);
                     $(`#SIRTAD_Status`).val(JSONObject[0]['Status']);
-                    $(`SIRTAD_MfgBy`).val(JSONObject[0]['MfgBy']);
+                    $(`#SIRTAD_MfgBy`).val(JSONObject[0]['MfgBy']);
                     $(`#SIRTAD_Container`).val(JSONObject[0]['Container']);
                     $(`#SIRTAD_QtyPerContainer`).val(JSONObject[0]['QtyPerContainer']);
                     $(`#SIRTAD_MakeBy`).val(JSONObject[0]['MakeBy']);

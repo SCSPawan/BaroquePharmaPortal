@@ -3573,19 +3573,19 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_intimation_Retest_QC_Co
 			for ($i=0; $i <count($response) ; $i++) { 
 
 				// ----------- Date formating condition definr start here---------------------------
-				if(!empty($response[$i]->MfgDate)){
-					$MfgDate=date("d-m-Y", strtotime($response[$i]->MfgDate));
-				}else{
-					$MfgDate='';
-				}
+					if(!empty($response[$i]->MfgDate)){
+						$MfgDate=date("d-m-Y", strtotime($response[$i]->MfgDate));
+					}else{
+						$MfgDate='';
+					}
 
-				if(!empty($response[$i]->ExpDate)){
-					$ExpiryDate=date("d-m-Y", strtotime($response[$i]->ExpDate));
-				}else{
-					$ExpiryDate='';
-				}
-
+					if(!empty($response[$i]->ExpDate)){
+						$ExpiryDate=date("d-m-Y", strtotime($response[$i]->ExpDate));
+					}else{
+						$ExpiryDate='';
+					}
 				// ----------- Date formating condition definr end here-----------------------------
+
 				$option.='<tr>
 					<td style="text-align: center;">
 						<input type="hidden" id="usercheckList'.$i.'" name="usercheckList[]" value="0">
@@ -3601,7 +3601,7 @@ if(isset($_POST['action']) && $_POST['action'] =='sample_intimation_Retest_QC_Co
 						<input class="border_hide textbox_bg" type="text" id="itp_ContainerNo'.$i.'" name="itp_ContainerNo[]" class="form-control" value="'.$response[$i]->ContainerNo.'" readonly>
 					</td>
 					<td class="desabled">
-						<input class="border_hide textbox_bg" type="text" id="itp_Batche'.$i.'" name="itp_Batch[]" class="form-control" value="'.$response[$i]->Batch.'" readonly>
+						<input class="border_hide textbox_bg" type="text" id="itp_Batche'.$i.'" name="itp_Batch[]" class="form-control" value="'.$response[$i]->BatchNum.'" readonly>
 					</td>
 
 					<td class="desabled">
@@ -5804,7 +5804,6 @@ if(isset($_POST['OTSCSP_Btn'])){
 
 	$tdata['Remark']=null;
 	$tdata['U_PC_BLin']=null;
-	$tdata['U_PC_TrNo']=null;
 	$tdata['U_PC_DRev']=null;
 	$tdata['U_PC_SIssue']=null;
 	$tdata['U_PC_RSIssue']=null;
@@ -5816,7 +5815,7 @@ if(isset($_POST['OTSCSP_Btn'])){
 	$tdata['U_PC_CntNo3']=null;
 	$tdata['U_PC_QtyLab']=null;
 	$tdata['U_PC_Trans']=null;
-	$tdata['U_PC_StDt']=null;
+
 
 	$tdata['Object']='SCS_SCOLSTAB';
 	$tdata['Series']=trim(addslashes(strip_tags($_POST['OTSCP_DocNoName'])));
@@ -5850,6 +5849,8 @@ if(isset($_POST['OTSCSP_Btn'])){
 	$tdata['U_PC_StDEnt']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityPlanDocEntry'])));
 	$tdata['U_PC_StQty']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityPlanQuantity'])));
 	$tdata['U_PC_MakeBy']=trim(addslashes(strip_tags($_POST['OTSCP_MakeBy'])));
+	$tdata['U_PC_StDt']=(!empty($_POST['OTSCP_StabilityLoadingDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_StabilityLoadingDate'])) : null;
+	$tdata['U_PC_TrNo']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityIntimationNo'])));
 	$tdata['U_PC_DDt']=(!empty($_POST['OTSCP_DocDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_DocDate']))) : null;
 	$tdata['U_PC_InDt']=(!empty($_POST['OTSCP_IntimatedDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_IntimatedDate'])) : null;
 	$tdata['U_PC_MnfDt']=(!empty($_POST['OTSCP_MfgDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_MfgDate']))) : null;

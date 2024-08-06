@@ -317,372 +317,372 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
 <script type="text/javascript">
     $(".loader123").hide(); // loader default hide script
 
-// <!-- ----------------- lattest updated code start (11th July 2024) --------------------------------- -->
-    $(document).ready(function()
-    {
-        var dataString ='action=list';
-        
-        $.ajax({  
-            type: "POST",  
-            url: window.location.href,  
-            data: dataString,  
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {  
-                $('#list-append').html(result);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-       });
-    });
-
-    function change_page(page_id)
-    { 
-        var dataString ='page_id='+page_id+'&action=list';
-
-        $.ajax({
-            type: "POST",
-             url: window.location.href,  
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result)
-            {
-                $('#list-append').html(result);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
+    // <!-- ----------------- lattest updated code start (11th July 2024) --------------------------------- -->
+        $(document).ready(function()
+        {
+            var dataString ='action=list';
+            
+            $.ajax({  
+                type: "POST",  
+                url: window.location.href,  
+                data: dataString,  
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result)
+                {  
+                    $('#list-append').html(result);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            });
         });
-    }
 
-    function OT_PoPup_QCPO_Stability(DocEntry,ItemCode,BatchNo,SampleColNo)  // API Ser No 40 somthing wrong
-    {
-        $.ajax({ 
-            type: "POST",
-            url: 'ajax/kri_production_common_ajax.php',
-            data:{'DocEntry':DocEntry,'ItemCode':ItemCode,'BatchNo':BatchNo,'SampleColNo':SampleColNo,'action':"OT_PoPup_QCPO_Stability_ajax"},
+        function change_page(page_id)
+        { 
+            var dataString ='page_id='+page_id+'&action=list';
 
-            beforeSend: function(){
-                // $(".loader123").show();
-            },
-            success: function(result)
-            {
-               
+            $.ajax({
+                type: "POST",
+                url: window.location.href,  
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result)
+                {
+                    $('#list-append').html(result);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            });
+        }
+
+        function OT_PoPup_QCPO_Stability(DocEntry,ItemCode,BatchNo,SampleColNo)  // API Ser No 40 somthing wrong
+        {
+            $.ajax({ 
+                type: "POST",
+                url: 'ajax/kri_production_common_ajax.php',
+                data:{'DocEntry':DocEntry,'ItemCode':ItemCode,'BatchNo':BatchNo,'SampleColNo':SampleColNo,'action':"OT_PoPup_QCPO_Stability_ajax"},
+
+                beforeSend: function(){
+                    // $(".loader123").show();
+                },
+                success: function(result)
+                {
                 
-                var JSONObjectAll = JSON.parse(result);
-
-                var JSONObject=JSONObjectAll['SampleCollDetails'];
-                // console.log('Res=>', JSONObject);
-              
-                
-                $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
-                $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
-                $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
-
-                $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
-                $(`#Stability_QC_LabelClaimUOM`).val(JSONObject[0].LabelClaimUOM);
-                // Line 1 start
-                    $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
-                    $(`#ReceiptEntry`).val(JSONObject[0].RouteStageRecoReceiptEntry);
-                    $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo);Stability_QC_LOC
-                    $(`#WoEntry`).val(JSONObject[0].RouteStageRecoWODocEntry);
-                  $(`#Stability_QC_LOC`).val(JSONObject[0].LocCode);
-                // alert(JSONObject[0].RouteStageRecoWODocEntry);
-                // RouteStageRecoReceiptEntry
-                    $(`#ItemCode`).val(JSONObject[0].ItemCode);
-                    $(`#ItemName`).val(JSONObject[0].ItemName);
-
-                // Line 2 start
-                    $(`#GenericName`).val(JSONObject[0].GenericName);
-
-                    $(`#LabelCliam`).val(JSONObject[0].LabelClaim);
-                    $(`#LabelCliamUOM`).val(JSONObject[0].LabelClaimUOM);
-                    $(`#MfgBy`).val(JSONObject[0].MfgBy);
-
-                // Line 3 start
-                        $(`#ARNo`).val(JSONObject[0].ARNo);
-                        $(`#SpecificationNo`).val(JSONObject[0].SpecNo);
-
-                // Line 4 start
-                    $(`#SampleType`).val(JSONObject[0].SampleType);
-                        $(`#MaterialType`).val(JSONObject[0].MaterialType);
-                        $(`#BatchNo`).val(JSONObject[0].BatchNo);
-
-                // Line 5 start
-                    $(`#BatchSize`).val(JSONObject[0].BatchQty); //<!-- misssing -------------------------------------------- -->
-                    // console.log('Sample Intimation Stability=>', JSONObject[0].SampleIntimation);
-                    $(`#SampleIntimationStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
-                    // console.log('Sample Collection Stability=>', JSONObject[0].SampleCollectionNo);
-                    $(`#SampleCollStability`).val(JSONObject[0].SampleCollectionNo);
-
-
-                // SampleIntimationNo
-                // SampleCollectionNo
-
-                // SampleCollStability
-                // SampleIntimationStability
-
-
-                // <!-- ----------- Mfg Date Start Here ----------------------- -->
-                    var mfgDateOG = JSONObject[0]['MfgDate'];
-                    if(mfgDateOG!=''){
-                        mfgDate = mfgDateOG.split(' ')[0];
-                        $(`#MfgDate`).val(mfgDate);
-                    }
-                // <!-- ----------- Mfg Date End Here ------------------------- -->
-
-                // <!-- ----------- Mfg Date Start Here ----------------------- -->
-                    var expiryDateOG = JSONObject[0].ExpiryDate;
-                    if(expiryDateOG!=''){
-                        ExpiryDate = expiryDateOG.split(' ')[0];
-                        $(`#ExpiryDate`).val(ExpiryDate);
-                    }
-                // <!-- ----------- Mfg Date End Here ------------------------- -->
-
-                // Line 6 start
-                    // $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
-                    $(`#SampleTransferNoFromWO`).val(JSONObject[0].BaseNum); //<!-- misssing -------------------------------------------- -->
-                    $(`#SampleCollEntryFromWO`).val(JSONObject[0].BaseEntry); //<!-- misssing -------------------------------------------- -->
-                
-                $(`#WhsCode`).val(JSONObject[0].WhsCode);
-
-                // Line 7 start
-                    $(`#StabilityPlanDocNum`).val(JSONObject[0].StabilityPlanDocNum);
-                   
-                    $(`#StabilityPlanQuantity`).val(JSONObject[0].StabilityPlanQuantity);
-
-                // <!-- ----------- Mfg Date Start Here ----------------------- -->
-                    var stabilityLoadingDateOG = JSONObject[0].StabilityLoadingDate;
-                    if(stabilityLoadingDateOG!=''){
-                    stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
-                        $(`#StabilityLoadingDate`).val(stabilityLoadingDate);
-                    }
-                // <!-- ----------- Mfg Date End Here ------------------------- -->
-
-                // Line 8 start
-                    $(`#NoOfContainer`).val(JSONObject[0].NoofContainer);
-
-                // Line 9 start
-                    $(`#Branch`).val(JSONObject[0].Branch);
-                    $(`#Location`).val(JSONObject[0].Location);
-                    $(`#PackSize`).val(JSONObject[0].PackSize);
-                    $(`#Stability_QCbaseno`).val(JSONObject[0].BaseNum);
-                    $(`#Stability_QCbaseEntry`).val(JSONObject[0].BaseEntry);
-                    $(`#Stability_QCPlanno`).val(JSONObject[0].StabilityPlanDocNum);
-                 
-                    $(`#Stability_QCLDate`).val(JSONObject[0].StabilityLoadingDate);
-                    $(`#Stability_QC_UOM`).val(JSONObject[0].RouteStageRecoUOM);
-                   
-                    // addDaysToDate(JSONObject[0].QCDays);  // add QC Days In Postion Date 
-
-
-
-                    // console.log("Current Date:", currentDate);
-                    // console.log("New Date:", newDate);
-
-
-
-
-
-
-
-
-
-
-                // Line 10 start
-                    $(`#StabilityType`).val(JSONObject[0].StabilityType);
-                    $(`#AnalysisType`).val(JSONObject[0].AnalysisType);
-                    $(`#StabilityCondition`).val(JSONObject[0].StabilityCondition);
-                    $(`#StabilityTimePeriod`).val(JSONObject[0].StabilityTimePeriod);
-                    $(`#StabilityMakeBy`).val(JSONObject[0].MakeBy);
                     
-                    $(`#StabilityQC_CK_D_Factor`).val(JSONObject[0].Factor);
-                    $(`#StabilityQC_CK_D_NoOfContainer`).val(JSONObject[0].NoofContainer);
-                    $(`#StabilityQC_CK_D_Remarks`).val('');
-                    $(`#Stability_BPLId`).val(JSONObject[0].BPLId);
-                    $(`#Stability_ItemCode`).val(JSONObject[0].ItemCode);
-                    $(`#Stability_FromWhs`).val(JSONObject[0].WhsCode);
-                    $(`#Stability_QCDays`).val(JSONObject[0].QCDays);
+                    var JSONObjectAll = JSON.parse(result);
+
+                    var JSONObject=JSONObjectAll['SampleCollDetails'];
+                    // console.log('Res=>', JSONObject);
+                
+                    
+                    $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
+                    $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
+                    $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
+
+                    $(`#StabilityPlanDocEntry`).val(JSONObject[0].StabilityPlanDocEntry);
+                    $(`#Stability_QC_LabelClaimUOM`).val(JSONObject[0].LabelClaimUOM);
+                    // Line 1 start
+                        $(`#ReceiptNo`).val(JSONObject[0].RouteStageRecoReceiptNo);
+                        $(`#ReceiptEntry`).val(JSONObject[0].RouteStageRecoReceiptEntry);
+                        $(`#WoNo`).val(JSONObject[0].RouteStageRecoWONo);Stability_QC_LOC
+                        $(`#WoEntry`).val(JSONObject[0].RouteStageRecoWODocEntry);
+                    $(`#Stability_QC_LOC`).val(JSONObject[0].LocCode);
+                    // alert(JSONObject[0].RouteStageRecoWODocEntry);
+                    // RouteStageRecoReceiptEntry
+                        $(`#ItemCode`).val(JSONObject[0].ItemCode);
+                        $(`#ItemName`).val(JSONObject[0].ItemName);
+
+                    // Line 2 start
+                        $(`#GenericName`).val(JSONObject[0].GenericName);
+
+                        $(`#LabelCliam`).val(JSONObject[0].LabelClaim);
+                        $(`#LabelCliamUOM`).val(JSONObject[0].LabelClaimUOM);
+                        $(`#MfgBy`).val(JSONObject[0].MfgBy);
+
+                    // Line 3 start
+                            $(`#ARNo`).val(JSONObject[0].ARNo);
+                            $(`#SpecificationNo`).val(JSONObject[0].SpecNo);
+
+                    // Line 4 start
+                        $(`#SampleType`).val(JSONObject[0].SampleType);
+                            $(`#MaterialType`).val(JSONObject[0].MaterialType);
+                            $(`#BatchNo`).val(JSONObject[0].BatchNo);
+
+                    // Line 5 start
+                        $(`#BatchSize`).val(JSONObject[0].BatchQty); //<!-- misssing -------------------------------------------- -->
+                        // console.log('Sample Intimation Stability=>', JSONObject[0].SampleIntimation);
+                        $(`#SampleIntimationStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                        // console.log('Sample Collection Stability=>', JSONObject[0].SampleCollectionNo);
+                        $(`#SampleCollStability`).val(JSONObject[0].SampleCollectionNo);
+
+
+                    // SampleIntimationNo
+                    // SampleCollectionNo
+
+                    // SampleCollStability
+                    // SampleIntimationStability
+
+
+                    // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                        var mfgDateOG = JSONObject[0]['MfgDate'];
+                        if(mfgDateOG!=''){
+                            mfgDate = mfgDateOG.split(' ')[0];
+                            $(`#MfgDate`).val(mfgDate);
+                        }
+                    // <!-- ----------- Mfg Date End Here ------------------------- -->
+
+                    // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                        var expiryDateOG = JSONObject[0].ExpiryDate;
+                        if(expiryDateOG!=''){
+                            ExpiryDate = expiryDateOG.split(' ')[0];
+                            $(`#ExpiryDate`).val(ExpiryDate);
+                        }
+                    // <!-- ----------- Mfg Date End Here ------------------------- -->
+
+                    // Line 6 start
+                        // $(`#SampleCollStability`).val(JSONObject[0].SampleIntimationNo); //<!-- misssing -------------------------------------------- -->
+                        $(`#SampleTransferNoFromWO`).val(JSONObject[0].BaseNum); //<!-- misssing -------------------------------------------- -->
+                        $(`#SampleCollEntryFromWO`).val(JSONObject[0].BaseEntry); //<!-- misssing -------------------------------------------- -->
+                    
+                    $(`#WhsCode`).val(JSONObject[0].WhsCode);
+
+                    // Line 7 start
+                        $(`#StabilityPlanDocNum`).val(JSONObject[0].StabilityPlanDocNum);
+                    
+                        $(`#StabilityPlanQuantity`).val(JSONObject[0].StabilityPlanQuantity);
+
+                    // <!-- ----------- Mfg Date Start Here ----------------------- -->
+                        var stabilityLoadingDateOG = JSONObject[0].StabilityLoadingDate;
+                        if(stabilityLoadingDateOG!=''){
+                        stabilityLoadingDate = stabilityLoadingDateOG.split(' ')[0];
+                            $(`#StabilityLoadingDate`).val(stabilityLoadingDate);
+                        }
+                    // <!-- ----------- Mfg Date End Here ------------------------- -->
+
+                    // Line 8 start
+                        $(`#NoOfContainer`).val(JSONObject[0].NoofContainer);
+
+                    // Line 9 start
+                        $(`#Branch`).val(JSONObject[0].Branch);
+                        $(`#Location`).val(JSONObject[0].Location);
+                        $(`#PackSize`).val(JSONObject[0].PackSize);
+                        $(`#Stability_QCbaseno`).val(JSONObject[0].BaseNum);
+                        $(`#Stability_QCbaseEntry`).val(JSONObject[0].BaseEntry);
+                        $(`#Stability_QCPlanno`).val(JSONObject[0].StabilityPlanDocNum);
+                    
+                        $(`#Stability_QCLDate`).val(JSONObject[0].StabilityLoadingDate);
+                        $(`#Stability_QC_UOM`).val(JSONObject[0].RouteStageRecoUOM);
+                    
+                        // addDaysToDate(JSONObject[0].QCDays);  // add QC Days In Postion Date 
+
+
+
+                        // console.log("Current Date:", currentDate);
+                        // console.log("New Date:", newDate);
+
+
+
+
+
+
+
+
+
+
+                    // Line 10 start
+                        $(`#StabilityType`).val(JSONObject[0].StabilityType);
+                        $(`#AnalysisType`).val(JSONObject[0].AnalysisType);
+                        $(`#StabilityCondition`).val(JSONObject[0].StabilityCondition);
+                        $(`#StabilityTimePeriod`).val(JSONObject[0].StabilityTimePeriod);
+                        $(`#StabilityMakeBy`).val(JSONObject[0].MakeBy);
+                        
+                        $(`#StabilityQC_CK_D_Factor`).val(JSONObject[0].Factor);
+                        $(`#StabilityQC_CK_D_NoOfContainer`).val(JSONObject[0].NoofContainer);
+                        $(`#StabilityQC_CK_D_Remarks`).val('');
+                        $(`#Stability_BPLId`).val(JSONObject[0].BPLId);
+                        $(`#Stability_ItemCode`).val(JSONObject[0].ItemCode);
+                        $(`#Stability_FromWhs`).val(JSONObject[0].WhsCode);
+                        $(`#Stability_QCDays`).val(JSONObject[0].QCDays);
+                        
+                        
+                    
+
                     
                     
+                    QC_StatusByAnalystDropdown(JSONObjectAll.count);
+                    getResultOutputDropdown(JSONObjectAll.count);
+                    getQcStatusDropodwn(1);
+                    getDoneByDroopdown(1);
+                    assayapp();
+                    getResultOutputDropdownWithSelectedOption(JSONObjectAll.count);
+                    
+                    GetRowLevelAnalysisByDropdown(JSONObjectAll.count);
+                    
+                    QC_StatusByAnalystDropdownWithSelectedOption(JSONObjectAll.count);
+                    // ===========================================================================================================
+
+                    // "SrNo": "1",
+                    // "WhsTotal": "",
+                    // "BaseType": "",
+                    // "BaseEntry": "1167",
+                    // "BaseNum": "762",
+                    // "DocDate": "115",
+                    // "Quantity": "100.000000",
+                    // "BatchQty": "100.000000",
+                    // "SampleIntimationNo": "22",
+                    // "SampleCollectionNo": "17",
+                    // "RouteStageRecoWONo": "541",
+                    // "RouteStageRecoWODocEntry": "821",
+                    // "PlannedQuantity": null,
+                    // "RouteStageRecoReceiptNo": "115",
+                    // "RouteStageRecoReceiptEntry": "330",
+                    // "RouteStageRecoReceiptQty": "",
+                    // "RouteStageRecoUOM": "SACHET",
+                    // "PeriodType": "",
+                    // "AdditionalYear": "",
+                    // "EndDate": "",
+                    // "PeriodinMonths": "",
+                    // "Status": "Open",
+                    // "Canceled": null,
+                    // "DocNum": "",
+                    // "Series": "",
+                    // "BPLId": "",
+                    // "LocCode": ""
+
+                    // ------------------------------------------------------Done--------------------------------------------------------------------
+                    // "ItemCode": "FG00020",
+                    // "ItemName": "COLON FIBER SACHET ( ORANGE FLAVOUR)",
+
+                    // "LabelClaim": "0.000000",
+                    // "LabelClaimUOM": "",
+                    // "MfgBy": "",
+
+                    // "ARNo": "",
+                    // "SpecNo": "",
+
+                    // "SampleType": "Stability",
+                    // "MaterialType": "FG",
+                    // "BatchNo": "DEF24092022",
+
+                    // "MfgDate": "24-09-2022 00:00:00",
+                    // "ExpiryDate": "24-07-2025 00:00:00",
+
+                    // "WhsCode": "STBL-DEF",
+
+                    // "StabilityPlanDocNum": "10",
                 
+                    // "StabilityLoadingDate": "26-08-2022 00:00:00",
+                    // "StabilityPlanQuantity": "20.000000",
 
-                
-                
-                QC_StatusByAnalystDropdown(JSONObjectAll.count);
-                getResultOutputDropdown(JSONObjectAll.count);
-                getQcStatusDropodwn(1);
-                getDoneByDroopdown(1);
-                assayapp();
-                getResultOutputDropdownWithSelectedOption(JSONObjectAll.count);
-                
-                GetRowLevelAnalysisByDropdown(JSONObjectAll.count);
-                
-                QC_StatusByAnalystDropdownWithSelectedOption(JSONObjectAll.count);
-                // ===========================================================================================================
+                    // "NoofContainer": "10",
 
-                // "SrNo": "1",
-                // "WhsTotal": "",
-                // "BaseType": "",
-                // "BaseEntry": "1167",
-                // "BaseNum": "762",
-                // "DocDate": "115",
-                // "Quantity": "100.000000",
-                // "BatchQty": "100.000000",
-                // "SampleIntimationNo": "22",
-                // "SampleCollectionNo": "17",
-                // "RouteStageRecoWONo": "541",
-                // "RouteStageRecoWODocEntry": "821",
-                // "PlannedQuantity": null,
-                // "RouteStageRecoReceiptNo": "115",
-                // "RouteStageRecoReceiptEntry": "330",
-                // "RouteStageRecoReceiptQty": "",
-                // "RouteStageRecoUOM": "SACHET",
-                // "PeriodType": "",
-                // "AdditionalYear": "",
-                // "EndDate": "",
-                // "PeriodinMonths": "",
-                // "Status": "Open",
-                // "Canceled": null,
-                // "DocNum": "",
-                // "Series": "",
-                // "BPLId": "",
-                // "LocCode": ""
+                    // "PackSize": "1 X 1 SAC",
+                    // "Branch": "HO",
+                    // "Location": "GENERAL",
 
-                // ------------------------------------------------------Done--------------------------------------------------------------------
-                // "ItemCode": "FG00020",
-                // "ItemName": "COLON FIBER SACHET ( ORANGE FLAVOUR)",
+                    // "StabilityType": "Accelerated Condition",
+                    // "StabilityCondition": "40 0 C +- 2 0 C\/ 75+-5%RH",
+                    // "StabilityTimePeriod": "Up to 6 Months",
+                    // "AnalysisType": "Physical & Chemical",
 
-                // "LabelClaim": "0.000000",
-                // "LabelClaimUOM": "",
-                // "MfgBy": "",
-
-                // "ARNo": "",
-                // "SpecNo": "",
-
-                // "SampleType": "Stability",
-                // "MaterialType": "FG",
-                // "BatchNo": "DEF24092022",
-
-                // "MfgDate": "24-09-2022 00:00:00",
-                // "ExpiryDate": "24-07-2025 00:00:00",
-
-                // "WhsCode": "STBL-DEF",
-
-                // "StabilityPlanDocNum": "10",
-             
-                // "StabilityLoadingDate": "26-08-2022 00:00:00",
-                // "StabilityPlanQuantity": "20.000000",
-
-                // "NoofContainer": "10",
-
-                // "PackSize": "1 X 1 SAC",
-                // "Branch": "HO",
-                // "Location": "GENERAL",
-
-                // "StabilityType": "Accelerated Condition",
-                // "StabilityCondition": "40 0 C +- 2 0 C\/ 75+-5%RH",
-                // "StabilityTimePeriod": "Up to 6 Months",
-                // "AnalysisType": "Physical & Chemical",
-
-                // ===========================================================================================================================
+                    // ===========================================================================================================================
 
 
 
 
-                // var JSONObject=JSONObjectAll['SampleCollDetails'];
-                // $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
-                // $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
-                // $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
+                    // var JSONObject=JSONObjectAll['SampleCollDetails'];
+                    // $(`#qc-post-general-data-list-append`).html(JSONObjectAll['general_data']); // Extra Issue Table Tr tag append here
+                    // $(`#qc-status-list-append`).html(JSONObjectAll['qcStatus']); // External Issue Table Tr tag append here
+                    // $(`#qc-attach-list-append`).html(JSONObjectAll['qcAttach']);
 
-                // $(`#QC_CK_D_WODocEntry`).val(JSONObject[0].RFPDocEntry);
-                // $(`#QC_CK_D_WoNo`).val(JSONObject[0].WONo);
-                // $(`#QC_CK_D_RefNo`).val(JSONObject[0].BpRefNo);
+                    // $(`#QC_CK_D_WODocEntry`).val(JSONObject[0].RFPDocEntry);
+                    // $(`#QC_CK_D_WoNo`).val(JSONObject[0].WONo);
+                    // $(`#QC_CK_D_RefNo`).val(JSONObject[0].BpRefNo);
 
-                // $(`#QC_CK_D_ItemCode`).val(JSONObject[0].ItemCode);
-                // $(`#QC_CK_D_ItemName`).val(JSONObject[0].ItemName);
-                // $(`#QC_CK_D_GenericName`).val('');
-                // $(`#QC_CK_D_LabelCliam`).val(JSONObject[0].LabelClaim);
-                // $(`#QC_CK_D_RecievedQty`).val('');
+                    // $(`#QC_CK_D_ItemCode`).val(JSONObject[0].ItemCode);
+                    // $(`#QC_CK_D_ItemName`).val(JSONObject[0].ItemName);
+                    // $(`#QC_CK_D_GenericName`).val('');
+                    // $(`#QC_CK_D_LabelCliam`).val(JSONObject[0].LabelClaim);
+                    // $(`#QC_CK_D_RecievedQty`).val('');
 
-                // $(`#QC_CK_D_MfgBy`).val(JSONObject[0].MfgBy);
+                    // $(`#QC_CK_D_MfgBy`).val(JSONObject[0].MfgBy);
 
-                // $(`#QC_CK_D_BatchNo`).val(JSONObject[0].BatchNo);
-                // $(`#QC_CK_D_BatchSize`).val(JSONObject[0].BatchQty);
-                // $(`#QC_CK_D_PackSize`).val(JSONObject[0].PackSize);
+                    // $(`#QC_CK_D_BatchNo`).val(JSONObject[0].BatchNo);
+                    // $(`#QC_CK_D_BatchSize`).val(JSONObject[0].BatchQty);
+                    // $(`#QC_CK_D_PackSize`).val(JSONObject[0].PackSize);
 
-                // $(`#QC_CK_D_Branch`).val(JSONObject[0].BranchName);
+                    // $(`#QC_CK_D_Branch`).val(JSONObject[0].BranchName);
 
-                // $(`#QC_CK_D_MaterialType`).val(JSONObject[0].MaterialType);
-                // $(`#QC_CK_D_ARNo`).val(JSONObject[0].ARNo);
+                    // $(`#QC_CK_D_MaterialType`).val(JSONObject[0].MaterialType);
+                    // $(`#QC_CK_D_ARNo`).val(JSONObject[0].ARNo);
 
-                // $(`#QC_CK_D_QCTesttype`).val(JSONObject[0].GateEntryNo);
-                // $(`#QC_CK_D_Stage`).val('');
-                // $(`#QC_CK_D_ValidUpTo`).val('');
-                // $(`#QC_CK_D_Factor`).val(JSONObject[0].Factor);
-                // $(`#QC_CK_D_NoOfContainer`).val(JSONObject[0].TNCont);
-                // $(`#QC_CK_D_FromContainer`).val(JSONObject[0].FCont);
+                    // $(`#QC_CK_D_QCTesttype`).val(JSONObject[0].GateEntryNo);
+                    // $(`#QC_CK_D_Stage`).val('');
+                    // $(`#QC_CK_D_ValidUpTo`).val('');
+                    // $(`#QC_CK_D_Factor`).val(JSONObject[0].Factor);
+                    // $(`#QC_CK_D_NoOfContainer`).val(JSONObject[0].TNCont);
+                    // $(`#QC_CK_D_FromContainer`).val(JSONObject[0].FCont);
 
-                // $(`#QC_CK_D_ToContainer`).val(JSONObject[0].TCont);
+                    // $(`#QC_CK_D_ToContainer`).val(JSONObject[0].TCont);
 
-                // $(`#QC_CK_D_Remarks`).val('');
-                // $(`#QC_CK_D_QtyPerContainer`).val('');
+                    // $(`#QC_CK_D_Remarks`).val('');
+                    // $(`#QC_CK_D_QtyPerContainer`).val('');
 
-                // $(`#QC_CK_D_BPLId`).val(JSONObject[0].BPLId);
-                // $(`#QC_CK_D_BatchQty`).val(JSONObject[0].BatchQty);
-                // $(`#QC_CK_D_LineNum`).val(JSONObject[0].LineNum);
-                // $(`#QC_CK_D_LocCode`).val(JSONObject[0].LocCode);
-                // $(`#QC_CK_D_MfgDate`).val(JSONObject[0].MfgDate);
-                // $(`#QC_CK_D_ExpiryDate`).val(JSONObject[0].ExpiryDate);
-                // $(`#QC_CK_D_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
-                // $(`#QC_CK_D_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
-                // $(`#QC_CK_D_SampleQty`).val(JSONObject[0].SampleQty);
-                // $(`#QC_CK_D_GateENo`).val(JSONObject[0].GateENo);
-                // $(`#QC_CK_D_SpecfNo`).val(JSONObject[0].SpecfNo);
-                // $(`#QC_CK_D_RetestDate`).val(JSONObject[0].RetestDate);
-                // $(`#QC_CK_D_Loc`).val(JSONObject[0].Location);
+                    // $(`#QC_CK_D_BPLId`).val(JSONObject[0].BPLId);
+                    // $(`#QC_CK_D_BatchQty`).val(JSONObject[0].BatchQty);
+                    // $(`#QC_CK_D_LineNum`).val(JSONObject[0].LineNum);
+                    // $(`#QC_CK_D_LocCode`).val(JSONObject[0].LocCode);
+                    // $(`#QC_CK_D_MfgDate`).val(JSONObject[0].MfgDate);
+                    // $(`#QC_CK_D_ExpiryDate`).val(JSONObject[0].ExpiryDate);
+                    // $(`#QC_CK_D_SampleIntimationNo`).val(JSONObject[0].SampleIntimationNo);
+                    // $(`#QC_CK_D_SampleCollectionNo`).val(JSONObject[0].SampleCollectionNo);
+                    // $(`#QC_CK_D_SampleQty`).val(JSONObject[0].SampleQty);
+                    // $(`#QC_CK_D_GateENo`).val(JSONObject[0].GateENo);
+                    // $(`#QC_CK_D_SpecfNo`).val(JSONObject[0].SpecfNo);
+                    // $(`#QC_CK_D_RetestDate`).val(JSONObject[0].RetestDate);
+                    // $(`#QC_CK_D_Loc`).val(JSONObject[0].Location);
 
-                // QC_StatusByAnalystDropdown(JSONObjectAll.count);
-                // getResultOutputDropdown(JSONObjectAll.count);
-                // getQcStatusDropodwn(1);
-                // getDoneByDroopdown(1);
-                // assayapp();
-            },
-            complete:function(data){
-                Compiled_ByDropdown();
-            }
-        }); 
-    }
+                    // QC_StatusByAnalystDropdown(JSONObjectAll.count);
+                    // getResultOutputDropdown(JSONObjectAll.count);
+                    // getQcStatusDropodwn(1);
+                    // getDoneByDroopdown(1);
+                    // assayapp();
+                },
+                complete:function(data){
+                    Compiled_ByDropdown();
+                }
+            }); 
+        }
 
-// Function to add days to a date
-function addDaysToDate(days) {
+        // Function to add days to a date
+        function addDaysToDate(days) {
 
-    let dateString = $('#PostingDate').val();;
+            let dateString = $('#PostingDate').val();;
 
 
-    // Parse the input date string to a Date object
-    let date = new Date(dateString);
+            // Parse the input date string to a Date object
+            let date = new Date(dateString);
 
-    // Add the specified number of days
-    date.setDate(date.getDate() + days);
+            // Add the specified number of days
+            date.setDate(date.getDate() + days);
 
-    // Format the new date as YYYY-MM-DD
-    let year = date.getFullYear();
-    let month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero if needed
-    let day = ('0' + date.getDate()).slice(-2); // Add leading zero if needed
+            // Format the new date as YYYY-MM-DD
+            let year = date.getFullYear();
+            let month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero if needed
+            let day = ('0' + date.getDate()).slice(-2); // Add leading zero if needed
 
-    let newDate =`${year}-${month}-${day}`;
-    $(`#ValidUpTo`).val(newDate);
+            let newDate =`${year}-${month}-${day}`;
+            $(`#ValidUpTo`).val(newDate);
 
-    //   return `${year}-${month}-${day}`;
-}
-// <!-- ----------------- lattest updated code end (11th July 2024) ----------------------------------- -->
+            //   return `${year}-${month}-${day}`;
+        }
+    // <!-- ----------------- lattest updated code end (11th July 2024) ----------------------------------- -->
 
 
 
@@ -1548,7 +1548,7 @@ function Compiled_ByDropdown(){
 
 
 
- function getResultOutputDropdownWithSelectedOption(trcount) {
+        function getResultOutputDropdownWithSelectedOption(trcount) {
             $.ajax({
                 type: "POST",
                 url: 'ajax/common-ajax.php',

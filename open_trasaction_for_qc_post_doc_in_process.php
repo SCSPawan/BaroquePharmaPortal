@@ -184,7 +184,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         }
                     }
                 }else{
-                    $option.='<tr><td colspan="18" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
+                    $option.='<tr><td colspan="20" style="color:red;text-align:center;font-weight: bold;">No record</td></tr>';
                 }
         $option.='</tbody> 
     </table>'; 
