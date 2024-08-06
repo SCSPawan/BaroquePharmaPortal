@@ -15,6 +15,9 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $tdata['ToDate']=date('Ymd', strtotime($_POST['toDate']));
     $tdata['DocEntry']=trim(addslashes(strip_tags($_POST['DocEntry'])));
     $getAllData=$obj->getSimpleIntimation($FGSAMPLEINTIMATIONDETAILS,$tdata);
+    // echo '<pre>';
+    // print_r($getAllData);
+    // echo '</pre>';
 
     $count=count($getAllData);
 
@@ -128,7 +131,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     <th>DocEntry</th>
                     <th>WO No</th>
                     <th>RFP Entry</th>
-                    <th>Material Type</th>
                     <th>Item Code</th>
                     <th>Item Name</th>
                     <th>Unit</th>
@@ -173,7 +175,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->DocEntry.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WONo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->RFPODocEntry.'</td>
-                                <td class="desabled">'.$getAllData[$i]->MatType.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                 <td class="desabled">'.$getAllData[$i]->Unit.'</td>
@@ -645,7 +646,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){  
                 $("#footerProcess").show();
-                var JSONObject = JSON.parse(result);
+                var JSONObject = JSON.parse(result);                
 
                 $(`#SI_FG_DocEntry`).val(JSONObject[0].DocEntry);
                 $(`#SI_FG_RFPNo`).val(JSONObject[0].RFPNo);
@@ -682,6 +683,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 $(`#SI_FG_TRDate`).val(DateFormatingDMY(JSONObject[0].TRDate));
                 $(`#SI_FG_MfgDate`).val(DateFormatingDMY(JSONObject[0].MfgDate));
                 $(`#SI_FG_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
+                $(`#U_UTTrans`).val(JSONObject[0].TransferToUnderTest);
 
                 var Canceled=JSONObject[0]['Canceled'];
                 if(Canceled=='N'){
@@ -690,7 +692,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     document.getElementById("SI_FG_StatusChekBox").checked = true; // Check
                 }
 
-                if (!JSONObject[0]['TransferToUnderTes']) {
+                
+                if (JSONObject[0]['TransferToUnderTes']=='') {
                     $("#befor").show(); // Add Process Popup
                     $("#after").hide(); // View Process Popup
                 } else {

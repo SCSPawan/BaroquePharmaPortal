@@ -127,7 +127,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>RFPO DocEntry</th>
                         <th>WO No</th>
                         <th>WO Entry</th>
-                        <th>Material Type</th>
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Unit</th>
@@ -173,7 +172,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->RFPODocEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WONo.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WOEntry.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->MaterialType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Unit.'</td>

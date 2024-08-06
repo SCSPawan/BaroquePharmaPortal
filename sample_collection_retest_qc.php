@@ -838,7 +838,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $("#footerProcess").show(); // bottom section show script
                     var JSONObjectAll = JSON.parse(result);
                     var JSONObject = JSONObjectAll['SampleCollDetails'];
-                    
+                    // GRNQty
                     console.log('All Record =>', JSONObject);
 
                     $(`#Extra-issue-list-append`).html(JSONObjectAll['ExtraIssue']); // Extra Issue Table Tr tag append here
@@ -1109,7 +1109,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 var RetainQtyUom = document.getElementById('SCRTQCB_RetainQtyUom').value;
                 var BatchQty = document.getElementById('SCRTQCB_BatchQty').value;
                 var SampleQty = document.getElementById('SCRTQCB_SampleQty').value;
-                var BatchQty_itemLevel = (parseFloat(BatchQty) - parseFloat(SampleQty)).toFixed(6);
+                var BatchQty_itemLevel = parseFloat(SampleQty).toFixed(6);
+                // var BatchQty_itemLevel = (parseFloat(BatchQty) - parseFloat(SampleQty)).toFixed(6);
             // <!-- ---------- Item Level data get end here --------------- -->
             var SCRTQCB_BPLId = document.getElementById('SCRTQCB_BPLId').value;
 

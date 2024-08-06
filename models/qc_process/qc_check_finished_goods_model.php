@@ -773,6 +773,23 @@
 </div>
 <!-- --------------inventory transfer-------------- -->
 
+<!-- --------sample intimation print Quarantine model------------------- -->
+<div class="modal fade QC_PostDocPrintLayout" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="RPT_title"></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ViewRPT_Print_Close()"></button>
+            </div>
+            
+            <div class="modal-body">
+               <iframe id="PrintQuarantine_Link" src="" style="width: 100%;height: 88vh;"></iframe>
+            </div><!--body end-->
+         </div>
+      </div>
+   </div>
+<!-- --------------sample intimation print Quarantine model-------------- -->
+
      <style type="text/css">
     .modal-body{padding: 1 !important;}
      </style>
