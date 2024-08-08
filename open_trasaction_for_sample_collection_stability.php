@@ -121,11 +121,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Item Code</th>
                         <th>Item Name</th>
                         <th>Whs Code</th>
-                        <th>Whs Total</th>
-                        <th>Base Type</th>
                         <th>Base Entry</th>
                         <th>Base Num</th>
-                        <th>Doc Date</th>
                         <th>Quantity</th>
                         <th>Lot Number</th>
                         <th>Exp. Date</th>
@@ -148,10 +145,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Stability Condition</th>
                         <th>Stability Time Period</th>
                         <th>Type of Analysis</th>
-                        <th>Period in months</th>
                         <th>Period Type</th>
-                        <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -161,15 +155,11 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         if(!empty($getAllData[$i]->SrNo)){   //  this condition save to extra blank loop
 
                             // --------------- Convert String code Start Here ---------------------------
-                                $DocDate=(!empty($getAllData[$i]->DocDate)) ? date("d-m-Y", strtotime($getAllData[$i]->DocDate)) : null;
-
                                 $MfgDate=(!empty($getAllData[$i]->MfgDate)) ? date("d-m-Y", strtotime($getAllData[$i]->MfgDate)) : null;
 
                                 $ExpiryDate=(!empty($getAllData[$i]->ExpiryDate)) ? date("d-m-Y", strtotime($getAllData[$i]->ExpiryDate)) : null;
 
                                 $StabilityLoadingDate=(!empty($getAllData[$i]->StabilityLoadingDate)) ? date("d-m-Y", strtotime($getAllData[$i]->StabilityLoadingDate)) : null;
-
-                                $EndDate=(!empty($getAllData[$i]->EndDate)) ? date("d-m-Y", strtotime($getAllData[$i]->EndDate)) : null;
                             // --------------- Convert String code End Here-- ---------------------------
 
                             $option.='
@@ -185,11 +175,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                     <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                     <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->WhsTotal.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->BaseType.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BaseEntry.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BaseNum.'</td>
-                                    <td class="desabled">'.$DocDate.'</td>
                                     <td class="desabled">'.$getAllData[$i]->Quantity.'</td>
                                     <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                     <td class="desabled">'.$ExpiryDate.'</td>
@@ -212,10 +199,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                     <td class="desabled">'.$getAllData[$i]->StabilityCondition.'</td>
                                     <td class="desabled">'.$getAllData[$i]->StabilityTimePeriod.'</td>
                                     <td class="desabled">'.$getAllData[$i]->AnalysisType.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->PeriodinMonth.'</td>
                                     <td class="desabled">'.$getAllData[$i]->PeriodType.'</td>
-                                    <td class="desabled">'.$getAllData[$i]->AdditionalYear.'</td>
-                                    <td class="desabled">'.$EndDate.'</td>
                                 </tr>';
                         }
                     }

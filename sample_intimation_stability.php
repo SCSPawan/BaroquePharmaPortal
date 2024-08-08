@@ -127,11 +127,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Item Code</th> 
                         <th>Item Name</th>
                         <th>Whs Code</th>
-                        <th>Whs Total</th>
-                        <th>Base Type</th>
-                        <th>Base Entry</th>
-                        <th>Base Num</th>
-                        <th>Doc Date</th>
                         <th>Quantity</th>
                         <th>Lot Number</th>
                         <th>Exp. Date</th>
@@ -144,7 +139,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Stability Plan Quantity</th>
                         <th>Route Stage Reco WO No</th>
                         <th>Route Stage Reco WO Entry</th>
-                        <th>Planned Qty</th>
                         <th>Route Stage Reco UOM</th>
                         <th>Route Stage Reco Prod Receipt No</th>
                         <th>Route Stage Reco Prod Receipt Entry</th>
@@ -153,10 +147,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Stability Condition</th>
                         <th>Stability Time Period</th>
                         <th>Type of Analysis</th>
-                        <th>Period in Months</th>
-                        <th>Period Type</th>
-                        <th>Additional Year</th>
-                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -199,11 +189,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->ItemCode.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ItemName.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WhsCode.'</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                 <td class="desabled">'.$ExpiryDate.'</td>
@@ -216,7 +201,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->StabilityPlanQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WoNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->WoEntry.'</td>
-                                <td class="desabled" style="color:red;">****</td>
                                 <td class="desabled">'.$getAllData[$i]->Unit.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ReceiptNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->ReceiptEntry.'</td>
@@ -225,10 +209,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->StabilityCondition.'</td>
                                 <td class="desabled">'.$getAllData[$i]->StabilityTimePeriod.'</td>
                                 <td class="desabled">'.$getAllData[$i]->AnalysisType.'</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
-                                <td class="desabled" style="color:red;">****</td>
                             </tr>';
                         }
                     }
