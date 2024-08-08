@@ -104,7 +104,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         $pagination .= "</div>";
     }
 
-    $option .= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+    $option .= '<table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                 <thead class="fixedHeader1">
                     <tr>
                         <th>Sr.No </th>  
@@ -238,7 +238,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                     <div class="col-xl-3 col-md-6">
                                         <div class="form-group row">
-                                            <div class="col-lg-4" style="">
+                                            <div class="col-lg-4">
                                                 <div class="">
                                                     <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
                                                 </div>
@@ -582,15 +582,13 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                         <!-- form end -->
                                                         <div class="d-flex flex-wrap gap-2">
                                                             <!-- Toggle States Button -->
-                                                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample for Analysis Label</button> -->
-
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample Label</button>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".sample_col_FG_RPT" autocomplete="off" onclick="View_RPT();">Sample Label</button>
                                                         </div>
                                                     </div>
 
                                                     <div class="tab-pane" id="home" role="tabpanel">
                                                         <div class="table-responsive" id="list">
-                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                                 <thead class="fixedHeader1">
                                                                     <tr>
                                                                         <th>Sr. No</th>
@@ -620,7 +618,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                                                     <div class="tab-pane" id="profile" role="tabpanel">
                                                         <div class="table-responsive" id="list">
-                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                                                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                                                 <thead class="fixedHeader1">
                                                                     <tr>
                                                                         <th>Sr. No</th>
@@ -2184,5 +2182,20 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
             });
 
             document.getElementById('cs_selectedQtySum_external').value = total.toFixed(6);
+        }
+
+        function View_RPT(){
+            var DocEntry=$('#it__DocEntry').val();
+            if(DocEntry!=''){
+                var PrintOutURL=`http://192.168.1.30:8082/API/SAP/FGSAMPLECOLSAMPPRINTPRINTLAYOUT?DocEntry=${DocEntry}`;
+                document.getElementById("Print_Link").src = PrintOutURL;
+            }
+
+            document.getElementById('RPT_title').innerHTML= 'Sample Label';
+        }
+        
+        function View_RPT_Close(){
+            document.getElementById('RPT_title').innerHTML= '';
+            document.getElementById("Print_Link").src = '';
         }
     </script>

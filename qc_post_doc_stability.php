@@ -976,7 +976,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                         <!-- Toggle States Button -->
                                                         <button type="button" class="btn btn-primary" id="addQcPostDocumentSubmitQCCheckBtnStability" name="addQcPostDocumentSubmitQCCheckBtnStability" onclick="return add_qc_post_document();">Update</button>
 
-                                                        <button type="button" class="btn btn-primary active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                        <button type="button" class="btn btn-danger active" data-bs-toggle="button" autocomplete="off" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
 
                                                         <button type="button" class="btn btn-primary in-tranf" data-bs-toggle="modal" data-bs-target=".inventory_transfer_qc_ckeck_stability" autocomplete="off" onclick="TransToUnder();" disabled>Inventory Transfer</button>
                                                     </div>
@@ -1138,6 +1138,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
                     // <!-- ----------- Exp Date Start Here ----------------------------------- -->
                         // console.log('ExpDate=>',JSONObject[0].ExpiryDate);
+                        console.log('ExpiryDate->', JSONObject[0].ExpiryDate);
                         $(`#stability_ExpiryDate`).val(DateFormatingDMY(JSONObject[0].ExpiryDate));
                     // <!-- ----------- Exp Date End Here ------------------------------------- -->
 

@@ -5894,10 +5894,43 @@ if(isset($_POST['OTSCSP_Btn'])){
 				$data=array();
 
 				if($responce->DocNum!=""){
-					$data['status']='True';
-					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="Open Transaction For Sample Collection Stability Successfully Added.";
-					echo json_encode($data);
+					// Update ARNo document number start here ------------------------------ -->
+						// Sanitize input data
+						$ItemCode = trim(addslashes(strip_tags($_POST['OTSCP_ItemCode'])));
+						$Location = trim(addslashes(strip_tags($_POST['OTSCP_Location'])));
+						$DocDate = !empty($_POST['OTSCP_DocDate']) ? date("Ymd", strtotime($_POST['OTSCP_DocDate'])) : null;
+
+						// Construct the API URL
+						$FinalAPI_ARDocNum = $INWARDSAMPCOLARNOUPDATE_APi . '?ItemCode=' . $ItemCode . '&Location=' . $Location . '&DocDate=' . $DocDate;
+
+						// Fetch data from the API
+						$response_encode_Series = $obj->GET_QuerryBasedMasterFunction($FinalAPI_ARDocNum);
+						$Series_decode = json_decode($response_encode_Series);
+
+						// Prepare data for SAP Service Layer
+						$ARNo = array();
+						$ARNo['Series'] = $Series_decode[0]->Series;
+
+						// SAP Service Layer interaction
+						$res112 = $obj->SAP_Login(); // SAP Service Layer Login
+						if (!empty($res112)) {
+							$Final_API_12 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_ARSE_APi;
+							$response_encode12 = $obj->POST_ServiceLayerMasterFunction($ARNo, $Final_API_12);
+						}
+						$res122 = $obj->SAP_Logout(); // SAP Service Layer Logout
+
+						if (array_key_exists('error', (array)$response_encode12)) {
+							$data['status'] = 'False';
+							$data['DocEntry'] = '';
+							$data['message'] = $response_encode12->error->message->value;
+							echo json_encode($data);
+						} else {
+							$data['status']='True';
+							$data['DocEntry']=$responce->DocEntry;
+							$data['message']="Open Transaction For Sample Collection Stability Successfully Added.";
+							echo json_encode($data);
+						}
+					// Update ARNo document number end here -------------------------------- -->
 				}else{
 					if(array_key_exists('error', (array)$responce)){
 						$data['status']='False';
