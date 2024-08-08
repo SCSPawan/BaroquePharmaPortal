@@ -138,8 +138,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                         <th>GRN Qty</th>
                         <th>Batch No</th>
                         <th>Batch Qty</th>
-                        <th>Mfg Date</th>
-                        <th>Expiry Date</th>
                         <th>Sample Intimation</th>
                         <th>Branch Name</th>
                     </tr>
@@ -150,23 +148,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                     for ($i=$r_start; $i <$r_end ; $i++) { 
                         if(!empty($getAllData[$i]->DocEntry)){   //  this condition save to extra blank loop
                             $SrNo=$i+1;
-                            // --------------- Convert String code Start Here ---------------------------
-                                if(empty($getAllData[$i]->U_MfgDate)){
-                                    $MfgDate='';
-                                }else{
-                                    $U_MfgDate = str_replace('/', '-', $getAllData[$i]->U_MfgDate); 
-                                    // All (/) replace to (-)
-                                    $MfgDate=date("d-m-Y", strtotime($U_MfgDate));
-                                }
-
-                                if(empty($getAllData[$i]->U_ExpDate)){
-                                    $ExpiryDate='';
-                                }else{
-                                    $U_ExpDate = str_replace('/', '-', $getAllData[$i]->U_ExpDate); 
-                                    // All (/) replace to (-)
-                                    $ExpiryDate=date("d-m-Y", strtotime($U_ExpDate));
-                                }
-                            // --------------- Convert String code End Here-- ---------------------------
 
                         $option.='
                             <tr>
@@ -189,8 +170,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
                                 <td class="desabled">'.$getAllData[$i]->GRNQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
-                                <td class="desabled">'.$MfgDate.'</td>
-                                <td class="desabled">'.$ExpiryDate.'</td>
                                 <td class="desabled">'.$getAllData[$i]->IntimationNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->Branch.'</td>
                             </tr>';

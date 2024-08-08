@@ -565,6 +565,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         })
     } 
 
+    function OnChangeResultOutputByQCDept(un_id) {
+        var ResultOutputByQCDept=$('#ResultOutputByQCDept'+un_id).val();
+        // ResultOutputByQCDeptTd
+        // ResultOutputByQCDept
+        if(ResultOutputByQCDept=='FAIL'){
+            $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #f8a4a4');
+            $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #f8a4a4;border:1px solid #f8a4a4 !important;');
+        }else if(ResultOutputByQCDept=='PASS'){
+            $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #c7f3c7');
+            $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #c7f3c7;border:1px solid #c7f3c7 !important;');
+        }else {
+            $('#ResultOutputByQCDeptTd'+un_id).attr('style', 'background-color: #FFFFFF');
+            $('#ResultOutputByQCDept'+un_id).attr('style', 'background-color: #FFFFFF;border:1px solid #FFFFFF !important;');
+        }
+    }
+    
     function CalculateResultOut(un_id){
         var lowMin=document.getElementById('LowMin'+un_id).value;
         var uppMax=document.getElementById('UppMax'+un_id).value;

@@ -133,7 +133,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                         <th>Batch No</th>
                         <th>Quantity</th>
                         <th>Unit</th>
-                        <th>Warehouse</th>
                         <th>WO Date</th>
                         <th>Mfg Date</th>
                         <th>Expiry Date</th>
@@ -183,7 +182,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                                 <td class="desabled">'.$getAllData[$i]->BatchNo.'</td>
                                 <td class="desabled">'.$getAllData[$i]->BatchQty.'</td>
                                 <td class="desabled">'.$getAllData[$i]->Unit.'</td>
-                                <td class="desabled">'.$getAllData[$i]->WareHouse.'</td>
                                 <td class="desabled">'.$WoDate.'</td>
                                 <td class="desabled">'.$MfgDate.'</td>
                                 <td class="desabled">'.$ExpDate.'</td>

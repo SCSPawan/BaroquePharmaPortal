@@ -104,7 +104,7 @@
 
                     <!-- table start -->
                         <div class="table-responsive" id="list">
-                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                            <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                                 <thead class="fixedHeader1">
                                     <tr>
                                         <th>Sr. No </th>
@@ -144,10 +144,11 @@
 
                     <h5 class="modal-title" id="myLargeModalLabel">Container Selection</h5>
                     <div class="table-responsive mt-2" id="list">
-                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered" style="">
+                        <table id="tblItemRecord" class="table sample-table-responsive table-bordered">
                             <thead class="fixedHeader1">
                                 <tr>
-                                    <th>Select</th>
+                                    <!-- <th>Select</th> -->
+                                    <th><input class="form-check-input itp_checkboxall" type="checkbox" onclick="AllCheckCheckbox()" style="width: 17px;height: 17px;"></th>
                                     <th>Item Code</th>
                                     <th>Item Name</th>
                                     <th>Container No</th>
@@ -170,6 +171,7 @@
         </div>
     </div>
 </div>
+<!-- --------inventory transfer------------ -->
 
 <!-- --------sample intimation print Quarantine model------------------- -->
    <div class="modal fade QC_PostDocPrintLayout" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

@@ -646,7 +646,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
             },
             success: function(result){  
                 $("#footerProcess").show();
-                var JSONObject = JSON.parse(result);                
+                var JSONObject = JSON.parse(result);
+                console.log('JSONObject=>', JSONObject);              
 
                 $(`#SI_FG_DocEntry`).val(JSONObject[0].DocEntry);
                 $(`#SI_FG_RFPNo`).val(JSONObject[0].RFPNo);
@@ -692,8 +693,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                     document.getElementById("SI_FG_StatusChekBox").checked = true; // Check
                 }
 
-                
-                if (JSONObject[0]['TransferToUnderTes']=='') {
+                if (JSONObject[0].TransferToUnderTest =='') {
                     $("#befor").show(); // Add Process Popup
                     $("#after").hide(); // View Process Popup
                 } else {

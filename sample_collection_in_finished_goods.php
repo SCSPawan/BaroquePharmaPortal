@@ -582,7 +582,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                         <!-- form end -->
                                                         <div class="d-flex flex-wrap gap-2">
                                                             <!-- Toggle States Button -->
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample for Analysis Label</button>
+                                                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample for Analysis Label</button> -->
 
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Sample Label</button>
                                                         </div>
@@ -614,7 +614,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                             <!-- Toggle States Button -->
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".inventory_transfer" onclick="OpenInventoryExternalTransferModel();">Transfer</button>
 
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Sleep</button>
+                                                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Sleep</button> -->
                                                         </div>
                                                     </div>
 
@@ -639,7 +639,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                             <!-- Toggle States Button -->
                                                             <button type="button" class="btn btn-primary" id="SC_ExtraIssue_FG_Btn" data-bs-toggle="modal" data-bs-target=".goods_issue" disabled onclick="OpenInventoryTransferModel_extraIssue()">Post Extra Issue</button>
 
-                                                            <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Slip</button>
+                                                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">Issue Slip</button> -->
                                                         </div>
                                                     </div>
                                                 </div><!--tab content end-->
