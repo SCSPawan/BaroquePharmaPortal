@@ -57,8 +57,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'OT_OpenTransactionForQCPostD
 
 				<td class="desabled"><input  type="text" class="form-control" id="PName' . $SrNo . '" name="PName[]" value="' . $general_data[$i]->PName . '" readonly></td>
 
-				<td class="desabled" title="' . $general_data[$i]->Standard . '" style="cursor: pointer;">
-					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . $general_data[$i]->Standard . '" readonly style="width:400px;">
+				
+				<td class="desabled" title="' . trim($general_data[$i]->Standard, '"') . '" style="cursor: pointer;">
+					<input  type="text" class="form-control" id="Standard' . $SrNo . '" name="Standard[]" value="' . trim($general_data[$i]->Standard, '"') . '" readonly style="width:400px;">
 				</td>
 
 				<td>
@@ -5560,63 +5561,62 @@ if (isset($_POST['SampleCollectionInProcess_Btn'])) {
 
 		if ($responce->DocNum != "") {
 
-
 			// Update ARNo document number start here ------------------------------ -->
-			// Sanitize input data
-			$ItemCode = trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
-			$Location = trim(addslashes(strip_tags($_POST['IP_SC_Location'])));
-			$DocDate = !empty($_POST['OTSCP_DocDate']) ? date("Ymd", strtotime($_POST['IP_SC_DocDate'])) : null;
+				// Sanitize input data
+				$ItemCode = trim(addslashes(strip_tags($_POST['IP_SC_ItemCode'])));
+				$Location = trim(addslashes(strip_tags($_POST['IP_SC_Location'])));
+				$DocDate = !empty($_POST['IP_SC_DocDate']) ? date("Ymd", strtotime($_POST['IP_SC_DocDate'])) : null;
 
-			// Construct the API URL
-			$FinalAPI_ARDocNum = $INWARDSAMPCOLARNOUPDATE_APi . '?ItemCode=' . $ItemCode . '&Location=' . $Location . '&DocDate=' . $DocDate;
+				// Construct the API URL
+				$FinalAPI_ARDocNum = $INWARDSAMPCOLARNOUPDATE_APi . '?ItemCode=' . $ItemCode . '&Location=' . $Location . '&DocDate=' . $DocDate;
 
-			// Fetch data from the API
-			$response_encode_Series = $obj->GET_QuerryBasedMasterFunction($FinalAPI_ARDocNum);
-			$Series_decode = json_decode($response_encode_Series);
+				// Fetch data from the API
+				$response_encode_Series = $obj->GET_QuerryBasedMasterFunction($FinalAPI_ARDocNum);
+				$Series_decode = json_decode($response_encode_Series);
 
-			// Prepare data for SAP Service Layer
-			$ARNo = array();
-			$ARNo['Series'] = $Series_decode[0]->Series;
+				// Prepare data for SAP Service Layer
+				$ARNo = array();
+				$ARNo['Series'] = $Series_decode[0]->Series;
 
-			// SAP Service Layer interaction
-			$res112 = $obj->SAP_Login(); // SAP Service Layer Login
-			if (!empty($res112)) {
-				$Final_API_12 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_ARSE_APi;
-				$response_encode12 = $obj->POST_ServiceLayerMasterFunction($ARNo, $Final_API_12);
-			}
-			$res122 = $obj->SAP_Logout(); // SAP Service Layer Logout
+				// SAP Service Layer interaction
+				$res112 = $obj->SAP_Login(); // SAP Service Layer Login
+				if (!empty($res112)) {
+					$Final_API_12 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_ARSE_APi;
+					$response_encode12 = $obj->POST_ServiceLayerMasterFunction($ARNo, $Final_API_12);
+				}
+				$res122 = $obj->SAP_Logout(); // SAP Service Layer Logout
 
-			if (array_key_exists('error', (array)$response_encode12)) {
-				$data['status'] = 'False';
-				$data['DocEntry'] = '';
-				$data['message'] = $response_encode12->error->message->value;
-				echo json_encode($data);
-			} else {
-				// Inventory Gen Entries
-				$InventoryGenEntries = array();
-				$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
-				$InventoryGenEntries['GRDocEntry'] = trim($_POST['OTSCP_GRPODocEntry']);
-				$InventoryGenEntries['ItemCode'] = trim($_POST['IP_SC_ItemCode']);
-				$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
-
-				$Final_API = $GRSAMPLECOLINWARD_APi;
-				$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
-				$responce1 = json_decode($responce_encode1);
-
-				if (empty($responce1)) {
-					$data['status'] = 'True';
-					$data['DocEntry'] = $responce->DocEntry;
-					$data['message'] = "Open Transaction For Sample Collection Successfully Added.";
+				if (array_key_exists('error', (array)$response_encode12)) {
+					$data['status'] = 'False';
+					$data['DocEntry'] = '';
+					$data['message'] = $response_encode12->error->message->value;
 					echo json_encode($data);
 				} else {
-					if (array_key_exists('error', (array)$responce1)) {
-						$data['status'] = 'False';
-						$data['DocEntry'] = '';
-						$data['message'] = $responce1->error->message->value;
+					// Inventory Gen Entries
+					$InventoryGenEntries = array();
+					$InventoryGenEntries['SIDocEntry'] = trim($responce->DocEntry);
+					$InventoryGenEntries['GRDocEntry'] = trim($_POST['OTSCP_GRPODocEntry']);
+					$InventoryGenEntries['ItemCode'] = trim($_POST['IP_SC_ItemCode']);
+					$InventoryGenEntries['LineNum'] = trim($responce->U_PC_BLin);
+
+					$Final_API = $GRSAMPLECOLINWARD_APi;
+					$responce_encode1 = $obj->POST_QuerryBasedMasterFunction($InventoryGenEntries, $Final_API);
+					$responce1 = json_decode($responce_encode1);
+
+					if (empty($responce1)) {
+						$data['status'] = 'True';
+						$data['DocEntry'] = $responce->DocEntry;
+						$data['message'] = "Open Transaction For Sample Collection Successfully Added.";
 						echo json_encode($data);
+					} else {
+						if (array_key_exists('error', (array)$responce1)) {
+							$data['status'] = 'False';
+							$data['DocEntry'] = '';
+							$data['message'] = $responce1->error->message->value;
+							echo json_encode($data);
+						}
 					}
 				}
-			}
 			// Update ARNo document number end here -------------------------------- -->
 		} else {
 			if (array_key_exists('error', (array)$responce)) {
@@ -5955,10 +5955,49 @@ if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 				$data = array();
 
 				if ($responce->DocNum != "") {
-					$data['status'] = 'True';
-					$data['DocEntry'] = $responce->DocEntry;
-					$data['message'] = "Open Transaction For Sample Collection finished good Successfully Added.";
-					echo json_encode($data);
+					// $data['status'] = 'True';
+					// $data['DocEntry'] = $responce->DocEntry;
+					// $data['message'] = "Open Transaction For Sample Collection finished good Successfully Added.";
+					// echo json_encode($data);
+
+
+					// Update ARNo document number start here ------------------------------ -->
+						// Sanitize input data
+						$ItemCode = trim(addslashes(strip_tags($_POST['SC_finished_good_ItemCode'])));
+						$Location = trim(addslashes(strip_tags($_POST['SC_finished_good_Location'])));
+						$DocDate = !empty($_POST['SC_finished_good_DocDate']) ? date("Ymd", strtotime($_POST['SC_finished_good_DocDate'])) : null;
+
+						// Construct the API URL
+						$FinalAPI_ARDocNum = $INWARDSAMPCOLARNOUPDATE_APi . '?ItemCode=' . $ItemCode . '&Location=' . $Location . '&DocDate=' . $DocDate;
+
+						// Fetch data from the API
+						$response_encode_Series = $obj->GET_QuerryBasedMasterFunction($FinalAPI_ARDocNum);
+						$Series_decode = json_decode($response_encode_Series);
+
+						// Prepare data for SAP Service Layer
+						$ARNo = array();
+						$ARNo['Series'] = $Series_decode[0]->Series;
+
+						// SAP Service Layer interaction
+						$res112 = $obj->SAP_Login(); // SAP Service Layer Login
+						if (!empty($res112)) {
+							$Final_API_12 = $SAP_URL . ":" . $SAP_Port . "/b1s/v1/" . $SCS_ARSE_APi;
+							$response_encode12 = $obj->POST_ServiceLayerMasterFunction($ARNo, $Final_API_12);
+						}
+						$res122 = $obj->SAP_Logout(); // SAP Service Layer Logout
+
+						if (array_key_exists('error', (array)$response_encode12)) {
+							$data['status'] = 'False';
+							$data['DocEntry'] = '';
+							$data['message'] = $response_encode12->error->message->value;
+							echo json_encode($data);
+						} else {
+							$data['status'] = 'True';
+							$data['DocEntry'] = $responce->DocEntry;
+							$data['message'] = "Open Transaction For Sample Collection finished good Successfully Added.";
+							echo json_encode($data);
+						}
+					// Update ARNo document number end here -------------------------------- -->
 				} else {
 					if (array_key_exists('error', (array)$responce)) {
 						$data['status'] = 'False';

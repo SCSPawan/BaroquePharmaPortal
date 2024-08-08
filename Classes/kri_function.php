@@ -7,33 +7,17 @@ class webKri {
 
 	}
 
-	public function getInwardQCCollection($INWARDQCPOSTDOCUMENTDETAILS,$tdata)
-	{
-		if($tdata['FromDate']=='19700101'){
-			$FromDate='';
-		}else{
-			$FromDate='FromDate='.date('Ymd', strtotime($tdata['FromDate'])).'&';
-		}
+	public function getInwardQCCollection($INWARDQCPOSTDOCUMENTDETAILS,$tdata){
+		$FromDate = ($tdata['FromDate']=='19700101') ? '' : 'FromDate='.date('Ymd', strtotime($tdata['FromDate'])).'&';
+		$ToDate = ($tdata['ToDate']=='19700101') ? '' : 'ToDate='.date('Ymd', strtotime($tdata['ToDate'])).'&';
+		$DocEntry = (empty($tdata['DocEntry'])) ? '' : 'DocEntry='.$tdata['DocEntry'].'&';
 
-		if($tdata['ToDate']=='19700101'){
-			$ToDate='';
-		}else{
-			$ToDate='ToDate='.date('Ymd', strtotime($tdata['ToDate'])).'&';
-		}
-
-		if(empty($tdata['DocEntry'])){
-			$DocEntry='';
-		}else{
-			$DocEntry='DocEntry='.$tdata['DocEntry'].'&';
-		}
-
-
-	$API=$INWARDQCPOSTDOCUMENTDETAILS.'?'.$FromDate.$ToDate.$DocEntry;
+		$API=$INWARDQCPOSTDOCUMENTDETAILS.'?'.$FromDate.$ToDate.$DocEntry;
 
 		$removeDoller = rtrim($API, "&"); // URL last & symbole remove
 		$stripped = rtrim($removeDoller, "?"); // URL last ? symbole remove
 		$Final_url = str_replace(' ', '%20', $stripped); // All blank space replace to %20
-// print_r($Final_url);die();
+		// print_r($Final_url);die();
 		$ch = curl_init();  
 		curl_setopt($ch,CURLOPT_URL,$Final_url);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);

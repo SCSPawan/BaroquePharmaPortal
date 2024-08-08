@@ -644,456 +644,170 @@ if(isset($_POST['action']) && $_POST['action'] =='QcForDocRetest_popup'){
 	exit(0);
 }
 
-
-
-if(isset($_POST['action']) && $_POST['action'] =='qc_general_data_tab')
-{
-	$ItemCode=trim(addslashes(strip_tags($_POST['ItemCode'])));
-
+if(isset($_POST['action']) && $_POST['action'] =='qc_general_data_tab'){
 	// <!-- ------- Replace blank space to %20 start here -------- -->
+		$ItemCode=trim(addslashes(strip_tags($_POST['ItemCode'])));
 		$API=$RETESTQCPOSTROWDETAILS.'?ItemCode='.$ItemCode;
 		$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	// <!-- ------- Replace blank space to %20 End here -------- -->
-	   $response=$objKri->get_RetestGeneralData_SingleData($FinalAPI);
 
+	$response=$objKri->get_RetestGeneralData_SingleData($FinalAPI);
 
-	  
-	
 	// <!-- ------ Array declaration Start Here --------------------------------- -->
 		$FinalResponce=array();
-		// $FinalResponce['SampleCollDetails']=$response;
 	// <!-- ------ Array declaration End Here  --------------------------------- -->
 
-		$general_data=$response; 
+	$general_data=$response; 
+	if(!empty($general_data)){
+		for ($i=0; $i <count($general_data) ; $i++) { 
+			$FinalResponce['general_data'].='<tr>
+				<td class="desabled">'.($i+1).'</td>
 
-		// print_r($general_data);
+				<td class="desabled"><input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$general_data[$i]->PCode.'" class="form-control textbox_bg"></td>
 
-		// die();
-		// $qcStatus=$response[0]->QCPOSTDOCQCSTATUS; // Etra issue response seperate here 
-		// $qcAttach=$response[0]->QCPOSTDOCATTACH; //External issue reponce seperate here
+				<td class="desabled"><input type="text" id="PName'.$i.'" name="PName[]" value="'.trim($general_data[$i]->PName, '"').'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-	// <!-- ----------- Extra Issue Start here --------------------------------- -->
 
-		// if(!empty($general_data)){
+				<td class="desabled" title="'.trim($general_data[$i]->Standard, '"').'" style="cursor: pointer;"><input type="text" id="Standard'.$i.'" name="Standard[]" value="'.trim($general_data[$i]->Standard, '"').'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;"></td>
 
-		// 	for ($i=0; $i <count($general_data) ; $i++) { 
-		// 		$SrNo=$i;
-		// 		$index=$i+1;
+				<td><input type="text" id="ResultOut'.$i.'" name="ResultOut[]" value="" class="form-control" style="width:200px;"></td>';
 
+				if($general_data[$i]->PDType=='Range'){
+					$FinalResponce['general_data'].='<td><input type="text" id="ComparisonResult'.$i.'" name="ComparisonResult[]" value="" class="form-control" style="width:100px;" onfocusout="CalculateResultOut('.$i.')"></td>';
+				}else{
+					$FinalResponce['general_data'].='<td class="desabled"><input type="text" id="ComparisonResult'.$i.'" name="ComparisonResult[]" value="" class="form-control textbox_bg" style="width:100px;"></td>';
+				}
 
+				$FinalResponce['general_data'].='<td id="ResultOutputByQCDeptTd'.$i.'"><select id="ResultOutputByQCDept'.$i.'" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept('.$i.')"></select></td>
 
-		// 		$FinalResponce['general_data'].='<tr>
-		// 			<td class="desabled">'.$index.'</td>
+				<td class="desabled"><input type="text" id="PDType'.$i.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input  type="text" class="form-control" id="parameter_code'.$SrNo.'" name="parameter_code[]" value="'.$general_data[$i]->PCode.'" readonly></td>
+				<td class="desabled"><input type="text" id="Logical'.$i.'" name="Logical[]" value="'.$general_data[$i]->Logical.'" class="form-control textbox_bg" style="width: 100px;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="PName'.$SrNo.'" name="PName[]" value="'.$general_data[$i]->PName.'" readonly></td>
+				<td class="desabled"><input type="text" id="LowMin'.$i.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" class="form-control textbox_bg" style="width:100px;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="Standard'.$SrNo.'" name="Standard[]" value="'.$general_data[$i]->Standard.'" readonly></td>
+				<td class="desabled"><input type="text" id="UppMax'.$i.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" class="form-control textbox_bg" style="width:100px;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="Release'.$SrNo.'" name="Release[]" value="'.$general_data[$i]->Release.'" readonly></td>
+				<td class="desabled"><input type="text" id="Min'.$i.'" name="Min[]" value="'.$general_data[$i]->Min.'" class="form-control textbox_bg" style="width:100px;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="PDType'.$SrNo.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" readonly></td>
+				<td id="QC_StatusByAnalystTd'.$i.'"><select id="QC_StatusByAnalyst'.$i.'" name="QC_StatusByAnalyst[]" class="form-select" onchange="SelectedQCStatus('.$i.')"></select>
+				</td>
 
-		// 			<td><input  type="text" class="form-control" id="descriptive_details'.$SrNo.'" name="descriptive_details[]" value="'.$general_data[$i]->DesDetils.'"></td>
+				<td class="desabled"><input type="text" id="TMethod'.$i.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input  type="text" class="form-control" id="logical'.$SrNo.'" name="logical[]" value="'.$general_data[$i]->Logical.'"></td>
+				<td class="desabled"><input type="text" id="MType'.$i.'" name="MType[]" value="'.$general_data[$i]->MType.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="LowMin'.$SrNo.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" readonly></td>
+				<td class="desabled"><input type="text" id="PharmacopeiasStandard'.$i.'" name="PharmacopeiasStandard[]" value="'.$general_data[$i]->PharmacopeiasStandard.'"" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="LowMax'.$SrNo.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" readonly></td>
+				<td class="desabled"><input type="text" id="UOM'.$i.'" name="UOM[]" value="'.$general_data[$i]->UOM.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="UppMin'.$SrNo.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" readonly></td>
+				<td class="desabled"><input type="text" id="Retest'.$i.'" name="Retest[]" value="'.$general_data[$i]->Retest.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="UppMax'.$SrNo.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" readonly></td>
+				<td class="desabled"><input type="text" id="ExSample'.$i.'" name="ExSample[]" value="'.$general_data[$i]->ExSample.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="Min'.$SrNo.'" name="Min[]" value="'.$general_data[$i]->Min.'" readonly></td>
+				<td><select id="AnalysisBy'.$i.'" name="AnalysisBy[]" class="form-select" style="width: 140px;"></select></td>
 
+				<td><input type="text" id="analyst_remark'.$i.'" name="analyst_remark[]" class="form-control"></td>
 
+				<td class="desabled"><input type="text" id="LowMax'.$i.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input  type="text" id="lower_min_result'.$SrNo.'" name="lower_min_result[]" onfocusout="CalculateResultOut('.$SrNo.')" class="form-control" value=""></td>
+				<td class="desabled"><input type="text" id="Release'.$i.'" name="Release[]" value="'.$general_data[$i]->Release.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input  type="text" id="lower_max_result'.$SrNo.'" name="lower_max_result[]" class="form-control" value=""></td>
+				<td><input type="text" id="DescriptiveDetails'.$i.'" name="DescriptiveDetails[]" class="form-control"></td>
 
-		// 			<td><input type="text" id="upper_min_result'.$SrNo.'" name="upper_min_result[]" class="form-control" value=""></td>
+				<td class="desabled"><input type="text" id="UppMin'.$i.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input  type="text" id="upper_max_result'.$SrNo.'" name="upper_max_result[]" class="form-control" value=""></td>
+				<td><input  type="number" id="LowMinRes'.$i.'" name="LowMinRes[]" class="form-control"></td>
 
-		// 			<td ><input type="text" id="mean'.$SrNo.'" name="mean[]" class="form-control" value=""></td>
+				<td><input  type="number" id="UppMinRes'.$i.'" name="UppMinRes[]" class="form-control"></td>
 
+				<td><input  type="number" id="UppMaxRes'.$i.'" name="UppMaxRes[]" class="form-control"></td>
 
-		// 			<td id="ResultOutTd'.$SrNo.'">
-		// 				<select id="result_output'.$SrNo.'" name="result_output[]" class="form-select dropdownResutl'.$SrNo.'" onchange="ManualSelectedTResultOut('.$SrNo.')"></select>
-		// 			</td>
+				<td><input type="number" id="MeanRes'.$i.'" name="MeanRes[]" class="form-control"></td>
 
-		// 			<td ><input type="text" id="remarks'.$SrNo.'" name="remarks[]" class="form-control" value="'.$general_data[$i]->Remarks.'"></td>
+				<td><input  type="text" id="UserText1'.$i.'" name="UserText1[]" class="form-control"></td>
 
-		// 			<td id="QC_StatusByAnalystTd'.$SrNo.'">
-		// 				<select id="qC_status_by_analyst'.$SrNo.'" name="qC_status_by_analyst[]" class="form-select qc_statusbyab'.$SrNo.'" onchange="SelectedQCStatus('.$SrNo.')">
-		// 				</select>
-		// 			</td>
+				<td><input  type="text" id="UserText2'.$i.'" name="UserText2[]" class="form-control"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="TMethod'.$SrNo.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" readonly></td>
+				<td><input type="text" id="UserText3'.$i.'" name="UserText3[]" class="form-control"></td>
 
-		// 			<td class="desabled"><input  type="text" class="form-control" id="MType'.$SrNo.'" name="MType[]" value="'.$general_data[$i]->MType.'" readonly></td>
+				<td><input type="text" id="UserText4'.$i.'" name="UserText4[]" class="form-control"></td>
 
+				<td><input type="text" id="UserText5'.$i.'" name="UserText5[]" class="form-control"></td>
 
+				<td class="desabled"><input type="text" id="QC_StatusResult'.$i.'" name="QC_StatusResult[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
+				<td class="desabled"><input type="text" id="Stability'.$i.'" name="Stability[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input type="text" id="user_text1_'.$SrNo.'" name="user_text1_[]" class="form-control" value=""></td>
+				<td class="desabled"><input type="text" id="Appassay'.$i.'" name="Appassay[]" value="'.$general_data[$i]->Appassay.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input type="text" id="user_text2_'.$SrNo.'" name="user_text2_[]" class="form-control" value=""></td>
+				<td class="desabled"><input type="text" id="AppLOD'.$i.'" name="AppLOD[]" value="'.$general_data[$i]->AppLOD.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td><input type="text" id="user_text3_'.$SrNo.'" name="user_text3_[]" class="form-control" value=""></td>
+				<td><input type="text" id="InstrumentCode'.$i.'" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" onclick="OpenInstrmentModal('.$i.')"></td>
 
-		// 			<td><input type="text" id="user_text4_'.$SrNo.'" name="user_text4_[]" class="form-control" value=""></td>
+				<td class="desabled"><input type="text" id="InstrumentName'.$i.'" name="InstrumentName[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;"></td>
 
-		// 			<td ><input type="text" id="user_text5_'.$SrNo.'" name="user_text5_[]" class="form-control" value=""></td>
+				<td><input type="date" id="StartDate'.$i.'" name="StartDate[]" class="form-control"></td>
 
+				<td><input type="time" id="StartTime'.$i.'" name="StartTime[]" class="form-control"></td>
 
+				<td><input type="date" id="EndDate'.$i.'" name="EndDate[]" class="form-control"></td>
 
-		// 		<td class="desabled"><input type="text" id="GDQCStatus'.$SrNo.'" name="GDQCStatus[]" class="form-control" value="" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="GDUOM'.$SrNo.'" name="GDUOM[]" class="form-control" value="'.$general_data[$i]->UOM.'" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="Retest'.$SrNo.'" name="Retest[]" class="form-control" value="'.$general_data[$i]->Retest.'" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="GDStab'.$SrNo.'" name="GDStab[]" class="form-control" value="" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="ExSample'.$SrNo.'" name="ExSample[]" class="form-control" value="'.$general_data[$i]->ExSample.'" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="Appassay'.$SrNo.'" name="Appassay[]" class="form-control" value="'.$general_data[$i]->Appassay.'" readonly></td>
-
-		// 			<td class="desabled"><input type="text" id="AppLOD'.$SrNo.'" name="AppLOD[]" class="form-control" value="'.$general_data[$i]->AppLOD.'" readonly></td>
-
-		// 			<td><input  type="text" id="qc_analysis_by'.$SrNo.'" name="qc_analysis_by[]" class="form-control" value=""></td>
-
-		// 			<td><input  type="text" id="analyst_remark'.$SrNo.'" name="analyst_remark[]" class="form-control" value=""></td>
-
-		// 			<td ><input type="text" id="instrument_code'.$SrNo.'" name="instrument_code[]" class="form-control" value=""></td>
-
-		// 			<td class="desabled"><input type="text" id="InsName'.$SrNo.'" name="InsName[]" class="form-control" value="" readonly></td>
-
-		// 			<td><input  type="text" id="star_date'.$SrNo.'" name="star_date[]" class="form-control" value=""></td>
-
-		// 			<td><input  type="text" id="start_time'.$SrNo.'" name="start_time[]" class="form-control" value=""></td>
-
-		// 			<td ><input type="text" id="end_date'.$SrNo.'" name="end_date[]" class="form-control" value=""></td>
-
-		// 			<td ><input type="text" id="end_time'.$SrNo.'" name="end_time[]" class="form-control" value=""></td>
-
-		// 		</tr>';
-		// 	}
-		// }else{
-		// 	$FinalResponce['general_data'].='<tr><td colspan="7" style="color:red;text-align: center;">No Record Found</td></tr>';
-		// }
-
-		if(!empty($general_data)){
-			// CalculateResultOut
-			for ($i=0; $i <count($general_data) ; $i++) { 
-				$FinalResponce['general_data'].='<tr>
-					<td class="desabled">'.($i+1).'</td>
-
-					<td class="desabled">
-						<input type="text" id="pCode'.$i.'" name="pCode[]" value="'.$general_data[$i]->PCode.'" class="form-control textbox_bg">
-					</td>
-
-					<td class="desabled">
-					
-						<input type="text" id="PName'.$i.'" name="PName[]" value="'.htmlspecialchars($general_data[$i]->PName, ENT_QUOTES, 'UTF-8').'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled" title="'.$general_data[$i]->Standard.'" style="cursor: pointer;">
-						<input type="text" id="Standard'.$i.'" name="Standard[]" value="'.htmlspecialchars($general_data[$i]->Standard, ENT_QUOTES, 'UTF-8').'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;width:400px;">
-					</td>
-
-					<td>
-						<input type="text" id="ResultOut'.$i.'" name="ResultOut[]" value="" class="form-control" style="width:200px;">
-					</td>';
-
-					// onfocusout="SetComparisonResultValTOResOutput('.$i.')"
-					if($general_data[$i]->PDType=='Range'){
-						$FinalResponce['general_data'].='<td>
-							<input type="text" id="ComparisonResult'.$i.'" name="ComparisonResult[]" value="" class="form-control" style="width:100px;" onfocusout="CalculateResultOut('.$i.')">
-						</td>';
-					}else{
-						$FinalResponce['general_data'].='<td class="desabled">
-							<input type="text" id="ComparisonResult'.$i.'" name="ComparisonResult[]" value="" class="form-control textbox_bg" style="width:100px;">
-						</td>';
-					}
-	
-
-					$FinalResponce['general_data'].='<td id="ResultOutputByQCDeptTd'.$i.'">
-						<select id="ResultOutputByQCDept'.$i.'" name="ResultOutputByQCDept[]" class="form-select" style="border: 1px solid #ffffff !important;" onchange="OnChangeResultOutputByQCDept('.$i.')"></select>
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="PDType'.$i.'" name="PDType[]" value="'.$general_data[$i]->PDType.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Logical'.$i.'" name="Logical[]" value="'.$general_data[$i]->Logical.'" class="form-control textbox_bg" style="width: 100px;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="LowMin'.$i.'" name="LowMin[]" value="'.$general_data[$i]->LowMin.'" class="form-control textbox_bg" style="width:100px;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="UppMax'.$i.'" name="UppMax[]" value="'.$general_data[$i]->UppMax.'" class="form-control textbox_bg" style="width:100px;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Min'.$i.'" name="Min[]" value="'.$general_data[$i]->Min.'" class="form-control textbox_bg" style="width:100px;">
-					</td>
-
-					<td id="QC_StatusByAnalystTd'.$i.'">
-						<select id="QC_StatusByAnalyst'.$i.'" name="QC_StatusByAnalyst[]" class="form-select" onchange="SelectedQCStatus('.$i.')">
-						</select>
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="TMethod'.$i.'" name="TMethod[]" value="'.$general_data[$i]->TMethod.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="MType'.$i.'" name="MType[]" value="'.$general_data[$i]->MType.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="PharmacopeiasStandard'.$i.'" name="PharmacopeiasStandard[]" value="'.$general_data[$i]->PharmacopeiasStandard.'"" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="UOM'.$i.'" name="UOM[]" value="'.$general_data[$i]->UOM.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Retest'.$i.'" name="Retest[]" value="'.$general_data[$i]->Retest.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="ExSample'.$i.'" name="ExSample[]" value="'.$general_data[$i]->ExSample.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-
-					<td>
-						<select id="AnalysisBy'.$i.'" name="AnalysisBy[]" class="form-select" style="width: 140px;"></select>
-					</td>
-
-					<td>
-						<input type="text" id="analyst_remark'.$i.'" name="analyst_remark[]" class="form-control">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="LowMax'.$i.'" name="LowMax[]" value="'.$general_data[$i]->LowMax.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Release'.$i.'" name="Release[]" value="'.$general_data[$i]->Release.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td>
-						<input type="text" id="DescriptiveDetails'.$i.'" name="DescriptiveDetails[]" class="form-control">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="UppMin'.$i.'" name="UppMin[]" value="'.$general_data[$i]->UppMin.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td>
-						<input  type="number" id="LowMinRes'.$i.'" name="LowMinRes[]" class="form-control">
-					</td>
-
-					<td>
-						<input  type="number" id="UppMinRes'.$i.'" name="UppMinRes[]" class="form-control">
-					</td>
-
-					<td>
-						<input  type="number" id="UppMaxRes'.$i.'" name="UppMaxRes[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="number" id="MeanRes'.$i.'" name="MeanRes[]" class="form-control">
-					</td>
-
-					<td>
-						<input  type="text" id="UserText1'.$i.'" name="UserText1[]" class="form-control">
-					</td>
-
-					<td>
-						<input  type="text" id="UserText2'.$i.'" name="UserText2[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="text" id="UserText3'.$i.'" name="UserText3[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="text" id="UserText4'.$i.'" name="UserText4[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="text" id="UserText5'.$i.'" name="UserText5[]" class="form-control">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="QC_StatusResult'.$i.'" name="QC_StatusResult[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Stability'.$i.'" name="Stability[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="Appassay'.$i.'" name="Appassay[]" value="'.$general_data[$i]->Appassay.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="AppLOD'.$i.'" name="AppLOD[]" value="'.$general_data[$i]->AppLOD.'" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td>
-						<input type="text" id="InstrumentCode'.$i.'" name="InstrumentCode[]" class="form-control" data-bs-toggle="modal" data-bs-target=".instrument_modal" onclick="OpenInstrmentModal('.$i.')">
-					</td>
-
-					<td class="desabled">
-						<input type="text" id="InstrumentName'.$i.'" name="InstrumentName[]" class="form-control textbox_bg" style="border: 1px solid #efefef !important;">
-					</td>
-
-					<td>
-						<input type="date" id="StartDate'.$i.'" name="StartDate[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="time" id="StartTime'.$i.'" name="StartTime[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="date" id="EndDate'.$i.'" name="EndDate[]" class="form-control">
-					</td>
-
-					<td>
-						<input type="time" id="EndTime'.$i.'" name="EndTime[]" class="form-control">
-					</td>
-
-				</tr>';
-			}
-
-			// <td>
-			// 	<input type="text" id="DesDetils'.$i.'" name="DesDetils[]" value="'.$response[$i]->DesDetils.'" class="form-control">
-			// </td>
-
-			// <td>
-			// 	<input type="text" id="Remarks'.$i.'" name="Remarks[]" value="'.$response[$i]->Remarks.'" class="form-control">
-			// </td>
-
-		}else{
-			$FinalResponce['general_data']='<tr><td colspan="41" style="text-align: center;color:red;">Record Not Found</td></tr>';
+				<td><input type="time" id="EndTime'.$i.'" name="EndTime[]" class="form-control"></td>
+			</tr>';
 		}
+	}else{
+		$FinalResponce['general_data']='<tr><td colspan="41" style="text-align: center;color:red;">Record Not Found</td></tr>';
+	}
 
-		$FinalResponce['count']=count($general_data);
-		
-	// <!-- ----------- Extra Issue End here --------------------------------- -->
-// exit;
-	// <!-- ----------- External Issue Start Here ---------------------------- -->
-		// if(!empty($qcStatus)){
-		// 	for ($j=0; $j <count($qcStatus) ; $j++) { 
-		// 		$SrNo=$j+1;
+	$FinalResponce['count']=count($general_data);
 
-		// 		$FinalResponce['qcStatus'].='<tr>
-                    
-  //                   <td class="desabled">'.$SrNo.'</td>
+	$FinalResponce['qcStatus'] ='<tr id="add-more_1">
+		<td>1</td>
+		<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(1)"></select></td>
 
-  //                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qc_Status'.$SrNo.'" name="qc_Status[]" value="'.$qcStatus[$j]->QCStsStatus.'" readonly></td>
+		<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
 
-  //                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsQty'.$SrNo.'" name="qCStsQty[]"  value="'.$qcStatus[$j]->QCStsQty.'" readonly></td>
+		<td><input class="border_hide" type="text"  id="qCReleaseDate_1" name="qCReleaseDate[]" class="form-control" readonly></td>
 
-  //                   <td class="desabled"><input  type="text" class="form-control border_hide desabled" id="qCitNo'.$SrNo.'" name="qCitNo[]"  value="'.$qcStatus[$j]->ItNo.'" readonly></td>
+		<td><input class="border_hide" type="text"  id="qCReleaseTime_1" name="qCReleaseTime[]" class="form-control" readonly></td>
 
-  //                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="doneBy'.$SrNo.'" name="doneBy[]"  value="'.$qcStatus[$j]->DBy.'" readonly></td>
+		<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
 
-  //                   <td class="desabled"><input class="form-control border_hide desabled" type="text" id="qCStsRemark1'.$SrNo.'" name="qCStsRemark1[]"  value="'.$qcStatus[$j]->QCStsRemark1.'" readonly></td>
+		<td><select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select></td>
 
-		// 		</tr>';
-		// 	}
-		// }else{
-		// 	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
-		// }
+		<td><input class="border_hide" type="file"  id="qCAttache1_1" name="qCAttache1[]" class="form-control"></td>
 
-		// $FinalResponce['qcStatus'] .='<tr id="add-more_1">
-		// 	<td></td>
-		// 	<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1"  onfocusout="addMore(1);"></select></td>
-		// 	<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
-		// 	<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control"></td>
-		// 	<td>
-		// 	<select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select>
-		// 	</td>
-		// 	<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-		// </tr>';
+		<td><input class="border_hide" type="file"  id="qCAttache2_1" name="qCAttache2[]" class="form-control"></td>
 
+		<td><input class="border_hide" type="file"  id="qCAttache3_1" name="qCAttache3[]" class="form-control"></td>
 
+		<td><input class="border_hide" type="date"  id="qCDeviationDate_1" name="qCDeviationDate[]" class="form-control"></td>
 
-		$FinalResponce['qcStatus'] ='<tr id="add-more_1">
-					<td>1</td>
-					<td><select id="qc_Status_1" name="qc_Status[]" class="form-select qc_status_selecte1" onchange="SelectionOfQC_Status(1)"></select></td>
+		<td><input class="border_hide" type="text"  id="qCDeviationNo_1" name="qCDeviationNo[]" class="form-control"></td>
 
-					<td><input class="border_hide" type="text"  id="qCStsQty_1" name="qCStsQty[]" class="form-control" onfocusout="addMore(1);"></td>
+		<td><input class="border_hide" type="text"  id="qCDeviationResion_1" name="qCDeviationResion[]" class="form-control"></td>
 
-					<td><input class="border_hide" type="text"  id="qCReleaseDate_1" name="qCReleaseDate[]" class="form-control" readonly></td>
+		<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
+	</tr>';
 
-					<td><input class="border_hide" type="text"  id="qCReleaseTime_1" name="qCReleaseTime[]" class="form-control" readonly></td>
-
-					<td><input class="border_hide" type="text"  id="qCitNo_1" name="qCitNo[]" class="form-control" value=""></td>
-
-					<td><select id="doneBy_1" name="doneBy[]" class="form-select done-by-mo1"></select></td>
-
-					<td><input class="border_hide" type="file"  id="qCAttache1_1" name="qCAttache1[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="file"  id="qCAttache2_1" name="qCAttache2[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="file"  id="qCAttache3_1" name="qCAttache3[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="date"  id="qCDeviationDate_1" name="qCDeviationDate[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="text"  id="qCDeviationNo_1" name="qCDeviationNo[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="text"  id="qCDeviationResion_1" name="qCDeviationResion[]" class="form-control"></td>
-
-					<td><input class="border_hide" type="text"  id="qCStsRemark1_1" name="qCStsRemark1[]" class="form-control" value=""></td>
-				</tr>';
-
-
-
-
-		// if(!empty($qcAttach)){
-		// 	for ($j=0; $j <count($qcAttach) ; $j++) { 
-		// 		$SrNo=$j+1;
-				// <tr>
-		$FinalResponce['qcAttach'].='<tr>
-			<td class="desabled"></td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath" name="targetPath[]" class="form-control" value="" readonly>
-			</td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="fileName" name="fileName[]"  class="form-control" value="" readonly></td>
-			<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate" name="attachDate[]"  class="form-control" value="" readonly></td>
-			<td><input class="border_hide" type="text" id="remark" name="remark[]"  class="form-control" value=""></td>
-		</tr>';
-		// 	}
-		// }else{
-		// 	$FinalResponce['qcAttach'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
-		// }
-	// <!-- ----------- External Issue End Here   ---------------------------- -->
+	$FinalResponce['qcAttach'].='<tr>
+		<td class="desabled"></td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="targetPath" name="targetPath[]" class="form-control" value="" readonly>
+		</td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="fileName" name="fileName[]"  class="form-control" value="" readonly></td>
+		<td class="desabled"><input class="border_hide desabled" type="text" id="attachDate" name="attachDate[]"  class="form-control" value="" readonly></td>
+		<td><input class="border_hide" type="text" id="remark" name="remark[]"  class="form-control" value=""></td>
+	</tr>';
+	
 	echo json_encode($FinalResponce);
 	exit(0);
 }
 
-
-
-
 if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more'){
     $index=$_POST['index'] + 1;
 
-	 $qcStatus ='<tr id="add-more_'.$index.'">
+	$qcStatus ='<tr id="add-more_'.$index.'">
 	    <td></td>
         <td><select id="qc_Status_'.$index.'" name="qc_Status[]" class="form-select qc_status_selecte'.$index.'" onfocusout="addMore('.$index.');"></select></td>
         <td><input class="border_hide" type="text"  id="qCStsQty_'.$index.'" name="qCStsQty[]" class="form-control" onfocusout="addMore('.$index.');"></td>
@@ -1105,11 +819,6 @@ if(isset($_POST['action']) && $_POST['action']=='add_qc_status_retest_input_more
 	echo $qcStatus;
 	exit(0);
 }
-
-
-
-
-
 
 if (isset($_POST['addQcPostDocumentRetestBtn'])) {
 	//<!-- ------ valdiation start --------------------------------- --> 
@@ -2306,7 +2015,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 			$data=array();
 			if(array_key_exists('error', (array)$responce)){
 				$data['status']='False';
-				$data['DocEntry']='111111111';
+				$data['DocEntry']='';
 				$data['message']=$responce->error->message->value;
 				echo json_encode($data);
 			}else{
@@ -2324,7 +2033,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 				if($underTestNumber_decode==''){
 					$data['status']='True';
 					$data['DocEntry']=$responce->DocEntry;
-					$data['message']="Inventory Transfer Successfully Added.";
+					$data['message']="Goods Issue Successfully Added.";
 					echo json_encode($data);
 				}else{
 					// $data['status']='False';
@@ -2334,7 +2043,7 @@ if(isset($_POST['SubIT_Btn_SCRT_sample_issue']))
 
 					if(array_key_exists('error', (array)$underTestNumber_decode)){
 						$data['status']='False';
-						$data['DocEntry']='2222222222222';
+						$data['DocEntry']='';
 						$data['message']=$responce->error->message->value;
 						echo json_encode($data);
 					}

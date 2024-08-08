@@ -17,9 +17,6 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $tdata['DocEntry']=trim(addslashes(strip_tags($_POST['DocEntry'])));
 
     $getAllData=$objKri->getInwardQCCollection($INWARDQCPOSTDOCUMENTDETAILS,$tdata);
-    // echo '<pre>';
-    // print_r($getAllData);
-    // die();
     $count=count($getAllData);
 
     $adjacents = 1;
@@ -115,6 +112,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 <th>Item View</th>
                 <th>GRPO No</th>
                 <th>GRPO DocEntry</th> 
+                <th>GRN No</th>
                 <th>Supplier Code</th>
                 <th>Supplier Name</th>
                 <th>Bp Ref Nc</th>
@@ -167,6 +165,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                             <td class="desabled">'.$getAllData[$i]->GRPONo.'</td>
 
                             <td class="desabled">'.$getAllData[$i]->GRPOEntry.'</td>
+                            <td class="desabled">'.$getAllData[$i]->GRNo.'</td>
                             <td class="desabled">'.$getAllData[$i]->SupplierCode.'</td>
                             <td class="desabled">'.$getAllData[$i]->SupplierName.'</td>
                             <td class="desabled">'.$getAllData[$i]->RefNo.'</td>
@@ -2315,6 +2314,40 @@ function GetSelectedInstumentdata(un_id) {
             }
         });
     })
+
+    function AllCheckCheckbox() {
+        var mainCheckbox = document.querySelector('.itp_checkboxall');
+        var checkboxes = document.querySelectorAll('#ContainerSelectionItemAppend .form-check-input');
+        var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+
+        if (mainCheckbox.checked) {
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = true;
+                hiddenFields[index].value = '1';
+            });
+        } else {
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = false;
+                hiddenFields[index].value = '0';
+            });
+        }
+        AllcalculateSum();
+    }
+
+    function AllcalculateSum() {
+        var selectedQtyFields = document.querySelectorAll('input[name="SelectedQty[]"]');
+        var hiddenFields = document.querySelectorAll('input[name="usercheckList[]"]');
+        var total = 0;
+
+        selectedQtyFields.forEach((field, index) => {
+            if (hiddenFields[index].value === '1') {
+                var value = parseFloat(field.value) || 0;
+                total += value;
+            }
+        });
+
+        document.getElementById('cs_selectedQtySum').value = total.toFixed(6);
+    }
 </script>
 
 <script type="text/javascript">

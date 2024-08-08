@@ -1603,7 +1603,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
         function AutocalculateQC_Qty() {
             // <!-- calculate Quantity for QC status tab start ------------------------------ -->
-                var rows = document.querySelectorAll('#qc-status-list-append tr');
+                var rows = document.querySelectorAll('#qc-status-list-append_ tr');
 
                 // Get the count of tr elements
                 var rowCount = rows.length;
