@@ -9,6 +9,8 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
 
 if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($OPENTRANSQCDOCSTABILITY_API);
+    // echo '<pre>';
+    // print_r($getAllData[0]);
     $count=count($getAllData);
 
     $adjacents = 1;

@@ -364,7 +364,8 @@ if(isset($_POST['action']) && $_POST['action'] =='OpenInventoryTransfer_ajax'){
 	$DocEntry=trim(addslashes(strip_tags($_POST['DocEntry'])));
 
 	$API=$SAMPLEINTMUNDERTEST_API.'?DocEntry='.$DocEntry;
-	
+	// print_r($API);
+	// die();
 	$FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
 	$response=$obj->get_OTFSI_SingleData($FinalAPI);
 
@@ -5231,7 +5232,8 @@ if(isset($_POST['action']) && $_POST['action'] =='getBatchDropdown_ajax')
 {
 	$itemCode=trim(addslashes(strip_tags($_POST['itemCode'])));
 	$Final_API=$STABILITYBATCHNOLIST_API.'?ItemCode='.$itemCode;
-	
+	// print_r($Final_API);
+	// die();
 	$response=$obj->get_OTFSI_SingleData($Final_API);
 
 	$option.='<option value="">Select Batch</option>';
@@ -5563,7 +5565,9 @@ if(isset($_POST['OP_SampleIntimationBtn'])){
 			$tdata['U_PC_StDt']='';
 		}
 	// ---------------------------------Date Var Prepare End Here   ------------------------------------
-
+		// echo '<pre>';
+		// print_r(json_encode($tdata));
+		// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -5825,7 +5829,6 @@ if(isset($_POST['OTSCSP_Btn'])){
 	$tdata['U_PC_QtyLab']=null;
 	$tdata['U_PC_Trans']=null;
 
-
 	$tdata['Object']='SCS_SCOLSTAB';
 	$tdata['Series']=trim(addslashes(strip_tags($_POST['OTSCP_DocNoName'])));
 	$tdata['U_PC_BPLId']=trim(addslashes(strip_tags($_POST['OTSCP_BPLId'])));
@@ -5862,9 +5865,10 @@ if(isset($_POST['OTSCSP_Btn'])){
 	$tdata['U_PC_TrNo']=trim(addslashes(strip_tags($_POST['OTSCP_StabilityIntimationNo'])));
 	$tdata['U_PC_DDt']=(!empty($_POST['OTSCP_DocDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_DocDate']))) : null;
 	$tdata['U_PC_InDt']=(!empty($_POST['OTSCP_IntimatedDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_IntimatedDate'])) : null;
-	$tdata['U_PC_MnfDt']=(!empty($_POST['OTSCP_MfgDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_MfgDate']))) : null;
-	$tdata['U_PC_ExpDt']=(!empty($_POST['OTSCP_ExpiryDate'])) ? trim(addslashes(strip_tags($_POST['OTSCP_ExpiryDate']))) : null;
 
+	$tdata['U_PC_MnfDt']=(!empty($_POST['OTSCP_MfgDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_MfgDate'])) : null;
+	$tdata['U_PC_ExpDt']=(!empty($_POST['OTSCP_ExpiryDate'])) ? date("Y-m-d", strtotime($_POST['OTSCP_ExpiryDate'])) : null;
+	
 	// <!-- ---------------------- Open transaction for sample collection stability popup validation start Here ------------------ -->
 		if(empty($_POST['OTSCP_SampleCollectBy'])){
 			$data['status']='False';$data['DocEntry']='';
@@ -5880,7 +5884,9 @@ if(isset($_POST['OTSCSP_Btn'])){
 			exit(0);
 		}
 	// <!-- ---------------------- Open transaction for sample collection stability popup validation end Here -------------------- -->
-
+		// echo '<pre>';
+		// print_r($tdata);
+		// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res=$obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -6384,7 +6390,9 @@ if(isset($_POST['OTFQCCFG_Btn'])){
 	}
 
 	$mainArray = $tdata; // all child array append in main array define here
-
+	// echo '<pre>';
+	// print_r($mainArray);
+	// die();
 	// <!-- --------- Validation Start Here ----------------------------------------- -->
 		if ($_POST['OTFQCCFG_SampleType'] == "") {
 			$data['status'] = 'False';$data['DocEntry'] = '';

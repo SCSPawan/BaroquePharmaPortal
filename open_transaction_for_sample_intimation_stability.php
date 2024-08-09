@@ -7,8 +7,7 @@ if(empty($_SESSION['Baroque_EmployeeID'])) {
   exit(0);
 }
 
-if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list')
-{
+if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($OPENTRANSSAMPINTSTABILITY_API);
     $count=count($getAllData);
 

@@ -946,11 +946,11 @@ if (isset($_POST['addQcPostDocumentRetestBtn'])) {
 
 	$ganaralData = array();
 	if (!empty($_POST['pCode'])) {
-		for ($i = 0;$i < count($_POST['pCode']);$i++) {
+		for ($i = 0;$i < count($_POST['pCode']);$i++) {		
 			$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['pCode'][$i])));
 			$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
 			$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
-			$ganaralData['U_PC_Rotpt'] = trim(addslashes(strip_tags($_POST['ResultOut'][$i])));
+			$ganaralData['U_PC_Rmrks'] = trim(addslashes(strip_tags($_POST['ResultOut'][$i])));
 			$ganaralData['U_PC_LMin1'] = trim(addslashes(strip_tags($_POST['ComparisonResult'][$i])));
 			$ganaralData['U_PC_Rotpt'] = trim(addslashes(strip_tags($_POST['ResultOutputByQCDept'][$i])));
 			$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
@@ -1056,7 +1056,8 @@ if (isset($_POST['addQcPostDocumentRetestBtn'])) {
 	}
 	
 	// echo '<pre>';
-	// print_r(json_encode($tdata));
+	// print_r($tdata);
+	// // print_r(json_encode($tdata));
 	// die();
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
@@ -1172,7 +1173,8 @@ if (isset($_POST['updateQcPostDocumentRetestBtn'])){
 	for ($i = 0;$i < count($_POST['parameter_code']);$i++) {
 		$ganaralData['LineId'] = ($i + 1);
 		$ganaralData['Object'] = 'SCS_QCRETEST';
-		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['pCode'][$i])));
+
+		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
 		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
 		$ganaralData['U_PC_Rel'] = trim(addslashes(strip_tags($_POST['Release'][$i])));
@@ -1253,6 +1255,9 @@ if (isset($_POST['updateQcPostDocumentRetestBtn'])){
 	}
 
 	$mainArray = $tdata; // all child array append in main array define here
+	echo '<pre>';
+	print_r($mainArray);
+	die();
 
 	// service laye function and SAP loin & logout function define start here -------------------------------------------------------
 		$res = $obj->SAP_Login();
@@ -1705,19 +1710,15 @@ if(!empty($qcStatus)){
 
 		<td><input class="border_hide" type="text"  id="qCStsQty_'.$QCS_un_id.'" name="qCStsQty[]" class="form-control" value="" onfocusout="addMore('.$QCS_un_id.');"></td>
 
-
 		<td><input class="border_hide" type="text"  id="qCReleaseDate_'.$QCS_un_id.'" name="qCReleaseDate[]" class="form-control" readonly></td>
 
 		<td><input class="border_hide" type="text"  id="qCReleaseTime_'.$QCS_un_id.'" name="qCReleaseTime[]" class="form-control" readonly></td>
 
 		<td><input class="border_hide" type="text"  id="qCitNo_'.$QCS_un_id.'" name="qCitNo[]" class="form-control" value=""></td>
 
-		<td>
-		<select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select>
-		</td>
+		<td><select id="doneBy_'.$QCS_un_id.'" name="doneBy[]" class="form-select done-by-mo1"></select></td>
 
 		<td><input class="border_hide" type="file"  id="qCAttache1_'.$QCS_un_id.'" name="qCAttache1[]" class="form-control"></td>
-
 
 		<td><input class="border_hide" type="file"  id="qCAttache2_'.$QCS_un_id.'" name="qCAttache2[]" class="form-control"></td>
 
@@ -1730,7 +1731,6 @@ if(!empty($qcStatus)){
 		<td><input class="border_hide" type="text"  id="qCDeviationResion_'.$QCS_un_id.'" name="qCDeviationResion[]" class="form-control"></td>
 
 		<td><input class="border_hide" type="text"  id="qCStsRemark1_'.$QCS_un_id.'" name="qCStsRemark1[]" class="form-control"></td>
-		
 	</tr>';
 }else{
 	// $FinalResponce['qcStatus'].='<tr><td colspan="12" style="color:red;text-align: center;">No Record Found</td></tr>';
