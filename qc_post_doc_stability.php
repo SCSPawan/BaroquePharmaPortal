@@ -1974,4 +1974,3 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
         }
     }
 </script>
-<!-- 2315 -->

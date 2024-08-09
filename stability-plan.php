@@ -472,6 +472,7 @@ $(".loader123").hide(); // loader default hide script
             beforeSend: function(){
             },
             success: function(result){
+                // console.log(result);
                 $('#BatchNo').html(result);
             },
             complete:function(data){

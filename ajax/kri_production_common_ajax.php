@@ -5941,7 +5941,9 @@ if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 			exit(0);
 		}
 	// <!-- ---------------------- sample Intimation popup validation end Here -------------------- -->
-
+		// echo '<pre>';
+		// print_r($tdata);
+		// die()
 	//<!-- ------------- function & function responce code Start Here ---- -->
 		$res = $obj->SAP_Login();  // SAP Service Layer Login Here
 
@@ -10158,7 +10160,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'QCPostdocumentQCPost_Stabili
 
 	// echo "<pre>";
 	// print_r($FinalAPI);
-	// // die();
+	// die();
 
 	$response = $obj->get_OTFSI_SingleData($FinalAPI);
 

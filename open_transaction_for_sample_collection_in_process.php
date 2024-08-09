@@ -455,7 +455,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
                 var DocEntry = JSONObject['DocEntry'];
                 if(status=='True'){
                     swal({
-                        title: "Sample Intimation Add Successfully.!",
+                        title: `${message}`,
                         text: `${DocEntry}`,
                         icon: "success",
                         buttons: true,
