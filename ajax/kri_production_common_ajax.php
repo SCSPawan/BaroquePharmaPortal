@@ -5743,14 +5743,14 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['EndDate'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['EndTime'][$i])));
 
-		if ($_POST['QC_CK_D_RelMaterialWithoutQC'] == "No") {
-			if ($_POST['QC_StatusByAnalyst'][$i] == "-") {
-				$data['status'] = 'False';$data['DocEntry'] = '';
-				$data['message'] = 'Please complete QC results data for all parameters.';
-				echo json_encode($data);
-				exit;
-			}
-		}
+		// if ($_POST['QC_CK_D_RelMaterialWithoutQC'] == "No") {
+		// 	if ($_POST['QC_StatusByAnalyst'][$i] == "-") {
+		// 		$data['status'] = 'False';$data['DocEntry'] = '';
+		// 		$data['message'] = 'Please complete QC results data for all parameters.';
+		// 		echo json_encode($data);
+		// 		exit;
+		// 	}
+		// }
 
 		$tdata['SCS_QCINPROC1Collection'][] = $ganaralData; // row data append on this array
 	}
@@ -6311,14 +6311,14 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 		$ganaralData['U_PC_EDate'] = trim(addslashes(strip_tags($_POST['EndDate'][$i])));
 		$ganaralData['U_PC_ETime'] = trim(addslashes(strip_tags($_POST['EndTime'][$i])));
 
-		if ($_POST['QC_CK_D_RelMaterialWithoutQC'] == "No") {
-			if ($_POST['qC_status_by_analyst'][$i] == "-") {
-				$data['status'] = 'False';$data['DocEntry'] = '';
-				$data['message'] = 'Please complete QC results data for all parameters.';
-				echo json_encode($data);
-				exit;
-			}
-		}
+		// if ($_POST['QC_CK_D_RelMaterialWithoutQC'] == "No") {
+		// 	if ($_POST['qC_status_by_analyst'][$i] == "-") {
+		// 		$data['status'] = 'False';$data['DocEntry'] = '';
+		// 		$data['message'] = 'Please complete QC results data for all parameters.';
+		// 		echo json_encode($data);
+		// 		exit;
+		// 	}
+		// }
 
 		$tdata['SCS_QCINPROC1Collection'][] = $ganaralData; // row data append on this array
 	}

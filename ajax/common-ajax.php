@@ -2426,14 +2426,14 @@ if(isset($_POST['addQcPostDocumentBtn_open_trans'])){
 			$ganaralData['U_EDate']=trim(addslashes(strip_tags($_POST['EndDate'][$i])));
 			$ganaralData['U_ETime']=trim(addslashes(strip_tags($_POST['EndTime'][$i])));
 
-			if ($_POST['RelMaterialWithoutQC'] == "No") {
-				if ($_POST['QC_StatusByAnalyst'][$i] == "-") {
-					$data['status'] = 'False';$data['DocEntry'] = '';
-					$data['message'] = 'Please complete QC results data for all parameters.';
-					echo json_encode($data);
-					exit;
-				}
-			}
+			// if ($_POST['RelMaterialWithoutQC'] == "No") {
+			// 	if ($_POST['QC_StatusByAnalyst'][$i] == "-") {
+			// 		$data['status'] = 'False';$data['DocEntry'] = '';
+			// 		$data['message'] = 'Please complete QC results data for all parameters.';
+			// 		echo json_encode($data);
+			// 		exit;
+			// 	}
+			// }
 
 			$tdata['SCS_QCPD1Collection'][]=$ganaralData;
 		}
