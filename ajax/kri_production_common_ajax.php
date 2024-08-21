@@ -5696,12 +5696,13 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	$tdata['U_PC_MakeBy'] = trim(addslashes(strip_tags($_POST['QC_CK_D_MakeBy'])));
 	$tdata['U_PC_GRQty'] = 0.0;
 
+
 	$ganaralData = array();
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($i)));
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
-		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['PharmacopeiasStandard'][$i])));
+		$ganaralData['U_PC_Std'] = trim(addslashes(strip_tags($_POST['Standard'][$i])));
 		$ganaralData['U_PC_Rel'] = trim(addslashes(strip_tags($_POST['Release'][$i])));
 		$ganaralData['U_PC_PDTyp'] = trim(addslashes(strip_tags($_POST['PDType'][$i])));
 		$ganaralData['U_PC_DDtl'] = trim(addslashes(strip_tags($_POST['DescriptiveDetails'][$i])));
@@ -5755,8 +5756,13 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		$tdata['SCS_QCINPROC1Collection'][] = $ganaralData; // row data append on this array
 	}
 
+	// echo '<pre>';
+	// print_r(count($_POST['qc_Status']));
+	// die();
+
 	$qcStatus = array();
-	for ($j = 0; $j < count($_POST['qc_Status']); $j++) {
+	$qc_Status = (empty($_POST['qc_Status'])) ? 0 : count($_POST['qc_Status']);
+	for ($j = 0; $j < $qc_Status; $j++) {
 
 		$qcStatus['LineId'] = trim(addslashes(strip_tags($j)));
 		$qcStatus['Object'] = trim(addslashes(strip_tags('SCS_QCINPROC')));
@@ -5807,6 +5813,10 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	}
 
 	$mainArray = $tdata; // all child array append in main array define here
+
+	// echo '<pre>';
+	// print_r($mainArray);
+	// die();
 
 	// echo '<pre>';
 	// print_r($_POST['QC_CK_D_RelMaterialWithoutQC']);
@@ -6220,10 +6230,8 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 	$tdata['U_PC_LClaim'] = trim(addslashes(strip_tags($_POST['qc_Check_Label_Cliam'])));
 	$tdata['U_PC_RecQty'] = trim(addslashes(strip_tags($_POST['qc_Check_Recieved_Qty'])));
 	$tdata['U_PC_MfgBy'] = trim(addslashes(strip_tags($_POST['qc_Check_Mfg_By'])));
-	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['qc_Check_BatchNo'])));
-	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['qc_Check_BatchSize'])));
-	$tdata['U_PC_MfgDt'] = trim(addslashes(strip_tags($_POST['qc_Check_MfgDate'])));
-	$tdata['U_PC_ExpDt'] = trim(addslashes(strip_tags($_POST['qc_Check_ExpiryDate'])));
+	$tdata['U_PC_BNo'] = trim(addslashes(strip_tags($_POST['qc_Check_Batch_No'])));
+	$tdata['U_PC_BSize'] = trim(addslashes(strip_tags($_POST['qc_Check_Batch_Size'])));
 	$tdata['U_PC_SIntNo'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleIntimationNo'])));
 	$tdata['U_PC_SColNo'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleCollectionNo'])));
 	$tdata['U_PC_SQty'] = trim(addslashes(strip_tags($_POST['qc_Check_SampleQty'])));
@@ -6263,9 +6271,15 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 	$tdata['U_PC_RNo'] = trim(addslashes(strip_tags($_POST['qc_Check_ReceiptNo'])));
 	$tdata['U_PC_REnt'] = trim(addslashes(strip_tags($_POST['qc_Check_ReceiptDocEntry'])));
 	$tdata['U_PC_GRQty'] = 0.0;
+	// $tdata['U_PC_MfgDt'] = trim(addslashes(strip_tags($_POST['qc_Check_MfgDate'])));
+	// $tdata['U_PC_ExpDt'] = trim(addslashes(strip_tags($_POST['qc_Check_ExpiryDate'])));
+
+	$tdata['U_PC_MfgDt'] = (!empty($_POST['qc_Check_MfgDate'])) ? date("Y-m-d", strtotime($_POST['qc_Check_MfgDate'])) : null;
+	$tdata['U_PC_ExpDt'] = (!empty($_POST['qc_Check_ExpiryDate'])) ? date("Y-m-d", strtotime($_POST['qc_Check_ExpiryDate'])) : null;
 
 	$ganaralData = array();
 	for ($i = 0; $i < count($_POST['parameter_code']); $i++) {
+		// Standard
 		$ganaralData['LineId'] = trim(addslashes(strip_tags($i)));
 		$ganaralData['U_PC_PCode'] = trim(addslashes(strip_tags($_POST['parameter_code'][$i])));
 		$ganaralData['U_PC_PName'] = trim(addslashes(strip_tags($_POST['PName'][$i])));
@@ -6374,7 +6388,9 @@ if (isset($_POST['addQcPostDocumentSubmitQCCheckBtn'])) {
 	}
 
 	$mainArray = $tdata;
-
+	// echo '<pre>';
+	// print_r($mainArray);
+	// die();
 	// <!--- ----- Validation start here ------------------------------------- -->
 		if ($_POST['qc_Check_Sample_Type'] == "") {
 			$data['status'] = 'False';

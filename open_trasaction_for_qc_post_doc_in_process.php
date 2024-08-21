@@ -13,6 +13,10 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
     $getAllData=$obj->get_OTFSI_Data($INPROCESSQCPOSTDOC);
     $count=count($getAllData);
 
+    // <!-- ----- Item Name Dropdown Start -------------------------- -->
+        $item_dropdown=$obj->PrepareUniqueItemDropdown($getAllData);
+    // <!-- ----- Item Name Dropdown End -------------------------- -->
+
     $adjacents = 1;
 
     $records_per_page =20;
