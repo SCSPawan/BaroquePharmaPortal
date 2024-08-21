@@ -97,6 +97,25 @@ class Web {
 		return $reponce;
 	}
 
+	public function PrepareUniqueItemDropdown($getAllData){
+		$uniqueItems = array();
+		foreach ($getAllData as $item) {
+			$key = $item->ItemCode . '-' . $item->ItemName;
+			if (!isset($uniqueItems[$key])) {
+				$uniqueItems[$key] = $item;
+			}
+		}
+
+		$uniqueItems = array_values($uniqueItems);
+
+		$item_dropdown='<option value=""> Select </option>';
+		foreach ($uniqueItems as $key => $getData) {
+			$item_dropdown.='<option value="'.$getData->ItemCode.'">('.$getData->ItemCode.') - '.$getData->ItemName.'</option>';
+		}
+
+		return $item_dropdown;
+	}
+
     public function get_OTFSI_SingleData($FinalAPI)
     {
     	$ch = curl_init();  

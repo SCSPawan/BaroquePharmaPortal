@@ -179,40 +179,48 @@
                                             <div class="dropdown-menu " aria-labelledby="topnav-pages">
 
                                                 <div class="dropdown">
-                                                    <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts" role="button">
-                                                        <span data-key="t-charts">Route/Stage</span> <div class="arrow-down"></div>
+                                                    <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-error" role="button">
+                                                        <span data-key="t-error-pages">SFG QC</span> <div class="arrow-down"></div>
                                                     </a>
-                                                    <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                                                        <a href="open_trasaction_for_sample_intimation_route_stage.php" class="dropdown-item check" data-key="t-chat">Open Transactions for Sample Intimation - Route/Stage</a>
 
-                                                        <a href="sample_intimation_route_stage.php" class="dropdown-item check" data-key="t-chat">Sample Intimation - Route/Stage</a>
+                                                    <div class="dropdown-menu" aria-labelledby="topnav-error">
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts" role="button">
+                                                                <span data-key="t-charts">Route/Stage</span> <div class="arrow-down"></div>
+                                                            </a>
+                                                            <div class="dropdown-menu" aria-labelledby="topnav-charts">
+                                                                <a href="open_trasaction_for_sample_intimation_route_stage.php" class="dropdown-item check" data-key="t-chat">Open Transactions for Sample Intimation - Route/Stage</a>
 
-                                                        <a href="open_trasaction_for_sample_collection_route_stage.php" class="dropdown-item check" data-key="t-chat">Open Transactions for Sample Collection - Route/Stage</a>
+                                                                <a href="sample_intimation_route_stage.php" class="dropdown-item check" data-key="t-chat">Sample Intimation - Route/Stage</a>
 
-                                                        <a href="sample_collection_route_stage.php" class="dropdown-item check" data-key="t-chat">Sample Collection - Route/Stage</a>
+                                                                <a href="open_trasaction_for_sample_collection_route_stage.php" class="dropdown-item check" data-key="t-chat">Open Transactions for Sample Collection - Route/Stage</a>
 
-                                                        <a href="open_transaction_for_qc_post_doc_route_stage.php" class="dropdown-item" data-key="t-chat">Open Transaction For QC Post Document - Route Stage</a>
+                                                                <a href="sample_collection_route_stage.php" class="dropdown-item check" data-key="t-chat">Sample Collection - Route/Stage</a>
 
-                                                        <a href="qc_post_doc_route_stage.php" class="dropdown-item" data-key="t-chat">QC Post document (QC Check) - Route Stage</a>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="dropdown">
-                                                    <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts" role="button">
-                                                        <span data-key="t-charts">In Process</span> <div class="arrow-down"></div>
-                                                    </a>
-                                                    <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                                                        <a href="open_transaction_for_sample_intimation_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transactions for Sample Intimation - In Process</a>
+                                                                <a href="open_transaction_for_qc_post_doc_route_stage.php" class="dropdown-item" data-key="t-chat">Open Transaction For QC Post Document - Route Stage</a>
 
-                                                        <a href="sample_intimation_in_process.php" class="dropdown-item check" data-key="t-calendar" >Sample Intimation - In Process</a>
+                                                                <a href="qc_post_doc_route_stage.php" class="dropdown-item" data-key="t-chat">QC Post document (QC Check) - Route Stage</a>
+                                                            </div>
+                                                        </div>
 
-                                                        <a href="open_transaction_for_sample_collection_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transaction for Sample Collection - In Process</a>
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-charts" role="button">
+                                                                <span data-key="t-charts">In Process</span> <div class="arrow-down"></div>
+                                                            </a>
+                                                            <div class="dropdown-menu" aria-labelledby="topnav-charts">
+                                                                <a href="open_transaction_for_sample_intimation_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transactions for Sample Intimation - In Process</a>
 
-                                                        <a href="sample_collection_in_process.php" class="dropdown-item check" data-key="t-calendar">Sample Collection - In Process</a>
+                                                                <a href="sample_intimation_in_process.php" class="dropdown-item check" data-key="t-calendar" >Sample Intimation - In Process</a>
 
-                                                        <a href="open_trasaction_for_qc_post_doc_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transaction for QC Post Document - In Process</a>
+                                                                <a href="open_transaction_for_sample_collection_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transaction for Sample Collection - In Process</a>
 
-                                                        <a href="qc_post_doc_in_process.php" class="dropdown-item check" data-key="t-calendar">QC Post document (QC Check) - In Process</a>
+                                                                <a href="sample_collection_in_process.php" class="dropdown-item check" data-key="t-calendar">Sample Collection - In Process</a>
+
+                                                                <a href="open_trasaction_for_qc_post_doc_in_process.php" class="dropdown-item check" data-key="t-calendar">Open Transaction for QC Post Document - In Process</a>
+
+                                                                <a href="qc_post_doc_in_process.php" class="dropdown-item check" data-key="t-calendar">QC Post document (QC Check) - In Process</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
