@@ -363,76 +363,76 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='list'){
         // }
 
         $(document).ready(function(){
-        var FilterItemName = $('#FilterItemName').val();
-        var FilterBatchNo = $('#FilterBatchNo').val();
-        
-        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
-        $.ajax({  
-            type: "POST",  
-            url: window.location.href,  
-            data: dataString,  
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var responce = JSON.parse(result);
-                
-                $('#list-append').html(responce.list);
-                $('#FilterItemName').html(responce.item_dropdown);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
+            var FilterItemName = $('#FilterItemName').val();
+            var FilterBatchNo = $('#FilterBatchNo').val();
+            
+            var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
+            $.ajax({  
+                type: "POST",  
+                url: window.location.href,  
+                data: dataString,  
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var responce = JSON.parse(result);
+                    
+                    $('#list-append').html(responce.list);
+                    $('#FilterItemName').html(responce.item_dropdown);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            });
         });
-    });
-    
-    function change_page(page_id){
-        var FilterItemName = $('#FilterItemName').val();
-        var FilterBatchNo = $('#FilterBatchNo').val();
         
-        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&page_id='+page_id+'&action=list';
-        $.ajax({
-            type: "POST",
-            url: window.location.href,  
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var responce = JSON.parse(result);
-                
-                $('#list-append').html(responce.list);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        })
-    }
+        function change_page(page_id){
+            var FilterItemName = $('#FilterItemName').val();
+            var FilterBatchNo = $('#FilterBatchNo').val();
+            
+            var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&page_id='+page_id+'&action=list';
+            $.ajax({
+                type: "POST",
+                url: window.location.href,  
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var responce = JSON.parse(result);
+                    
+                    $('#list-append').html(responce.list);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })
+        }
 
-    function SearchData(){
-        var FilterItemName = $('#FilterItemName').val();
-        var FilterBatchNo = $('#FilterBatchNo').val();
-        
-        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
-        $.ajax({
-            type: "POST",
-            url: window.location.href,  
-            data: dataString,
-            cache: false,
-            beforeSend: function(){
-                $(".loader123").show();
-            },
-            success: function(result){
-                var responce = JSON.parse(result);
-                
-                $('#list-append').html(responce.list);
-            },
-            complete:function(data){
-                $(".loader123").hide();
-            }
-        })
-    }
+        function SearchData(){
+            var FilterItemName = $('#FilterItemName').val();
+            var FilterBatchNo = $('#FilterBatchNo').val();
+            
+            var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
+            $.ajax({
+                type: "POST",
+                url: window.location.href,  
+                data: dataString,
+                cache: false,
+                beforeSend: function(){
+                    $(".loader123").show();
+                },
+                success: function(result){
+                    var responce = JSON.parse(result);
+                    
+                    $('#list-append').html(responce.list);
+                },
+                complete:function(data){
+                    $(".loader123").hide();
+                }
+            })
+        }
 
         function OnChangeReleaseDate(){
             var ShelfLife = $(`#ShelfLife`).val();
