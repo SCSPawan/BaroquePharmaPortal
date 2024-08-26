@@ -5633,9 +5633,6 @@ if (isset($_POST['SampleCollectionInProcess_Btn'])) {
 	//<!-- ------------- function & function responce code end Here ---- -->
 }
 
-
-
-
 if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 
 
@@ -5892,7 +5889,6 @@ if (isset($_POST['addQcPostDocumentQCCheckBtn'])) {
 		exit(0);
 	// service laye function and SAP loin & logout function define end here -------------------------------------------------------
 }
-
 
 if (isset($_POST['samplecollectFinishedGood_Btn'])) {
 	$tdata = array(); // This array send to AP Standalone Invoice process 

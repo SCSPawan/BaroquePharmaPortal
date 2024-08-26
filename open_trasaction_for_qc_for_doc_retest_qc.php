@@ -10,10 +10,18 @@ if (empty($_SESSION['Baroque_EmployeeID'])) {
 }
 
 if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
-    $tdata = array();
-    $getAllData = $objKri->getQcPostDocumentRetestQc($RETESTQCPOSTDOC);
-    
+    $FilterItemName = (!empty($_POST['FilterItemName'])) ? trim(addslashes(strip_tags($_POST['FilterItemName']))) : null;
+    $FilterBatchNo = (!empty($_POST['FilterBatchNo'])) ? trim(addslashes(strip_tags($_POST['FilterBatchNo']))) : null;
+
+    $API = $RETESTQCPOSTDOC.'&ItemCode='.$FilterItemName.'&BatchNo='.$FilterBatchNo;
+    $FinalAPI = str_replace(' ', '%20', $API); // All blank space replace to %20
+
+    $getAllData = $objKri->getQcPostDocumentRetestQc($RETESTQCPOSTDOC);    
     $count = count($getAllData);
+
+    // <!-- ----- Item Name Dropdown Start -------------------------- -->
+        $item_dropdown=$obj->PrepareUniqueItemDropdown($getAllData);
+    // <!-- ----- Item Name Dropdown End -------------------------- -->
 
     $adjacents = 1;
 
@@ -201,7 +209,11 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
     </table>';
 
     $option .= $pagination;
-    echo $option;
+
+    $responce = array();
+    $responce['list'] = $option;
+    $responce['item_dropdown'] = $item_dropdown;
+    echo json_encode($responce);
     exit(0);
 }
 ?>
@@ -244,7 +256,41 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                         <div class="card-header justify-content-between d-flex align-items-center">
                             <h4 class="card-title mb-0">Open Transaction For QC Post Document-Retest QC</h4>
                         </div><!-- end card header -->
-                        <div class="card-body">
+                        <div class="card-body">                            
+                            <div class="top_filter">
+                                <div class="row">
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Item Name</label>
+                                            <div class="col-lg-8">
+                                                <select class="form-select" id="FilterItemName" name="FilterItemName">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row mb-2">
+                                            <label class="col-lg-4 col-form-label" for="val-skill" style="margin-top: -6px;">Batch No</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="FilterBatchNo" name="FilterBatchNo" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-lg-4">
+                                                <div class="">
+                                                    <button type="button" style="top: 0px;" id="SearchBlock" class="btn btn-primary waves-effect" onclick="SearchData()">Search <i class="bx bx-search-alt align-middle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive" id="list-append"></div>
                         </div>
                         <!-- end card body -->
@@ -259,7 +305,10 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
 
 <script type="text/javascript">
     $(document).ready(function(){
-        var dataString = 'action=list';
+        var FilterItemName = $('#FilterItemName').val();
+        var FilterBatchNo = $('#FilterBatchNo').val();
+        
+        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
         $.ajax({
             type: "POST",
             url: window.location.href,
@@ -268,13 +317,64 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                 $(".loader123").show();
             },
             success: function(result) {
-                $('#list-append').html(result);
+                var responce = JSON.parse(result);
+                    
+                $('#list-append').html(responce.list);
+                $('#FilterItemName').html(responce.item_dropdown);
             },
             complete: function(data) {
                 $(".loader123").hide();
             }
         })
     });
+        
+    function change_page(page_id){
+        var FilterItemName = $('#FilterItemName').val();
+        var FilterBatchNo = $('#FilterBatchNo').val();
+        
+        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&page_id='+page_id+'&action=list';
+        $.ajax({
+            type: "POST",
+            url: window.location.href,  
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var responce = JSON.parse(result);
+                
+                $('#list-append').html(responce.list);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        })
+    }
+
+    function SearchData(){
+        var FilterItemName = $('#FilterItemName').val();
+        var FilterBatchNo = $('#FilterBatchNo').val();
+        
+        var dataString ='FilterItemName='+FilterItemName+'&FilterBatchNo='+FilterBatchNo+'&action=list';
+        $.ajax({
+            type: "POST",
+            url: window.location.href,  
+            data: dataString,
+            cache: false,
+            beforeSend: function(){
+                $(".loader123").show();
+            },
+            success: function(result){
+                var responce = JSON.parse(result);
+                
+                $('#list-append').html(responce.list);
+            },
+            complete:function(data){
+                $(".loader123").hide();
+            }
+        })
+    }
 
     function GetRowLevelAnalysisByDropdown(trcount) {
         $.ajax({
