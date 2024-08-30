@@ -797,12 +797,12 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Analysis By</label>
                                                                     <div class="col-lg-8">
-                                                                        <select class="form-control" type="text" id="CheckedBy" name="CheckedBy"></select>
+                                                                        <select class="form-control" type="text" id="qc_Check_AnalysisBy" name="qc_Check_AnalysisBy"></select>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <div class="col-xl-3 col-md-6" style="display:none;">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">Approved By By</label>
                                                                     <div class="col-lg-8">
@@ -811,7 +811,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-3 col-md-6">
+                                                            <div class="col-xl-3 col-md-6" style="display:none;">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-4 col-form-label mt-6" for="val-skill">No Of Container</label>
                                                                     <div class="col-lg-8">
@@ -821,6 +821,18 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                             </div>
 
                                                             <div class="col-xl-3 col-md-6">
+                                                                <div class="form-group row mb-2">
+                                                                    <label class="col-lg-4 col-form-label mt-6" for="val-skill">No. of Container</label>
+                                                                    <div class="col-lg-4">
+                                                                        <input class="form-control" type="text" id="FromContainer" name="FromContainer">
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <input class="form-control desabled" type="text" id="ToContainer" name="ToContainer" readonly="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
                                                                     <label class="col-lg-5 col-form-label mt-6" for="val-skill">From Container</label>
                                                                     <div class="col-lg-7">
@@ -836,7 +848,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                                                                         <input class="form-control" type="text" id="ToContainer" name="ToContainer" readonly>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
                                                             <div class="col-xl-3 col-md-6">
                                                                 <div class="form-group row mb-2">
@@ -1006,7 +1018,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'list') {
                     $(`#qc_Check_Compiled_By`).val(JSONObject[0].CompBy);
                     $(`#CheckedBy`).val(JSONObject[0].CheckBy);
                     $(`#qc_Check_AnalysisBy`).val(JSONObject[0].AnylBy);
-                    $(`#qc_Check_ApprovedBy`).val(JSONObject[0].AnylBy);
+                    // $(`#qc_Check_ApprovedBy`).val(JSONObject[0].AnylBy);
                     $(`#NoOfContainer`).val(JSONObject[0].NoCont);
                     $(`#Factor`).val(JSONObject[0].Factor);
                     $(`#qc_Check_DocEntry`).val(JSONObject[0].DocEntry);
